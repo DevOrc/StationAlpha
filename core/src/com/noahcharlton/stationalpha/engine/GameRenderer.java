@@ -1,11 +1,11 @@
 package com.noahcharlton.stationalpha.engine;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.noahcharlton.stationalpha.world.World;
 
 public class GameRenderer {
 
@@ -25,7 +25,7 @@ public class GameRenderer {
         updateCamera();
 
         spriteBatch.begin();
-        ShapeUtil.drawRect(0, 0, 100, 100, Color.WHITE, spriteBatch);
+        World.getInstance().ifPresent(world -> world.render(spriteBatch));
         spriteBatch.end();
     }
 
