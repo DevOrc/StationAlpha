@@ -44,4 +44,12 @@ public class GameRenderer {
 
         spriteBatch.setProjectionMatrix(camera.combined);
     }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public ScreenViewport getViewport() {
+        return viewport;
+    }
 }

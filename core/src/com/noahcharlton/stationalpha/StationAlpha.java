@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,9 @@ public class StationAlpha extends ApplicationAdapter {
 	public void create () {
 		gameRenderer = new GameRenderer();
 
+		InputHandler.init();
 		Blocks.init();
+
 		world = Optional.of(new World());
 
 		logger.info("Asset Count: " + AssetManager.getInstance().getNumberOfAssets());
@@ -69,6 +72,10 @@ public class StationAlpha extends ApplicationAdapter {
 
 	public Optional<World> getWorld() {
 		return world;
+	}
+
+	public GameRenderer getGameRenderer() {
+		return gameRenderer;
 	}
 
 	public static StationAlpha getInstance() {
