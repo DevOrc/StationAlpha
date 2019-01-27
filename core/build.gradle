@@ -1,9 +1,34 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.test.java.srcDirs = ["test/"]
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "failed"
+        exceptionFormat = 'full'
+    }
+
+    outputs.upToDateWhen {false}
+    workingDir = new File("/assets")
+
+    testLogging {
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                println "Found an ran ${result.testCount} tests"
+                print "Results: ${result.resultType} "
+                print "${result.successfulTestCount} successes, "
+                print "${result.failedTestCount} failures, "
+                println "${result.skippedTestCount} skipped)"
+            }
+        }
+    }
+}
 
 
 eclipse.project {

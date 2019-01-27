@@ -25,6 +25,7 @@ public class ShapeUtil {
 
         b.setColor(color);
         b.draw(dot, x, y, width, height);
+        b.setColor(Color.WHITE);
     }
 
 

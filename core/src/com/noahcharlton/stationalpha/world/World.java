@@ -15,17 +15,33 @@ public class World {
     private final Tile[][] tiles = new Tile[WORLD_TILE_SIZE][WORLD_TILE_SIZE];
 
     public World() {
+        this(true);
+    }
+
+    public World(boolean generate) {
         fillTiles();
+
+        if(generate)
+            generateWorld();
     }
 
     private void fillTiles() {
+        for(int x = 0; x < WORLD_TILE_SIZE; x++){
+            for(int y = 0; y < WORLD_TILE_SIZE; y++){
+                tiles[x][y] = new Tile(x, y);
+            }
+        }
+    }
+
+    private void generateWorld() {
         Random random = new Random();
+
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 tiles[x][y] = new Tile(x, y );
 
-                if(random.nextBoolean()){
-                    tiles[x][y].setBlock(Blocks.getWall());
+                if(random.nextInt(100) == 0){
+                    tiles[x][y].setBlock(Blocks.getIce());
                 }
             }
         }
@@ -39,6 +55,13 @@ public class World {
                 tile.getBlock().ifPresent(block -> block.render(spriteBatch, tile));
             }
         }
+    }
+
+    public Optional<Tile> getTileAt(int x, int y){
+        if(x < 0 || y < 0 || x >= WORLD_TILE_SIZE || y >= WORLD_TILE_SIZE)
+            return Optional.empty();
+
+        return Optional.of(tiles[x][y]);
     }
 
     public static Optional<World> getInstance(){

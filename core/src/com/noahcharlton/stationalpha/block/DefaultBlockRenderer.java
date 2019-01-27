@@ -12,7 +12,7 @@ public class DefaultBlockRenderer implements BlockRenderer{
     }
 
     @Override
-    public void render(SpriteBatch batch, Tile tile) {
+    public void renderBlock(SpriteBatch batch, Tile tile) {
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
 

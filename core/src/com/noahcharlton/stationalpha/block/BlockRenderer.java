@@ -5,5 +5,5 @@ import com.noahcharlton.stationalpha.world.Tile;
 
 public interface BlockRenderer {
 
-    void render(SpriteBatch batch, Tile tile);
+    void renderBlock(SpriteBatch batch, Tile tile);
 }

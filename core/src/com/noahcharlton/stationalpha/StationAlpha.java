@@ -7,11 +7,14 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
 public class StationAlpha extends ApplicationAdapter {
 
+	private static final Logger logger = LogManager.getLogger(StationAlpha.class);
 	private static StationAlpha instance;
 	private GameRenderer gameRenderer;
 
@@ -32,7 +35,7 @@ public class StationAlpha extends ApplicationAdapter {
 		Blocks.init();
 		world = Optional.of(new World());
 
-		System.out.println("Number of assets: " + AssetManager.getInstance().getNumberOfAssets());
+		logger.info("Asset Count: " + AssetManager.getInstance().getNumberOfAssets());
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class StationAlpha extends ApplicationAdapter {
 		if(lastFPSTime + 1000 < System.currentTimeMillis()){
 			lastFPSTime = System.currentTimeMillis();
 
-			System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
+			logger.debug("FPS: " + Gdx.graphics.getFramesPerSecond());
 		}
 	}
 

@@ -19,20 +19,20 @@ public abstract class Block {
     }
 
     private ManagedTexture loadTexture() {
-        return new ManagedTexture("blocks/" + getTextureName());
+        return new ManagedTexture("blocks/" + getTextureFileName());
     }
 
     protected BlockRenderer createRenderer(){
         return new DefaultBlockRenderer(this);
     }
 
-    protected abstract String getTextureName();
+    protected abstract String getTextureFileName();
 
     ManagedTexture getTexture() {
         return texture;
     }
 
-    public void render(SpriteBatch spriteBatch, Tile tile) {
-        renderer.render(spriteBatch, tile);
+    public final void render(SpriteBatch spriteBatch, Tile tile) {
+        renderer.renderBlock(spriteBatch, tile);
     }
 }
