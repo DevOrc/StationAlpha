@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,9 +29,11 @@ public class InputHandler implements SimpleInputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         int graphicsY = Gdx.graphics.getHeight() - screenY;
 
-        logger.info("Click Event[x = {}, y = {}, button = {}]", screenX, graphicsY, button);
+        boolean onGui = StationAlpha.getInstance().getGuiContainer().handleClick(screenX, graphicsY);
 
-        if(World.getInstance().isPresent()) {
+        logger.info("Click Event[x = {}, y = {}, button = {}, onGui = {}]", screenX, graphicsY, button, onGui);
+
+        if(World.getInstance().isPresent() && !onGui) {
             buildManager.handleGameClick(screenX, screenY, button);
         }
 

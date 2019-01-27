@@ -1,12 +1,12 @@
 package com.noahcharlton.stationalpha;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
-import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
+import com.noahcharlton.stationalpha.gui.GuiContainer;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +19,8 @@ public class StationAlpha extends ApplicationAdapter {
 	private static StationAlpha instance;
 	private GameRenderer gameRenderer;
 
+	private GuiContainer guiContainer;
 	private Optional<World> world = Optional.empty();
-	private long lastFPSTime;
 
 	public StationAlpha() {
 		if(instance != null)
@@ -32,6 +32,7 @@ public class StationAlpha extends ApplicationAdapter {
 	@Override
 	public void create () {
 		gameRenderer = new GameRenderer();
+		guiContainer = new GuiContainer();
 
 		InputHandler.init();
 		Blocks.init();
@@ -48,16 +49,7 @@ public class StationAlpha extends ApplicationAdapter {
 		}
 
 		gameRenderer.render();
-
-		updateFPS();
-	}
-
-	private void updateFPS() {
-		if(lastFPSTime + 1000 < System.currentTimeMillis()){
-			lastFPSTime = System.currentTimeMillis();
-
-			logger.debug("FPS: " + Gdx.graphics.getFramesPerSecond());
-		}
+		guiContainer.render();
 	}
 
 	@Override
@@ -72,6 +64,10 @@ public class StationAlpha extends ApplicationAdapter {
 
 	public Optional<World> getWorld() {
 		return world;
+	}
+
+	public GuiContainer getGuiContainer() {
+		return guiContainer;
 	}
 
 	public GameRenderer getGameRenderer() {

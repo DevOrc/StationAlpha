@@ -14,6 +14,9 @@ public class DesktopLauncher {
 		config.title = "Station Alpha";
 		config.width = 854;
 		config.height = 480;
+		config.vSyncEnabled = false;
+		config.foregroundFPS = 0;
+		config.backgroundFPS = 0;
 
 		new LwjglApplication(new StationAlpha(), config);
 	}
