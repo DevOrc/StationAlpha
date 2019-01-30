@@ -44,4 +44,30 @@ public class GuiInputTests {
 
         Assertions.assertEquals(1, gui.getClickCount());
     }
+
+    @Test
+    void onClickNotVisibleTest() {
+        TestGui gui = new TestGui();
+        gui.setHeight(100);
+        gui.setWidth(100);
+        gui.setVisible(false);
+
+        gui.handleClick(50, 50);
+
+        Assertions.assertEquals(0, gui.getClickCount());
+    }
+
+    @Test
+    void onGuiChildClickTest() {
+        TestGui parent = new TestGui();
+        TestGui child = new TestGui();
+        child.setWidth(100);
+        child.setHeight(100);
+
+        parent.addGui(child);
+
+        parent.handleClick(10, 10);
+
+        Assertions.assertEquals(1, child.getClickCount());
+    }
 }

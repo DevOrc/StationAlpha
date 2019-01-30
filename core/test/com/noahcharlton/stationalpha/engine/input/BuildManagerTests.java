@@ -6,24 +6,38 @@ import com.noahcharlton.stationalpha.world.Tile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 public class BuildManagerTests {
 
     private final BuildManager buildManager = new BuildManager();
 
     @Test
-    void buildBasicTest() {
+    void buildBasicWallTest() {
         Tile tile = new Tile(0,0);
 
+        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
         buildManager.build(tile, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Blocks.getWall(), tile.getBlock().get());
     }
 
     @Test
-    void buildWithIceTest() {
+    void buildBasicIceTest() {
+        Tile tile = new Tile(0,0);
+
+        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getIce())));
+        buildManager.build(tile, Input.Buttons.LEFT);
+
+        Assertions.assertEquals(Blocks.getIce(), tile.getBlock().get());
+    }
+
+    @Test
+    void buildOverrideBlockTest() {
         Tile tile = new Tile(0,0);
         tile.setBlock(Blocks.getIce());
 
+        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
         buildManager.build(tile, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Blocks.getWall(), tile.getBlock().get());
@@ -34,6 +48,7 @@ public class BuildManagerTests {
         Tile tile = new Tile(0,0);
         tile.setBlock(Blocks.getIce());
 
+        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
         buildManager.build(tile, Input.Buttons.RIGHT);
 
         Assertions.assertFalse(tile.getBlock().isPresent());

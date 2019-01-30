@@ -8,15 +8,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class InputHandler implements SimpleInputProcessor {
 
     private static final InputHandler instance = new InputHandler();
-
     private static final Logger logger = LogManager.getLogger(InputHandler.class);
 
     private final InputMultiplexer inputMultiplexer = new InputMultiplexer(this);
     private final BuildManager buildManager = new BuildManager();
+
+    InputHandler() {
+    }
 
     public static void init(){
         Objects.requireNonNull(getInstance(), "Instance cannot be null!");
@@ -28,7 +31,6 @@ public class InputHandler implements SimpleInputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         int graphicsY = Gdx.graphics.getHeight() - screenY;
-
         boolean onGui = StationAlpha.getInstance().getGuiContainer().handleClick(screenX, graphicsY);
 
         logger.info("Click Event[x = {}, y = {}, button = {}, onGui = {}]", screenX, graphicsY, button, onGui);
@@ -38,6 +40,16 @@ public class InputHandler implements SimpleInputProcessor {
         }
 
         return false;
+    }
+
+    public void setBuildAction(BuildAction action){
+        logger.debug("New Build Action" + action);
+
+        buildManager.setAction(Optional.ofNullable(action));
+    }
+
+    public BuildManager getBuildManager() {
+        return buildManager;
     }
 
     public InputMultiplexer getInputMultiplexer() {

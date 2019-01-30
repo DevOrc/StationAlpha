@@ -3,13 +3,15 @@ package com.noahcharlton.stationalpha.gui.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.noahcharlton.stationalpha.engine.input.BuildAction;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 
-public class DebugBar extends Pane {
+public class DebugBox extends Pane {
 
     private static final int SIZE = 250;
 
-    public DebugBar() {
+    public DebugBox() {
         setDrawBorder(true, true, true, true);
     }
 
@@ -17,7 +19,9 @@ public class DebugBar extends Pane {
     public void drawForeground(SpriteBatch b) {
         setFontData(.5f, Color.WHITE);
         drawCenteredText(b, "Debug Info: ", getHeight() - 10);
-        drawCenteredText(b, "FPS: " + Gdx.graphics.getFramesPerSecond(), getHeight() - 60);
+        drawCenteredText(b, "FPS: " + Gdx.graphics.getFramesPerSecond(), getHeight() - 40);
+        drawCenteredText(b, "Build: " + InputHandler.getInstance().getBuildManager().getAction()
+                .map(BuildAction::getName).orElse("None"), getHeight() - 70);
     }
 
     @Override

@@ -3,16 +3,19 @@ package com.noahcharlton.stationalpha.gui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.noahcharlton.stationalpha.gui.scenes.DebugBar;
+import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
+import com.noahcharlton.stationalpha.gui.scenes.DebugBox;
 
 public class GameGui extends GuiComponent {
 
-    private final DebugBar bar;
+    private final DebugBox debugBox;
+    private final BuildBar buildBar;
 
     public GameGui() {
-        bar = new DebugBar();
+        debugBox = new DebugBox();
+        buildBar = new BuildBar();
 
-        this.addGui(bar);
+        this.addAllGui(debugBox, buildBar);
     }
 
     @Override
@@ -27,6 +30,6 @@ public class GameGui extends GuiComponent {
 
     @Override
     protected void update() {
-        bar.setVisible(Gdx.input.isKeyPressed(Input.Keys.NUM_2));
+        debugBox.setVisible(Gdx.input.isKeyPressed(Input.Keys.NUM_2));
     }
 }

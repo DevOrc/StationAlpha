@@ -1,11 +1,9 @@
 package com.noahcharlton.stationalpha.engine.input;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.noahcharlton.stationalpha.StationAlpha;
-import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +15,8 @@ public class BuildManager {
 
     private static final Logger logger = LogManager.getLogger(BuildManager.class);
     private final StationAlpha gameInstance = StationAlpha.getInstance();
+
+    private Optional<BuildAction> action = Optional.empty();
 
     public void handleGameClick(int x, int y, int button) {
         Vector3 worldPos = toWorldPos(x, y);
@@ -50,9 +50,14 @@ public class BuildManager {
     void build(Tile tile, int button) {
         logger.info("Clicked on {} with button {}", tile, button);
 
-        if(button == Input.Buttons.LEFT)
-            tile.setBlock(Blocks.getWall());
-        else if(button == Input.Buttons.RIGHT)
-            tile.setBlock(null);
+        action.ifPresent(action -> action.onClick(tile, button));
+    }
+
+    public void setAction(Optional<BuildAction> action) {
+        this.action = action;
+    }
+
+    public Optional<BuildAction> getAction() {
+        return action;
     }
 }

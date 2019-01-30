@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,6 @@ public abstract class GuiComponent {
             font = null;
     }
 
-    private GuiComponent parent;
     private int x;
     private int y;
     private int width;
@@ -34,13 +32,15 @@ public abstract class GuiComponent {
     }
 
 
-    void addGui(GuiComponent gui){
-        if(gui.parent != null){
-            throw new GdxRuntimeException("Gui cannot have more than one parent!");
+    protected void addGui(GuiComponent gui){
+        subGuis.add(gui);
+    }
+
+    protected void addAllGui(GuiComponent... comps){
+        for(GuiComponent comp : comps){
+            addGui(comp);
         }
 
-        subGuis.add(gui);
-        gui.parent = this;
     }
 
     void render(SpriteBatch batch){
@@ -68,7 +68,7 @@ public abstract class GuiComponent {
         if(onGui)
             onClick();
 
-        return onGui || handleClickOnSubGui(clickX, clickY);
+        return handleClickOnSubGui(clickX, clickY) || onGui;
     }
 
     protected void onClick(){}
@@ -138,5 +138,9 @@ public abstract class GuiComponent {
 
     public boolean isVisible(){
         return visible;
+    }
+
+    ArrayList<GuiComponent> getSubGuis() {
+        return subGuis;
     }
 }
