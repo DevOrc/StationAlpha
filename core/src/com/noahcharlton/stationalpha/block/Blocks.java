@@ -1,8 +1,13 @@
 package com.noahcharlton.stationalpha.block;
 
+import com.noahcharlton.stationalpha.block.door.DoorBlock;
+
+import java.util.Optional;
+
 public class Blocks {
 
     private static Block wall = new WallBlock();
+    private static Block door = new DoorBlock();
     private static Block ice;
 
     public static void init(){
@@ -12,8 +17,8 @@ public class Blocks {
     private static Block createSimple(String textureName) {
         return new Block() {
             @Override
-            protected String getTextureFileName() {
-                return textureName;
+            protected Optional<String> getTextureFileName() {
+                return Optional.of(textureName);
             }
         };
     }
@@ -24,5 +29,9 @@ public class Blocks {
 
     public static Block getIce() {
         return ice;
+    }
+
+    public static Block getDoor() {
+        return door;
     }
 }

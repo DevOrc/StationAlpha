@@ -6,13 +6,15 @@ import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
+import java.util.Optional;
+
 public class WallBlock extends Block implements BlockRenderer{
 
     private static final Color innerWallColor = new Color(64f/255f, 64f/255f, 64f/255f, 1f);
 
     @Override
-    protected String getTextureFileName() {
-        return "wall.png";
+    protected Optional<String> getTextureFileName() {
+        return Optional.of("wall.png");
     }
 
     @Override
@@ -23,7 +25,7 @@ public class WallBlock extends Block implements BlockRenderer{
         int y = tile.getY() * Tile.TILE_SIZE;
 
 
-        spriteBatch.draw(getTexture().get(), x, y);
+        spriteBatch.draw(getTexture().get().get(), x, y);
 
         if(shouldConnectNorth(tile, world)){
             renderNorth(x, y, spriteBatch);
@@ -43,19 +45,19 @@ public class WallBlock extends Block implements BlockRenderer{
     }
 
     private void renderEast(int x, int y, SpriteBatch spriteBatch) {
-        ShapeUtil.drawRect(x, y + 4, 4, 24, innerWallColor, spriteBatch);
+        ShapeUtil.drawRect(x, y + 4, 5, 24, innerWallColor, spriteBatch);
     }
 
     private void renderWest(int x, int y, SpriteBatch spriteBatch) {
-        ShapeUtil.drawRect(x + 28, y + 4, 4, 24, innerWallColor, spriteBatch);
+        ShapeUtil.drawRect(x + 28, y + 4, 5, 24, innerWallColor, spriteBatch);
     }
 
     private void renderSouth(int x, int y, SpriteBatch spriteBatch) {
-        ShapeUtil.drawRect(x + 4, y, 24, 4, innerWallColor, spriteBatch);
+        ShapeUtil.drawRect(x + 4, y, 24, 5, innerWallColor, spriteBatch);
     }
 
     private void renderNorth(int x, int y, SpriteBatch spriteBatch) {
-        ShapeUtil.drawRect(x + 4, y + 28, 24, 4, innerWallColor, spriteBatch);
+        ShapeUtil.drawRect(x + 4, y + 28, 24, 5, innerWallColor, spriteBatch);
     }
 
     static boolean shouldConnectNorth(Tile tile, World world){

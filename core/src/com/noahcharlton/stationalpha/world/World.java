@@ -25,10 +25,18 @@ public class World {
             generateWorld();
     }
 
+    public void triggerWorldUpdate(int x, int y){
+        getTileAt(x, y).ifPresent(Tile::onWorldUpdate);
+        getTileAt(x - 1, y).ifPresent(Tile::onWorldUpdate);
+        getTileAt(x + 1, y).ifPresent(Tile::onWorldUpdate);
+        getTileAt(x, y - 1).ifPresent(Tile::onWorldUpdate);
+        getTileAt(x, y + 1).ifPresent(Tile::onWorldUpdate);
+    }
+
     private void fillTiles() {
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
-                tiles[x][y] = new Tile(x, y);
+                tiles[x][y] = new Tile(x, y, this);
             }
         }
     }
@@ -38,8 +46,6 @@ public class World {
 
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
-                tiles[x][y] = new Tile(x, y );
-
                 if(random.nextInt(100) == 0){
                     tiles[x][y].setBlock(Blocks.getIce());
                 }

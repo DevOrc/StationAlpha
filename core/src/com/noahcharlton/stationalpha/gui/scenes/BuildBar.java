@@ -15,18 +15,21 @@ public class BuildBar extends Pane {
 
     private final MenuButton iceButton;
     private final MenuButton wallButton;
+    private final MenuButton doorButton;
     private final MenuButton quitButton;
 
     public BuildBar() {
         iceButton = new MenuButton("Ice", this::onIceButtonClick);
         wallButton = new MenuButton("Wall", this::onWallButtonClick);
+        doorButton = new MenuButton("Door", this::onDoorButtonClick);
         quitButton = new MenuButton("Quit", this::onQuitButtonClick);
 
         iceButton.setY(10);
         wallButton.setY(10);
         quitButton.setY(10);
+        doorButton.setY(10);
 
-        addAllGui(iceButton, wallButton, quitButton);
+        addAllGui(iceButton, wallButton, doorButton, quitButton);
         addGui(iceButton);
         setDrawBorder(true, true, false, false);
     }
@@ -49,6 +52,7 @@ public class BuildBar extends Pane {
         quitButton.setX(10);
         wallButton.setX(20 + MenuButton.WIDTH);
         iceButton.setX(30 + (MenuButton.WIDTH * 2));
+        doorButton.setX(40 + (MenuButton.WIDTH * 3));
     }
 
     void onQuitButtonClick() {
@@ -64,6 +68,12 @@ public class BuildBar extends Pane {
 
     void onIceButtonClick() {
         BuildBlock blockAction = new BuildBlock(Blocks.getIce());
+
+        InputHandler.getInstance().setBuildAction(blockAction);
+    }
+
+    private void onDoorButtonClick() {
+        BuildBlock blockAction = new BuildBlock(Blocks.getDoor());
 
         InputHandler.getInstance().setBuildAction(blockAction);
     }

@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.engine.input;
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.world.Tile;
+import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ public class BuildManagerTests {
 
     @Test
     void buildBasicWallTest() {
-        Tile tile = new Tile(0,0);
+        Tile tile = new Tile(0,0, new World());
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
         buildManager.build(tile, Input.Buttons.LEFT);
@@ -24,7 +25,7 @@ public class BuildManagerTests {
 
     @Test
     void buildBasicIceTest() {
-        Tile tile = new Tile(0,0);
+        Tile tile = new Tile(0,0, new World());
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getIce())));
         buildManager.build(tile, Input.Buttons.LEFT);
@@ -34,7 +35,7 @@ public class BuildManagerTests {
 
     @Test
     void buildOverrideBlockTest() {
-        Tile tile = new Tile(0,0);
+        Tile tile = new Tile(0,0, new World());
         tile.setBlock(Blocks.getIce());
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
@@ -45,7 +46,7 @@ public class BuildManagerTests {
 
     @Test
     void destroyBasicTest() {
-        Tile tile = new Tile(0,0);
+        Tile tile = new Tile(0,0, new World());
         tile.setBlock(Blocks.getIce());
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));

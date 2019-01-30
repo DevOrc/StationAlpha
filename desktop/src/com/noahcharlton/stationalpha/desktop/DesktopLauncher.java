@@ -15,7 +15,7 @@ public class DesktopLauncher {
 		config.width = 854;
 		config.height = 480;
 		config.vSyncEnabled = false;
-		config.foregroundFPS = 0;
+		config.foregroundFPS = 60;
 		config.backgroundFPS = 0;
 
 		new LwjglApplication(new StationAlpha(), config);

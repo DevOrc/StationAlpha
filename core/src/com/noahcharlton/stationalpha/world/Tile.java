@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.world;
 
 import com.noahcharlton.stationalpha.block.Block;
+import com.noahcharlton.stationalpha.block.BlockContainer;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -9,15 +10,21 @@ public final class Tile {
 
     public static final int TILE_SIZE = 32;
 
+    private final World world;
     private final int x;
     private final int y;
 
     private Optional<Block> block;
+    private Optional<BlockContainer> container;
 
-    public Tile(int x, int y) {
+    public Tile(int x, int y, World world) {
+        this.world = world;
         this.x = x;
         this.y = y;
         this.block = Optional.empty();
+        this.container = Optional.empty();
+
+        Objects.requireNonNull(world, "World cannot be null!");
     }
 
     @Override
@@ -47,11 +54,27 @@ public final class Tile {
         return y;
     }
 
-    public void setBlock(Block block) {
+    public void setBlock(Block block){
         this.block = Optional.ofNullable(block);
+
+        this.container = this.block.flatMap(b -> b.createContainer(this));
+
+        world.triggerWorldUpdate(x, y);
     }
 
     public Optional<Block> getBlock() {
         return block;
+    }
+
+    public Optional<BlockContainer> getContainer() {
+        return container;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void onWorldUpdate() {
+        container.ifPresent(BlockContainer::onBlockUpdate);
     }
 }

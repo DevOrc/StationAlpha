@@ -1,30 +1,58 @@
 package com.noahcharlton.stationalpha.block;
 
-import com.badlogic.gdx.Gdx;
-import com.noahcharlton.stationalpha.LibGdxTest;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.world.Tile;
+import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class BlockTests extends LibGdxTest {
+import java.util.Optional;
 
-    @BeforeAll
-    static void setUp() {
-        Blocks.init();
+public class BlockTests {
+
+    @Test
+    void emptyTexturePathCausesEmptyTextureTest() {
+        Block block = new Block() {
+            @Override
+            protected Optional<String> getTextureFileName() {
+                return Optional.empty();
+            }
+        };
+
+        Assertions.assertFalse(block.getTexture().isPresent());
     }
 
     @Test
-    public void wallTextureTest(){
-        assertBlockTexture(Blocks.getWall());
+    void getContainerFromTileBasicTest() {
+        Tile tile = new Tile(0, 0, new World());
+        tile.setBlock(Blocks.getDoor());
+
+        Assertions.assertSame(tile.getContainer().get(), Block.getContainerFromTile(tile));
     }
 
     @Test
-    public void iceTextureTest(){
-        assertBlockTexture(Blocks.getIce());
+    void getContainerFromTileEmptyContainerFailsTest() {
+        Tile tile = new Tile(0, 0, new World());
+
+        Assertions.assertThrows(GdxRuntimeException.class, () -> {
+            Block.getContainerFromTile(tile);
+        });
     }
 
-    public void assertBlockTexture(Block block){
-        System.out.println(Gdx.files.internal("blocks/" + block.getTextureFileName()));
-        Assertions.assertTrue(Gdx.files.internal("blocks/" + block.getTextureFileName()).exists());
+    @Test
+    void nullRendererFailsTest() {
+        Assertions.assertThrows(NullPointerException.class, NullRendererTestBlock::new);
+    }
+}
+class NullRendererTestBlock extends Block{
+
+    @Override
+    protected Optional<String> getTextureFileName() {
+        return Optional.empty();
+    }
+
+    @Override
+    protected BlockRenderer createRenderer() {
+        return null;
     }
 }

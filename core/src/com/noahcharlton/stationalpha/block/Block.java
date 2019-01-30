@@ -1,14 +1,16 @@
 package com.noahcharlton.stationalpha.block;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public abstract class Block {
 
-    private final ManagedTexture texture;
+    private final Optional<ManagedTexture> texture;
     private final BlockRenderer renderer;
 
     public Block() {
@@ -18,17 +20,25 @@ public abstract class Block {
         Objects.requireNonNull(renderer, "Renderer cannot be null!");
     }
 
-    private ManagedTexture loadTexture() {
-        return new ManagedTexture("blocks/" + getTextureFileName());
+    private Optional<ManagedTexture> loadTexture() {
+        return getTextureFileName().map(path -> new ManagedTexture("blocks/" + path));
+    }
+
+    public Optional<BlockContainer> createContainer(Tile tile){
+        return Optional.empty();
+    }
+
+    public static BlockContainer getContainerFromTile(Tile tile){
+        return tile.getContainer().orElseThrow(() -> new GdxRuntimeException("Tile must have container!"));
     }
 
     protected BlockRenderer createRenderer(){
         return new DefaultBlockRenderer(this);
     }
 
-    protected abstract String getTextureFileName();
+    protected abstract Optional<String> getTextureFileName();
 
-    ManagedTexture getTexture() {
+    Optional<ManagedTexture> getTexture() {
         return texture;
     }
 

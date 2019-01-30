@@ -16,6 +16,6 @@ public class DefaultBlockRenderer implements BlockRenderer{
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
 
-        batch.draw(block.getTexture().get(), x, y);
+        batch.draw(block.getTexture().get().get(), x, y);
     }
 }
