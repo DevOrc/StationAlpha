@@ -64,6 +64,18 @@ public class WorldTests {
 
         Assertions.assertEquals(1, container.updateCount);
     }
+
+    @Test
+    void worldUpdateOnFloorPlaceTest() {
+        Block block = new BlockUpdateTestBlock();
+        world.getTileAt(0, 0).get().setBlock(block);
+        world.getTileAt(0, 0).get().setFloor(null);
+
+        BlockUpdateTestContainer container = (BlockUpdateTestContainer)
+                Block.getContainerFromTile(world.getTileAt(0, 0).get());
+
+        Assertions.assertEquals(2, container.updateCount);
+    }
 }
 class BlockUpdateTestContainer extends BlockContainer {
 

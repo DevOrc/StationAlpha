@@ -58,6 +58,7 @@ public class World {
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 Tile tile = tiles[x][y];
 
+                tile.getFloor().ifPresent(floor -> floor.render(spriteBatch, tile));
                 tile.getBlock().ifPresent(block -> block.render(spriteBatch, tile));
             }
         }

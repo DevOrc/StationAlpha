@@ -64,6 +64,12 @@ public class TileTests {
     void newTileDefaultContainerEmptyTest() {
         Assertions.assertFalse(tile.getContainer().isPresent());
     }
+
+    @Test
+    void newTileDefaultFloorEmptyTest() {
+        Assertions.assertFalse(tile.getFloor().isPresent());
+    }
+
 }
 class NoContainerTestBlock extends Block{
 

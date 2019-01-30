@@ -16,6 +16,7 @@ public final class Tile {
 
     private Optional<Block> block;
     private Optional<BlockContainer> container;
+    private Optional<Floor> floor;
 
     public Tile(int x, int y, World world) {
         this.world = world;
@@ -23,6 +24,7 @@ public final class Tile {
         this.y = y;
         this.block = Optional.empty();
         this.container = Optional.empty();
+        this.floor = Optional.empty();
 
         Objects.requireNonNull(world, "World cannot be null!");
     }
@@ -62,6 +64,12 @@ public final class Tile {
         world.triggerWorldUpdate(x, y);
     }
 
+    public void setFloor(Floor floor){
+        this.floor = Optional.ofNullable(floor);
+
+        world.triggerWorldUpdate(x, y);
+    }
+
     public Optional<Block> getBlock() {
         return block;
     }
@@ -76,5 +84,9 @@ public final class Tile {
 
     public void onWorldUpdate() {
         container.ifPresent(BlockContainer::onBlockUpdate);
+    }
+
+    public Optional<Floor> getFloor() {
+        return floor;
     }
 }
