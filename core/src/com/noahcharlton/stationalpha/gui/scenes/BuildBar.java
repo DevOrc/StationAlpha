@@ -5,15 +5,18 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.engine.input.BuildFloor;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
+import com.noahcharlton.stationalpha.gui.components.ComponentGroup;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
-import com.noahcharlton.stationalpha.gui.components.Pane;
+import com.noahcharlton.stationalpha.gui.components.layout.HStretchLayout;
 import com.noahcharlton.stationalpha.world.Floor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class BuildBar extends Pane {
+public class BuildBar extends ComponentGroup {
 
     private static final Logger logger = LogManager.getLogger(BuildBar.class);
+
+    private final HStretchLayout layoutManager;
 
     private final MenuButton woodFloorButton;
     private final MenuButton metalFloorButton;
@@ -27,13 +30,11 @@ public class BuildBar extends Pane {
         wallButton = new MenuButton("Wall", this::onWallButtonClick);
         doorButton = new MenuButton("Door", this::onDoorButtonClick);
         quitButton = new MenuButton("Quit", this::onQuitButtonClick);
+        layoutManager = new HStretchLayout();
+        layoutManager.setHGap(8);
+        layoutManager.setPadding(5);
 
-        woodFloorButton.setY(10);
-        metalFloorButton.setY(10);
-        wallButton.setY(10);
-        quitButton.setY(10);
-        doorButton.setY(10);
-
+        setLayoutManager(layoutManager);
         addAllGui(woodFloorButton, metalFloorButton, wallButton, doorButton, quitButton);
         setDrawBorder(true, true, false, false);
     }
@@ -46,18 +47,8 @@ public class BuildBar extends Pane {
 
     @Override
     protected void updateSize() {
-        this.setHeight(MenuButton.HEIGHT + 20);
-        this.setWidth(MenuButton.WIDTH * 4 + 50);
-
-        layoutButtons();
-    }
-
-    private void layoutButtons() {
-        quitButton.setX(10);
-        wallButton.setX(20 + MenuButton.WIDTH);
-        doorButton.setX(30 + (MenuButton.WIDTH * 2));
-        woodFloorButton.setX(40 + (MenuButton.WIDTH * 3));
-        metalFloorButton.setX(50 + (MenuButton.WIDTH * 4));
+        this.setHeight(65);
+        this.setWidth(Gdx.graphics.getWidth());
     }
 
     void onQuitButtonClick() {

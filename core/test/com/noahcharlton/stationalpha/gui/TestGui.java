@@ -7,22 +7,22 @@ public class TestGui extends GuiComponent{
     private int clickCount;
 
     @Override
-    protected void setWidth(int width) {
+    public void setWidth(int width) {
         super.setWidth(width);
     }
 
     @Override
-    protected void setHeight(int height) {
+    public void setHeight(int height) {
         super.setHeight(height);
     }
 
     @Override
-    protected void setX(int x) {
+    public void setX(int x) {
         super.setX(x);
     }
 
     @Override
-    protected void setY(int y) {
+    public void setY(int y) {
         super.setY(y);
     }
 

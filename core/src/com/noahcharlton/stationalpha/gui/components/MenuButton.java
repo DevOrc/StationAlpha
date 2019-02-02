@@ -21,6 +21,8 @@ public class MenuButton extends Pane{
         setText(text);
         setBackgroundColor(new Color(0x2a2a2aff));
         setDrawBorder(true, true, true, true);
+        setWidth(WIDTH);
+        setHeight(HEIGHT);
     }
 
     public void setText(String text) {
@@ -56,7 +58,6 @@ public class MenuButton extends Pane{
 
     @Override
     protected void updateSize() {
-        setWidth(WIDTH);
-        setHeight(HEIGHT);
+
     }
 }

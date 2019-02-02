@@ -100,19 +100,19 @@ public abstract class GuiComponent {
 
     protected abstract void drawForeground(SpriteBatch batch);
 
-    protected void setX(int x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    protected void setY(int y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    protected void setWidth(int width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    protected void setHeight(int height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -140,7 +140,7 @@ public abstract class GuiComponent {
         return visible;
     }
 
-    ArrayList<GuiComponent> getSubGuis() {
+    protected ArrayList<GuiComponent> getSubGuis() {
         return subGuis;
     }
 }
