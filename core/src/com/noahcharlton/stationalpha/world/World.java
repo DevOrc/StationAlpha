@@ -3,7 +3,10 @@ package com.noahcharlton.stationalpha.world;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.worker.Worker;
+import com.noahcharlton.stationalpha.worker.WorkerRenderer;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
@@ -13,6 +16,7 @@ public class World {
     public static final int WORLD_PIXEL_SIZE = WORLD_TILE_SIZE * Tile.TILE_SIZE;
 
     private final Tile[][] tiles = new Tile[WORLD_TILE_SIZE][WORLD_TILE_SIZE];
+    private final ArrayList<Worker> workers = new ArrayList<>();
 
     public World() {
         this(true);
@@ -20,6 +24,8 @@ public class World {
 
     public World(boolean generate) {
         fillTiles();
+
+        workers.add(Worker.create(this));
 
         if(generate)
             generateWorld();
@@ -54,6 +60,21 @@ public class World {
     }
 
     public void render(SpriteBatch spriteBatch) {
+        renderTiles(spriteBatch);
+        renderWorkers(spriteBatch);
+
+        update();
+    }
+
+    private void update() {
+        workers.forEach(Worker::update);
+    }
+
+    private void renderWorkers(SpriteBatch spriteBatch) {
+        workers.forEach(worker -> WorkerRenderer.render(spriteBatch, worker));
+    }
+
+    private void renderTiles(SpriteBatch spriteBatch) {
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 Tile tile = tiles[x][y];
