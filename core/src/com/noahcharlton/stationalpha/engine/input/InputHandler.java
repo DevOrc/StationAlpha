@@ -42,6 +42,15 @@ public class InputHandler implements SimpleInputProcessor {
         return false;
     }
 
+    @Override
+    public boolean keyDown(int keycode) {
+        if(Gdx.input.isKeyPressed(DebugKeys.DEBUG_KEY)){
+            if(keycode == DebugKeys.PATHFIND)
+                setBuildAction(new WorkerPathfindAction(World.getInstance().get()));
+        }
+        return false;
+    }
+
     public void setBuildAction(BuildAction action){
         logger.debug("New Build Action" + action);
 

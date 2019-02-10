@@ -34,4 +34,20 @@ public class WorkerAITests {
 
         Assertions.assertTrue(ai.onTargetTile());
     }
+
+    @Test
+    void onTileOriginBasicTest() {
+        worker.setPixelX(32);
+        worker.setPixelY(32);
+
+        Assertions.assertTrue(ai.atTileOrigin());
+    }
+
+    @Test
+    void onTileOriginOffOriginTest() {
+        worker.setPixelX(44);
+        worker.setPixelY(332);
+
+        Assertions.assertFalse(ai.atTileOrigin());
+    }
 }

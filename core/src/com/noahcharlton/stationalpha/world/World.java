@@ -92,6 +92,10 @@ public class World {
         return Optional.of(tiles[x][y]);
     }
 
+    public ArrayList<Worker> getWorkers() {
+        return workers;
+    }
+
     public static Optional<World> getInstance(){
         return StationAlpha.getInstance().getWorld();
     }

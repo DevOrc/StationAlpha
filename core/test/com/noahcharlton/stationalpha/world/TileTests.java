@@ -10,7 +10,8 @@ import java.util.Optional;
 
 public class TileTests {
 
-    private final Tile tile = new Tile(0, 0, new World());
+    private final World world = new World();
+    private final Tile tile = new Tile(0, 0, world);
 
     @Test
     public void basicSetBlockContainerTest(){
@@ -68,6 +69,26 @@ public class TileTests {
     @Test
     void newTileDefaultFloorEmptyTest() {
         Assertions.assertFalse(tile.getFloor().isPresent());
+    }
+
+    @Test
+    void xBiggerThanWorldFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Tile(1000, 10, world));
+    }
+
+    @Test
+    void yBiggerThanWorldFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Tile(5, 12345, world));
+    }
+
+    @Test
+    void negativeXBeforeWorldFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Tile(-5, 10, world));
+    }
+
+    @Test
+    void negativeYBeforeWorldFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Tile(5, -8, world));
     }
 
 }

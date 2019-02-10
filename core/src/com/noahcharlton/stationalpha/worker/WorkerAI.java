@@ -2,28 +2,36 @@ package com.noahcharlton.stationalpha.worker;
 
 import com.noahcharlton.stationalpha.world.Tile;
 
-import java.util.Optional;
-
 public class WorkerAI {
 
     private final Worker worker;
-    private Optional<Tile> targetTile = Optional.empty();
+
+    private final WorkerMovementManager movementManager;
 
     WorkerAI(Worker worker) {
         this.worker = worker;
+        this.movementManager = new WorkerMovementManager(this, worker);
     }
 
     public void update(){
-        if(!onTargetTile()){
-
+        if(!movementManager.onTargetTile() || !atTileOrigin()){
+            movementManager.update();
         }
     }
 
-    boolean onTargetTile() {
-        return targetTile.map(tile -> tile.equals(worker.getTileOn())).orElse(true);
+    boolean atTileOrigin() {
+        return worker.getPixelX() % Tile.TILE_SIZE == 0 && worker.getPixelY() % Tile.TILE_SIZE == 0;
     }
 
-    public void setTargetTile(Tile targetTile) {
-        this.targetTile = Optional.ofNullable(targetTile);
+    public boolean onTargetTile(){
+        return movementManager.onTargetTile();
+    }
+
+    public void setTargetTile(Tile tile){
+        movementManager.setTargetTile(tile);
+    }
+
+    public WorkerMovementManager getMovementManager() {
+        return movementManager;
     }
 }

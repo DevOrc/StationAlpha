@@ -54,6 +54,10 @@ public class Worker {
         return pos;
     }
 
+    public World getWorld() {
+        return world;
+    }
+
     public int getPixelX() {
         return pixelX;
     }

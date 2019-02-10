@@ -26,7 +26,15 @@ public final class Tile {
         this.container = Optional.empty();
         this.floor = Optional.empty();
 
+        checkWithinWorld(x, "X coordinate not inside world!");
+        checkWithinWorld(y, "Y coordinate not inside world!");
+
         Objects.requireNonNull(world, "World cannot be null!");
+    }
+
+    private void checkWithinWorld(int coordinate, String s) {
+        if(coordinate < 0 || coordinate >= World.WORLD_TILE_SIZE)
+            throw new IllegalArgumentException(s);
     }
 
     @Override
