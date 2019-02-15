@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.noahcharlton.stationalpha.worker.WorkerRenderer;
 import com.noahcharlton.stationalpha.world.World;
 
 public class GameRenderer {
@@ -18,6 +19,12 @@ public class GameRenderer {
         camera.setToOrtho(false);
         viewport = new ScreenViewport(camera);
         spriteBatch = new SpriteBatch();
+
+        initRenderers();
+    }
+
+    private void initRenderers() {
+        WorkerRenderer.init();
     }
 
     public void render(){

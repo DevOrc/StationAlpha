@@ -24,7 +24,6 @@ public class WorkerMovementManager {
     public void update(){
         if(!targetTile.isPresent())
             return;
-        System.out.println("t");
 
         Tile target = targetTile.get();
         Path path = worldGraph.generatePath(worker.getTileOn(), target);
