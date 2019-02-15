@@ -9,5 +9,5 @@ public class LibGdxTest {
         Gdx.files = new HeadlessFiles();
     }
 
-    // Noah - add world tests
+
 }
