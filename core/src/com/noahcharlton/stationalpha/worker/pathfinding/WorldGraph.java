@@ -4,6 +4,8 @@ import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
+import com.noahcharlton.stationalpha.block.Block;
+import com.noahcharlton.stationalpha.block.door.DoorBlock;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -41,10 +43,23 @@ public class WorldGraph implements IndexedGraph<Tile> {
     }
 
     private Optional<Connection<Tile>> checkConnection(Tile src, Optional<Tile> dest) {
-        if(dest.map(t -> t.getBlock().isPresent()).orElse(false))
+        if(dest.map(this::doesTileBlockPaths).orElse(false))
             return Optional.empty();
 
         return dest.map(tile -> new DefaultConnection<>(src, tile));
+    }
+
+    boolean doesTileBlockPaths(Tile tile) {
+        if(tile.getBlock().isPresent()){
+            Block block = tile.getBlock().get();
+
+            if(block instanceof DoorBlock)
+                return false;
+
+            return true;
+        }
+
+        return false;
     }
 
     @Override

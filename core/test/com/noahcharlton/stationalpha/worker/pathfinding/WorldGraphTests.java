@@ -52,4 +52,27 @@ public class WorldGraphTests {
 
         Assertions.assertEquals(4, graph.getConnections(origin).size);
     }
+
+    @Test
+    void doesTileBlockPathsNoBlockTest() {
+        Tile tile = new Tile(0, 0, world);
+
+        Assertions.assertFalse(graph.doesTileBlockPaths(tile));
+    }
+
+    @Test
+    void doesTileBlockPathsWallTest() {
+        Tile tile = new Tile(0, 0, world);
+        tile.setBlock(Blocks.getWall());
+
+        Assertions.assertTrue(graph.doesTileBlockPaths(tile));
+    }
+
+    @Test
+    void doesTileBlockPathsDoorTest() {
+        Tile tile = new Tile(0, 0, world);
+        tile.setBlock(Blocks.getDoor());
+
+        Assertions.assertFalse(graph.doesTileBlockPaths(tile));
+    }
 }
