@@ -1,11 +1,12 @@
 package com.noahcharlton.stationalpha.item;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 import org.apache.logging.log4j.LogManager;
 
 public enum Item {
 
-    SPACE_ROCK("space_rock", "Space Rock");
+    SPACE_ROCK("space_rock", "Space Rock"), TEST_ITEM("test_item", "Test Item");
 
     private final String displayName;
     private final String id;
@@ -14,11 +15,11 @@ public enum Item {
     Item(String id, String displayName) {
         this.id = id;
         this.displayName = displayName;
-        texture = new ManagedTexture("item/" + id + ".png");
+        texture = new ManagedTexture("items/" + id + ".png");
     }
 
-    public ManagedTexture getTexture() {
-        return texture;
+    public Texture getTexture() {
+        return texture.get();
     }
 
     public String getDisplayName() {

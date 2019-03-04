@@ -3,6 +3,8 @@ package com.noahcharlton.stationalpha.world;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.engine.input.DebugKeys;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;
 
@@ -69,6 +71,12 @@ public class World {
 
     private void update() {
         workers.forEach(Worker::update);
+
+        if(DebugKeys.isDebugPressed(DebugKeys.INVENTORY)){
+            inventory.changeAmountForItem(Item.TEST_ITEM, 1);
+        }else{
+            inventory.changeAmountForItem(Item.TEST_ITEM, -1);
+        }
     }
 
     private void renderWorkers(SpriteBatch spriteBatch) {
