@@ -55,7 +55,7 @@ public class World {
 
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
-                if(random.nextInt(100) == 0){
+                if(random.nextInt(25) == 0){
                     tiles[x][y].setBlock(Blocks.getIce());
                 }
             }

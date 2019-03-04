@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.world.World;
@@ -21,7 +22,7 @@ public class InputHandler implements SimpleInputProcessor {
     InputHandler() {
     }
 
-    public static void init(){
+    public static void init() {
         Objects.requireNonNull(getInstance(), "Instance cannot be null!");
         Gdx.input.setInputProcessor(getInstance().getInputMultiplexer());
 
@@ -44,14 +45,22 @@ public class InputHandler implements SimpleInputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(Gdx.input.isKeyPressed(DebugKeys.DEBUG_KEY)){
-            if(keycode == DebugKeys.PATHFIND)
-                setBuildAction(new WorkerPathfindAction(World.getInstance().get()));
+        if(Gdx.input.isKeyPressed(DebugKeys.DEBUG_KEY)) {
+            switch(keycode) {
+                case DebugKeys.PATHFIND:
+                    setBuildAction(new WorkerPathfindAction(World.getInstance().get()));
+                    break;
+                case Input.Keys.M:
+                    setBuildAction(new MineAction(World.getInstance().get().getInventory()));
+                    break;
+                default:
+                    break;
+            }
         }
         return false;
     }
 
-    public void setBuildAction(BuildAction action){
+    public void setBuildAction(BuildAction action) {
         logger.debug("New Build Action" + action);
 
         buildManager.setAction(Optional.ofNullable(action));
