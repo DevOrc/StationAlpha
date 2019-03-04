@@ -24,7 +24,6 @@ public class BlockTextureTests extends LibGdxTest {
     }
 
     public void assertBlockTexture(Block block){
-        System.out.println(Gdx.files.internal("blocks/" + block.getTextureFileName().get()));
         Assertions.assertTrue(Gdx.files.internal("blocks/" + block.getTextureFileName().get()).exists());
     }
 }

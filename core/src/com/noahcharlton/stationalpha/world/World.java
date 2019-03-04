@@ -17,6 +17,7 @@ public class World {
 
     private final Tile[][] tiles = new Tile[WORLD_TILE_SIZE][WORLD_TILE_SIZE];
     private final ArrayList<Worker> workers = new ArrayList<>();
+    private final Inventory inventory = new Inventory();
 
     public World() {
         this(true);
@@ -94,6 +95,10 @@ public class World {
 
     public ArrayList<Worker> getWorkers() {
         return workers;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public static Optional<World> getInstance(){
