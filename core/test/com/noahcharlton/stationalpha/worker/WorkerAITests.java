@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.worker;
 
+import com.noahcharlton.stationalpha.worker.job.TestJob;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
@@ -9,6 +10,16 @@ public class WorkerAITests {
 
     private final TestWorker worker = new TestWorker();
     private final WorkerAI ai = worker.getAi();
+
+    @Test
+    void updateWorkerJobTest() {
+        TestJob testJob = new TestJob();
+        ai.getJobManager().setCurrentJob(testJob);
+
+        worker.update();
+
+        Assertions.assertEquals(1, testJob.getUpdateCount());
+    }
 
     @Test
     void onTargetTileBasicTest() {

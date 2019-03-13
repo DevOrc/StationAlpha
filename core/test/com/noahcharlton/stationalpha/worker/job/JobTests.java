@@ -32,16 +32,24 @@ public class JobTests {
     }
 
     @Test
-    void jobCannotStartAfterEnded() {
+    void finishBasicTest() {
         job.start();
-        job.end();
+        job.finish();
+
+        Assertions.assertEquals(Job.JobStage.FINISHED, job.getStage());
+    }
+
+    @Test
+    void jobCannotStartAfterFinished() {
+        job.start();
+        job.finish();
 
         Assertions.assertThrows(GdxRuntimeException.class, job::start);
     }
 
     @Test
     void jobCancelRemovesWorkerTest() {
-        job.assign(new TestWorker());
+        job.setWorker(new TestWorker());
         job.cancel();
 
         Assertions.assertFalse(job.getAssignedWorker().isPresent());

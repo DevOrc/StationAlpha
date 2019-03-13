@@ -28,11 +28,11 @@ public class Job {
 
     public void update(){}
 
-    public void end(){
+    public void finish(){
         jobStage = JobStage.FINISHED;
     }
 
-    public void assign(Worker worker) {
+    void setWorker(Worker worker) {
         this.assignedWorker = Optional.of(worker);
     }
 
