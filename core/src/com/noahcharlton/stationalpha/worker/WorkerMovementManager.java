@@ -86,4 +86,8 @@ public class WorkerMovementManager {
     boolean onTargetTile() {
         return targetTile.map(tile -> tile.equals(worker.getTileOn())).orElse(true);
     }
+
+    public Optional<Tile> getTargetTile() {
+        return targetTile;
+    }
 }

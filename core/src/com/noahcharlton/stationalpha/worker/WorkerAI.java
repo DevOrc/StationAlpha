@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.worker;
 
+import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.WorkerJobManager;
 import com.noahcharlton.stationalpha.world.Tile;
 
@@ -17,11 +18,18 @@ public class WorkerAI {
     }
 
     public void update(){
-        if(!movementManager.onTargetTile() || !atTileOrigin()){
+        if( movementManager.onTargetTile() && atTileOrigin()){
+            checkStartJob();
+        }else{
             movementManager.update();
         }
 
         jobManager.update();
+        jobManager.getCurrentJob().ifPresent(job -> movementManager.setTargetTile(job.getTarget()));
+    }
+
+    private void checkStartJob() {
+        jobManager.getCurrentJob().filter(job -> job.getStage() == Job.JobStage.PRE_START).ifPresent(Job::start);
     }
 
     boolean atTileOrigin() {

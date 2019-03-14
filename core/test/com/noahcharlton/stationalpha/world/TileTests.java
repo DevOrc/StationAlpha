@@ -91,6 +91,40 @@ public class TileTests {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new Tile(5, -8, world));
     }
 
+    @Test
+    void getAdjacentNorthTest() {
+        adjacentBaseTest(5, 5, 5, 6);
+    }
+
+    @Test
+    void getAdjacentSouthTest() {
+        adjacentBaseTest(5, 5, 5, 4);
+    }
+
+    @Test
+    void getAdjacentEastTest() {
+        adjacentBaseTest(6, 5, 5, 5);
+    }
+
+    @Test
+    void getAdjacentWestTest() {
+        adjacentBaseTest(4, 5, 5, 5);
+    }
+
+    void adjacentBaseTest(int originX, int originY, int adjacentX, int adjacentY){
+        Tile origin = world.getTileAt(originX, originY).get();
+        Tile adjacent = world.getTileAt(adjacentX, adjacentY).get();
+
+        Assertions.assertTrue(origin.getAdjacent().contains(adjacent));
+    }
+
+    @Test
+    void getAdjacentCornerTest() {
+        Tile origin = world.getTileAt(0, 0).get();
+        Tile corner = world.getTileAt(1, 1).get();
+
+        Assertions.assertFalse(origin.getAdjacent().contains(corner));
+    }
 }
 class NoContainerTestBlock extends Block{
 

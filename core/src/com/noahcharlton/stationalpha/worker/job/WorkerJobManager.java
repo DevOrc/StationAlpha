@@ -16,7 +16,7 @@ public class WorkerJobManager {
     }
 
     public void update() {
-        currentJob.ifPresent(Job::update);
+        currentJob.filter(job -> job.getStage() == Job.JobStage.IN_PROGRESS).ifPresent(Job::update);
 
         if(needsJob())
             getJobFromQueue();

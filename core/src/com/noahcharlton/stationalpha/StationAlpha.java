@@ -39,7 +39,7 @@ public class StationAlpha extends ApplicationAdapter {
 		Blocks.init();
 		Item.init();
 
-		world = Optional.of(new World());
+		world = Optional.of(new World(true));
 
 		logger.info("Asset Count: " + AssetManager.getInstance().getNumberOfAssets());
 	}

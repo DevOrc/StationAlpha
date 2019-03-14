@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.noahcharlton.stationalpha.StationAlpha;
+import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,7 +52,7 @@ public class InputHandler implements SimpleInputProcessor {
                     setBuildAction(new WorkerPathfindAction(World.getInstance().get()));
                     break;
                 case Input.Keys.M:
-                    setBuildAction(new MineAction(World.getInstance().get().getInventory()));
+                    setBuildAction(new MineAction(World.getInstance().get().getInventory(), JobQueue.getInstance()));
                     break;
                 default:
                     break;

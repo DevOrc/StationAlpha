@@ -10,7 +10,7 @@ public class JobQueue {
 
     private final ArrayDeque<Job> jobQueue = new ArrayDeque<>();
 
-    JobQueue() {
+    public JobQueue() {
     }
 
     public void addJob(Job job){

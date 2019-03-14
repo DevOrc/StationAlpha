@@ -22,7 +22,7 @@ public class World {
     private final Inventory inventory = new Inventory();
 
     public World() {
-        this(true);
+        this(false);
     }
 
     public World(boolean generate) {

@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.world;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -35,6 +36,17 @@ public final class Tile {
     private void checkWithinWorld(int coordinate, String s) {
         if(coordinate < 0 || coordinate >= World.WORLD_TILE_SIZE)
             throw new IllegalArgumentException(s);
+    }
+
+    public ArrayList<Tile> getAdjacent(){
+        ArrayList<Tile> tiles = new ArrayList<>();
+
+        world.getTileAt(x - 1, y).ifPresent(tiles::add);
+        world.getTileAt(x + 1, y).ifPresent(tiles::add);
+        world.getTileAt(x, y - 1).ifPresent(tiles::add);
+        world.getTileAt(x, y + 1).ifPresent(tiles::add);
+
+        return tiles;
     }
 
     @Override

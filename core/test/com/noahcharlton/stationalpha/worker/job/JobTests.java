@@ -9,13 +9,16 @@ import org.junit.jupiter.api.Test;
 
 public class JobTests {
 
-    private final Job job = new Job(new Tile(0, 0, new World()));
+    private Job job = getJob();
+
+    public Job getJob() {
+        return new Job(new Tile(0, 0, new World()));
+    }
 
     @Test
     void jobDefaultStateTest() {
         Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
     }
-
 
     @Test
     void jobStartBasicTest() {
@@ -62,5 +65,4 @@ public class JobTests {
 
         Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
     }
-
 }
