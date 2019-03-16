@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.world;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.StationAlpha;
+import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.item.Item;
@@ -84,6 +85,7 @@ public class World {
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 tiles[x][y].updateOxygen();
+                tiles[x][y].getContainer().ifPresent(BlockContainer::onUpdate);
             }
         }
     }

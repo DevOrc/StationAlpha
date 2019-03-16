@@ -56,14 +56,6 @@ public final class Tile {
     }
 
     public void updateOxygen(){
-        spreadOxygenWithAdjacentTiles();
-
-        if(getFloor().filter(floor -> floor == Floor.WOOD).isPresent()){
-            changeOxygenLevel(3);
-        }
-    }
-
-    private void spreadOxygenWithAdjacentTiles() {
         getAdjacent().forEach(tile -> {
             boolean needsOxygen = tile.oxygenLevel < this.oxygenLevel;
             boolean acceptsOxygen = !tile.getBlock().filter(Block::isOpaque).isPresent();
@@ -88,7 +80,7 @@ public final class Tile {
         src.changeOxygenLevel(-diff);
     }
 
-    void changeOxygenLevel(float amount){
+    public void changeOxygenLevel(float amount){
         oxygenLevel += amount;
 
         if(oxygenLevel > 100)

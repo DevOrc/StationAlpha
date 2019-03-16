@@ -23,19 +23,21 @@ public class BuildBar extends ComponentGroup {
     private final MenuButton wallButton;
     private final MenuButton doorButton;
     private final MenuButton quitButton;
+    private final MenuButton compressorButton;
 
     public BuildBar() {
         woodFloorButton = new MenuButton("Wood", this::onWoodButtonClick);
         metalFloorButton = new MenuButton("Metal", this::onMetalButtonClick);
         wallButton = new MenuButton("Wall", this::onWallButtonClick);
         doorButton = new MenuButton("Door", this::onDoorButtonClick);
+        compressorButton = new MenuButton("Compressor", this::onCompressorButtonClick);
         quitButton = new MenuButton("Quit", this::onQuitButtonClick);
         layoutManager = new HStretchLayout();
         layoutManager.setHGap(8);
         layoutManager.setPadding(5);
 
         setLayoutManager(layoutManager);
-        addAllGui(woodFloorButton, metalFloorButton, wallButton, doorButton, quitButton);
+        addAllGui(woodFloorButton, metalFloorButton, wallButton, doorButton, compressorButton, quitButton);
         setDrawBorder(true, true, false, false);
     }
 
@@ -76,6 +78,12 @@ public class BuildBar extends ComponentGroup {
 
     private void onDoorButtonClick() {
         BuildBlock blockAction = new BuildBlock(Blocks.getDoor());
+
+        InputHandler.getInstance().setBuildAction(blockAction);
+    }
+
+    private void onCompressorButtonClick() {
+        BuildBlock blockAction = new BuildBlock(Blocks.getCompressor());
 
         InputHandler.getInstance().setBuildAction(blockAction);
     }

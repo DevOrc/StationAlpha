@@ -12,6 +12,8 @@ public class BlockContainer {
         this.block = block;
     }
 
+    public void onUpdate(){}
+
     public void onBlockUpdate(){}
 
     public Block getBlock() {

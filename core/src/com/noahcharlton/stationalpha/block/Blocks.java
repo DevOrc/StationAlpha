@@ -8,6 +8,7 @@ public class Blocks {
 
     private static Block wall = new WallBlock();
     private static Block door = new DoorBlock();
+    private static Block compressor = new CompressorBlock();
     private static Block ice;
 
     public static void init(){
@@ -34,5 +35,9 @@ public class Blocks {
 
     public static Block getDoor() {
         return door;
+    }
+
+    public static Block getCompressor(){
+        return compressor;
     }
 }
