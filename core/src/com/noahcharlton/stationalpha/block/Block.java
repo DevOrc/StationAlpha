@@ -13,6 +13,8 @@ public abstract class Block {
     private final Optional<ManagedTexture> texture;
     private final BlockRenderer renderer;
 
+    private boolean isOpaque;
+
     public Block() {
         this.texture = loadTexture();
         this.renderer = createRenderer();
@@ -40,6 +42,14 @@ public abstract class Block {
 
     Optional<ManagedTexture> getTexture() {
         return texture;
+    }
+
+    protected void setOpaque(boolean opaque) {
+        isOpaque = opaque;
+    }
+
+    public boolean isOpaque() {
+        return isOpaque;
     }
 
     public final void render(SpriteBatch spriteBatch, Tile tile) {

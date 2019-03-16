@@ -70,6 +70,7 @@ public class World {
     }
 
     private void update() {
+        updateTiles();
         workers.forEach(Worker::update);
 
         if(DebugKeys.isDebugPressed(DebugKeys.INVENTORY)){
@@ -79,17 +80,30 @@ public class World {
         }
     }
 
+    private void updateTiles() {
+        for(int x = 0; x < WORLD_TILE_SIZE; x++){
+            for(int y = 0; y < WORLD_TILE_SIZE; y++){
+                tiles[x][y].updateOxygen();
+            }
+        }
+    }
+
     private void renderWorkers(SpriteBatch spriteBatch) {
         workers.forEach(worker -> WorkerRenderer.render(spriteBatch, worker));
     }
 
     private void renderTiles(SpriteBatch spriteBatch) {
+        boolean drawOxygen = DebugKeys.isDebugPressed(DebugKeys.OXYGEN_LEVEL);
+
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 Tile tile = tiles[x][y];
 
                 tile.getFloor().ifPresent(floor -> floor.render(spriteBatch, tile));
                 tile.getBlock().ifPresent(block -> block.render(spriteBatch, tile));
+
+                if(drawOxygen)
+                    tile.drawOxygen(spriteBatch);
             }
         }
     }

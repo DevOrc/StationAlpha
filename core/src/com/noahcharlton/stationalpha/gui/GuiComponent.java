@@ -143,4 +143,8 @@ public abstract class GuiComponent {
     protected ArrayList<GuiComponent> getSubGuis() {
         return subGuis;
     }
+
+    public static BitmapFont getFont() {
+        return font;
+    }
 }

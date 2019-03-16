@@ -13,6 +13,8 @@ public class DebugKeys {
 
     public static final int DEBUG_BOX = Input.Keys.U;
 
+    public static final int OXYGEN_LEVEL = Input.Keys.O;
+
     public static boolean isDebugPressed(int key){
         return Gdx.input.isKeyPressed(DEBUG_KEY) && Gdx.input.isKeyPressed(key);
     }

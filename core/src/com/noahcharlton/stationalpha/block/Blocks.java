@@ -12,6 +12,7 @@ public class Blocks {
 
     public static void init(){
         ice = createSimple("ice.png");
+        ice.setOpaque(true);
     }
 
     private static Block createSimple(String textureName) {
