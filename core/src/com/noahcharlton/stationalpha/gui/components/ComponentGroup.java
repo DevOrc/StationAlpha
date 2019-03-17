@@ -8,6 +8,10 @@ public abstract class ComponentGroup extends Pane{
 
     private LayoutManager layoutManager;
 
+    public ComponentGroup(LayoutManager layoutManager) {
+        this.layoutManager = layoutManager;
+    }
+
     public ComponentGroup() {
         this.layoutManager = new HStretchLayout();
     }

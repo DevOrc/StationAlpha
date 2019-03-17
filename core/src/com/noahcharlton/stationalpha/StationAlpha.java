@@ -33,12 +33,12 @@ public class StationAlpha extends ApplicationAdapter {
 	@Override
 	public void create () {
 		gameRenderer = new GameRenderer();
-		guiContainer = new GuiContainer();
 
 		InputHandler.init();
 		Blocks.init();
 		Item.init();
 
+		guiContainer = new GuiContainer();
 		world = Optional.of(new World(true));
 
 		logger.info("Asset Count: " + AssetManager.getInstance().getNumberOfAssets());

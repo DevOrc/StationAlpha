@@ -44,6 +44,15 @@ public abstract class Block {
         return texture;
     }
 
+    public String getDisplayName(){
+        return getTextureFileName().orElse("Block");
+    }
+
+    @Override
+    public String toString() {
+        return getDisplayName();
+    }
+
     protected void setOpaque(boolean opaque) {
         isOpaque = opaque;
     }
