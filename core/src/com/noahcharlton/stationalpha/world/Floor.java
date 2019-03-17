@@ -5,7 +5,7 @@ import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 
 public enum Floor {
 
-    METAL("metal.png"), WOOD("wood.png");
+    METAL("metal.png"), WOOD("wood.png"), DIRT("dirt.png"), BRICK("brick.png");
 
     private final String filename;
     private final ManagedTexture texture;

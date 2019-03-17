@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class WallBlock extends Block implements BlockRenderer{
 
-    private static final Color innerWallColor = new Color(64f/255f, 64f/255f, 64f/255f, 1f);
+    private static final Color innerWallColor = new Color(112f/255f, 112f/255f, 112f/255f, 1f);
 
     public WallBlock() {
         setOpaque(true);

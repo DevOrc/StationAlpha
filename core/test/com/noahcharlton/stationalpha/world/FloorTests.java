@@ -3,18 +3,15 @@ package com.noahcharlton.stationalpha.world;
 import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.LibGdxTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 public class FloorTests extends LibGdxTest {
 
-    @Test
-    void verifyWoodFloorPath() {
-        assertFloorTexture(Floor.WOOD);
-    }
-
-    @Test
-    void verifyMetalFloorPath() {
-        assertFloorTexture(Floor.METAL);
+    @ParameterizedTest(name = "{0}")
+    @EnumSource(Floor.class)
+    void verifyTexture(Floor floor) {
+        assertFloorTexture(floor);
     }
 
     public void assertFloorTexture(Floor floor){
