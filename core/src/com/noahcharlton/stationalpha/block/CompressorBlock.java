@@ -12,11 +12,6 @@ public class CompressorBlock extends Block {
     }
 
     @Override
-    protected BlockRenderer createRenderer() {
-        return new DefaultBlockRenderer(this);
-    }
-
-    @Override
     public Optional<BlockContainer> createContainer(Tile tile) {
         return Optional.of(new CompressorContainer(tile));
     }

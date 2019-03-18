@@ -40,7 +40,7 @@ public abstract class Block {
 
     protected abstract Optional<String> getTextureFileName();
 
-    Optional<ManagedTexture> getTexture() {
+    protected Optional<ManagedTexture> getTexture() {
         return texture;
     }
 
