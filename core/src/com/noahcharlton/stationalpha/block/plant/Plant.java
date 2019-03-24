@@ -4,6 +4,7 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRenderer;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -32,6 +33,8 @@ public abstract class Plant extends Block {
     protected Optional<String> getTextureFileName() {
         return Optional.of("plant/" + getPlantName() + ".png");
     }
+
+    public abstract Item getProduct();
 
     public abstract String getPlantName();
 

@@ -55,6 +55,17 @@ public final class Tile {
         return tiles;
     }
 
+    public Optional<Tile> getOpenAdjecent() {
+        ArrayList<Tile> adjacentTiles = this.getAdjacent();
+
+        for(Tile tile : adjacentTiles){
+            if(!tile.getBlock().isPresent())
+                return Optional.of(tile);
+        }
+
+        return Optional.empty();
+    }
+
     public void updateOxygen(){
         getAdjacent().forEach(tile -> {
             boolean needsOxygen = tile.oxygenLevel < this.oxygenLevel;

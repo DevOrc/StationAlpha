@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 public class PlantContainerTests {
 
     private final PlantContainer plantContainer;
+    private final World world;
     private final Tile tile;
 
     public PlantContainerTests() {
-        World world = new World();
-
+        world = new World();
         tile = world.getTileAt(0, 0).get();
         tile.setBlock(Blocks.getTestPlant());
         plantContainer = (PlantContainer) tile.getContainer().get();

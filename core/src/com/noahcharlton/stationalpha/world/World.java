@@ -76,8 +76,6 @@ public class World {
 
         if(DebugKeys.isDebugPressed(DebugKeys.INVENTORY)){
             inventory.changeAmountForItem(Item.TEST_ITEM, 1);
-        }else{
-            inventory.changeAmountForItem(Item.TEST_ITEM, -1);
         }
     }
 
