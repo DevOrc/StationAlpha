@@ -72,11 +72,16 @@ public class World {
 
     private void update() {
         updateTiles();
-        workers.forEach(Worker::update);
+        updateWorkers();
 
         if(DebugKeys.isDebugPressed(DebugKeys.INVENTORY)){
             inventory.changeAmountForItem(Item.TEST_ITEM, 1);
         }
+    }
+
+    void updateWorkers() {
+        workers.forEach(Worker::update);
+        workers.removeIf(Worker::isDead);
     }
 
     private void updateTiles() {

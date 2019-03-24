@@ -71,4 +71,11 @@ public class WorkerTests {
             worker.getTileOn();
         });
     }
+
+    @Test
+    void workerDieBasicTest() {
+        worker.die("");
+
+        Assertions.assertTrue(worker.isDead());
+    }
 }

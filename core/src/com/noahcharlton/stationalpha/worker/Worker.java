@@ -3,15 +3,19 @@ package com.noahcharlton.stationalpha.worker;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Worker {
 
+    private static final Logger logger = LogManager.getLogger(Worker.class);
     private final World world;
     private final WorkerAI ai;
     private final String name;
 
     protected int pixelX;
     protected int pixelY;
+    private boolean dead = false;
 
     public Worker(String name, World world) {
         this.name = name;
@@ -25,6 +29,11 @@ public class Worker {
 
     public void update(){
         ai.update();
+    }
+
+    public void die(String reason){
+        logger.debug("Worker Died ({}): {}", name, reason);
+        dead = true;
     }
 
     public static Worker create(World world){
@@ -72,5 +81,9 @@ public class Worker {
 
     public WorkerAI getAi() {
         return ai;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 }

@@ -76,6 +76,14 @@ public class WorldTests {
 
         Assertions.assertEquals(2, container.updateCount);
     }
+
+    @Test
+    void removeDeadWorkersTest() {
+        world.getWorkers().get(0).die("");
+        world.updateWorkers();
+
+        Assertions.assertEquals(0, world.getWorkers().size());
+    }
 }
 class BlockUpdateTestContainer extends BlockContainer {
 
