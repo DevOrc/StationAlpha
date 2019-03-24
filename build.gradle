@@ -11,8 +11,7 @@ buildscript {
     }
 
     dependencies {
-        
-
+        classpath 'org.kordamp.gradle:stats-gradle-plugin:0.2.2'
     }
 }
 
