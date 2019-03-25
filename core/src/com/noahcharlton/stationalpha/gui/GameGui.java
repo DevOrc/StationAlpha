@@ -6,8 +6,9 @@ import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.DebugBox;
 import com.noahcharlton.stationalpha.gui.scenes.ItemList;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BlockMenu;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.FloorMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.GoalMenu;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,11 +19,12 @@ public class GameGui extends GuiComponent {
     private final BuildBar buildBar;
     private final ItemList itemList;
 
-    private final BuildMenu blockMenu = new BlockMenu();
-    private final BuildMenu floorMenu = new FloorMenu();
+    private final BuildBarMenu blockMenu = new BlockMenu();
+    private final BuildBarMenu floorMenu = new FloorMenu();
+    private final BuildBarMenu goalMenu = new GoalMenu();
 
     public GameGui() {
-        List<BuildMenu> menus = Arrays.asList(blockMenu, floorMenu);
+        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu,  goalMenu);
 
         debugBox = new DebugBox();
         buildBar = new BuildBar(menus);

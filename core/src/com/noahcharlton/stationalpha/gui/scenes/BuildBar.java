@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.gui.components.ComponentGroup;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.layout.HStretchLayout;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +17,7 @@ public class BuildBar extends ComponentGroup {
 
     private final HStretchLayout layoutManager;
 
-    public BuildBar(List<BuildMenu> menus) {
+    public BuildBar(List<BuildBarMenu> menus) {
         layoutManager = new HStretchLayout();
         layoutManager.setHGap(8);
         layoutManager.setPadding(5);
@@ -27,14 +27,14 @@ public class BuildBar extends ComponentGroup {
         setDrawBorder(true, true, false, false);
     }
 
-    private void addMenus(List<BuildMenu> menus) {
-        for(BuildMenu menu : menus){
+    private void addMenus(List<BuildBarMenu> menus) {
+        for(BuildBarMenu menu : menus){
             MenuButton menuButton = new MenuButton(menu.getName(), createRunnable(menus, menu));
             addGui(menuButton);
         }
     }
 
-    private Runnable createRunnable(List<BuildMenu> menus, BuildMenu menu) {
+    private Runnable createRunnable(List<BuildBarMenu> menus, BuildBarMenu menu) {
         return () -> {
             boolean previouslyVisible = menu.isVisible();
 

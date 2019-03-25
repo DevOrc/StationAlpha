@@ -7,12 +7,12 @@ import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 
 import java.util.List;
 
-public abstract class BuildMenu<T> extends ComponentGroup {
+public abstract class BuildBarMenu<T> extends ComponentGroup {
 
     private static final int WIDTH = 225;
     private static final int HEIGHT = 330;
 
-    public BuildMenu(List<T> items) {
+    public BuildBarMenu(List<T> items) {
         super(new VStretchLayout());
         setDrawBorder(true, true, false,false);
 
