@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 
 public class GoalManagerTests {
 
+    private final World world = new World();
     private final TestGoal goal = new TestGoal();
-    private final GoalManager goalManager = new GoalManager(new World(), goal);
+    private final GoalManager goalManager = new GoalManager(world, goal);
 
     @Test
     void goalNotCompletedYetBasicTest() {
@@ -34,4 +35,12 @@ public class GoalManagerTests {
 
         Assertions.assertSame(nextGoal, goalManager.getCurrentGoal().get());
     }
+
+    @Test
+    void onGoalCompletedAddWorkerTest() {
+        goal.setGoalAchieved(true);
+        goalManager.update();
+        Assertions.assertEquals(2, world.getWorkers().size());
+    }
+
 }

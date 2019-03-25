@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.world.World;
 
 import java.util.Optional;
@@ -19,7 +20,13 @@ public class GoalManager {
 
         if(currentGoal.map(Goal::isCompleted).orElse(false)){
             currentGoal = currentGoal.get().getNextGoal(world);
+
+            addWorker();
         }
+    }
+
+    private void addWorker() {
+        world.getWorkers().add(Worker.create(world));
     }
 
     public Optional<Goal> getCurrentGoal() {
