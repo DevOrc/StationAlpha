@@ -5,6 +5,8 @@ import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
+import com.noahcharlton.stationalpha.goal.GoalManager;
+import com.noahcharlton.stationalpha.goal.PotatoGoal;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;
@@ -21,6 +23,7 @@ public class World {
     private final Tile[][] tiles = new Tile[WORLD_TILE_SIZE][WORLD_TILE_SIZE];
     private final ArrayList<Worker> workers = new ArrayList<>();
     private final Inventory inventory = new Inventory();
+    private final GoalManager goalManager = new GoalManager(this, new PotatoGoal(this, 5));
 
     public World() {
         this(false);
@@ -79,6 +82,7 @@ public class World {
     private void update() {
         updateTiles();
         updateWorkers();
+        goalManager.update();
 
         if(DebugKeys.isDebugPressed(DebugKeys.INVENTORY)){
             inventory.changeAmountForItem(Item.TEST_ITEM, 1);
@@ -124,6 +128,10 @@ public class World {
             return Optional.empty();
 
         return Optional.of(tiles[x][y]);
+    }
+
+    public GoalManager getGoalManager() {
+        return goalManager;
     }
 
     public ArrayList<Worker> getWorkers() {
