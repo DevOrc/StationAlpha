@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.block;
 
 import com.noahcharlton.stationalpha.block.door.DoorBlock;
+import com.noahcharlton.stationalpha.block.plant.PotatoPlant;
 import com.noahcharlton.stationalpha.block.plant.TestPlant;
 
 import java.util.ArrayList;
@@ -14,13 +15,14 @@ public class Blocks {
     private static Block door = new DoorBlock();
     private static Block compressor = new CompressorBlock();
     private static Block testPlant = new TestPlant();
+    private static Block potatoPlant = new PotatoPlant();
     private static Block ice;
 
     public static void init(){
         ice = createSimple("ice.png");
         ice.setOpaque(true);
 
-        Collections.addAll(blocks, wall, door, compressor, ice, testPlant);
+        Collections.addAll(blocks, wall, door, compressor, ice, testPlant, potatoPlant);
     }
 
     private static Block createSimple(String textureName) {
@@ -50,6 +52,10 @@ public class Blocks {
 
     public static Block getTestPlant() {
         return testPlant;
+    }
+
+    public static Block getPotatoPlant() {
+        return potatoPlant;
     }
 
     public static ArrayList<Block> getBlocks() {
