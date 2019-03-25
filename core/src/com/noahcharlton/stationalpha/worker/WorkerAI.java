@@ -10,11 +10,13 @@ public class WorkerAI {
 
     private final WorkerMovementManager movementManager;
     private final WorkerJobManager jobManager;
+    private final WorkerNeedsManager needsManager;
 
     WorkerAI(Worker worker) {
         this.worker = worker;
         this.movementManager = new WorkerMovementManager(this, worker);
         this.jobManager = new WorkerJobManager(worker);
+        this.needsManager = new WorkerNeedsManager(worker);
     }
 
     public void update(){
@@ -24,6 +26,7 @@ public class WorkerAI {
             movementManager.update();
         }
 
+        needsManager.update();
         jobManager.update();
         jobManager.getCurrentJob().ifPresent(job -> movementManager.setTargetTile(job.getTarget()));
     }
@@ -50,5 +53,9 @@ public class WorkerAI {
 
     public WorkerJobManager getJobManager() {
         return jobManager;
+    }
+
+    public WorkerNeedsManager getNeedsManager() {
+        return needsManager;
     }
 }

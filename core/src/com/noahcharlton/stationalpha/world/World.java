@@ -31,8 +31,14 @@ public class World {
 
         workers.add(Worker.create(this));
 
-        if(generate)
+        if(generate){
             generateWorld();
+            giveStartingItems();
+        }
+    }
+
+    private void giveStartingItems() {
+        inventory.changeAmountForItem(Item.POTATO, 10);
     }
 
     public void triggerWorldUpdate(int x, int y){
