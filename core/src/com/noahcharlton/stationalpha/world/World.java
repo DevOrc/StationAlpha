@@ -75,11 +75,9 @@ public class World {
     public void render(SpriteBatch spriteBatch) {
         renderTiles(spriteBatch);
         renderWorkers(spriteBatch);
-
-        update();
     }
 
-    private void update() {
+    public void update() {
         updateTiles();
         updateWorkers();
         goalManager.update();

@@ -5,6 +5,7 @@ import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.DebugBox;
 import com.noahcharlton.stationalpha.gui.scenes.ItemList;
+import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BlockMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.FloorMenu;
@@ -18,6 +19,7 @@ public class GameGui extends GuiComponent {
     private final DebugBox debugBox;
     private final BuildBar buildBar;
     private final ItemList itemList;
+    private final SpeedButton speedButton;
 
     private final BuildBarMenu blockMenu = new BlockMenu();
     private final BuildBarMenu floorMenu = new FloorMenu();
@@ -29,8 +31,9 @@ public class GameGui extends GuiComponent {
         debugBox = new DebugBox();
         buildBar = new BuildBar(menus);
         itemList = new ItemList();
+        speedButton = new SpeedButton();
 
-        this.addAllGui(debugBox, buildBar, itemList);
+        this.addAllGui(debugBox, buildBar, itemList, speedButton);
         menus.forEach(this::addGui);
         menus.forEach(m -> m.setVisible(false));
     }

@@ -7,7 +7,7 @@ public class LibGdxTest {
 
     static {
         Gdx.files = new HeadlessFiles();
+
+        new StationAlpha();
     }
-
-
 }

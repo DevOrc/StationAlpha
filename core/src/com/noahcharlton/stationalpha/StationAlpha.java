@@ -22,6 +22,7 @@ public class StationAlpha extends ApplicationAdapter {
 
 	private GuiContainer guiContainer;
 	private Optional<World> world = Optional.empty();
+	private int ticksPerUpdate;
 
 	public StationAlpha() {
 		if(instance != null)
@@ -52,6 +53,14 @@ public class StationAlpha extends ApplicationAdapter {
 
 		gameRenderer.render();
 		guiContainer.render();
+
+		update();
+	}
+
+	private void update() {
+		for(int i = 0; i < ticksPerUpdate; i++){
+			world.ifPresent(World::update);
+		}
 	}
 
 	@Override
@@ -62,6 +71,14 @@ public class StationAlpha extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		AssetManager.getInstance().dispose();
+	}
+
+	public void setTicksPerUpdate(int ticksPerUpdate) {
+		this.ticksPerUpdate = ticksPerUpdate;
+	}
+
+	public int getTicksPerUpdate() {
+		return ticksPerUpdate;
 	}
 
 	public Optional<World> getWorld() {

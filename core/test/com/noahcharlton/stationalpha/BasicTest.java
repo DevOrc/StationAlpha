@@ -7,7 +7,12 @@ import org.junit.jupiter.api.Test;
 public class BasicTest extends LibGdxTest{
 
     @Test
-    public void basicTest() {
+    void stationAlphaInstanceTest() {
+        Assertions.assertNotNull(StationAlpha.getInstance());
+    }
+
+    @Test
+    void gdxFilesInstanceTest() {
         Assertions.assertNotNull(Gdx.files);
     }
 }
