@@ -10,6 +10,7 @@ import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BlockMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.FloorMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.GoalMenu;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageMenu;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,7 @@ public class GameGui extends GuiComponent {
     private final BuildBar buildBar;
     private final ItemList itemList;
     private final SpeedButton speedButton;
+    private final MessageMenu messageMenu;
 
     private final BuildBarMenu blockMenu = new BlockMenu();
     private final BuildBarMenu floorMenu = new FloorMenu();
@@ -32,8 +34,9 @@ public class GameGui extends GuiComponent {
         buildBar = new BuildBar(menus);
         itemList = new ItemList();
         speedButton = new SpeedButton();
+        messageMenu = new MessageMenu();
 
-        this.addAllGui(debugBox, buildBar, itemList, speedButton);
+        this.addAllGui(debugBox, buildBar, itemList, speedButton, messageMenu);
         menus.forEach(this::addGui);
         menus.forEach(m -> m.setVisible(false));
     }

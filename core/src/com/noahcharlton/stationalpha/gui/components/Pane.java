@@ -66,7 +66,10 @@ public abstract class Pane extends GuiComponent {
     }
 
     protected GlyphLayout drawCenteredText(SpriteBatch b, String text, int y){
-        return font.draw(b, text, getX(), getY() + y, getWidth(), Align.center, true);
+        int padding = BORDER_WIDTH * 2;
+
+        return font.draw(b, text, getX() + padding, getY() + y, getWidth() - (padding * 2),
+                Align.center, true);
     }
 
     protected abstract void updatePosition();
