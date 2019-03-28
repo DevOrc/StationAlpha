@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.worker;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -33,6 +34,8 @@ public class Worker {
 
     public void die(String reason){
         logger.debug("Worker Died ({}): {}", name, reason);
+        MessageQueue.getInstance().add("Worker Died!", reason);
+
         dead = true;
     }
 
