@@ -29,6 +29,27 @@ public class TileTests {
     }
 
     @Test
+    void setBlockDefaultContainerMultiblockFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+           tile.setBlock(Blocks.getWorkbench());
+        });
+    }
+
+    @Test
+    void setBlockMultiblockNullContainerFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+           tile.setBlock(Blocks.getWorkbench(), null);
+        });
+    }
+
+    @Test
+    void setBlockNonNullContainerWithNullBlockFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () ->{
+            tile.setBlock(null, Blocks.getDoor().createContainer(tile).get());
+        });
+    }
+
+    @Test
     void setBlockNoContainerTest() {
         NoContainerTestBlock block = new NoContainerTestBlock();
         tile.setBlock(block);

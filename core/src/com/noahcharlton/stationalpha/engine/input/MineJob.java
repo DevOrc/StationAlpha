@@ -34,6 +34,6 @@ public class MineJob extends TickBasedJob {
         logger.debug("Finished mining job!");
 
         inventory.changeAmountForItem(Item.SPACE_ROCK, 3);
-        rockTile.setBlock(null);
+        rockTile.setBlock(null, null);
     }
 }

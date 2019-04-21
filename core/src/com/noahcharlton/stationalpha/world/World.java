@@ -92,12 +92,24 @@ public class World {
         workers.removeIf(Worker::isDead);
     }
 
-    private void updateTiles() {
+    void updateTiles() {
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 tiles[x][y].updateOxygen();
-                tiles[x][y].getContainer().ifPresent(BlockContainer::onUpdate);
+
+                updateContainer(tiles[x][y]);
             }
+        }
+    }
+
+    private void updateContainer(Tile tile) {
+        if(!tile.getContainer().isPresent())
+            return;
+
+        BlockContainer container = tile.getContainer().get();
+
+        if(container.getTile().equals(tile)){
+            container.onUpdate();
         }
     }
 

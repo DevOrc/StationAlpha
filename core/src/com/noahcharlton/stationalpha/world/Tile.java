@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.Multiblock;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
 import java.util.ArrayList;
@@ -150,12 +151,27 @@ public final class Tile {
         return y;
     }
 
-    public void setBlock(Block block){
-        this.block = Optional.ofNullable(block);
+    public void setBlock(Block block, BlockContainer container){
+        if(block == null && container != null)
+            throw new IllegalArgumentException("Container must be null if block is null");
 
-        this.container = this.block.flatMap(b -> b.createContainer(this));
+        if(block instanceof Multiblock && container == null)
+            throw new IllegalArgumentException("Multiblocks must have a container!");
+
+        this.block = Optional.ofNullable(block);
+        this.container = Optional.ofNullable(container);
 
         world.triggerWorldUpdate(x, y);
+    }
+
+    public void setBlock(Block block){
+        if(block instanceof Multiblock)
+            throw new IllegalArgumentException("Block must not be a multi-block");
+
+        if(block != null)
+            setBlock(block, block.createContainer(this).orElse(null));
+        else
+            setBlock(null, null);
     }
 
     public void setFloor(Floor floor){
