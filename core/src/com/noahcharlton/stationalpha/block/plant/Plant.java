@@ -25,8 +25,8 @@ public abstract class Plant extends Block {
     }
 
     @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.of(new PlantContainer(tile, this));
+    public BlockContainer createContainer(Tile tile) {
+        return new PlantContainer(tile, this);
     }
 
     @Override

@@ -101,8 +101,8 @@ class BlockUpdateTestContainer extends BlockContainer {
 class BlockUpdateTestBlock extends Block{
 
     @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.of(new BlockUpdateTestContainer(tile, this));
+    public BlockContainer createContainer(Tile tile) {
+        return new BlockUpdateTestContainer(tile, this);
     }
 
     @Override

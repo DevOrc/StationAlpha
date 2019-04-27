@@ -45,8 +45,8 @@ class TestMultiblock extends Block implements Multiblock {
     }
 
     @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.of(new TestMultiblockContainer(tile, this));
+    public BlockContainer createContainer(Tile tile) {
+        return new TestMultiblockContainer(tile, this);
     }
 }
 class TestMultiblockContainer extends BlockContainer{

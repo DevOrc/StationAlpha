@@ -12,8 +12,8 @@ public class CompressorBlock extends Block {
     }
 
     @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.of(new CompressorContainer(tile));
+    public BlockContainer createContainer(Tile tile) {
+        return new CompressorContainer(tile);
     }
 }
 class CompressorContainer extends BlockContainer{

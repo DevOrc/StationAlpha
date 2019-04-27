@@ -18,8 +18,8 @@ public class Workbench extends Block implements Multiblock {
     }
 
     @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.of(new WorkbenchContainer(tile, this));
+    public BlockContainer createContainer(Tile tile) {
+        return new WorkbenchContainer(tile, this);
     }
 
     @Override

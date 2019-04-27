@@ -45,26 +45,8 @@ public class TileTests {
     @Test
     void setBlockNonNullContainerWithNullBlockFailsTest() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->{
-            tile.setBlock(null, Blocks.getDoor().createContainer(tile).get());
+            tile.setBlock(null, Blocks.getDoor().createContainer(tile));
         });
-    }
-
-    @Test
-    void setBlockNoContainerTest() {
-        NoContainerTestBlock block = new NoContainerTestBlock();
-        tile.setBlock(block);
-
-        Assertions.assertFalse(tile.getContainer().isPresent());
-    }
-
-    @Test
-    void setBlockOverrideContainerWithEmptyTest() {
-        tile.setBlock(Blocks.getDoor());
-
-        Assertions.assertTrue(tile.getContainer().isPresent());
-
-        tile.setBlock(new NoContainerTestBlock());
-        Assertions.assertFalse(tile.getContainer().isPresent());
     }
 
     @Test
@@ -75,6 +57,11 @@ public class TileTests {
 
         tile.setBlock(null);
         Assertions.assertFalse(tile.getContainer().isPresent());
+    }
+
+    @Test
+    void setBlockNotNullContainerNullFailsTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> tile.setBlock(Blocks.getIce(), null));
     }
 
     @Test
@@ -147,26 +134,14 @@ public class TileTests {
         Assertions.assertFalse(origin.getAdjacent().contains(corner));
     }
 }
-class NoContainerTestBlock extends Block{
-
-    @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.empty();
-    }
-
-    @Override
-    protected Optional<String> getTextureFileName() {
-        return Optional.empty();
-    }
-}
 class ContainerCountTestBlock extends Block {
 
     private int containerCount;
 
     @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
+    public BlockContainer createContainer(Tile tile) {
         containerCount++;
-        return Optional.empty();
+        return super.createContainer(tile);
     }
 
     @Override

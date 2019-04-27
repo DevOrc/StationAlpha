@@ -155,8 +155,8 @@ public final class Tile {
         if(block == null && container != null)
             throw new IllegalArgumentException("Container must be null if block is null");
 
-        if(block instanceof Multiblock && container == null)
-            throw new IllegalArgumentException("Multiblocks must have a container!");
+        if(block != null && container == null)
+            throw new IllegalArgumentException("Container cannot be null if block is not null!");
 
         this.block = Optional.ofNullable(block);
         this.container = Optional.ofNullable(container);
@@ -169,7 +169,7 @@ public final class Tile {
             throw new IllegalArgumentException("Block must not be a multi-block");
 
         if(block != null)
-            setBlock(block, block.createContainer(this).orElse(null));
+            setBlock(block, block.createContainer(this));
         else
             setBlock(null, null);
     }

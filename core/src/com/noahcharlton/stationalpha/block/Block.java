@@ -26,8 +26,8 @@ public abstract class Block {
         return getTextureFileName().map(path -> new ManagedTexture("blocks/" + path));
     }
 
-    public Optional<BlockContainer> createContainer(Tile tile){
-        return Optional.empty();
+    public BlockContainer createContainer(Tile tile){
+        return new BlockContainer(tile, this);
     }
 
     public static BlockContainer getContainerFromTile(Tile tile){
@@ -45,7 +45,7 @@ public abstract class Block {
     }
 
     public String getDisplayName(){
-        return getTextureFileName().orElse("Block");
+        return getTextureFileName().orElse(getTextureFileName().orElse("Unnamed Block"));
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.noahcharlton.stationalpha.world;
 
 import com.noahcharlton.stationalpha.block.Block;
-import com.noahcharlton.stationalpha.block.BlockContainer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -90,11 +89,6 @@ class OpaqueTestBlock extends Block {
 
     public OpaqueTestBlock() {
         setOpaque(true);
-    }
-
-    @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.empty();
     }
 
     @Override

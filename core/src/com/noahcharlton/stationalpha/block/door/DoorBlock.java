@@ -53,12 +53,17 @@ public class DoorBlock extends Block implements BlockRenderer {
     }
 
     @Override
-    public Optional<BlockContainer> createContainer(Tile tile) {
-        return Optional.of(new DoorContainer(tile, this));
+    public BlockContainer createContainer(Tile tile) {
+        return new DoorContainer(tile, this);
     }
 
     @Override
     protected Optional<String> getTextureFileName() {
         return Optional.empty();
+    }
+
+    @Override
+    public String getDisplayName() {
+        return "Door";
     }
 }

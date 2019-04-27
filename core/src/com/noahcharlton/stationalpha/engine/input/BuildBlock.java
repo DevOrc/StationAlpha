@@ -61,7 +61,7 @@ public class BuildBlock implements BuildAction {
     private void build(Tile tile, Block block) {
         if(checkBlock(tile, block)) return;
 
-        BlockContainer container = block.createContainer(tile).orElse(null);
+        BlockContainer container = block.createContainer(tile);
 
         if(block instanceof Multiblock)
             buildMultiblock(tile, (Multiblock) block, container);
