@@ -16,7 +16,8 @@ public class BuildManagerTests {
 
     @Test
     void buildBasicWallTest() {
-        Tile tile = new Tile(0,0, new World());
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
         buildManager.build(tile, Input.Buttons.LEFT);
@@ -26,7 +27,8 @@ public class BuildManagerTests {
 
     @Test
     void buildBasicIceTest() {
-        Tile tile = new Tile(0,0, new World());
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getIce())));
         buildManager.build(tile, Input.Buttons.LEFT);
@@ -36,8 +38,9 @@ public class BuildManagerTests {
 
     @Test
     void buildOverrideBlockTest() {
-        Tile tile = new Tile(0,0, new World());
-        tile.setBlock(Blocks.getIce());
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
+        tile.setBlock(Blocks.getWall());
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
         buildManager.build(tile, Input.Buttons.LEFT);
@@ -47,7 +50,8 @@ public class BuildManagerTests {
 
     @Test
     void destroyBasicWallTest() {
-        Tile tile = new Tile(0,0, new World());
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
         tile.setBlock(Blocks.getIce());
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
@@ -58,7 +62,8 @@ public class BuildManagerTests {
 
     @Test
     void buildBasicFloorTest() {
-        Tile tile = new Tile(0,0, new World());
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
 
         buildManager.setAction(Optional.of(new BuildFloor(Floor.WOOD)));
         buildManager.build(tile, Input.Buttons.LEFT);
@@ -68,7 +73,8 @@ public class BuildManagerTests {
 
     @Test
     void buildOverrideFloorTest() {
-        Tile tile = new Tile(0,0, new World());
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
         tile.setFloor(Floor.WOOD);
 
         buildManager.setAction(Optional.of(new BuildFloor(Floor.METAL)));

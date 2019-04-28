@@ -16,6 +16,14 @@ public class BlockContainer {
 
     public void onBlockUpdate(){}
 
+    public final int getWidth(){
+        return block.getDimensionedWidth();
+    }
+
+    public final int getHeight(){
+        return block.getDimensionedHeight();
+    }
+
     public Block getBlock() {
         return block;
     }

@@ -3,7 +3,6 @@ package com.noahcharlton.stationalpha.world;
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
-import com.noahcharlton.stationalpha.block.Multiblock;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ public class MultiblockUpdateTests {
         Assertions.assertEquals(1, container.getUpdateCount());
     }
 }
-class TestMultiblock extends Block implements Multiblock {
+class TestMultiblock extends Block {
 
     @Override
     protected Optional<String> getTextureFileName() {
@@ -35,12 +34,12 @@ class TestMultiblock extends Block implements Multiblock {
     }
 
     @Override
-    public int getWidth() {
+    protected int getDimensionedWidth() {
         return 5;
     }
 
     @Override
-    public int getHeight() {
+    protected int getDimensionedHeight() {
         return 5;
     }
 

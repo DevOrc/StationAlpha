@@ -48,6 +48,14 @@ public abstract class Block {
         return getTextureFileName().orElse(getTextureFileName().orElse("Unnamed Block"));
     }
 
+    protected int getDimensionedWidth(){
+        return 1;
+    }
+
+    protected int getDimensionedHeight(){
+        return 1;
+    }
+
     @Override
     public String toString() {
         return getDisplayName();

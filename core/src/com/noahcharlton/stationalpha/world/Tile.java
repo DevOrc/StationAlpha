@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
-import com.noahcharlton.stationalpha.block.Multiblock;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
 import java.util.ArrayList;
@@ -165,9 +164,6 @@ public final class Tile {
     }
 
     public void setBlock(Block block){
-        if(block instanceof Multiblock)
-            throw new IllegalArgumentException("Block must not be a multi-block");
-
         if(block != null)
             setBlock(block, block.createContainer(this));
         else

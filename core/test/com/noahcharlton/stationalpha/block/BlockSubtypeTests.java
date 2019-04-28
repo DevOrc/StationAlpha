@@ -20,6 +20,18 @@ public class BlockSubtypeTests extends LibGdxTest {
     }
 
     @ParameterizedTest
+    @MethodSource("getBlockArguments")
+    void nonNegativeDimensionedWidth(Block block) {
+        Assertions.assertTrue(block.getDimensionedWidth() > 0);
+    }
+
+    @ParameterizedTest
+    @MethodSource("getBlockArguments")
+    void nonNegativeDimensionedHeight(Block block) {
+        Assertions.assertTrue(block.getDimensionedHeight() > 0);
+    }
+
+    @ParameterizedTest
     @MethodSource("getTextureBlockArguments")
     void blockTextureTest(Block block) {
         assertBlockTexture(block);
