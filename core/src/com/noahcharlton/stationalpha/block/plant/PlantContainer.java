@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.block.plant;
 
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Inventory;
@@ -18,8 +19,8 @@ public class PlantContainer extends BlockContainer {
     private int stage;
     private int tick;
 
-    public PlantContainer(Tile tile, Plant plant) {
-        super(tile, plant);
+    public PlantContainer(Tile tile, Plant plant, BlockRotation rotation) {
+        super(tile, plant, rotation);
 
         this.plant = plant;
     }

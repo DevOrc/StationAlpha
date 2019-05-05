@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.block.door;
 
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -14,8 +15,8 @@ public class DoorContainer extends BlockContainer {
 
     private Orientation orientation;
 
-    public DoorContainer(Tile tile, Block block) {
-        super(tile, block);
+    public DoorContainer(Tile tile, Block block, BlockRotation rotation) {
+        super(tile, block, rotation);
 
         orientation = Orientation.EAST_WEST;
     }

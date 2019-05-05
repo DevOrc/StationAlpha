@@ -6,5 +6,7 @@ public interface BuildAction {
 
     void onClick(Tile tile, int button);
 
+    default void onKeyPressed(int keycode){}
+
     String getName();
 }

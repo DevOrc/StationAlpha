@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.world;
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -44,16 +45,17 @@ class TestMultiblock extends Block {
     }
 
     @Override
-    public BlockContainer createContainer(Tile tile) {
-        return new TestMultiblockContainer(tile, this);
+    public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
+        return new TestMultiblockContainer(tile, this, rotation);
     }
 }
 class TestMultiblockContainer extends BlockContainer{
 
     private int updateCount;
 
-    public TestMultiblockContainer(Tile tile, Block block) {
-        super(tile, block);
+    public TestMultiblockContainer(Tile tile, Block block, BlockRotation rotation) {
+        super(tile, block, rotation);
+        this.updateCount = 0;
     }
 
     @Override

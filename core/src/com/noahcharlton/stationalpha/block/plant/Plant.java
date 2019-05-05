@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block.plant;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRenderer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -25,8 +26,8 @@ public abstract class Plant extends Block {
     }
 
     @Override
-    public BlockContainer createContainer(Tile tile) {
-        return new PlantContainer(tile, this);
+    public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
+        return new PlantContainer(tile, this, rotation);
     }
 
     @Override

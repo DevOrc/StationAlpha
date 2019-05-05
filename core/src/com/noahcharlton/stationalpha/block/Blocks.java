@@ -18,13 +18,16 @@ public class Blocks {
     private static Block testPlant = new TestPlant();
     private static Block potatoPlant = new PotatoPlant();
     private static Block workbench = new Workbench();
+    private static Block testRotate;
     private static Block ice;
 
     public static void init(){
+        testRotate = createSimple("test_rotate.png");
+        testRotate.setOpaque(true);
         ice = createSimple("ice.png");
         ice.setOpaque(true);
 
-        Collections.addAll(blocks, wall, door, compressor, ice, testPlant, potatoPlant, workbench);
+        Collections.addAll(blocks, wall, door, compressor, ice, testRotate, testPlant, potatoPlant, workbench);
     }
 
     private static Block createSimple(String textureName) {

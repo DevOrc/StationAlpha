@@ -12,14 +12,14 @@ public class CompressorBlock extends Block {
     }
 
     @Override
-    public BlockContainer createContainer(Tile tile) {
-        return new CompressorContainer(tile);
+    public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
+        return new CompressorContainer(tile, rotation);
     }
 }
 class CompressorContainer extends BlockContainer{
 
-    public CompressorContainer(Tile tile) {
-        super(tile, Blocks.getCompressor());
+    public CompressorContainer(Tile tile, BlockRotation rotation) {
+        super(tile, Blocks.getCompressor(), rotation);
     }
 
     @Override

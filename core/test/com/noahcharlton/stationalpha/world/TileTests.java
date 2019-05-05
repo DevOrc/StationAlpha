@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.world;
 
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ public class TileTests {
     @Test
     void setBlockNonNullContainerWithNullBlockFailsTest() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->{
-            tile.setBlock(null, Blocks.getDoor().createContainer(tile));
+            tile.setBlock(null, Blocks.getDoor().createContainer(tile, BlockRotation.NORTH));
         });
     }
 
@@ -132,9 +133,9 @@ class ContainerCountTestBlock extends Block {
     private int containerCount;
 
     @Override
-    public BlockContainer createContainer(Tile tile) {
+    public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         containerCount++;
-        return super.createContainer(tile);
+        return super.createContainer(tile, rotation);
     }
 
     @Override

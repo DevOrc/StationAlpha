@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.world;
 
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -101,7 +102,7 @@ class BlockUpdateTestContainer extends BlockContainer {
 class BlockUpdateTestBlock extends Block{
 
     @Override
-    public BlockContainer createContainer(Tile tile) {
+    public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         return new BlockUpdateTestContainer(tile, this);
     }
 

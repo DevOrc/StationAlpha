@@ -58,6 +58,8 @@ public class InputHandler implements SimpleInputProcessor {
                     break;
             }
         }
+
+        buildManager.getAction().ifPresent(action -> action.onKeyPressed(keycode));
         return false;
     }
 

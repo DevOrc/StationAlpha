@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.engine.input;
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 public class BuildBlock implements BuildAction {
 
     private final Block block;
+    private BlockRotation rotation = BlockRotation.NORTH;
 
     public BuildBlock(Block block) {
         Objects.requireNonNull(block, "block cannot be null!");
@@ -20,9 +22,16 @@ public class BuildBlock implements BuildAction {
     }
 
     @Override
+    public void onKeyPressed(int keycode) {
+        if(keycode == Input.Keys.R){
+            rotation = rotation.getNext();
+        }
+    }
+
+    @Override
     public void onClick(Tile tile, int button) {
         if(button == Input.Buttons.LEFT) {
-            build(tile, block.createContainer(tile));
+            build(tile, block.createContainer(tile, rotation));
         }
 
         if(button == Input.Buttons.RIGHT) {

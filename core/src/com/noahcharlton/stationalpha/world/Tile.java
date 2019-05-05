@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
 import java.util.ArrayList;
@@ -165,7 +166,7 @@ public final class Tile {
 
     public void setBlock(Block block){
         if(block != null)
-            setBlock(block, block.createContainer(this));
+            setBlock(block, block.createContainer(this, BlockRotation.NORTH));
         else
             setBlock(null, null);
     }

@@ -16,7 +16,7 @@ public class BlockSubtypeTests extends LibGdxTest {
     void createContainerIsNotNullTest(Block block) {
         World world = new World();
 
-        Assertions.assertNotNull(block.createContainer(world.getTileAt(0, 0).get()));
+        Assertions.assertNotNull(block.createContainer(world.getTileAt(0, 0).get(), BlockRotation.NORTH));
     }
 
     @ParameterizedTest

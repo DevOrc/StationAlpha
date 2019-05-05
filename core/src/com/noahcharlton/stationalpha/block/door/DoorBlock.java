@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRenderer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.world.Tile;
 
@@ -53,8 +54,8 @@ public class DoorBlock extends Block implements BlockRenderer {
     }
 
     @Override
-    public BlockContainer createContainer(Tile tile) {
-        return new DoorContainer(tile, this);
+    public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
+        return new DoorContainer(tile, this, rotation);
     }
 
     @Override

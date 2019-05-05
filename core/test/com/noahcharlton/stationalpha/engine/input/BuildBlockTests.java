@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Block;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -40,7 +41,7 @@ public class BuildBlockTests {
         Block multiblock = Blocks.getWorkbench();
         Tile tile = world.getTileAt(0, 0).get();
 
-        Assertions.assertTrue(BuildBlock.checkBlock(tile, multiblock.createContainer(tile)));
+        Assertions.assertTrue(BuildBlock.checkBlock(tile, multiblock.createContainer(tile, BlockRotation.NORTH)));
     }
 
     @Test
@@ -48,7 +49,7 @@ public class BuildBlockTests {
         Block multiblock = Blocks.getWorkbench();
         Tile tile = world.getTileAt(World.WORLD_TILE_SIZE - 1, 0).get();
 
-        Assertions.assertFalse(BuildBlock.checkBlock(tile, multiblock.createContainer(tile)));
+        Assertions.assertFalse(BuildBlock.checkBlock(tile, multiblock.createContainer(tile, BlockRotation.NORTH)));
     }
 
     @Test
@@ -57,7 +58,7 @@ public class BuildBlockTests {
         Tile tile = world.getTileAt(0, 0).get();
         world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
 
-        Assertions.assertFalse(BuildBlock.checkBlock(tile, multiblock.createContainer(tile)));
+        Assertions.assertFalse(BuildBlock.checkBlock(tile, multiblock.createContainer(tile, BlockRotation.NORTH)));
     }
 
     @Test

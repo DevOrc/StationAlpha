@@ -26,8 +26,8 @@ public abstract class Block {
         return getTextureFileName().map(path -> new ManagedTexture("blocks/" + path));
     }
 
-    public BlockContainer createContainer(Tile tile){
-        return new BlockContainer(tile, this);
+    public BlockContainer createContainer(Tile tile, BlockRotation blockRotation){
+        return new BlockContainer(tile, this, blockRotation);
     }
 
     public static BlockContainer getContainerFromTile(Tile tile){

@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public class Workbench extends Block {
     @Override
-    public BlockContainer createContainer(Tile tile) {
-        return new WorkbenchContainer(tile, this);
+    public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
+        return new WorkbenchContainer(tile, this, rotation);
     }
 
     @Override
