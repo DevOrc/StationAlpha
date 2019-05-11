@@ -8,6 +8,7 @@ import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.GuiContainer;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,7 @@ public class StationAlpha extends ApplicationAdapter {
 		InputHandler.init();
 		Blocks.init();
 		Item.init();
+		ManufacturingRecipes.init();
 
 		guiContainer = new GuiContainer();
 		world = Optional.of(new World(true));

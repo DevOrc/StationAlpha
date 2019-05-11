@@ -23,6 +23,7 @@ public class World {
     private final Tile[][] tiles = new Tile[WORLD_TILE_SIZE][WORLD_TILE_SIZE];
     private final ArrayList<Worker> workers = new ArrayList<>();
     private final Inventory inventory = new Inventory();
+    private final ManufacturingManager manufacturingManager = new ManufacturingManager();
     private final GoalManager goalManager = new GoalManager(this, new PotatoGoal(this, 5));
 
     public World() {
@@ -131,6 +132,10 @@ public class World {
                     tile.drawOxygen(spriteBatch);
             }
         }
+    }
+
+    public ManufacturingManager getManufacturingManager() {
+        return manufacturingManager;
     }
 
     public Optional<Tile> getTileAt(int x, int y){

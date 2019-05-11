@@ -1,19 +1,25 @@
 package com.noahcharlton.stationalpha.block.workbench;
 
-import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Objects;
+
 public class WorkbenchJob extends TickBasedJob {
 
-    WorkbenchJob(Tile target) {
-        super(target, 120);
+    private final ManufacturingRecipe recipe;
+
+    WorkbenchJob(Tile target, ManufacturingRecipe recipe) {
+        super(target, recipe.getTime());
+
+        this.recipe = Objects.requireNonNull(recipe);
     }
 
     @Override
     public void finish() {
         super.finish();
 
-        getTarget().getWorld().getInventory().changeAmountForItem(Item.TEST_ITEM, 1);
+        getTarget().getWorld().getInventory().changeAmountForItem(recipe.getOutputItem(), recipe.getOutputAmount());
     }
 }

@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block.workbench;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -17,8 +18,8 @@ public class WorkbenchContainerTests {
 
     @Test
     void onDestroyCancelJobTest() {
-        world.getInventory().changeAmountForItem(Item.SPACE_ROCK, 1);
-        container.createJob();
+        setupRecipe();
+        container.createJobFromRecipe();
         container.onDestroy();
 
         Assertions.assertTrue(container.getJob().get().getStage() == Job.JobStage.PRE_START);
@@ -26,40 +27,63 @@ public class WorkbenchContainerTests {
     }
 
     @Test
-    void createJobNoRockReturnsFalse() {
-        Assertions.assertFalse(container.createJob());
+    void createJobNoRecipeInManagerTest() {
+        Assertions.assertFalse(container.createJobFromRecipe());
+    }
+
+    @Test
+    void notEnoughRockForRecipeDoesNotStartJobTest() {
+        world.getManufacturingManager().addRecipeToQueue(
+                new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1, 1));
+
+        Assertions.assertFalse(container.createJobFromRecipe());
+    }
+
+    @Test
+    void notEnoughRockForRecipeReAddsRecipeToQueueTest() {
+        world.getManufacturingManager().addRecipeToQueue(
+                new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1, 1));
+
+        Assertions.assertTrue(world.getManufacturingManager().getNextRecipe().isPresent());
     }
 
     @Test
     void createJobNoSpaceReturnsFalse() {
         world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
 
-        Assertions.assertFalse(container.createJob());
+        Assertions.assertFalse(container.createJobFromRecipe());
     }
 
     @Test
     void createJobBasicTest() {
-        world.getInventory().setAmountForItem(Item.SPACE_ROCK, 1);
+        setupRecipe();
 
-        Assertions.assertTrue(container.createJob());
+        Assertions.assertTrue(container.createJobFromRecipe());
     }
 
     @Test
     void createJobDecreaseRockTest() {
-        world.getInventory().setAmountForItem(Item.SPACE_ROCK, 1);
-        container.createJob();
+        setupRecipe();
+        container.createJobFromRecipe();
 
         Assertions.assertEquals(0, world.getInventory().getAmountForItem(Item.SPACE_ROCK));
     }
 
     @Test
     void emptyJobWhenFinished() {
-        world.getInventory().setAmountForItem(Item.SPACE_ROCK, 1);
-        container.createJob();
+        setupRecipe();
+        container.createJobFromRecipe();
 
         container.getJob().get().finish();
         container.onUpdate();
 
         Assertions.assertFalse(container.getJob().isPresent());
+    }
+
+    private void setupRecipe(){
+        world.getManufacturingManager().addRecipeToQueue(
+                new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1, 1));
+
+        world.getInventory().setAmountForItem(Item.SPACE_ROCK, 1);
     }
 }
