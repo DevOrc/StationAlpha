@@ -22,6 +22,8 @@ public class BlockContainer {
 
     public void onBlockUpdate(){}
 
+    public void onDestroy(){}
+
     public BlockRotation getRotation() {
         return rotation;
     }

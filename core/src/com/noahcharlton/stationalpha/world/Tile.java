@@ -158,6 +158,7 @@ public final class Tile {
         if(block != null && container == null)
             throw new IllegalArgumentException("Container cannot be null if block is not null!");
 
+        this.container.ifPresent(BlockContainer::onDestroy);
         this.block = Optional.ofNullable(block);
         this.container = Optional.ofNullable(container);
 

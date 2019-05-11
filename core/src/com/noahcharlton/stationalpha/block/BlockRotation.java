@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public enum BlockRotation {
 
-    NORTH(0), SOUTH(180), EAST(270), WEST(90);
+    NORTH(0), SOUTH(180), EAST(90), WEST(270);
 
     private int degrees;
 

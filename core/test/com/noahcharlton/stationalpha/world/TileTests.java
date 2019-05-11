@@ -127,6 +127,34 @@ public class TileTests {
 
         Assertions.assertFalse(origin.getAdjacent().contains(corner));
     }
+
+    @Test
+    void onDestroyBlockContainerTest() {
+        Tile tile = world.getTileAt(0, 0).get();
+        OnDestroyTestContainer container =  new OnDestroyTestContainer(tile, Blocks.getIce());
+        
+        tile.setBlock(Blocks.getIce(), container);
+        tile.setBlock(null);
+
+        Assertions.assertTrue(container.isDestroyed());
+    }
+}
+class OnDestroyTestContainer extends BlockContainer{
+
+    private boolean destroyed = false;
+
+    public OnDestroyTestContainer(Tile tile, Block block) {
+        super(tile, block);
+    }
+
+    @Override
+    public void onDestroy() {
+        destroyed = true;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
+    }
 }
 class ContainerCountTestBlock extends Block {
 

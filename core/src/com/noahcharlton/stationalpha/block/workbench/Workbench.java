@@ -13,7 +13,7 @@ public class Workbench extends Block {
 
     @Override
     protected int getDimensionedWidth() {
-        return 2;
+        return 3;
     }
 
     @Override

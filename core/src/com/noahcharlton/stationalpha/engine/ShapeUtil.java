@@ -28,14 +28,6 @@ public class ShapeUtil {
         b.setColor(Color.WHITE);
     }
 
-    public static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotX, int rotY, int rotation){
-        int width = t.getWidth();
-        int height = t.getHeight();
-
-        b.draw(t, x, y, rotX, rotY, width, height, 1, 1, rotation,
-                0, 0, width, height, false, false);
-    }
-
 
 
 }

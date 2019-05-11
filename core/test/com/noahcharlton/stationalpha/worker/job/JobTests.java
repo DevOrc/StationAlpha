@@ -5,14 +5,20 @@ import com.noahcharlton.stationalpha.worker.TestWorker;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class JobTests {
 
-    private Job job = getJob();
+    private Job job;
 
     public Job getJob() {
         return new Job(new Tile(0, 0, new World()));
+    }
+
+    @BeforeEach
+    void setUp() {
+        job = getJob();
     }
 
     @Test

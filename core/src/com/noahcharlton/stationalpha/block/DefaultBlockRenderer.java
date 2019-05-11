@@ -3,7 +3,6 @@ package com.noahcharlton.stationalpha.block;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.world.Tile;
 
 public class DefaultBlockRenderer implements BlockRenderer{
@@ -25,8 +24,28 @@ public class DefaultBlockRenderer implements BlockRenderer{
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
 
-        ShapeUtil.drawRotated(batch, texture, x, y, Tile.TILE_SIZE / 2, Tile.TILE_SIZE / 2,
+        drawRotated(batch, texture, x, y, Tile.TILE_SIZE / 2, Tile.TILE_SIZE / 2,
                 container.getRotation().getDegrees());
+    }
+
+    private static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotX, int rotY, int rotation){
+        int width = t.getWidth();
+        int height = t.getHeight();
+        boolean flipY = false;
+
+        if(rotation == 270){
+            flipY = true;
+            rotation = 90;
+        }
+
+        if(rotation == 180){
+            flipY = true;
+            rotation = 0;
+        }
+
+
+        b.draw(t, x, y, rotX, rotY, width, height, 1, 1, rotation,
+                0, 0, width, height, false, flipY);
     }
 
     private BlockContainer getContainer(Tile tile) {

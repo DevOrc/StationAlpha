@@ -18,7 +18,7 @@ public class BlockRotationTests {
         BlockContainer workbench = Blocks.getWorkbench().createContainer(world.getTileAt(0, 0).get(), rotation);
 
         Assertions.assertEquals(1, workbench.getWidth());
-        Assertions.assertEquals(2, workbench.getHeight());
+        Assertions.assertEquals(3, workbench.getHeight());
     }
 
     @ParameterizedTest
@@ -27,7 +27,7 @@ public class BlockRotationTests {
         World world = new World();
         BlockContainer workbench = Blocks.getWorkbench().createContainer(world.getTileAt(0, 0).get(), rotation);
 
-        Assertions.assertEquals(2, workbench.getWidth());
+        Assertions.assertEquals(3, workbench.getWidth());
         Assertions.assertEquals(1, workbench.getHeight());
     }
 
