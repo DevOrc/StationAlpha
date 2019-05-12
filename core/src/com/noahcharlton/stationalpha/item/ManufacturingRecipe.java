@@ -39,4 +39,9 @@ public class ManufacturingRecipe {
     public Item getOutputItem() {
         return outputItem;
     }
+
+    @Override
+    public String toString() {
+        return outputItem.getDisplayName();
+    }
 }

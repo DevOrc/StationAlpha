@@ -17,4 +17,7 @@ public class ManufacturingManager {
         return Optional.ofNullable(recipeQueue.poll());
     }
 
+    public ArrayDeque<ManufacturingRecipe> getRecipeQueue() {
+        return recipeQueue;
+    }
 }
