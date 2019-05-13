@@ -10,7 +10,7 @@ public class ManufacturingRecipes {
     private ManufacturingRecipes() {}
 
     public static void init(){
-        add(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1);
+        add(Item.SPACE_ROCK, 1, Item.STEEL, 3);
     }
 
     private static void add(Item input, int inputAmount, Item output, int outputAmount){

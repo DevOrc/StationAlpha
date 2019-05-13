@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
@@ -17,12 +18,35 @@ public class BuildBlockTests {
 
     @Test
     void basicBuildBlock() {
+        world.getInventory().changeAmountForItem(Item.STEEL, 1);
         BuildBlock buildBlock = new BuildBlock(Blocks.getWall());
         Tile tile = world.getTileAt(5, 5).get();
 
         buildBlock.onClick(tile, Input.Buttons.LEFT);
 
         Assertions.assertSame(Blocks.getWall(), tile.getBlock().get());
+    }
+
+    @Test
+    void buildBlockWithoutResourcesDoesNotWork() {
+        BuildBlock buildBlock = new BuildBlock(Blocks.getWall());
+        Tile tile = world.getTileAt(5, 5).get();
+
+        buildBlock.onClick(tile, Input.Buttons.LEFT);
+
+        Assertions.assertFalse(tile.getBlock().isPresent());
+    }
+
+    @Test
+    void buildBlockRemovesRequireResourcesTest() {
+        world.getInventory().setAmountForItem(Item.STEEL, 1);
+
+        BuildBlock buildBlock = new BuildBlock(Blocks.getWall());
+        Tile tile = world.getTileAt(5, 5).get();
+
+        buildBlock.onClick(tile, Input.Buttons.LEFT);
+
+        Assertions.assertEquals(0, world.getInventory().getAmountForItem(Item.STEEL));
     }
 
     @Test

@@ -62,9 +62,11 @@ public class BuildBlock implements BuildAction {
     }
 
     private void build(Tile tile, BlockContainer container) {
-        if(!checkBlock(tile, container)) return;
+        if(!checkBlock(tile, container) || !hasResourcesToBuild(block, tile.getWorld())) return;
 
         World world = tile.getWorld();
+        removeRequiredResources(world);
+
         int rootX = tile.getX();
         int rootY = tile.getY();
 
@@ -73,6 +75,18 @@ public class BuildBlock implements BuildAction {
                 world.getTileAt(x, y).get().setBlock(block, container);
             }
         }
+    }
+
+    private void removeRequiredResources(World world) {
+        block.getRequiredItem().ifPresent(item -> world.getInventory().changeAmountForItem(item, -1));
+    }
+
+    boolean hasResourcesToBuild(Block block, World world) {
+        if(block.getRequiredItem().isPresent()){
+            return world.getInventory().getAmountForItem(block.getRequiredItem().get()) > 0;
+        }
+
+        return true;
     }
 
     static boolean checkBlock(Tile tile, BlockContainer block) {

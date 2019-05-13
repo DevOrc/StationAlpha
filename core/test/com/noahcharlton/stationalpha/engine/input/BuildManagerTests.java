@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -17,6 +18,7 @@ public class BuildManagerTests {
     @Test
     void buildBasicWallTest() {
         World world = new World();
+        world.getInventory().changeAmountForItem(Item.STEEL, 1);
         Tile tile = world.getTileAt(0, 0).get();
 
         buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));

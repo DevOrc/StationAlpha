@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class WallBlockTests {
 
-    private World world = new World(false);
+    private World world = new World();
 
     @BeforeAll
     static void initBlocks() {

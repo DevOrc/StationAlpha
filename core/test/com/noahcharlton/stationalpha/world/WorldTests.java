@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class WorldTests {
 
-    private final World world = new World(false);
+    private final World world = new World();
 
     @Test
     void getTileAtBasicTest() {

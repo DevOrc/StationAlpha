@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Objects;
@@ -54,6 +55,10 @@ public abstract class Block {
 
     protected int getDimensionedHeight(){
         return 1;
+    }
+
+    public Optional<Item> getRequiredItem(){
+        return Optional.empty();
     }
 
     @Override

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 public class WorldGraphTests {
 
-    private final World world = new World(false);
+    private final World world = new World();
     private final WorldGraph graph = new WorldGraph(world);
 
     @Test

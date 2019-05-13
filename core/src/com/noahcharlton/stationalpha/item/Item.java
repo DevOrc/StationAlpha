@@ -6,7 +6,10 @@ import org.apache.logging.log4j.LogManager;
 
 public enum Item {
 
-    SPACE_ROCK("space_rock", "Space Rock"), TEST_ITEM("test_item", "Test Item"), POTATO("potato", "Potato");
+    SPACE_ROCK("space_rock", "Space Rock"),
+    TEST_ITEM("test_item", "Test Item"),
+    POTATO("potato", "Potato"),
+    STEEL("steel", "Steel");
 
     private final String displayName;
     private final String id;

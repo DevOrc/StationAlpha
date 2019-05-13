@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -14,6 +15,11 @@ public class WallBlock extends Block implements BlockRenderer{
 
     public WallBlock() {
         setOpaque(true);
+    }
+
+    @Override
+    public Optional<Item> getRequiredItem() {
+        return Optional.of(Item.STEEL);
     }
 
     @Override
