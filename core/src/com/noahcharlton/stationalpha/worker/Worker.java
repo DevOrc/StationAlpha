@@ -40,7 +40,7 @@ public class Worker {
     }
 
     public static Worker create(World world){
-        return new Worker("John Smith", world);
+        return new Worker(WorkerNameGenerator.generate(), world);
     }
 
     public void setPixelX(int pixelX) {

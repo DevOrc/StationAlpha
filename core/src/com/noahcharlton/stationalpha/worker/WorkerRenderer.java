@@ -1,8 +1,12 @@
 package com.noahcharlton.stationalpha.worker;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
+import com.noahcharlton.stationalpha.gui.GuiComponent;
 
 public class WorkerRenderer {
 
@@ -20,6 +24,16 @@ public class WorkerRenderer {
         checkRendererInitialized();
 
         batch.draw(workerTexture.get(), worker.getPixelX(), worker.getPixelY());
+
+        renderName(batch, worker);
+    }
+
+    private static void renderName(SpriteBatch batch, Worker worker) {
+        BitmapFont font = GuiComponent.getFont();
+        font.getData().setScale(.4f);
+        font.setColor(Color.WHITE);
+
+        font.draw(batch, worker.getName(), worker.getPixelX(), worker.getPixelY() - 10, 32, Align.center, false);
     }
 
     static void checkRendererInitialized() {
