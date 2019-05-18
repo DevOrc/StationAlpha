@@ -7,12 +7,16 @@ import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.EnumSet;
+
 public class Worker {
 
     private static final Logger logger = LogManager.getLogger(Worker.class);
     private final World world;
     private final WorkerAI ai;
     private final String name;
+
+    private final EnumSet<WorkerRole> roles = EnumSet.noneOf(WorkerRole.class);
 
     protected int pixelX;
     protected int pixelY;
@@ -26,6 +30,7 @@ public class Worker {
         this.pixelY = 0;
 
         this.ai = new WorkerAI(this);
+        addRole(WorkerRole.GARDENER);
     }
 
     public void update(){
@@ -64,6 +69,18 @@ public class Worker {
             return 0;
 
         return pos;
+    }
+
+    public void addRole(WorkerRole role){
+        roles.add(role);
+    }
+
+    public void removeRole(WorkerRole role){
+        roles.remove(role);
+    }
+
+    public EnumSet<WorkerRole> getRoles() {
+        return roles;
     }
 
     public World getWorld() {

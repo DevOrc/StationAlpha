@@ -78,4 +78,29 @@ public class WorkerTests {
 
         Assertions.assertTrue(worker.isDead());
     }
+
+    @Test
+    void workerDefaultRoleTest() {
+        Assertions.assertArrayEquals(new WorkerRole[]{WorkerRole.GENERAL}, worker.getRoles().toArray());
+    }
+
+    @Test
+    void cannotAddRoleMoreThanOnceTest() {
+        worker.getRoles().clear();
+
+        worker.addRole(WorkerRole.GENERAL);
+        worker.addRole(WorkerRole.GENERAL);
+
+        Assertions.assertEquals(1, worker.getRoles().size());
+    }
+
+    @Test
+    void removeRoleTest() {
+        worker.getRoles().clear();
+
+        worker.addRole(WorkerRole.GENERAL);
+        worker.removeRole(WorkerRole.GENERAL);
+
+        Assertions.assertEquals(0, worker.getRoles().size());
+    }
 }

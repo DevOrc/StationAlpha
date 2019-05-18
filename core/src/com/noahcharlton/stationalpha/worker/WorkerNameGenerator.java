@@ -15,7 +15,7 @@ public class WorkerNameGenerator {
     };
 
     public static String generate() {
-        return randomFromArray(firstNames) + " " + randomFromArray(lastNames);
+        return randomFromArray(firstNames) + "  " + randomFromArray(lastNames);
     }
 
     static String randomFromArray(String[] list){

@@ -1,19 +1,47 @@
 package com.noahcharlton.stationalpha.worker;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class WorkerRendererTests {
 
     @Test
-    void workerTextureExistsTest() {
-        Assertions.assertTrue(Gdx.files.internal(WorkerRenderer.getPath()).exists());
+    void assertWorkerRolesLoadOnInit() {
+        WorkerRole.loadTextures();
+
+        // Will throw exception if not loaded
+        WorkerRenderer.checkRendererInitialized();
     }
 
     @Test
-    void checkRendererInitializedBasicTest() {
-        Assertions.assertThrows(GdxRuntimeException.class, WorkerRenderer::checkRendererInitialized);
+    void getRenderableRoleNoRolesTest() {
+        Worker worker = Worker.create(new World());
+
+        worker.getRoles().clear();
+
+        Assertions.assertEquals(WorkerRole.GENERAL, WorkerRenderer.getRenderableRole(worker));
+    }
+
+    @Test
+    void getRenderableRoleSingleRoleTest() {
+        Worker worker = Worker.create(new World());
+
+        worker.getRoles().clear();
+        worker.addRole(WorkerRole.ENGINEER);
+
+        Assertions.assertEquals(WorkerRole.ENGINEER, WorkerRenderer.getRenderableRole(worker));
+    }
+
+
+    @Test
+    void getRenderableRoleMultipleRoleTest() {
+        Worker worker = Worker.create(new World());
+
+        worker.getRoles().clear();
+        worker.addRole(WorkerRole.GENERAL);
+        worker.addRole(WorkerRole.GARDENER);
+
+        Assertions.assertEquals(WorkerRole.GENERAL, WorkerRenderer.getRenderableRole(worker));
     }
 }
