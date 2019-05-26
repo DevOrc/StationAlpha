@@ -30,7 +30,7 @@ public class Worker {
         this.pixelY = 0;
 
         this.ai = new WorkerAI(this);
-        addRole(WorkerRole.GARDENER);
+        addRole(WorkerRole.GENERAL);
     }
 
     public void update(){
@@ -69,6 +69,11 @@ public class Worker {
             return 0;
 
         return pos;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     public void addRole(WorkerRole role){

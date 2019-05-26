@@ -24,7 +24,7 @@ public class World {
     private final ArrayList<Worker> workers = new ArrayList<>();
     private final Inventory inventory = new Inventory();
     private final ManufacturingManager manufacturingManager = new ManufacturingManager();
-    private final GoalManager goalManager = new GoalManager(this, new PotatoGoal(this, 50));
+    private final GoalManager goalManager = new GoalManager(this, new PotatoGoal(this, 5));
 
     /**
      * Used for testing

@@ -140,7 +140,7 @@ public abstract class GuiComponent {
         return visible;
     }
 
-    protected ArrayList<GuiComponent> getSubGuis() {
+    public ArrayList<GuiComponent> getSubGuis() {
         return subGuis;
     }
 

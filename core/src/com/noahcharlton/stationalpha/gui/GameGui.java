@@ -11,6 +11,7 @@ import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.FloorMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.GoalMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.ManufacturingMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu.WorkerMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageMenu;
 
 import java.util.Arrays;
@@ -28,9 +29,10 @@ public class GameGui extends GuiComponent {
     private final BuildBarMenu floorMenu = new FloorMenu();
     private final BuildBarMenu goalMenu = new GoalMenu();
     private final BuildBarMenu manufactureMenu = new ManufacturingMenu();
+    private final BuildBarMenu workerMenu = new WorkerMenu();
 
     public GameGui() {
-        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu,  goalMenu, manufactureMenu);
+        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu, workerMenu, goalMenu, manufactureMenu);
 
         debugBox = new DebugBox();
         buildBar = new BuildBar(menus);

@@ -12,4 +12,10 @@ public class WorkerRoleTextureTests {
     public void workerTextureExistsTest(WorkerRole workerRole){
         Assertions.assertTrue(Gdx.files.internal(workerRole.getWorkerTexture().getPath()).exists());
     }
+
+    @ParameterizedTest
+    @EnumSource(WorkerRole.class)
+    public void workerIconTextureTests(WorkerRole workerRole){
+        Assertions.assertTrue(Gdx.files.internal(workerRole.getIconTexture().getPath()).exists());
+    }
 }

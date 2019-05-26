@@ -19,7 +19,7 @@ public abstract class BuildBarMenu<T> extends ComponentGroup {
         createButtons(items);
     }
 
-    private void createButtons(List<T> items) {
+    protected void createButtons(List<T> items) {
         for(int i = 0; i < items.size(); i++){
             T item = items.get(i);
 
