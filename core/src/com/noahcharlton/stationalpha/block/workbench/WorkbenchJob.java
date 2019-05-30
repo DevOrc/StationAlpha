@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.block.workbench;
 
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
 import com.noahcharlton.stationalpha.world.Tile;
 
@@ -14,6 +15,11 @@ public class WorkbenchJob extends TickBasedJob {
         super(target, recipe.getTime());
 
         this.recipe = Objects.requireNonNull(recipe);
+    }
+
+    @Override
+    public WorkerRole getRequiredRole() {
+        return WorkerRole.ENGINEER;
     }
 
     @Override

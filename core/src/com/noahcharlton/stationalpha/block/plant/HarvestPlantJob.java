@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block.plant;
 
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
 import com.noahcharlton.stationalpha.world.Tile;
 
@@ -11,6 +12,11 @@ public class HarvestPlantJob extends TickBasedJob {
         super(targetTile, 60);
 
         this.container = plant;
+    }
+
+    @Override
+    public WorkerRole getRequiredRole() {
+        return WorkerRole.GARDENER;
     }
 
     @Override

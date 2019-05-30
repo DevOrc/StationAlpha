@@ -1,7 +1,9 @@
 package com.noahcharlton.stationalpha.worker.job;
 
 import com.noahcharlton.stationalpha.worker.Worker;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 
+import java.util.Iterator;
 import java.util.Optional;
 
 public class WorkerJobManager {
@@ -23,7 +25,14 @@ public class WorkerJobManager {
     }
 
     public void getJobFromQueue(){
-        jobQueue.get().ifPresent(this::setCurrentJob);
+        Iterator<WorkerRole> roles = worker.getRoles().iterator();
+
+        while(roles.hasNext()){
+            jobQueue.get(roles.next()).ifPresent(this::setCurrentJob);
+
+            if(getCurrentJob().isPresent())
+                break;
+        }
     }
 
     boolean needsJob(){

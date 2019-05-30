@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.worker.job;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.worker.Worker;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -11,6 +12,7 @@ public class Job {
     public enum JobStage{PRE_START, IN_PROGRESS, FINISHED}
 
     private final Tile target;
+
     private Optional<Worker> assignedWorker;
     private JobStage jobStage;
 
@@ -39,6 +41,10 @@ public class Job {
     public void cancel(){
         assignedWorker = Optional.empty();
         jobStage = JobStage.PRE_START;
+    }
+
+    public WorkerRole getRequiredRole(){
+        return WorkerRole.GENERAL;
     }
 
     public JobStage getStage() {

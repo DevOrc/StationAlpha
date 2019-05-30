@@ -1,7 +1,10 @@
 package com.noahcharlton.stationalpha.worker.job;
 
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import java.util.Optional;
 
@@ -10,10 +13,18 @@ public class JobQueueTests {
     private final JobQueue jobQueue = new JobQueue();
 
     @Test
-    void basicAddJobTest() {
-        jobQueue.addJob(new TestJob());
+    void hasQueueForAllRolesTest() {
+        for(WorkerRole role : WorkerRole.values()){
+            Assertions.assertNotNull(jobQueue.getJobQueue(role));
+        }
+    }
 
-        Assertions.assertEquals(1, jobQueue.getJobQueue().size());
+    @ParameterizedTest
+    @EnumSource(WorkerRole.class)
+    void basicAddJobTest(WorkerRole workerRole) {
+        jobQueue.addJob(new TestRoleJob(workerRole));
+
+        Assertions.assertEquals(1, jobQueue.getJobQueue(workerRole).size());
     }
 
     @Test
@@ -23,20 +34,34 @@ public class JobQueueTests {
         });
     }
 
-    @Test
-    void multipleJobFirstInFirstOutTest() {
-        Job one = new TestJob();
-        Job two = new TestJob();
+    @ParameterizedTest
+    @EnumSource(WorkerRole.class)
+    void multipleJobFirstInFirstOutTest(WorkerRole role) {
+        Job one = new TestRoleJob(role);
+        Job two = new TestRoleJob(role);
 
         jobQueue.addJob(one);
         jobQueue.addJob(two);
 
-        Assertions.assertSame(one, jobQueue.get().get());
-        Assertions.assertSame(two, jobQueue.get().get());
+        Assertions.assertSame(one, jobQueue.get(role).get());
+        Assertions.assertSame(two, jobQueue.get(role).get());
     }
 
-    @Test
-    void getReturnsEmptyOptionalWhenQueueEmptyTest() {
-        Assertions.assertEquals(Optional.empty(), jobQueue.get());
+    @ParameterizedTest
+    @EnumSource(WorkerRole.class)
+    void getReturnsEmptyOptionalWhenQueueEmptyTest(WorkerRole role) {
+        Assertions.assertEquals(Optional.empty(), jobQueue.get(role));
+    }
+}
+class TestRoleJob extends TestJob{
+
+    private final WorkerRole role;
+
+    public TestRoleJob(WorkerRole role) {
+        this.role = role;
+    }
+
+    public WorkerRole getRequiredRole() {
+        return role;
     }
 }

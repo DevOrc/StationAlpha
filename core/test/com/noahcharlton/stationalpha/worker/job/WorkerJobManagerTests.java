@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.worker.job;
 
 import com.noahcharlton.stationalpha.worker.TestWorker;
 import com.noahcharlton.stationalpha.worker.Worker;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -79,6 +80,22 @@ public class WorkerJobManagerTests {
         workerJobManager.getJobFromQueue();
 
         Assertions.assertSame(job, workerJobManager.getCurrentJob().get());
+    }
+
+    @Test
+    void getsJobFromAssignedRole() {
+        JobQueue jobQueue = new JobQueue();
+        Job generalJob = new TestRoleJob(WorkerRole.GENERAL);
+        Job engineerJob = new TestRoleJob(WorkerRole.ENGINEER);
+        worker.getRoles().clear();
+        worker.addRole(WorkerRole.ENGINEER);
+
+        jobQueue.addJob(generalJob);
+        jobQueue.addJob(engineerJob);
+        workerJobManager.setJobQueue(jobQueue);
+        workerJobManager.getJobFromQueue();
+
+        Assertions.assertSame(engineerJob, workerJobManager.getCurrentJob().get());
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -23,7 +24,7 @@ public class MineActionTests {
 
         mineAction.onClick(tile, Input.Buttons.LEFT);
 
-        Assertions.assertTrue(jobQueue.get().isPresent());
+        Assertions.assertTrue(jobQueue.get(WorkerRole.GENERAL).isPresent());
     }
 
     @Test
@@ -33,7 +34,7 @@ public class MineActionTests {
 
         mineAction.onClick(tile, Input.Buttons.RIGHT);
 
-        Assertions.assertFalse(jobQueue.get().isPresent());
+        Assertions.assertFalse(jobQueue.get(WorkerRole.GENERAL).isPresent());
     }
 
     @Test
@@ -42,7 +43,7 @@ public class MineActionTests {
 
         mineAction.onClick(tile, Input.Buttons.LEFT);
 
-        Assertions.assertFalse(jobQueue.get().isPresent());
+        Assertions.assertFalse(jobQueue.get(WorkerRole.GENERAL).isPresent());
     }
 
     @Test
@@ -52,7 +53,7 @@ public class MineActionTests {
 
         mineAction.onClick(tile, Input.Buttons.LEFT);
 
-        Assertions.assertFalse(jobQueue.get().isPresent());
+        Assertions.assertFalse(jobQueue.get(WorkerRole.GENERAL).isPresent());
     }
 
     @Test
@@ -67,6 +68,6 @@ public class MineActionTests {
 
         mineAction.onClick(tile, Input.Buttons.LEFT);
 
-        Assertions.assertFalse(jobQueue.get().isPresent());
+        Assertions.assertFalse(jobQueue.get(WorkerRole.GENERAL).isPresent());
     }
 }
