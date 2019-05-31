@@ -24,7 +24,7 @@ public class World {
     private final ArrayList<Worker> workers = new ArrayList<>();
     private final Inventory inventory = new Inventory();
     private final ManufacturingManager manufacturingManager = new ManufacturingManager();
-    private final GoalManager goalManager = new GoalManager(this, new PotatoGoal(this, 5));
+    private final GoalManager goalManager = new GoalManager(this, new PotatoGoal(this, 50));
 
     /**
      * Used for testing
@@ -46,6 +46,7 @@ public class World {
 
     private void giveStartingItems() {
         inventory.changeAmountForItem(Item.POTATO, 45);
+        inventory.changeAmountForItem(Item.STEEL, 100);
     }
 
     public void triggerWorldUpdate(int x, int y){
@@ -129,6 +130,13 @@ public class World {
                 Tile tile = tiles[x][y];
 
                 tile.getFloor().ifPresent(floor -> floor.render(spriteBatch, tile));
+            }
+        }
+
+        for(int x = 0; x < WORLD_TILE_SIZE; x++){
+            for(int y = 0; y < WORLD_TILE_SIZE; y++){
+                Tile tile = tiles[x][y];
+
                 tile.getBlock().ifPresent(block -> block.render(spriteBatch, tile));
 
                 if(drawOxygen)

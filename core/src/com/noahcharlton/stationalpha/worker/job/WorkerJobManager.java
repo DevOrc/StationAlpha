@@ -28,10 +28,12 @@ public class WorkerJobManager {
         Iterator<WorkerRole> roles = worker.getRoles().iterator();
 
         while(roles.hasNext()){
-            jobQueue.get(roles.next()).ifPresent(this::setCurrentJob);
+            Optional<Job> job = jobQueue.get(roles.next());
 
-            if(getCurrentJob().isPresent())
+            if(job.isPresent()){
+                this.setCurrentJob(job.get());
                 break;
+            }
         }
     }
 

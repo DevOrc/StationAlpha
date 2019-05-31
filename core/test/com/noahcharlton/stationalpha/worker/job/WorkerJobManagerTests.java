@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.worker.WorkerRole;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class WorkerJobManagerTests {
@@ -96,6 +97,20 @@ public class WorkerJobManagerTests {
         workerJobManager.getJobFromQueue();
 
         Assertions.assertSame(engineerJob, workerJobManager.getCurrentJob().get());
+    }
+
+    @Test
+    void getJobFromManyRoles() {
+        JobQueue queue = new JobQueue();
+        Job gardenerJob = new TestRoleJob(WorkerRole.GARDENER);
+        workerJobManager.setJobQueue(queue);
+
+        queue.addJob(gardenerJob);
+        worker.getRoles().clear();
+        worker.getRoles().addAll(Arrays.asList(WorkerRole.values()));
+        workerJobManager.getJobFromQueue();
+
+        Assertions.assertSame(gardenerJob, workerJobManager.getCurrentJob().get());
     }
 
     @Test
