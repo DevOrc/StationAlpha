@@ -17,12 +17,12 @@ public class BedBlock extends Block {
 
     @Override
     protected int getDimensionedHeight() {
-        return 2;
+        return 1;
     }
 
     @Override
     protected int getDimensionedWidth() {
-        return 1;
+        return 2;
     }
 
     @Override

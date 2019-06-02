@@ -31,21 +31,21 @@ public class DefaultBlockRenderer implements BlockRenderer{
     private static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotX, int rotY, int rotation){
         int width = t.getWidth();
         int height = t.getHeight();
-        boolean flipY = false;
+        boolean flip = false;
 
         if(rotation == 270){
-            flipY = true;
+            flip = true;
             rotation = 90;
         }
 
         if(rotation == 180){
-            flipY = true;
+            flip = true;
             rotation = 0;
         }
 
 
         b.draw(t, x, y, rotX, rotY, width, height, 1, 1, rotation,
-                0, 0, width, height, false, flipY);
+                0, 0, width, height, flip, flip);
     }
 
     protected BlockContainer getContainer(Tile tile) {
