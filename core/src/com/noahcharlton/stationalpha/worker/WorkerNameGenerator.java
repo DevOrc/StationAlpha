@@ -7,11 +7,11 @@ public class WorkerNameGenerator {
     private static final Random random = new Random();
 
     private static final String[] firstNames = new String[]{
-        "Alexander", "John", "Ian", "Olivia", "Emily", "Jenna"
+        "Alex", "John", "Ian", "Olivia", "Emily", "Jenna", "Noah", "Kyle", "Ava", "Mia", "Emma"
     };
 
     private static final String[] lastNames = new String[]{
-            "Smith", "Johnson", "Kennedy", "Miller", "Jones", "Williams"
+            "Smith", "Hall", "Kennedy", "Miller", "Jones", "Wood", "Ross", "Bell", "Cook"
     };
 
     public static String generate() {

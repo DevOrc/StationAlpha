@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.worker;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.block.bed.BedContainer;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -8,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.EnumSet;
+import java.util.Optional;
 
 public class Worker {
 
@@ -15,6 +17,8 @@ public class Worker {
     private final World world;
     private final WorkerAI ai;
     private final String name;
+    private Optional<BedContainer> bedroom = Optional.empty();
+
 
     private final EnumSet<WorkerRole> roles = EnumSet.noneOf(WorkerRole.class);
 
@@ -69,6 +73,14 @@ public class Worker {
             return 0;
 
         return pos;
+    }
+
+    public void setBedroom(Optional<BedContainer> bedroom) {
+        this.bedroom = bedroom;
+    }
+
+    public Optional<BedContainer> getBedroom() {
+        return bedroom;
     }
 
     @Override

@@ -48,7 +48,7 @@ public class DefaultBlockRenderer implements BlockRenderer{
                 0, 0, width, height, false, flipY);
     }
 
-    private BlockContainer getContainer(Tile tile) {
-        return tile.getContainer().orElseThrow(() -> new GdxRuntimeException("Multiblocks must have containers!"));
+    protected BlockContainer getContainer(Tile tile) {
+        return tile.getContainer().orElseThrow(() -> new GdxRuntimeException("Blocks must have containers!"));
     }
 }
