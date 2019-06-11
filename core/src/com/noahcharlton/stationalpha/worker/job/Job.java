@@ -34,7 +34,7 @@ public class Job {
         jobStage = JobStage.FINISHED;
     }
 
-    void setWorker(Worker worker) {
+    protected void setWorker(Worker worker) {
         this.assignedWorker = Optional.of(worker);
     }
 
