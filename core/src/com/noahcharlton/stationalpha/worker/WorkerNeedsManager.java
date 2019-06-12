@@ -11,7 +11,7 @@ import java.util.Optional;
 public class WorkerNeedsManager {
 
     public static final int FOOD_TIME = 1200;
-    public static final int SLEEP_RESET = 30;
+    public static final int SLEEP_RESET = 6000;
 
     private final Worker worker;
 

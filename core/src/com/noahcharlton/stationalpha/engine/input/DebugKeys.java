@@ -15,8 +15,13 @@ public class DebugKeys {
 
     public static final int OXYGEN_LEVEL = Input.Keys.O;
 
+    public static final int MAGICAL_GROWTH = Input.Keys.Y;
+
     public static boolean isDebugPressed(int key){
-        return Gdx.input.isKeyPressed(DEBUG_KEY) && Gdx.input.isKeyPressed(key);
+        if(Gdx.input != null)
+            return Gdx.input.isKeyPressed(DEBUG_KEY) && Gdx.input.isKeyPressed(key);
+
+        return false;
     }
 
 }

@@ -24,11 +24,10 @@ public class DefaultBlockRenderer implements BlockRenderer{
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
 
-        drawRotated(batch, texture, x, y, Tile.TILE_SIZE / 2, Tile.TILE_SIZE / 2,
-                container.getRotation().getDegrees());
+        drawRotated(batch, texture, x, y, container.getRotation().getDegrees(), container.getWidth());
     }
 
-    private static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotX, int rotY, int rotation){
+    protected static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotation, int containerWidth){
         int width = t.getWidth();
         int height = t.getHeight();
         boolean flip = false;
@@ -38,13 +37,18 @@ public class DefaultBlockRenderer implements BlockRenderer{
             rotation = 90;
         }
 
+        //Hack to deal with rotation (shifts the 90/270 degree
+        // blocks to the right cause the rotation pushes them to the left)
+        if(rotation == 90)
+            x += containerWidth * Tile.TILE_SIZE;
+
         if(rotation == 180){
             flip = true;
             rotation = 0;
         }
 
 
-        b.draw(t, x, y, rotX, rotY, width, height, 1, 1, rotation,
+        b.draw(t, x, y, 0, 0, width, height, 1, 1, rotation,
                 0, 0, width, height, flip, flip);
     }
 

@@ -4,6 +4,7 @@ import com.noahcharlton.stationalpha.block.bed.BedBlock;
 import com.noahcharlton.stationalpha.block.door.DoorBlock;
 import com.noahcharlton.stationalpha.block.plant.PotatoPlant;
 import com.noahcharlton.stationalpha.block.plant.TestPlant;
+import com.noahcharlton.stationalpha.block.tree.TreeBlock;
 import com.noahcharlton.stationalpha.block.workbench.Workbench;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class Blocks {
     private static Block potatoPlant = new PotatoPlant();
     private static Block workbench = new Workbench();
     private static Block bedBlock = new BedBlock();
+    private static Block treeBlock = new TreeBlock();
     private static Block testRotate;
     private static Block ice;
 
@@ -30,7 +32,7 @@ public class Blocks {
         ice.setOpaque(true);
 
         Collections.addAll(blocks, wall, door, compressor, ice, testRotate, testPlant,
-                potatoPlant, workbench, bedBlock);
+                potatoPlant, workbench, bedBlock, treeBlock);
     }
 
     private static Block createSimple(String textureName) {
@@ -72,6 +74,10 @@ public class Blocks {
 
     public static Block getBedBlock() {
         return bedBlock;
+    }
+
+    public static Block getTreeBlock() {
+        return treeBlock;
     }
 
     public static ArrayList<Block> getBlocks() {
