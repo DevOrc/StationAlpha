@@ -16,6 +16,13 @@ public class BlockMenu extends BuildBarMenu<Block> {
     }
 
     @Override
+    protected void updateSize() {
+        super.updateSize();
+
+        this.setHeight(BuildBarMenu.HEIGHT + 300);
+    }
+
+    @Override
     public String getName() {
         return "Blocks";
     }

@@ -9,7 +9,8 @@ public enum Item {
     SPACE_ROCK("space_rock", "Space Rock"),
     TEST_ITEM("test_item", "Test Item"),
     POTATO("potato", "Potato"),
-    STEEL("steel", "Steel");
+    STEEL("steel", "Steel"),
+    WOOD("wood", "Wood");
 
     private final String displayName;
     private final String id;

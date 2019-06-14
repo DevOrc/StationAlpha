@@ -9,8 +9,8 @@ import java.util.List;
 
 public abstract class BuildBarMenu<T> extends ComponentGroup {
 
-    private static final int WIDTH = 225;
-    private static final int HEIGHT = 330;
+    protected static final int WIDTH = 225;
+    protected static final int HEIGHT = 330;
 
     public BuildBarMenu(List<T> items) {
         super(new VStretchLayout());

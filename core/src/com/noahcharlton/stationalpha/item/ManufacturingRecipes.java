@@ -1,5 +1,7 @@
 package com.noahcharlton.stationalpha.item;
 
+import com.noahcharlton.stationalpha.engine.input.mine.MineActions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,8 @@ public class ManufacturingRecipes {
 
     public static void init(){
         add(Item.SPACE_ROCK, 1, Item.STEEL, 3);
+
+        MineActions.init();
     }
 
     private static void add(Item input, int inputAmount, Item output, int outputAmount){

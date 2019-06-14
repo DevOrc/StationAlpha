@@ -1,4 +1,4 @@
-package com.noahcharlton.stationalpha.engine.input;
+package com.noahcharlton.stationalpha.engine.input.mine;
 
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
@@ -41,7 +41,7 @@ public class MineJobTests extends JobTests {
         Tile adjacent = world.getTileAt(5, 5).get();
         adjacent.setBlock(null);
 
-        job = new MineJob(rockTile, adjacent, world.getInventory());
+        job = new MineJob(rockTile, adjacent, Item.SPACE_ROCK, 3);
 
         return job;
     }

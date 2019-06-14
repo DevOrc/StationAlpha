@@ -1,10 +1,10 @@
-package com.noahcharlton.stationalpha.engine.input;
+package com.noahcharlton.stationalpha.engine.input.mine;
 
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
-import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
@@ -14,8 +14,13 @@ public class MineActionTests {
 
     private final JobQueue jobQueue = new JobQueue();
     private final World world = new World();
-    private final Inventory inventory = world.getInventory();
-    private final MineAction mineAction = new MineAction(inventory, jobQueue);
+
+    private final MineAction mineAction = new MineAction.Builder()
+            .setBlock(Blocks.getIce())
+            .setOutput(Item.SPACE_ROCK)
+            .setOutputAmount(3)
+            .setJobQueue(jobQueue)
+            .build();
 
     @Test
     void onClickBasicTest() {

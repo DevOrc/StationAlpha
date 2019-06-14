@@ -6,11 +6,7 @@ import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.DebugBox;
 import com.noahcharlton.stationalpha.gui.scenes.ItemList;
 import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BlockMenu;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.FloorMenu;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.GoalMenu;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.ManufacturingMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.*;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu.WorkerMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageMenu;
 
@@ -30,9 +26,11 @@ public class GameGui extends GuiComponent {
     private final BuildBarMenu goalMenu = new GoalMenu();
     private final BuildBarMenu manufactureMenu = new ManufacturingMenu();
     private final BuildBarMenu workerMenu = new WorkerMenu();
+    private final BuildBarMenu actionsMenu = new ActionsMenu();
 
     public GameGui() {
-        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu, workerMenu, goalMenu, manufactureMenu);
+        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu, workerMenu, goalMenu,
+                manufactureMenu, actionsMenu);
 
         debugBox = new DebugBox();
         buildBar = new BuildBar(menus);
