@@ -4,11 +4,10 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
-import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
+import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
-import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -52,7 +51,8 @@ public class WorkbenchContainer extends BlockContainer {
             return false;
         }
 
-        Optional<ManufacturingRecipe> nextRecipe = getTile().getWorld().getManufacturingManager().getNextRecipe();
+        Optional<ManufacturingRecipe> nextRecipe = getTile().getWorld().getManufacturingManager()
+                .getNextRecipe(RecipeType.CRAFT);
 
         if(nextRecipe.isPresent()){
             return createJobFromRecipe(openAdjacent, nextRecipe.get());
@@ -64,22 +64,18 @@ public class WorkbenchContainer extends BlockContainer {
     private boolean createJobFromRecipe(Optional<Tile> openAdjacent, ManufacturingRecipe recipe) {
         World world = getTile().getWorld();
 
-        if(!resourceAvailable(recipe, world.getInventory())){
+        if(!recipe.resourcesAvailable(world.getInventory())){
             world.getManufacturingManager().addRecipeToQueue(recipe);
             return false;
         }
 
-        world.getInventory().changeAmountForItem(Item.SPACE_ROCK, -recipe.getInputAmount());
+        recipe.removeRequirements(world.getInventory());
         WorkbenchJob job = new WorkbenchJob(openAdjacent.get(), recipe);
 
         JobQueue.getInstance().addJob(job);
         this.job = Optional.of(job);
 
         return true;
-    }
-
-    private boolean resourceAvailable(ManufacturingRecipe recipe, Inventory inventory) {
-        return inventory.getAmountForItem(recipe.getInputItem()) >= recipe.getInputAmount();
     }
 
     private Optional<Tile> getWorkingTile(Tile rootTile, BlockRotation rotation) {

@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.block;
 
 import com.noahcharlton.stationalpha.block.bed.BedBlock;
+import com.noahcharlton.stationalpha.block.composter.ComposterBlock;
 import com.noahcharlton.stationalpha.block.door.DoorBlock;
 import com.noahcharlton.stationalpha.block.plant.PotatoPlant;
 import com.noahcharlton.stationalpha.block.plant.TestPlant;
@@ -24,6 +25,7 @@ public class Blocks {
     private static Block bedBlock = new BedBlock();
     private static Block treeBlock = new TreeBlock();
     private static Block treeSapling = new TreeSaplingBlock();
+    private static Block composter = new ComposterBlock();
     private static Block testRotate;
     private static Block ice;
 
@@ -34,7 +36,7 @@ public class Blocks {
         ice.setOpaque(true);
 
         Collections.addAll(blocks, wall, door, compressor, ice, testRotate, testPlant,
-                potatoPlant, workbench, bedBlock, treeBlock, treeSapling);
+                potatoPlant, workbench, bedBlock, treeBlock, treeSapling, composter);
     }
 
     private static Block createSimple(String textureName) {
@@ -84,6 +86,10 @@ public class Blocks {
 
     public static Block getTreeSapling() {
         return treeSapling;
+    }
+
+    public static Block getComposter() {
+        return composter;
     }
 
     public static ArrayList<Block> getBlocks() {

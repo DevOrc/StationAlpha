@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
+import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,7 @@ public class ManufacturingRecipeGuiTests {
         gui.setRecipe(new ManufacturingRecipe(Item.POTATO, 1, Item.POTATO, 1, 1));
         gui.makeRecipe(25, Optional.of(world));
 
-        Assertions.assertEquals(25, world.getManufacturingManager().getRecipeQueue().size());
+        Assertions.assertEquals(25, world.getManufacturingManager().getQueueForType(RecipeType.CRAFT).size());
     }
 
     @Test

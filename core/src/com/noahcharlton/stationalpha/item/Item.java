@@ -10,7 +10,9 @@ public enum Item {
     TEST_ITEM("test_item", "Test Item"),
     POTATO("potato", "Potato"),
     STEEL("steel", "Steel"),
-    WOOD("wood", "Wood");
+    WOOD("wood", "Wood"),
+    LEAVES("leaves", "Leaves"),
+    DIRT("dirt", "Dirt");
 
     private final String displayName;
     private final String id;

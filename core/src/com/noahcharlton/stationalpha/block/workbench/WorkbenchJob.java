@@ -26,6 +26,6 @@ public class WorkbenchJob extends TickBasedJob {
     public void finish() {
         super.finish();
 
-        getTarget().getWorld().getInventory().changeAmountForItem(recipe.getOutputItem(), recipe.getOutputAmount());
+        recipe.addProducts(getTarget().getWorld().getInventory());
     }
 }

@@ -23,7 +23,7 @@ public class StationAlpha extends ApplicationAdapter {
 
 	private GuiContainer guiContainer;
 	private Optional<World> world = Optional.empty();
-	private int ticksPerUpdate;
+	private int ticksPerUpdate = 1;
 
 	public StationAlpha() {
 		if(instance != null)

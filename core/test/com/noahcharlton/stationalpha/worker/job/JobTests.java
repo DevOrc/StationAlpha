@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.worker.job;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.LibGdxTest;
 import com.noahcharlton.stationalpha.worker.TestWorker;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -8,40 +9,40 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class JobTests {
+public class JobTests extends LibGdxTest {
 
-    private Job job;
+    protected Job job;
 
     public Job getJob() {
         return new Job(new Tile(0, 0, new World()));
     }
 
     @BeforeEach
-    void setUp() {
+    protected void setUp() {
         job = getJob();
     }
 
     @Test
-    void jobDefaultStateTest() {
+    protected void jobDefaultStateTest() {
         Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
     }
 
     @Test
-    void jobStartBasicTest() {
+    protected void jobStartBasicTest() {
         job.start();
 
         Assertions.assertEquals(Job.JobStage.IN_PROGRESS, job.getStage());
     }
 
     @Test
-    void jobCannotStartTwiceTest() {
+    protected void jobCannotStartTwiceTest() {
         job.start();
 
         Assertions.assertThrows(GdxRuntimeException.class, job::start);
     }
 
     @Test
-    void finishBasicTest() {
+    protected void finishBasicTest() {
         job.start();
         job.finish();
 
@@ -49,7 +50,7 @@ public class JobTests {
     }
 
     @Test
-    void jobCannotStartAfterFinished() {
+    protected void jobCannotStartAfterFinished() {
         job.start();
         job.finish();
 
@@ -57,7 +58,7 @@ public class JobTests {
     }
 
     @Test
-    void jobCancelRemovesWorkerTest() {
+    protected void jobCancelRemovesWorkerTest() {
         job.setWorker(new TestWorker());
         job.cancel();
 
@@ -65,7 +66,7 @@ public class JobTests {
     }
 
     @Test
-    void jobCancelSetsStateToPreStart() {
+    protected void jobCancelSetsStateToPreStart() {
         job.start();
         job.cancel();
 

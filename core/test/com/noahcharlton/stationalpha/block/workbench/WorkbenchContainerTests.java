@@ -4,6 +4,7 @@ import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
+import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -44,7 +45,7 @@ public class WorkbenchContainerTests {
         world.getManufacturingManager().addRecipeToQueue(
                 new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1, 1));
 
-        Assertions.assertTrue(world.getManufacturingManager().getNextRecipe().isPresent());
+        Assertions.assertTrue(world.getManufacturingManager().getNextRecipe(RecipeType.CRAFT).isPresent());
     }
 
     @Test

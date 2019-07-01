@@ -12,12 +12,15 @@ public class ManufacturingRecipes {
     private ManufacturingRecipes() {}
 
     public static void init(){
-        add(Item.SPACE_ROCK, 1, Item.STEEL, 3);
+        addCraft(Item.SPACE_ROCK, 1, Item.STEEL, 3);
+
+        recipes.add(new ManufacturingRecipe(Item.LEAVES, 3, Item.DIRT,
+                1, 5400, RecipeType.COMPOST));
 
         MineActions.init();
     }
 
-    private static void add(Item input, int inputAmount, Item output, int outputAmount){
+    private static void addCraft(Item input, int inputAmount, Item output, int outputAmount){
         recipes.add(new ManufacturingRecipe(input, inputAmount, output, outputAmount, 180));
     }
 
