@@ -1,6 +1,9 @@
 package com.noahcharlton.stationalpha.engine.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 
@@ -33,5 +36,16 @@ public class BuildFloor implements BuildAction{
     @Override
     public String getName() {
         return "Building Floors!";
+    }
+
+    @Override
+    public void render(SpriteBatch b) {
+        int mouseX = Gdx.input.getX();
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+        b.setColor(new Color(1f, 1f, 1f, .75f));
+        InputHandler.getInstance().getBuildManager()
+                .getTileFromPixel(mouseX, mouseY).ifPresent(tile -> floor.render(b, tile));
+        b.setColor(new Color(1f, 1f, 1f, 1f));
     }
 }

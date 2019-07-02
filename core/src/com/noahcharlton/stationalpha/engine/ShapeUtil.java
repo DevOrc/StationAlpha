@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class ShapeUtil {
 
-    private static Texture dot;
+    public static Texture dot;
 
     static {
         Pixmap map = new Pixmap(1, 1, Pixmap.Format.RGB565);

@@ -36,6 +36,7 @@ public class GameRenderer {
         spriteBatch.begin();
         renderWorldHaze();
         World.getInstance().ifPresent(world -> world.render(spriteBatch));
+        InputHandler.getInstance().getBuildManager().getAction().ifPresent(action -> action.render(spriteBatch));
         spriteBatch.end();
     }
 

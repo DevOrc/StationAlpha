@@ -35,12 +35,12 @@ class TestMultiblock extends Block {
     }
 
     @Override
-    protected int getDimensionedWidth() {
+    public int getDimensionedWidth() {
         return 5;
     }
 
     @Override
-    protected int getDimensionedHeight() {
+    public int getDimensionedHeight() {
         return 5;
     }
 

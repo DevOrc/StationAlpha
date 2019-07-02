@@ -1,9 +1,13 @@
 package com.noahcharlton.stationalpha.engine.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -112,5 +116,26 @@ public class BuildBlock implements BuildAction {
     @Override
     public String getName() {
         return "Building Block!";
+    }
+
+    @Override
+    public void render(SpriteBatch b) {
+        int mouseX = Gdx.input.getX();
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+        InputHandler.getInstance().getBuildManager()
+                .getTileFromPixel(mouseX, mouseY).ifPresent(tile -> renderAt(b, tile));
+    }
+
+    private void renderAt(SpriteBatch b, Tile tile) {
+        Color color = new Color(1f, 1f, 1f, .25f);
+        boolean rotated = rotation == BlockRotation.EAST || rotation == BlockRotation.WEST;
+
+        int x = tile.getX() * Tile.TILE_SIZE;
+        int y = tile.getY() * Tile.TILE_SIZE;
+        int width = (rotated ? block.getDimensionedHeight() : block.getDimensionedWidth()) * Tile.TILE_SIZE;
+        int height = (rotated ? block.getDimensionedWidth() : block.getDimensionedHeight()) * Tile.TILE_SIZE;
+
+        ShapeUtil.drawRect(x, y, width, height, color, b);
     }
 }

@@ -27,7 +27,7 @@ public class DefaultBlockRenderer implements BlockRenderer{
         drawRotated(batch, texture, x, y, container.getRotation().getDegrees(), container.getWidth());
     }
 
-    protected static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotation, int containerWidth){
+    public static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotation, int containerWidth){
         int width = t.getWidth();
         int height = t.getHeight();
         boolean flip = false;
