@@ -43,18 +43,20 @@ public class BedRenderer extends DefaultBlockRenderer {
 
         switch(bedContainer.getRotation()){
             case NORTH:
-                font.draw(batch, name, x, y + Tile.TILE_SIZE, Tile.TILE_SIZE, Align.center, true);
+                font.draw(batch, name, x + pillowSize, y + (Tile.TILE_SIZE * 3 / 4),
+                        (Tile.TILE_SIZE * 2) - pillowSize, Align.center, true);
                 break;
             case WEST:
-                font.draw(batch, name, x - Tile.TILE_SIZE, y + (Tile.TILE_SIZE * 2 / 3),
-                        (Tile.TILE_SIZE * 2) - pillowSize, Align.center, true);
+                font.draw(batch, name, x, y + (Tile.TILE_SIZE * 5 / 3 - pillowSize),
+                        Tile.TILE_SIZE, Align.center, true);
                 break;
             case SOUTH:
-                font.draw(batch, name, x, y + (Tile.TILE_SIZE * 3 / 2), Tile.TILE_SIZE, Align.center, true);
+                font.draw(batch, name, x, y + (Tile.TILE_SIZE * 3 / 4),
+                        (Tile.TILE_SIZE * 2) - pillowSize, Align.center, true);
                 break;
             case EAST:
-                font.draw(batch, name, x - Tile.TILE_SIZE + pillowSize, y + (Tile.TILE_SIZE * 2 / 3),
-                        (Tile.TILE_SIZE * 2) - pillowSize, Align.center, true);
+                font.draw(batch, name, x, y + (Tile.TILE_SIZE * 5 / 3),
+                        Tile.TILE_SIZE, Align.center, true);
                 break;
         }
 
