@@ -19,6 +19,11 @@ public class DoorBlock extends Block implements BlockRenderer {
     }
 
     @Override
+    public String getDisplayName() {
+        return "Door";
+    }
+
+    @Override
     public void renderBlock(SpriteBatch batch, Tile tile) {
         DoorContainer container = (DoorContainer) this.getContainerFromTile(tile);
 
@@ -61,10 +66,5 @@ public class DoorBlock extends Block implements BlockRenderer {
     @Override
     protected Optional<String> getTextureFileName() {
         return Optional.empty();
-    }
-
-    @Override
-    public String getDisplayName() {
-        return "Door";
     }
 }

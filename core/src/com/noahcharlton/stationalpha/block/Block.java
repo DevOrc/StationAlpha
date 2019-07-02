@@ -61,6 +61,10 @@ public abstract class Block {
         return Optional.empty();
     }
 
+    public boolean isPlayerBuildable(){
+        return true;
+    }
+
     @Override
     public String toString() {
         return getDisplayName();

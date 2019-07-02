@@ -9,9 +9,11 @@ import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class MineAction implements BuildAction {
 
+    private final String displayName;
     private final JobQueue jobQueue;
     private final Block input;
     private final Item output;
@@ -22,6 +24,7 @@ public class MineAction implements BuildAction {
         this.output = builder.output;
         this.input = builder.block;
         this.outputAmount = builder.outputAmount;
+        this.displayName = builder.displayName.orElse("Mining " + input.getDisplayName());
     }
 
     @Override
@@ -42,7 +45,7 @@ public class MineAction implements BuildAction {
 
     @Override
     public String getName() {
-        return "Mining " + input.getDisplayName();
+        return displayName;
     }
 
     @Override
@@ -52,6 +55,7 @@ public class MineAction implements BuildAction {
 
     public static class Builder{
 
+        private Optional<String> displayName = Optional.empty();
         private JobQueue jobQueue = JobQueue.getInstance();
         private Block block;
         private Item output;
@@ -92,6 +96,12 @@ public class MineAction implements BuildAction {
 
         public Builder setOutput(Item output) {
             this.output = output;
+
+            return this;
+        }
+
+        public Builder setDisplayName(String displayName) {
+            this.displayName = Optional.of(displayName);
 
             return this;
         }

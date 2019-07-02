@@ -11,6 +11,11 @@ import java.util.Optional;
 public class BedBlock extends Block {
 
     @Override
+    public String getDisplayName() {
+        return "Bed";
+    }
+
+    @Override
     protected Optional<String> getTextureFileName() {
         return Optional.of("bed.png");
     }

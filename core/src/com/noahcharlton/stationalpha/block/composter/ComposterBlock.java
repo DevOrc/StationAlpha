@@ -15,6 +15,11 @@ public class ComposterBlock extends Block {
     }
 
     @Override
+    public String getDisplayName() {
+        return "Composter";
+    }
+
+    @Override
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {
         return new ComposterContainer(tile, this, blockRotation);
     }

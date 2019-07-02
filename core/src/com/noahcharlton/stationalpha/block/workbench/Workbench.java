@@ -24,6 +24,11 @@ public class Workbench extends Block {
     }
 
     @Override
+    public String getDisplayName() {
+        return "Workbench";
+    }
+
+    @Override
     protected Optional<String> getTextureFileName() {
         return Optional.of("workbench.png");
     }

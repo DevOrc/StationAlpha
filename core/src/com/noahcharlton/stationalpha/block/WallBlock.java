@@ -28,6 +28,11 @@ public class WallBlock extends Block implements BlockRenderer{
     }
 
     @Override
+    public String getDisplayName() {
+        return "Wall";
+    }
+
+    @Override
     public void renderBlock(SpriteBatch spriteBatch, Tile tile) {
         World world = World.getInstance().get();
 

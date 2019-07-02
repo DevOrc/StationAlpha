@@ -23,6 +23,7 @@ public class MineActions {
                         .setBlock(Blocks.getTreeBlock())
                         .setOutput(Item.WOOD)
                         .setOutputAmount(3)
+                        .setDisplayName("Cut Tree")
                         .build()
         );
     }

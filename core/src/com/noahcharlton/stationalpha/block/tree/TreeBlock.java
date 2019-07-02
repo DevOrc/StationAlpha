@@ -11,6 +11,16 @@ public class TreeBlock extends Block {
     }
 
     @Override
+    public String getDisplayName() {
+        return "Tree";
+    }
+
+    @Override
+    public boolean isPlayerBuildable() {
+        return false;
+    }
+
+    @Override
     protected int getDimensionedWidth() {
         return 3;
     }

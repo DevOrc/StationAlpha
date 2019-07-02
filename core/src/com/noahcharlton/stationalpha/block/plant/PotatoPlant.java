@@ -17,4 +17,9 @@ public class PotatoPlant extends Plant{
     public String getPlantName() {
         return "potato";
     }
+
+    @Override
+    public String getDisplayName() {
+        return "Potato";
+    }
 }

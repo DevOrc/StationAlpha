@@ -16,7 +16,7 @@ public class PlantContainerTests {
     public PlantContainerTests() {
         world = new World();
         tile = world.getTileAt(0, 0).get();
-        tile.setBlock(Blocks.getTestPlant());
+        tile.setBlock(Blocks.getPotatoPlant());
         plantContainer = (PlantContainer) tile.getContainer().get();
     }
 
@@ -71,7 +71,7 @@ public class PlantContainerTests {
     void onStageIncreaseTest() {
         tile.setFloor(Floor.DIRT);
         tile.changeOxygenLevel(25);
-        Plant plant = (Plant) Blocks.getTestPlant();
+        Plant plant = (Plant) Blocks.getPotatoPlant();
 
         for(int i = 0; i <= plant.getTicksPerStage(); i++){
             plantContainer.onUpdate();
@@ -83,7 +83,7 @@ public class PlantContainerTests {
     @Test
     void tickResetsOnStageIncreaseTest() {
         tile.setFloor(Floor.DIRT);
-        Plant plant = (Plant) Blocks.getTestPlant();
+        Plant plant = (Plant) Blocks.getPotatoPlant();
 
         for(int i = 0; i <= plant.getTicksPerStage(); i++){
             plantContainer.onUpdate();

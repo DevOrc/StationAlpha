@@ -7,6 +7,11 @@ import java.util.Optional;
 public class CompressorBlock extends Block {
 
     @Override
+    public String getDisplayName() {
+        return "Compressor";
+    }
+
+    @Override
     protected Optional<String> getTextureFileName() {
         return Optional.of("compressor.png");
     }

@@ -49,14 +49,14 @@ public class HarvestJobTests extends JobTests {
         getJob().finish();
 
         Inventory inventory = world.getInventory();
-        Assertions.assertEquals(1, inventory.getAmountForItem(Item.TEST_ITEM));
+        Assertions.assertEquals(1, inventory.getAmountForItem(Item.POTATO));
     }
 
     @Override
     public Job getJob() {
         world = new World();
         Tile tile = world.getTileAt(5, 5).get();
-        tile.setBlock(Blocks.getTestPlant());
+        tile.setBlock(Blocks.getPotatoPlant());
         plant = (PlantContainer) tile.getContainer().get();
         Tile adjacent = world.getTileAt(4, 5).get();
 
