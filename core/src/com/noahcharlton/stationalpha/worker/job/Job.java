@@ -11,6 +11,7 @@ public class Job {
 
     public enum JobStage{PRE_START, IN_PROGRESS, FINISHED}
 
+    private final Optional<JobRenderer> renderer;
     private final Tile target;
 
     private Optional<Worker> assignedWorker;
@@ -19,6 +20,7 @@ public class Job {
     protected Job(Tile target) {
         this.target = target;
         this.jobStage = JobStage.PRE_START;
+        this.renderer = createRenderer();
     }
 
     public void start(){
@@ -26,6 +28,10 @@ public class Job {
             throw new GdxRuntimeException("Must be in Pre-start to get started");
 
         jobStage = JobStage.IN_PROGRESS;
+    }
+
+    public Optional<JobRenderer> createRenderer(){
+        return Optional.empty();
     }
 
     public void update(){}
@@ -53,6 +59,10 @@ public class Job {
 
     public Optional<Worker> getAssignedWorker() {
         return assignedWorker;
+    }
+
+    public Optional<JobRenderer> getRenderer() {
+        return renderer;
     }
 
     public Tile getTarget() {
