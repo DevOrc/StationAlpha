@@ -34,7 +34,7 @@ public class JobQueue {
         return Optional.of(jobQueue.removeFirst());
     }
 
-    ArrayDeque<Job> getJobQueue(WorkerRole role) {
+    public ArrayDeque<Job> getJobQueue(WorkerRole role) {
         return jobs.get(role);
     }
 

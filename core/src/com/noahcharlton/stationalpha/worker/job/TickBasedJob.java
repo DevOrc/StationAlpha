@@ -5,7 +5,7 @@ import com.noahcharlton.stationalpha.world.Tile;
 public class TickBasedJob extends Job {
 
     private final int tickDuration;
-    private int tick = 0;
+    protected int tick = 0;
 
 
     public TickBasedJob(Tile target, int tickDuration) {
@@ -32,5 +32,9 @@ public class TickBasedJob extends Job {
 
     public int getTick() {
         return tick;
+    }
+
+    public int getJobDuration() {
+        return tickDuration;
     }
 }

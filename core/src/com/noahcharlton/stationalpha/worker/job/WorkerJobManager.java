@@ -45,7 +45,10 @@ public class WorkerJobManager {
     }
 
     public void setCurrentJob(Job job) {
-        this.currentJob.filter(j -> j.getStage() != Job.JobStage.FINISHED).ifPresent(Job::cancel);
+        if(this.currentJob.filter(j -> j.getStage() != Job.JobStage.FINISHED).isPresent()){
+            currentJob.get().cancel();
+            JobQueue.getInstance().addJob(currentJob.get());
+        }
 
         this.currentJob = Optional.ofNullable(job);
         this.currentJob.ifPresent(j -> j.setWorker(worker));

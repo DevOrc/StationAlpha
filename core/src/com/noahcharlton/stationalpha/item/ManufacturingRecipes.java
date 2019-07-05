@@ -17,6 +17,9 @@ public class ManufacturingRecipes {
         recipes.add(new ManufacturingRecipe(Item.LEAVES, 3, Item.DIRT,
                 1, 5400, RecipeType.COMPOST));
 
+        recipes.add(new ManufacturingRecipe(Item.SPACE_DUST, 5, Item.SPACE_ROCK,
+                1, 10_000, RecipeType.SYNTHESIZE));
+
         MineActions.init();
     }
 

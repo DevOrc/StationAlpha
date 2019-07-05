@@ -4,7 +4,10 @@ import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 
 public enum  WorkerRole {
 
-    GENERAL("general"), ENGINEER("engineer"), GARDENER("gardener");
+    GENERAL("general"),
+    ENGINEER("engineer"),
+    GARDENER("gardener"),
+    SCIENTIST("scientist");
 
     private final ManagedTexture workerTexture;
     private final ManagedTexture iconTexture;
