@@ -27,7 +27,7 @@ public class BuildManager {
         getTileFromPixel(x, y).ifPresent(tile -> build(tile, button));
     }
 
-    private Vector3 toWorldPos(int x, int y) {
+    Vector3 toWorldPos(int x, int y) {
         Vector3 v = new Vector3(x, y, 0);
         OrthographicCamera cam = gameInstance.getGameRenderer().getCamera();
         Viewport viewport = gameInstance.getGameRenderer().getViewport();

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 
@@ -40,12 +41,13 @@ public class BuildFloor implements BuildAction{
 
     @Override
     public void render(SpriteBatch b) {
+        BuildManager buildManager = InputHandler.getInstance().getBuildManager();
         int mouseX = Gdx.input.getX();
-        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        int mouseY = Gdx.input.getY();
+        Vector3 worldPos = InputHandler.getInstance().getBuildManager().toWorldPos(mouseX, mouseY);
 
         b.setColor(new Color(1f, 1f, 1f, .75f));
-        InputHandler.getInstance().getBuildManager()
-                .getTileFromPixel(mouseX, mouseY).ifPresent(tile -> floor.render(b, tile));
+        buildManager.getTileFromPixel((int) worldPos.x, (int) worldPos.y).ifPresent(tile -> floor.render(b, tile));
         b.setColor(new Color(1f, 1f, 1f, 1f));
     }
 }
