@@ -1,7 +1,10 @@
 package com.noahcharlton.stationalpha.worker;
 
+import com.noahcharlton.stationalpha.worker.job.JobRenderer;
 import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
 import com.noahcharlton.stationalpha.world.Tile;
+
+import java.util.Optional;
 
 public class SleepJob extends TickBasedJob {
 
@@ -21,5 +24,14 @@ public class SleepJob extends TickBasedJob {
         super.finish();
 
         worker.getAi().getNeedsManager().finishSleep();
+    }
+
+    @Override
+    public Optional<JobRenderer> createRenderer() {
+        return Optional.of((batch, job) -> {
+            if(job.getStage() != JobStage.IN_PROGRESS){
+                WorkerRenderer.defaultRender(batch, worker);
+            }
+        });
     }
 }

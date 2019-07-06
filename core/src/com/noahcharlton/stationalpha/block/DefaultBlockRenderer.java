@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.world.Tile;
 
-public class DefaultBlockRenderer implements BlockRenderer{
+public class DefaultBlockRenderer implements BlockRenderer {
 
     private final Block block;
 
@@ -21,18 +21,22 @@ public class DefaultBlockRenderer implements BlockRenderer{
             return;
 
         Texture texture = block.getTexture().get().get();
+
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
+        int width = texture.getWidth();
+        int height = texture.getHeight();
+        int containerWidth = container.getWidth();
+        int rotation = container.getRotation().getDegrees();
 
-        drawRotated(batch, texture, x, y, container.getRotation().getDegrees(), container.getWidth());
+        drawRotated(batch, texture, x, y, rotation, containerWidth, width, height, 0, 0, 0, 0);
     }
 
-    public static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotation, int containerWidth){
-        int width = t.getWidth();
-        int height = t.getHeight();
+    public static void drawRotated(SpriteBatch b, Texture t, int x, int y, int rotation, int containerWidth,
+                                   int width, int height, int srcX, int srcY, int orgX, int orgY) {
         boolean flip = false;
 
-        if(rotation == 270){
+        if(rotation == 270) {
             flip = true;
             rotation = 90;
         }
@@ -42,14 +46,14 @@ public class DefaultBlockRenderer implements BlockRenderer{
         if(rotation == 90)
             x += containerWidth * Tile.TILE_SIZE;
 
-        if(rotation == 180){
+        if(rotation == 180) {
             flip = true;
             rotation = 0;
         }
 
 
-        b.draw(t, x, y, 0, 0, width, height, 1, 1, rotation,
-                0, 0, width, height, flip, flip);
+        b.draw(t, x, y, orgX, orgY, width, height, 1, 1, rotation,
+                srcX, srcY, width, height, flip, flip);
     }
 
     protected BlockContainer getContainer(Tile tile) {
