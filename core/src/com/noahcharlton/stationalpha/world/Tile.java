@@ -7,13 +7,14 @@ import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class Tile {
+public final class Tile implements Selectable {
 
     public static final int TILE_SIZE = 32;
 
@@ -122,6 +123,24 @@ public final class Tile {
         String text = String.format("%3.0f", oxygenLevel) + "%";
 
         font.draw(spriteBatch, text, pixelX, pixelY, Tile.TILE_SIZE, Align.center, false);
+    }
+
+    @Override
+    public String getTitle() {
+        return toString();
+    }
+
+    @Override
+    public String getDesc() {
+        return "This is a tile.";
+    }
+
+    @Override
+    public String[] getDebugInfo() {
+        return new String[]{
+                "Floor: " + floor.map(Floor::getFilename).orElse("None"),
+                "Oxygen: " + oxygenLevel,
+        };
     }
 
     @Override

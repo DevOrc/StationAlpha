@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.Input;
+import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Floor;
@@ -94,5 +95,49 @@ public class BuildManagerTests {
         buildManager.build(tile, Input.Buttons.RIGHT);
 
         Assertions.assertFalse(tile.getBlock().isPresent());
+    }
+
+    @Test
+    void doesNotSelectWhenHasBuildAction() {
+        InputHandler.getInstance().setCurrentlySelected(Optional.empty());
+        buildManager.setAction(Optional.of(new TestBuildAction()));
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
+
+        buildManager.build(tile, Input.Buttons.LEFT);
+
+        Assertions.assertEquals(Optional.empty(), InputHandler.getInstance().getCurrentlySelected());
+    }
+
+
+    @Test
+    void buildOnNoContainerSelectsTileTest() {
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
+
+        buildManager.build(tile, Input.Buttons.LEFT);
+
+        Assertions.assertSame(tile, InputHandler.getInstance().getCurrentlySelected().get());
+    }
+
+    @Test
+    void buildOnTileSelectsContainerTest() {
+        World world = new World();
+        Tile tile = world.getTileAt(0, 0).get();
+        tile.setBlock(Blocks.getWall());
+        BlockContainer container = tile.getContainer().get();
+
+        buildManager.build(tile, Input.Buttons.LEFT);
+
+        Assertions.assertSame(container, InputHandler.getInstance().getCurrentlySelected().get());
+    }
+
+    @Test
+    void clickedOutsideWorldSelectsNothingTest() {
+        InputHandler.getInstance().setCurrentlySelected(Optional.of(new Tile(0, 0, new World())));
+
+        buildManager.onTileClicked(Input.Buttons.LEFT, Optional.empty());
+
+        Assertions.assertEquals(Optional.empty(), InputHandler.getInstance().getCurrentlySelected());
     }
 }

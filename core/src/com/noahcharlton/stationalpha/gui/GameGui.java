@@ -2,10 +2,8 @@ package com.noahcharlton.stationalpha.gui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
-import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
-import com.noahcharlton.stationalpha.gui.scenes.DebugBox;
-import com.noahcharlton.stationalpha.gui.scenes.ItemList;
-import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
+import com.noahcharlton.stationalpha.gui.scenes.*;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.*;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu.WorkerMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageMenu;
@@ -20,6 +18,7 @@ public class GameGui extends GuiComponent {
     private final ItemList itemList;
     private final SpeedButton speedButton;
     private final MessageMenu messageMenu;
+    private final SelectableBox selectableBox;
 
     private final BuildBarMenu blockMenu = new BlockMenu();
     private final BuildBarMenu floorMenu = new FloorMenu();
@@ -37,8 +36,9 @@ public class GameGui extends GuiComponent {
         itemList = new ItemList();
         speedButton = new SpeedButton();
         messageMenu = new MessageMenu();
+        selectableBox = new SelectableBox();
 
-        this.addAllGui(debugBox, buildBar, itemList, speedButton, messageMenu);
+        this.addAllGui(debugBox, buildBar, itemList, speedButton, selectableBox, messageMenu);
         menus.forEach(this::addGui);
         menus.forEach(m -> m.setVisible(false));
     }
@@ -55,6 +55,11 @@ public class GameGui extends GuiComponent {
 
     @Override
     protected void update() {
+        selectableBox.setVisible(InputHandler.getInstance().getCurrentlySelected().isPresent());
         debugBox.setVisible(DebugKeys.isDebugPressed(DebugKeys.DEBUG_BOX));
+    }
+
+    SelectableBox getSelectableBox() {
+        return selectableBox;
     }
 }

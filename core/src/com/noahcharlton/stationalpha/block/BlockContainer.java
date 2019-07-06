@@ -1,8 +1,9 @@
 package com.noahcharlton.stationalpha.block;
 
+import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.world.Tile;
 
-public class BlockContainer {
+public class BlockContainer implements Selectable {
 
     private final Tile tile;
     private final Block block;
@@ -23,6 +24,22 @@ public class BlockContainer {
     public void onBlockUpdate(){}
 
     public void onDestroy(){}
+
+
+    @Override
+    public String getTitle() {
+        return block.getDisplayName();
+    }
+
+    @Override
+    public String getDesc() {
+        return "";
+    }
+
+    @Override
+    public String[] getDebugInfo() {
+        return tile.getDebugInfo();
+    }
 
     public BlockRotation getRotation() {
         return rotation;

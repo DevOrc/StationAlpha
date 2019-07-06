@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.engine.input;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,7 +25,17 @@ public class BuildManager {
         x = (int) worldPos.x;
         y = (int) worldPos.y;
 
-        getTileFromPixel(x, y).ifPresent(tile -> build(tile, button));
+        Optional<Tile> tile = getTileFromPixel(x, y);
+
+        onTileClicked(button, tile);
+    }
+
+    void onTileClicked(int button, Optional<Tile> tile) {
+        if(tile.isPresent()){
+            build(tile.get(), button);
+        }else if(button == Input.Buttons.LEFT){
+            InputHandler.getInstance().setCurrentlySelected(Optional.empty());
+        }
     }
 
     Vector3 toWorldPos(int x, int y) {
@@ -50,7 +61,16 @@ public class BuildManager {
     void build(Tile tile, int button) {
         logger.info("Clicked on {} with button {}", tile, button);
 
+        if(button == Input.Buttons.LEFT && !action.isPresent())
+            updateCurrentlySelected(tile);
+
         action.ifPresent(action -> action.onClick(tile, button));
+    }
+
+    private void updateCurrentlySelected(Tile tile) {
+        Selectable selectable = tile.getContainer().map(container -> (Selectable) container).orElse(tile);
+
+        InputHandler.getInstance().setCurrentlySelected(Optional.of(selectable));
     }
 
     public void setAction(Optional<BuildAction> action) {

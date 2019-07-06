@@ -18,6 +18,8 @@ public class InputHandler implements SimpleInputProcessor {
     private final InputMultiplexer inputMultiplexer = new InputMultiplexer(this);
     private final BuildManager buildManager = new BuildManager();
 
+    private Optional<Selectable> currentlySelected = Optional.empty();
+
     InputHandler() {
     }
 
@@ -59,13 +61,21 @@ public class InputHandler implements SimpleInputProcessor {
     }
 
     public void setBuildAction(BuildAction action) {
-        logger.debug("New Build Action" + action);
+        logger.debug("New Build Action: " + action);
 
         buildManager.setAction(Optional.ofNullable(action));
     }
 
     public BuildManager getBuildManager() {
         return buildManager;
+    }
+
+    public void setCurrentlySelected(Optional<Selectable> currentlySelected) {
+        this.currentlySelected = currentlySelected;
+    }
+
+    public Optional<Selectable> getCurrentlySelected() {
+        return currentlySelected;
     }
 
     public InputMultiplexer getInputMultiplexer() {
