@@ -9,6 +9,8 @@ import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class MineJobTests extends JobTests {
 
     private World world;
@@ -26,12 +28,13 @@ public class MineJobTests extends JobTests {
     }
 
     @Test
-    void onFinishAddRockToInventory() {
+    void onFinishAddItemsToInventory() {
         rockTile.setBlock(Blocks.getIce());
         job.start();
         job.finish();
 
         Assertions.assertEquals(3, world.getInventory().getAmountForItem(Item.SPACE_ROCK));
+        Assertions.assertEquals(3, world.getInventory().getAmountForItem(Item.STEEL));
     }
 
     @Override
@@ -41,7 +44,7 @@ public class MineJobTests extends JobTests {
         Tile adjacent = world.getTileAt(5, 5).get();
         adjacent.setBlock(null);
 
-        job = new MineJob(rockTile, adjacent, Item.SPACE_ROCK, 3);
+        job = new MineJob(rockTile, adjacent, Arrays.asList(Item.SPACE_ROCK, Item.STEEL), 3);
 
         return job;
     }

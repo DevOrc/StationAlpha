@@ -68,10 +68,10 @@ public class BuildManagerTests {
         World world = new World();
         Tile tile = world.getTileAt(0, 0).get();
 
-        buildManager.setAction(Optional.of(new BuildFloor(Floor.WOOD)));
+        buildManager.setAction(Optional.of(new BuildFloor(Floor.GRASS)));
         buildManager.build(tile, Input.Buttons.LEFT);
 
-        Assertions.assertEquals(Floor.WOOD, tile.getFloor().get());
+        Assertions.assertEquals(Floor.GRASS, tile.getFloor().get());
     }
 
     @Test
@@ -80,10 +80,10 @@ public class BuildManagerTests {
         Tile tile = world.getTileAt(0, 0).get();
         tile.setFloor(Floor.WOOD);
 
-        buildManager.setAction(Optional.of(new BuildFloor(Floor.METAL)));
+        buildManager.setAction(Optional.of(new BuildFloor(Floor.GRASS)));
         buildManager.build(tile, Input.Buttons.LEFT);
 
-        Assertions.assertEquals(Floor.METAL, tile.getFloor().get());
+        Assertions.assertEquals(Floor.GRASS, tile.getFloor().get());
     }
 
     @Test

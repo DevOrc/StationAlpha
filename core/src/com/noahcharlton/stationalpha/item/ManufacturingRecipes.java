@@ -14,7 +14,7 @@ public class ManufacturingRecipes {
     public static void init(){
         addCraft(Item.SPACE_ROCK, 1, Item.STEEL, 3);
 
-        recipes.add(new ManufacturingRecipe(Item.LEAVES, 3, Item.DIRT,
+        recipes.add(new ManufacturingRecipe(Item.LEAVES, 64, Item.DIRT,
                 1, 5400, RecipeType.COMPOST));
 
         recipes.add(new ManufacturingRecipe(Item.SPACE_DUST, 5, Item.SPACE_ROCK,

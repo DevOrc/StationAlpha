@@ -8,6 +8,8 @@ import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -16,7 +18,7 @@ public class MineAction implements BuildAction {
     private final String displayName;
     private final JobQueue jobQueue;
     private final Block input;
-    private final Item output;
+    private final List<Item> output;
     private final int outputAmount;
 
     public MineAction(Builder builder) {
@@ -58,7 +60,7 @@ public class MineAction implements BuildAction {
         private Optional<String> displayName = Optional.empty();
         private JobQueue jobQueue = JobQueue.getInstance();
         private Block block;
-        private Item output;
+        private List<Item> output;
         private int outputAmount;
 
         public MineAction build(){
@@ -94,8 +96,8 @@ public class MineAction implements BuildAction {
             return this;
         }
 
-        public Builder setOutput(Item output) {
-            this.output = output;
+        public Builder setOutput(Item... output) {
+            this.output = Arrays.asList(output);
 
             return this;
         }

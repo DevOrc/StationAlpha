@@ -5,7 +5,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Floor;
+import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Objects;
@@ -22,7 +24,8 @@ public class BuildFloor implements BuildAction{
 
     @Override
     public void onClick(Tile tile, int button) {
-        if(button == Input.Buttons.LEFT){
+        if(button == Input.Buttons.LEFT && hasResourcesToBuild(tile.getWorld().getInventory())){
+            removeRequiredItem(tile.getWorld().getInventory());
             tile.setFloor(floor);
         }
 
@@ -32,6 +35,20 @@ public class BuildFloor implements BuildAction{
             else
                 InputHandler.getInstance().setBuildAction(null);
         }
+    }
+
+    private void removeRequiredItem(Inventory inventory) {
+        floor.getRequiredItem().ifPresent(item -> inventory.changeAmountForItem(item, -1));
+    }
+
+    private boolean hasResourcesToBuild(Inventory inventory) {
+        if(floor.getRequiredItem().isPresent()){
+            Item requiredItem = floor.getRequiredItem().get();
+
+            return inventory.getAmountForItem(requiredItem) > 0;
+        }
+
+        return true;
     }
 
     @Override

@@ -2,22 +2,27 @@ package com.noahcharlton.stationalpha.world;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
+import com.noahcharlton.stationalpha.item.Item;
+
+import java.util.Optional;
 
 public enum Floor {
 
-    METAL("metal.png", "Metal"),
-    WOOD("wood.png", "Wood"),
-    DIRT("dirt.png", "Soil"),
-    BRICK("brick.png", "Brick"),
-    GRASS("grass.png", "Grass");
+    METAL("metal.png", "Metal", Optional.of(Item.STEEL)),
+    WOOD("wood.png", "Wood", Optional.of(Item.WOOD)),
+    DIRT("dirt.png", "Soil", Optional.of(Item.DIRT)),
+    BRICK("brick.png", "Brick", Optional.empty()),
+    GRASS("grass.png", "Grass", Optional.empty());
 
+    private final Optional<Item> requiredItem;
     private final String displayName;
     private final String filename;
     private final ManagedTexture texture;
 
-    Floor(String filename, String displayName) {
+    Floor(String filename, String displayName, Optional<Item> item) {
         this.filename = filename;
         this.displayName = displayName;
+        this.requiredItem = item;
         this.texture = new ManagedTexture("floor/" + filename);
     }
 
@@ -35,5 +40,9 @@ public enum Floor {
 
     String getFilename() {
         return filename;
+    }
+
+    public Optional<Item> getRequiredItem() {
+        return requiredItem;
     }
 }

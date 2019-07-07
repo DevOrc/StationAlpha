@@ -21,8 +21,8 @@ public class MineActions {
                         .build(),
                 new MineAction.Builder()
                         .setBlock(Blocks.getTreeBlock())
-                        .setOutput(Item.WOOD)
-                        .setOutputAmount(3)
+                        .setOutput(Item.WOOD, Item.LEAVES, Item.LEAVES)
+                        .setOutputAmount(8)
                         .setDisplayName("Cut Tree")
                         .build()
         );

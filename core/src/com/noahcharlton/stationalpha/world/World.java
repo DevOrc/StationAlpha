@@ -47,6 +47,7 @@ public class World {
     private void giveStartingItems() {
         inventory.changeAmountForItem(Item.POTATO, 45);
         inventory.changeAmountForItem(Item.STEEL, 100);
+        inventory.changeAmountForItem(Item.DIRT, 12);
     }
 
     public void triggerWorldUpdate(int x, int y){
