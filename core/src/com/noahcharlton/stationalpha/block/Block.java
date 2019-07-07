@@ -81,4 +81,8 @@ public abstract class Block {
     public final void render(SpriteBatch spriteBatch, Tile tile) {
         renderer.renderBlock(spriteBatch, tile);
     }
+
+    public Optional<String> getHelpInfo() {
+        return Optional.empty();
+    }
 }

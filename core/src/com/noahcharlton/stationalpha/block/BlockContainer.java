@@ -3,6 +3,8 @@ package com.noahcharlton.stationalpha.block;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Optional;
+
 public class BlockContainer implements Selectable {
 
     private final Tile tile;
@@ -34,6 +36,11 @@ public class BlockContainer implements Selectable {
     @Override
     public String getDesc() {
         return "";
+    }
+
+    @Override
+    public Optional<String> getHelpInfo() {
+        return block.getHelpInfo();
     }
 
     @Override

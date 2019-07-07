@@ -1,4 +1,4 @@
-package com.noahcharlton.stationalpha.gui.scenes;
+package com.noahcharlton.stationalpha.gui.scenes.selectable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -6,22 +6,33 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.components.Pane;
+import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
+import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
 
 public class SelectableBox extends Pane {
 
     private static final int WIDTH = 350;
     private static final int Y_POS = BuildBar.HEIGHT + SpeedButton.HEIGHT + 32;
 
+    private final SelectableHelpButton helpButton = new SelectableHelpButton(this, this::onHelpButtonClicked);
+    private final HelpMenu helpMenu = new HelpMenu();
+
     private int height = 250;
 
     public SelectableBox() {
         setDrawBorder(true, true, true, true);
         setBorderColor(Color.WHITE);
+
+        addAllGui(helpButton, helpMenu);
     }
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        InputHandler.getInstance().getCurrentlySelected().ifPresent(selectable -> renderSelectable(b, selectable));
+        InputHandler.getInstance().getCurrentlySelected().ifPresent(selectable -> {
+            renderSelectable(b, selectable);
+
+            helpButton.setVisible(selectable.getHelpInfo().isPresent());
+        });
     }
 
     private void renderSelectable(SpriteBatch b, Selectable selectable) {
@@ -55,5 +66,9 @@ public class SelectableBox extends Pane {
     protected void updateSize() {
         setWidth(WIDTH);
         setHeight(height);
+    }
+
+    private void onHelpButtonClicked() {
+        helpMenu.setVisible(!helpMenu.isVisible());
     }
 }

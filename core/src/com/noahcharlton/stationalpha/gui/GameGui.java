@@ -8,6 +8,7 @@ import com.noahcharlton.stationalpha.gui.scenes.buildmenu.*;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu.BlockMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu.WorkerMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageMenu;
+import com.noahcharlton.stationalpha.gui.scenes.selectable.SelectableBox;
 
 import java.util.Arrays;
 import java.util.List;
