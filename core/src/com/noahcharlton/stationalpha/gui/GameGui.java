@@ -5,6 +5,7 @@ import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.scenes.*;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.*;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu.BlockMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu.WorkerMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageMenu;
 

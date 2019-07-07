@@ -21,15 +21,11 @@ public class VStretchLayout implements LayoutManager{
 
     @Override
     public void layout(GuiComponent parent, ArrayList<GuiComponent> children) {
-        containerX = parent.getX() + padding;
-        containerY = parent.getY() + padding;
-        containerWidth = parent.getWidth() - (padding * 2);
-        containerHeight = parent.getHeight() - (padding * 2);
-
+        setContainerDimensions(parent);
         layoutChildren(children);
     }
 
-    private void layoutChildren(ArrayList<GuiComponent> children) {
+    protected void layoutChildren(ArrayList<GuiComponent> children) {
         int heightPerChild = calculateWidthPerChild(children.size());
         int currentY = containerY;
 
@@ -49,6 +45,13 @@ public class VStretchLayout implements LayoutManager{
             return 0;
 
         return (containerHeight / (size)) - vGap + (vGap / size);
+    }
+
+    public void setContainerDimensions(GuiComponent parent) {
+        containerX = parent.getX() + padding;
+        containerY = parent.getY() + padding;
+        containerWidth = parent.getWidth() - (padding * 2);
+        containerHeight = parent.getHeight() - (padding * 2);
     }
 
     public void setPadding(int padding) {

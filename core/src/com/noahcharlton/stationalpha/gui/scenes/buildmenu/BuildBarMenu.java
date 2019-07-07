@@ -15,6 +15,7 @@ public abstract class BuildBarMenu<T> extends ComponentGroup {
     public BuildBarMenu(List<T> items) {
         super(new VStretchLayout());
         setDrawBorder(true, true, false,false);
+        updatePosition();
 
         createButtons(items);
     }
