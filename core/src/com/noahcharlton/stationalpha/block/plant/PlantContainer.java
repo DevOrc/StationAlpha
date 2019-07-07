@@ -26,6 +26,14 @@ public class PlantContainer extends BlockContainer {
     }
 
     @Override
+    public String[] getDebugInfo() {
+        return combineDebugInfo(
+                "Stage: " + stage,
+                "Tick: " + tick
+        );
+    }
+
+    @Override
     public void onUpdate() {
         if(onDirtFloor() && hasOxygen())
             tick++;

@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ComposterBlock extends Block {
 
     public ComposterBlock() {
-        setOpaque(true);
+        setOpaque(false);
     }
 
     @Override

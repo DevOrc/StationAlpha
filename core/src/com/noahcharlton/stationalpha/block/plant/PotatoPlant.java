@@ -6,6 +6,9 @@ public class PotatoPlant extends Plant{
 
     public PotatoPlant() {
         super(4, 1200);
+
+        setOpaque(false);
+        setPassable(true);
     }
 
     @Override

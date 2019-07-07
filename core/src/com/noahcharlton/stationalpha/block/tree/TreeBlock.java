@@ -7,7 +7,7 @@ import java.util.Optional;
 public class TreeBlock extends Block {
 
     public TreeBlock() {
-        setOpaque(true);
+        setOpaque(false);
     }
 
     @Override

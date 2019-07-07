@@ -6,6 +6,10 @@ import java.util.Optional;
 
 public class CompressorBlock extends Block {
 
+    public CompressorBlock() {
+        setOpaque(false);
+    }
+
     @Override
     public String getDisplayName() {
         return "Compressor";

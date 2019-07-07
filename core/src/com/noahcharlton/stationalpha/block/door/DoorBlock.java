@@ -14,10 +14,6 @@ import java.util.Optional;
 
 public class DoorBlock extends Block implements BlockRenderer {
 
-    public DoorBlock() {
-        setOpaque(true);
-    }
-
     @Override
     public String getDisplayName() {
         return "Door";

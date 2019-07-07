@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class BlockContainer implements Selectable {
@@ -45,7 +46,18 @@ public class BlockContainer implements Selectable {
 
     @Override
     public String[] getDebugInfo() {
-        return tile.getDebugInfo();
+        return combineDebugInfo();
+    }
+
+    protected String[] combineDebugInfo(String... data){
+        String[] original = tile.getDebugInfo();
+        String[] array = Arrays.copyOf(original, original.length + data.length);
+
+        for(int i = 0; i < data.length; i++){
+            array[i + original.length] = data[i];
+        }
+
+        return array;
     }
 
     public BlockRotation getRotation() {

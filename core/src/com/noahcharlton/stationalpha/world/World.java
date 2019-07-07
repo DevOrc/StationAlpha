@@ -10,6 +10,7 @@ import com.noahcharlton.stationalpha.goal.PotatoGoal;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -35,13 +36,22 @@ public class World {
 
     public World(boolean generate) {
         fillTiles();
-
-        workers.add(Worker.create(this));
+        addStartingWorker();
 
         if(generate){
             generateWorld();
             giveStartingItems();
         }
+    }
+
+    private void addStartingWorker() {
+        Worker worker = Worker.create(this);
+
+        for(WorkerRole role: WorkerRole.values()){
+            worker.addRole(role);
+        }
+
+        workers.add(worker);
     }
 
     private void giveStartingItems() {

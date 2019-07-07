@@ -6,10 +6,6 @@ import java.util.Optional;
 
 public class IceBlock extends Block {
 
-    public IceBlock() {
-        setOpaque(true);
-    }
-
     @Override
     public String getDisplayName() {
         return "Space Rock";

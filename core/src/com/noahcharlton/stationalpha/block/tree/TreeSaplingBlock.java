@@ -9,6 +9,11 @@ import java.util.Optional;
 
 public class TreeSaplingBlock extends Block {
 
+    public TreeSaplingBlock() {
+        setOpaque(false);
+        setPassable(true);
+    }
+
     @Override
     protected Optional<String> getTextureFileName() {
         return Optional.of("tree_sapling.png");

@@ -10,6 +10,10 @@ import java.util.Optional;
 
 public class BedBlock extends Block {
 
+    public BedBlock() {
+        setOpaque(false);
+    }
+
     @Override
     public String getDisplayName() {
         return "Bed";

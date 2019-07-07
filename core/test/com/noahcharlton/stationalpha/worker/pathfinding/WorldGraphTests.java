@@ -75,4 +75,12 @@ public class WorldGraphTests {
 
         Assertions.assertFalse(graph.doesTileBlockPaths(tile));
     }
+
+    @Test
+    void doesTileBlockPathPassableBlockReturnsFalseTest() {
+        Tile tile = new Tile(0, 0, world);
+        tile.setBlock(Blocks.getTreeSapling());
+
+        Assertions.assertFalse(graph.doesTileBlockPaths(tile));
+    }
 }

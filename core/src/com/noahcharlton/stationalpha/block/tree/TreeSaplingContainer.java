@@ -41,6 +41,13 @@ public class TreeSaplingContainer extends BlockContainer {
         }
     }
 
+    @Override
+    public String[] getDebugInfo() {
+        return combineDebugInfo(
+                "Tick: " + tick
+        );
+    }
+
     void createTree() {
         List<Tile> tiles = getTilesAdjacentWithDiagonals();
 

@@ -56,7 +56,7 @@ public class WorldGraph implements IndexedGraph<Tile> {
             if(block instanceof DoorBlock)
                 return false;
 
-            return true;
+            return !block.isPassable();
         }
 
         return false;

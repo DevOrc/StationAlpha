@@ -14,7 +14,8 @@ public abstract class Block {
     private final Optional<ManagedTexture> texture;
     private final BlockRenderer renderer;
 
-    private boolean isOpaque;
+    private boolean isPassable = false;
+    private boolean isOpaque = true;
 
     public Block() {
         this.texture = loadTexture();
@@ -72,6 +73,14 @@ public abstract class Block {
 
     protected void setOpaque(boolean opaque) {
         isOpaque = opaque;
+    }
+
+    protected void setPassable(boolean passable) {
+        isPassable = passable;
+    }
+
+    public boolean isPassable() {
+        return isPassable;
     }
 
     public boolean isOpaque() {
