@@ -8,11 +8,14 @@ import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class PlantContainer extends BlockContainer {
 
+    private static final Random random = new Random();
     private static final int OXYGEN_REQUIREMENT = 15;
     private final Plant plant;
+    private final int ticksPerStage;
 
     private Optional<HarvestPlantJob> job = Optional.empty();
 
@@ -23,28 +26,40 @@ public class PlantContainer extends BlockContainer {
         super(tile, plant, rotation);
 
         this.plant = plant;
+        this.ticksPerStage = (int) (plant.getMinimumTicksPerStage() * (1f + (random.nextFloat() / 2f)));
+        this.tick = ticksPerStage;
     }
 
     @Override
     public String[] getDebugInfo() {
         return combineDebugInfo(
-                "Stage: " + stage,
-                "Tick: " + tick
+                "Percent: " + calcPercent() + "%",
+                "Stage : " + (stage + 1) + " / " + plant.getStageCount()
         );
+    }
+
+    private int calcPercent() {
+        double percent =  1 - ((double) tick / ticksPerStage);
+        percent /= plant.getStageCount();
+        percent *= 100;
+        percent += (100.0 / plant.getStageCount()) * stage;
+
+        return (int) percent;
     }
 
     @Override
     public void onUpdate() {
         if(onDirtFloor() && hasOxygen())
-            tick++;
+            tick--;
 
-        if(tick > plant.getTicksPerStage()){
+        if(tick <= 0){
             stage++;
-            tick = 0;
+            tick = ticksPerStage;
         }
 
         if(stage >= plant.getStageCount()){
             stage = plant.getStageCount() - 1;
+            tick = 0;
 
             if(!job.isPresent())
                 createJob();
@@ -86,5 +101,9 @@ public class PlantContainer extends BlockContainer {
 
     public int getTick() {
         return tick;
+    }
+
+    public int getTicksPerStage() {
+        return ticksPerStage;
     }
 }

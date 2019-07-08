@@ -36,7 +36,7 @@ public class HarvestJobTests extends JobTests {
         getJob().start();
         getJob().finish();
 
-        Assertions.assertEquals(0, plant.getTick());
+        Assertions.assertEquals(plant.getTicksPerStage(), plant.getTick());
     }
 
     @Test

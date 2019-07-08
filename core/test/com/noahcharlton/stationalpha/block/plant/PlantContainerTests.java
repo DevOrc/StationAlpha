@@ -47,7 +47,7 @@ public class PlantContainerTests {
         tile.changeOxygenLevel(25);
         plantContainer.onUpdate();
 
-        Assertions.assertEquals(1, plantContainer.getTick());
+        Assertions.assertEquals(plantContainer.getTicksPerStage() - 1, plantContainer.getTick());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class PlantContainerTests {
         tile.setFloor(Floor.DIRT);
         plantContainer.onUpdate();
 
-        Assertions.assertEquals(0, plantContainer.getTick());
+        Assertions.assertEquals(plantContainer.getTicksPerStage(), plantContainer.getTick());
     }
 
     @Test
@@ -64,16 +64,15 @@ public class PlantContainerTests {
         tile.changeOxygenLevel(25);
         plantContainer.onUpdate();
 
-        Assertions.assertEquals(0, plantContainer.getTick());
+        Assertions.assertEquals(plantContainer.getTicksPerStage(), plantContainer.getTick());
     }
 
     @Test
     void onStageIncreaseTest() {
         tile.setFloor(Floor.DIRT);
         tile.changeOxygenLevel(25);
-        Plant plant = (Plant) Blocks.getPotatoPlant();
 
-        for(int i = 0; i <= plant.getTicksPerStage(); i++){
+        for(int i = 0; i <= plantContainer.getTicksPerStage(); i++){
             plantContainer.onUpdate();
         }
 
@@ -85,10 +84,10 @@ public class PlantContainerTests {
         tile.setFloor(Floor.DIRT);
         Plant plant = (Plant) Blocks.getPotatoPlant();
 
-        for(int i = 0; i <= plant.getTicksPerStage(); i++){
+        for(int i = 0; i <= plant.getMinimumTicksPerStage(); i++){
             plantContainer.onUpdate();
         }
 
-        Assertions.assertEquals(0, plantContainer.getTick());
+        Assertions.assertEquals(plantContainer.getTicksPerStage(), plantContainer.getTick());
     }
 }

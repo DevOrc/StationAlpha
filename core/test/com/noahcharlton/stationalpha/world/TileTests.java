@@ -121,6 +121,35 @@ public class TileTests {
     }
 
     @Test
+    void getOpenAdjacentNoneOpenTest() {
+        Tile origin = world.getTileAt(0, 0).get();
+
+        world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
+        world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
+
+        Assertions.assertFalse(origin.getOpenAdjecent().isPresent());
+    }
+
+    @Test
+    void getOpenAdjacentBasicTestTest() {
+        Tile origin = world.getTileAt(0, 0).get();
+
+        world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
+
+        Assertions.assertEquals(origin.getOpenAdjecent().get(), world.getTileAt(1, 0).get());
+    }
+
+    @Test
+    void getOpenAdjacentPassableBlockTest() {
+        Tile origin = world.getTileAt(0, 0).get();
+
+        world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
+        world.getTileAt(1, 0).get().setBlock(Blocks.getPotatoPlant());
+
+        Assertions.assertEquals(origin.getOpenAdjecent().get(), world.getTileAt(1, 0).get());
+    }
+
+    @Test
     void getAdjacentCornerTest() {
         Tile origin = world.getTileAt(0, 0).get();
         Tile corner = world.getTileAt(1, 1).get();

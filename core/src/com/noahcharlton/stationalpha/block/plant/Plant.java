@@ -39,7 +39,7 @@ public abstract class Plant extends Block {
 
     public abstract String getPlantName();
 
-    public int getTicksPerStage() {
+    public int getMinimumTicksPerStage() {
         return ticksPerStage;
     }
 
