@@ -55,8 +55,9 @@ public class BedRenderer extends DefaultBlockRenderer {
     boolean isBedOccupied(Optional<Worker> worker){
         if(worker.isPresent()){
             Optional<Job> currentJob = worker.get().getAi().getJobManager().getCurrentJob();
+            Optional<Tile> adjacent = worker.get().getBedroom().flatMap(bed -> bed.getTile().getOpenAdjecent());
 
-            if(currentJob.filter(job -> isInProgressSleep(job)).isPresent()){
+            if(currentJob.filter(job -> isInProgressSleep(job)).isPresent() && adjacent.isPresent()){
                 return true;
             }
         }
@@ -80,7 +81,7 @@ public class BedRenderer extends DefaultBlockRenderer {
         int rotation = container.getRotation().getDegrees();
 
         DefaultBlockRenderer.drawRotated(batch, texture, x, y, rotation, containerWidth, width, height,
-                0, srcY, 0, srcY);
+                0, srcY, 0, 0);
     }
 
     private void drawName(SpriteBatch batch, Tile tile, BedContainer bedContainer) {

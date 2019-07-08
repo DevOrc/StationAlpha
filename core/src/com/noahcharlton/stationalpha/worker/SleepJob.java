@@ -29,9 +29,13 @@ public class SleepJob extends TickBasedJob {
     @Override
     public Optional<JobRenderer> createRenderer() {
         return Optional.of((batch, job) -> {
-            if(job.getStage() != JobStage.IN_PROGRESS){
+            if(job.getStage() != JobStage.IN_PROGRESS || !hasAccessibleBedroom()){
                 WorkerRenderer.defaultRender(batch, worker);
             }
         });
+    }
+
+    boolean hasAccessibleBedroom() {
+        return worker.getBedroom().filter(bedContainer -> bedContainer.getTile().getOpenAdjecent().isPresent()).isPresent();
     }
 }
