@@ -7,21 +7,19 @@ import java.util.Optional;
 
 public class PotatoGoal extends Goal {
 
-    private final World world;
     private final int goalCount;
 
-    public PotatoGoal(World world, int goalCount) {
-        this.world = world;
+    public PotatoGoal(int goalCount) {
         this.goalCount = goalCount;
     }
 
     @Override
     public Optional<Goal> getNextGoal(World world) {
-        return Optional.of(new PotatoGoal(world, goalCount * 2));
+        return Optional.of(new PotatoGoal(goalCount * 2));
     }
 
     @Override
-    protected boolean checkCompleted() {
+    protected boolean checkCompleted(World world) {
         return world.getInventory().getAmountForItem(Item.POTATO) >= goalCount;
     }
 

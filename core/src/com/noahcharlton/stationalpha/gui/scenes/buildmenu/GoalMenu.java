@@ -9,8 +9,11 @@ import java.util.Collections;
 
 public class GoalMenu extends BuildBarMenu {
 
-    private static final int WIDTH = 350;
-    private static final int HEIGHT = 250;
+    private static final int SPACING = 15;
+    private static final int WIDTH = 650;
+    private static final int HEIGHT = 400;
+
+    private int height = HEIGHT;
 
     public GoalMenu() {
         super(Collections.emptyList());
@@ -22,16 +25,22 @@ public class GoalMenu extends BuildBarMenu {
     }
 
     private void drawGoalData(SpriteBatch b, Goal goal) {
+        int y = SPACING;
+
         setFontData(1f, Color.WHITE);
-        drawCenteredText(b, goal.getName(), HEIGHT * 9 / 10);
+        y += drawCenteredText(b, goal.getName(), getHeight() - y).height;
+        y += SPACING;
 
         setFontData(.6f, Color.WHITE);
-        drawCenteredText(b, goal.getDescription(), HEIGHT * 6 / 10);
+        y += drawCenteredText(b, goal.getDescription(),getHeight() -y ).height;
+        y += SPACING * 2;
+
+        height = y;
     }
 
     @Override
     protected void updateSize() {
-        setHeight(HEIGHT);
+        setHeight(height);
         setWidth(WIDTH);
     }
 

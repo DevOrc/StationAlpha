@@ -6,7 +6,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.goal.GoalManager;
-import com.noahcharlton.stationalpha.goal.PotatoGoal;
+import com.noahcharlton.stationalpha.goal.SteelGoal;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;
@@ -25,7 +25,7 @@ public class World {
     private final ArrayList<Worker> workers = new ArrayList<>();
     private final Inventory inventory = new Inventory();
     private final ManufacturingManager manufacturingManager = new ManufacturingManager();
-    private final GoalManager goalManager = new GoalManager(this, new PotatoGoal(this, 50));
+    private final GoalManager goalManager = new GoalManager(this, new SteelGoal());
 
     /**
      * Used for testing

@@ -1,7 +1,6 @@
 package com.noahcharlton.stationalpha.goal;
 
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
-import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.world.World;
 
 import java.util.Optional;
@@ -17,13 +16,14 @@ public class GoalManager {
     }
 
     public void update(){
-        currentGoal.ifPresent(Goal::update);
+        currentGoal.ifPresent(goal -> goal.update(world));
 
         if(currentGoal.map(Goal::isCompleted).orElse(false)){
+            currentGoal.get().onComplete(world);
             showGoalCompletedMessage();
+
             currentGoal = currentGoal.get().getNextGoal(world);
 
-            addWorker();
         }
     }
 
@@ -32,10 +32,6 @@ public class GoalManager {
             String desc = "Congrats! You have completed the goal: " + goal.getName() ;
             MessageQueue.getInstance().add("Goal Completed", desc);
         });
-    }
-
-    private void addWorker() {
-        world.getWorkers().add(Worker.create(world));
     }
 
     public Optional<Goal> getCurrentGoal() {
