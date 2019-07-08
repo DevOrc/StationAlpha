@@ -5,6 +5,7 @@ import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.world.Floor;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class FloorMenu extends BuildBarMenu<Floor> {
 
@@ -13,8 +14,11 @@ public class FloorMenu extends BuildBarMenu<Floor> {
     }
 
     @Override
-    protected Runnable createRunnable(Floor item) {
-        return () -> InputHandler.getInstance().setBuildAction(new BuildFloor(item));
+    protected Runnable createRunnable(Floor floor) {
+        return () -> {
+            InputHandler.getInstance().setBuildAction(new BuildFloor(floor));
+            InputHandler.getInstance().setCurrentlySelected(Optional.of(new BuildFloorSelectable(floor)));
+        };
     }
 
     @Override

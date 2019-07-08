@@ -62,9 +62,11 @@ public class ManufacturingRecipeGui extends Pane {
         String inputText = recipe.getInputItem().getDisplayName() + ":  " + recipe.getInputAmount();
         String outputText = recipe.getOutputItem().getDisplayName() + ":  " + recipe.getOutputAmount();
         String timeText = "Time: " + recipe.getTime() + " ticks";
+        String typeText = "Type: " + recipe.getType().name().toLowerCase();
 
         setFontData(.5f, Color.WHITE);
         y += font.draw(b, timeText, getX() + 10, y).height + SPACING;
+        y += font.draw(b, typeText, getX() + 10, y).height + SPACING;
         y += SPACING * 3;
 
         y += font.draw(b, outputText, getX() + 10, y).height + SPACING + SPACING;

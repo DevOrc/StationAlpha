@@ -10,7 +10,7 @@ public class TestGoal extends Goal{
     private boolean goalAchieved;
 
     @Override
-    protected boolean checkCompleted() {
+    protected boolean checkCompleted(World world) {
         return goalAchieved;
     }
 

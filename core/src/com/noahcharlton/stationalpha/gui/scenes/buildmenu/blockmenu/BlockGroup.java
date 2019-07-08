@@ -22,9 +22,7 @@ enum BlockGroup {
             Blocks.getCompressor(),
             Blocks.getDustCollector()),
     MISC("Misc.",
-            Blocks.getBedBlock(),
-            Blocks.getIce());
-
+            Blocks.getBedBlock());
     final String name;
     final List<Block> blocks;
 

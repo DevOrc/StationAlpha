@@ -140,4 +140,12 @@ public class BuildBlock implements BuildAction {
 
         ShapeUtil.drawRect(x, y, width, height, color, b);
     }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public BlockRotation getRotation() {
+        return rotation;
+    }
 }
