@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.noahcharlton.stationalpha.StationAlpha;
@@ -17,6 +18,8 @@ public class DesktopLauncher {
 		config.vSyncEnabled = false;
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 0;
+
+		config.addIcon("icon.png", Files.FileType.Internal);
 
 		new LwjglApplication(new StationAlpha(), config);
 	}
