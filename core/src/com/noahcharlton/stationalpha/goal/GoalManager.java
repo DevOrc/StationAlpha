@@ -3,38 +3,37 @@ package com.noahcharlton.stationalpha.goal;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.world.World;
 
-import java.util.Optional;
+import java.util.Objects;
 
 public class GoalManager {
 
     private final World world;
-    private Optional<Goal> currentGoal;
+    private final GoalSupplier goals;
+    private Goal currentGoal;
 
-    public GoalManager(World world, Goal firstGoal) {
+    public GoalManager(World world, GoalSupplier goals) {
         this.world = world;
-        this.currentGoal = Optional.of(firstGoal);
+        this.goals = goals;
+        this.currentGoal = goals.getNext();
     }
 
-    public void update(){
-        currentGoal.ifPresent(goal -> goal.update(world));
+    public void update() {
+        currentGoal.update(world);
 
-        if(currentGoal.map(Goal::isCompleted).orElse(false)){
-            currentGoal.get().onComplete(world);
+        if(currentGoal.isCompleted()) {
+            currentGoal.onComplete(world);
             showGoalCompletedMessage();
 
-            currentGoal = currentGoal.get().getNextGoal(world);
-
+            currentGoal = Objects.requireNonNull(goals.getNext());
         }
     }
 
     private void showGoalCompletedMessage() {
-        currentGoal.ifPresent(goal -> {
-            String desc = "Congrats! You have completed the goal: " + goal.getName() ;
-            MessageQueue.getInstance().add("Goal Completed", desc);
-        });
+        String desc = "Congrats! You have completed the goal: " + currentGoal.getName();
+        MessageQueue.getInstance().add("Goal Completed", desc);
     }
 
-    public Optional<Goal> getCurrentGoal() {
+    public Goal getCurrentGoal() {
         return currentGoal;
     }
 }

@@ -27,6 +27,7 @@ public class SynthesizerContainerTests {
 
     @BeforeEach
     void setUp() {
+        world.getInventory().changeAmountForItem(Item.UNOBTAINIUM, 1);
         BuildBlock builder = new BuildBlock(Blocks.getSynthesizer());
         builder.onClick(tile, Input.Buttons.LEFT);
 

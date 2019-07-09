@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block.dust;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -12,6 +13,11 @@ public class Synthesizer extends Block {
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {
         return new SynthesizerContainer(tile, this, blockRotation);
+    }
+
+    @Override
+    public Optional<Item> getRequiredItem() {
+        return Optional.of(Item.UNOBTAINIUM);
     }
 
     @Override

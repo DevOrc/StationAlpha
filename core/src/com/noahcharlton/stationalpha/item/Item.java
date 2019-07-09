@@ -13,7 +13,8 @@ public enum Item {
     WOOD("wood", "Wood"),
     LEAVES("leaves", "Leaves"),
     DIRT("dirt", "Dirt"),
-    SPACE_DUST("dust", "Space Dust");
+    SPACE_DUST("dust", "Space Dust"),
+    UNOBTAINIUM("unobtainium", "Unobtainium");
 
     private final String displayName;
     private final String id;

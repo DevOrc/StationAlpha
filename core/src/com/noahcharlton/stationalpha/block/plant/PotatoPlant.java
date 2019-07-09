@@ -23,6 +23,6 @@ public class PotatoPlant extends Plant{
 
     @Override
     public String getDisplayName() {
-        return "Potato";
+        return "Potato Plant";
     }
 }

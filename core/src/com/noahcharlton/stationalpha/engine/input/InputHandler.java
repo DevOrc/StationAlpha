@@ -32,15 +32,15 @@ public class InputHandler implements SimpleInputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        int graphicsY = Gdx.graphics.getHeight() - screenY;
-        boolean onGui = StationAlpha.getInstance().getGuiContainer().handleClick(screenX, graphicsY);
-
-        if(onGui)
-            return false;
-
-        if(World.getInstance().isPresent()) {
-            buildManager.handleGameDrag(screenX, screenY);
-        }
+//        int graphicsY = Gdx.graphics.getHeight() - screenY;
+//        boolean onGui = StationAlpha.getInstance().getGuiContainer().handleClick(screenX, graphicsY);
+//
+//        if(onGui)
+//            return false;
+//
+//        if(World.getInstance().isPresent()) {
+//            buildManager.handleGameDrag(screenX, screenY);
+//        }
         return false;
     }
 

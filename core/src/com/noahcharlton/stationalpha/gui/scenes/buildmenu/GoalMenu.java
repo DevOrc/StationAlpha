@@ -21,7 +21,7 @@ public class GoalMenu extends BuildBarMenu {
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        World.getInstance().get().getGoalManager().getCurrentGoal().ifPresent(goal -> drawGoalData(b, goal));
+        drawGoalData(b, World.getInstance().get().getGoalManager().getCurrentGoal());
     }
 
     private void drawGoalData(SpriteBatch b, Goal goal) {

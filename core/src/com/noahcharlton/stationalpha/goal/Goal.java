@@ -3,8 +3,6 @@ package com.noahcharlton.stationalpha.goal;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.world.World;
 
-import java.util.Optional;
-
 public abstract class Goal {
 
     private boolean completed;
@@ -17,8 +15,6 @@ public abstract class Goal {
     }
 
     protected abstract boolean checkCompleted(World world);
-
-    public abstract Optional<Goal> getNextGoal(World world);
 
     public void onComplete(World world){
         world.getWorkers().add(Worker.create(world));

@@ -20,6 +20,10 @@ public class MessageQueue {
         return Optional.ofNullable(messages.poll());
     }
 
+    public ArrayDeque<Message> getMessages() {
+        return messages;
+    }
+
     public static MessageQueue getInstance() {
         return instance;
     }

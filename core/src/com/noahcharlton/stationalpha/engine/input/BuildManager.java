@@ -19,7 +19,7 @@ public class BuildManager {
     private final StationAlpha gameInstance = StationAlpha.getInstance();
 
     private Optional<BuildAction> action = Optional.empty();
-    private Optional<Tile> lastTile;
+    private Optional<Tile> lastTile = Optional.empty();
 
     public void handleGameDrag(int x, int y) {
         Vector3 worldPos = toWorldPos(x, y);
