@@ -17,7 +17,7 @@ public class MenuButtonTests{
         button.setHeight(100);
         button.setWidth(100);
 
-        button.handleClick(50, 3);
+        button.handleClick(50, 3, true);
 
         Assertions.assertEquals(1, timesRan);
     }

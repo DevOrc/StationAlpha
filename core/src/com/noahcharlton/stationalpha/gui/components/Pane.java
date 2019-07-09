@@ -49,11 +49,6 @@ public abstract class Pane extends GuiComponent {
         }
     }
 
-    @Override
-    public boolean handleClick(int clickX, int clickY) {
-        return super.handleClick(clickX, clickY);
-    }
-
     public void setDrawBorder(boolean north, boolean east, boolean south, boolean west){
         borderNorth = north;
         borderEast = east;

@@ -34,12 +34,12 @@ public class GuiContainer {
         guiBatch.end();
     }
 
-    public boolean handleClick(int clickX, int clickY){
+    public boolean handleClick(int clickX, int clickY, boolean actualClick){
         boolean onGui = false;
 
         for(GuiComponent gui : guis){
             if(gui.isVisible()) {
-                if(gui.handleClick(clickX, clickY)){
+                if(gui.handleClick(clickX, clickY, actualClick)){
                     onGui = true;
                 }
             }

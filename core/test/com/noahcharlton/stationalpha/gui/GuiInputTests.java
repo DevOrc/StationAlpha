@@ -40,9 +40,20 @@ public class GuiInputTests {
 
         gui.setWidth(10);
         gui.setHeight(10);
-        gui.handleClick(5, 5);
+        gui.handleClick(5, 5, true);
 
         Assertions.assertEquals(1, gui.getClickCount());
+    }
+
+    @Test
+    void handleClickNotActualClickTest() {
+        TestGui gui = new TestGui();
+
+        gui.setWidth(10);
+        gui.setHeight(10);
+        gui.handleClick(5, 5, false);
+
+        Assertions.assertEquals(0, gui.getClickCount());
     }
 
     @Test
@@ -52,7 +63,7 @@ public class GuiInputTests {
         gui.setWidth(100);
         gui.setVisible(false);
 
-        gui.handleClick(50, 50);
+        gui.handleClick(50, 50, true);
 
         Assertions.assertEquals(0, gui.getClickCount());
     }
@@ -66,7 +77,7 @@ public class GuiInputTests {
 
         parent.addGui(child);
 
-        parent.handleClick(10, 10);
+        parent.handleClick(10, 10, true);
 
         Assertions.assertEquals(1, child.getClickCount());
     }

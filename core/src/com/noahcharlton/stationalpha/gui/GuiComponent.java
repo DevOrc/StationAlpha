@@ -59,16 +59,16 @@ public abstract class GuiComponent {
 
     protected void update(){}
 
-    public boolean handleClick(int clickX, int clickY) {
+    public boolean handleClick(int clickX, int clickY, boolean actualClick) {
         if(!visible)
             return false;
 
         boolean onGui = isPointOnGui(clickX, clickY);
 
-        if(onGui)
+        if(onGui && actualClick)
             onClick();
 
-        return handleClickOnSubGui(clickX, clickY) || onGui;
+        return handleClickOnSubGui(clickX, clickY, actualClick) || onGui;
     }
 
     protected void onClick(){}
@@ -77,12 +77,12 @@ public abstract class GuiComponent {
         return clickX > x && clickY > y && clickX < x  + width && clickY < y + height;
     }
 
-    private boolean handleClickOnSubGui(int x, int y) {
+    private boolean handleClickOnSubGui(int x, int y, boolean actualClick) {
         boolean onGui = false;
 
         for(GuiComponent gui : subGuis){
             if(gui.isVisible()) {
-                if(gui.handleClick(x, y)){
+                if(gui.handleClick(x, y, actualClick)){
                     onGui = true;
                 }
             }
