@@ -21,6 +21,24 @@ public class SynthesizerContainer extends BlockContainer {
     }
 
     @Override
+    public String[] getDebugInfo() {
+        String[] data = currentJob.map(this::getInfoFromJob).orElse(new String[]{"Currently Producing: None"});
+
+        return combineDebugInfo(data);
+    }
+
+    private String[] getInfoFromJob(Job job) {
+        SynthesizerJob synthesizerJob = (SynthesizerJob) job;
+        ManufacturingRecipe recipe = synthesizerJob.getRecipe();
+        double percent = (double) synthesizerJob.getTick() / synthesizerJob.getJobDuration() * 100.0;
+
+        return new String[]{
+                "Currently Producing: " + recipe.getOutputItem().getDisplayName(),
+                "Progress: " + ((int) percent) + "%"
+        };
+    }
+
+    @Override
     public void onUpdate() {
         if(currentJob.isPresent()) {
             updateJob();

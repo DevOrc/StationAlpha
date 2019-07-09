@@ -11,6 +11,8 @@ import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class WorkbenchContainerTests {
 
     private final World world = new World();
@@ -79,6 +81,50 @@ public class WorkbenchContainerTests {
         container.onUpdate();
 
         Assertions.assertFalse(container.getJob().isPresent());
+    }
+
+
+    @Test
+    void getDebugInfoNoRecipeTest() {
+        String expected = "Currently Producing: None";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void getDebugInfoOutputNameTest() {
+        setupRecipe();
+        container.createJobFromRecipe();
+
+        String expected = "Currently Producing: Test Item";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void getDebugInfoZeroPercentTest() {
+        setupRecipe();
+        container.createJobFromRecipe();
+
+        String expected = "Progress: 0%";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void getDebugInfo100PercentDoneTest() {
+        setupRecipe();
+        container.createJobFromRecipe();
+
+        container.getJob().get().update();
+
+        String expected = "Progress: 100%";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
     }
 
     private void setupRecipe(){

@@ -28,4 +28,8 @@ public class WorkbenchJob extends TickBasedJob {
 
         recipe.addProducts(getTarget().getWorld().getInventory());
     }
+
+    public ManufacturingRecipe getRecipe() {
+        return recipe;
+    }
 }

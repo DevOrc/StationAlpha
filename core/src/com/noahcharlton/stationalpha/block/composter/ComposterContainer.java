@@ -42,6 +42,28 @@ public class ComposterContainer extends BlockContainer {
         }
     }
 
+    @Override
+    public String[] getDebugInfo() {
+        if(currentRecipe.isPresent() && tick.isPresent()){
+            return combineDebugInfo(
+                    "Currently Making: " + currentRecipe.get().getOutputItem().getDisplayName(),
+                    "Progress: " + calcPercent(tick.get(), currentRecipe.get().getTime()) + "%"
+            );
+        }else if(currentRecipe.isPresent()){
+            return combineDebugInfo("Currently Making: " + currentRecipe.get().getOutputItem().getDisplayName());
+        }else{
+            return combineDebugInfo("Currently Making: None");
+        }
+    }
+
+    private int calcPercent(int tick, int time) {
+        int timeLeft = time - tick;
+        double percent = (double) (timeLeft) / time;
+        percent *= 100.0;
+
+        return (int) percent;
+    }
+
     void createEndCompostJob() {
         Optional<Tile> target = getTile().getOpenAdjecent();
 

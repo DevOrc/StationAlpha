@@ -37,4 +37,8 @@ public class SynthesizerJob extends TickBasedJob {
 
         recipe.addProducts(inventory);
     }
+
+    public ManufacturingRecipe getRecipe() {
+        return recipe;
+    }
 }

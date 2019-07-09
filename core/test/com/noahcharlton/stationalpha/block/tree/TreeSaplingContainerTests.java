@@ -79,4 +79,55 @@ public class TreeSaplingContainerTests {
 
         Assertions.assertNotEquals(tile.getContainer().get(), container);
     }
+
+    @Test
+    void tickAndStartingTickMatchAfterConstructor() {
+        Assertions.assertEquals(container.getTick(), container.getStartingAmount());
+    }
+
+    @Test
+    void debugInfoZeroPercentTest() {
+        String expected = "Progress: 0%";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void debugInfo50PercentTest() {
+        container.setTick(container.getStartingAmount() / 2);
+
+        String expected = "Progress: 50%";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void debugInfo100PercentTest() {
+        container.setTick(0);
+
+        String expected = "Progress: 100%";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void enoughSpaceDebugInfoTest() {
+        String expected = "Space: Good";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void notEnoughSpaceDebugInfoTest() {
+        world.getTileAt(0 ,0).get().setBlock(Blocks.getWall());
+
+        String expected = "Space: Low";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
 }

@@ -21,12 +21,15 @@ public class TreeSaplingContainer extends BlockContainer {
 
     private static final Random random = new Random();
 
+    private final int startingAmount;
+
     private int tick;
 
     public TreeSaplingContainer(Tile tile, Block block, BlockRotation rotation) {
         super(tile, block, rotation);
 
         tick = BASE_GROWTH_TIME + random.nextInt(RANDOM_GROWTH_BOUND);
+        this.startingAmount = tick;
     }
 
     @Override
@@ -43,15 +46,16 @@ public class TreeSaplingContainer extends BlockContainer {
 
     @Override
     public String[] getDebugInfo() {
+        double percent = ((double) (startingAmount - tick) / startingAmount) * 100;
+
         return combineDebugInfo(
-                "Tick: " + tick
+                "Progress: " + ((int) percent) + "%",
+                "Space: " + (hasEnoughSpace() ? "Good":"Low")
         );
     }
 
     void createTree() {
-        List<Tile> tiles = getTilesAdjacentWithDiagonals();
-
-        if(allTilesOpen(tiles) && allAdjacentTilesPresent(tiles)){
+        if(hasEnoughSpace()){
 
             BuildBlock blockBuilder = new BuildBlock(Blocks.getTreeBlock());
 
@@ -59,6 +63,12 @@ public class TreeSaplingContainer extends BlockContainer {
 
             blockBuilder.onClick(getBottomLeftCornerTile(), Input.Buttons.LEFT);
         }
+    }
+
+    boolean hasEnoughSpace(){
+        List<Tile> tiles = getTilesAdjacentWithDiagonals();
+
+        return allTilesOpen(tiles) && allAdjacentTilesPresent(tiles);
     }
 
     boolean allTilesOpen(List<Tile> tiles) {
@@ -100,5 +110,9 @@ public class TreeSaplingContainer extends BlockContainer {
 
     public int getTick() {
         return tick;
+    }
+
+    public int getStartingAmount() {
+        return startingAmount;
     }
 }

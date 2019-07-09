@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class SynthesizerContainerTests {
@@ -118,5 +119,57 @@ public class SynthesizerContainerTests {
     @Test
     void currentJobDefaultsToEmptyTest() {
         Assertions.assertEquals(Optional.empty(), container.getCurrentJob());
+    }
+
+    @Test
+    void getDebugInfoNoRecipeTest() {
+        String expected = "Currently Producing: None";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void getDebugInfoOutputNameTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+                100, RecipeType.SYNTHESIZE);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.checkAndCreateJob();
+
+        String expected = "Currently Producing: Space Rock";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void getDebugInfoZeroPercentTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+                100, RecipeType.SYNTHESIZE);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.checkAndCreateJob();
+
+        String expected = "Progress: 0%";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void getDebugInfo50PercentDoneTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+                100, RecipeType.SYNTHESIZE);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.checkAndCreateJob();
+
+        for(int i = 0; i < recipe.getTime() / 2; i++){container.getCurrentJob().get().update();}
+
+        String expected = "Progress: 50%";
+        String[] actual = container.getDebugInfo();
+
+        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
     }
 }

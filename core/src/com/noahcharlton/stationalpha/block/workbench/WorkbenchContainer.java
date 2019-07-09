@@ -22,6 +22,23 @@ public class WorkbenchContainer extends BlockContainer {
     }
 
     @Override
+    public String[] getDebugInfo() {
+        String[] data = job.map(this::getInfoFromJob).orElse(new String[]{"Currently Producing: None"});
+
+        return combineDebugInfo(data);
+    }
+
+    private String[] getInfoFromJob(WorkbenchJob job) {
+        ManufacturingRecipe recipe = job.getRecipe();
+        double percent = (double) job.getTick() / job.getJobDuration() * 100.0;
+
+        return new String[]{
+                "Currently Producing: " + recipe.getOutputItem().getDisplayName(),
+                "Progress: " + ((int) percent) + "%"
+        };
+    }
+
+    @Override
     public void onDestroy() {
         job.ifPresent(Job::cancel);
     }
