@@ -8,18 +8,19 @@ import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.World;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class ItemList extends GuiComponent {
 
     @Override
     protected void drawBackground(SpriteBatch batch) {
         HashMap<Item, Integer> inventory = World.getInstance().get().getInventory().getItems();
-        Iterator<Item> items = inventory.keySet().iterator();
-        Iterator<Integer> itemValues = inventory.values().iterator();
 
-        for(int i = 0; i < inventory.size(); i++) {
-            renderItem(i, items.next(), itemValues.next(), batch);
+        Item[] items = Item.values();
+
+        for(int i = 0; i < items.length; i++) {
+            Item item = items[i];
+
+            renderItem(i, item, inventory.get(item), batch);
         }
     }
 

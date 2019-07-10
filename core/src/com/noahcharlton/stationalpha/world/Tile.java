@@ -138,7 +138,7 @@ public final class Tile implements Selectable {
     @Override
     public String[] getDebugInfo() {
         return new String[]{
-                "Floor: " + floor.map(Floor::getFilename).orElse("None"),
+                "Floor: " + floor.map(Floor::toString).orElse("None"),
                 "Oxygen: " + oxygenLevel,
         };
     }
