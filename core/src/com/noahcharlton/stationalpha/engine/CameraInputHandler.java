@@ -40,6 +40,10 @@ public class CameraInputHandler {
             cam.zoom -= zoomSpeed;
         }
 
+        trimZoom(cam);
+    }
+
+    static void trimZoom(OrthographicCamera cam) {
         if (cam.zoom < .5f) {
             cam.zoom = .5f;
         } else if (cam.zoom > 5.75) {
