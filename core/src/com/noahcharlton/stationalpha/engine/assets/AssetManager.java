@@ -52,7 +52,7 @@ public class AssetManager {
         int completedTasks = 0;
 
         for(Future future : tasks){
-            if(future.isDone() == false)
+            if(future.isDone())
                 completedTasks++;
         }
 

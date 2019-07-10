@@ -17,111 +17,107 @@ import java.util.Optional;
 
 public class StationAlpha extends ApplicationAdapter {
 
-	public enum GameState{MAIN_MENU, IN_GAME}
+    public enum GameState {LOADING, MAIN_MENU, IN_GAME}
 
-	private static final Logger logger = LogManager.getLogger(StationAlpha.class);
-	private static StationAlpha instance;
-	private GameRenderer gameRenderer;
+    private static final Logger logger = LogManager.getLogger(StationAlpha.class);
+    private static StationAlpha instance;
+    private GameRenderer gameRenderer;
 
-	private GameState currentState = GameState.MAIN_MENU;
-	private GuiContainer guiContainer;
-	private Optional<World> world = Optional.empty();
-	private int ticksPerUpdate = 1;
+    private GameState currentState = GameState.LOADING;
+    private GuiContainer guiContainer;
+    private Optional<World> world = Optional.empty();
+    private int ticksPerUpdate = 1;
 
-	public StationAlpha(boolean updateInstance) {
-		if(!updateInstance)
-			return;
+    public StationAlpha(boolean updateInstance) {
+        if(!updateInstance)
+            return;
 
-		if(instance != null)
-			throw new GdxRuntimeException("Cannot create instance more than once!");
+        if(instance != null)
+            throw new GdxRuntimeException("Cannot create instance more than once!");
 
-		instance = this;
-	}
+        instance = this;
+    }
 
-	public StationAlpha() {
-		this(true);
-	}
+    public StationAlpha() {
+        this(true);
+    }
 
-	@Override
-	public void create () {
-		gameRenderer = new GameRenderer();
+    @Override
+    public void create() {
+        gameRenderer = new GameRenderer();
 
-		InputHandler.init();
-		Blocks.init();
-		Item.init();
-		ManufacturingRecipes.init();
+        InputHandler.init();
+        Blocks.init();
+        Item.init();
+        ManufacturingRecipes.init();
 
-		guiContainer = new GuiContainer();
+        guiContainer = new GuiContainer();
 
-		logger.info("Asset Count: " + AssetManager.getInstance().getNumberOfAssets());
-	}
+        logger.info("Asset Count: " + AssetManager.getInstance().getNumberOfAssets());
+    }
 
-	@Override
-	public void render () {
-		while(!AssetManager.getInstance().isDone()){
-			return;
-		}
+    @Override
+    public void render() {
+        switch(currentState) {
+            case IN_GAME:
+                gameRenderer.render();
+                updateInGame();
+                break;
+            case LOADING:
+                if(AssetManager.getInstance().isDone())
+                    currentState = GameState.MAIN_MENU;
+                break;
+        }
 
-		gameRenderer.render();
-		guiContainer.render();
+        guiContainer.render();
+    }
 
-		update();
-	}
+    public void startGame() {
+        currentState = GameState.IN_GAME;
+        world = Optional.of(new World(true));
+    }
 
-	private void update() {
-		switch(currentState){
-			case IN_GAME:
-				updateInGame();
-				break;
-		}
-	}
+    private void updateInGame() {
+        for(int i = 0; i < ticksPerUpdate; i++) {
+            world.ifPresent(World::update);
+        }
+    }
 
-	public void startGame(){
-		currentState = GameState.IN_GAME;
-		world = Optional.of(new World(true));
-	}
+    @Override
+    public void resize(int width, int height) {
+        gameRenderer.resize(width, height);
+    }
 
-	private void updateInGame() {
-		for(int i = 0; i < ticksPerUpdate; i++){
-			world.ifPresent(World::update);
-		}
-	}
+    @Override
+    public void dispose() {
+        AssetManager.getInstance().dispose();
+    }
 
-	@Override
-	public void resize(int width, int height) {
-		gameRenderer.resize(width, height);
-	}
+    public void setTicksPerUpdate(int ticksPerUpdate) {
+        this.ticksPerUpdate = ticksPerUpdate;
+    }
 
-	@Override
-	public void dispose () {
-		AssetManager.getInstance().dispose();
-	}
+    public int getTicksPerUpdate() {
+        return ticksPerUpdate;
+    }
 
-	public void setTicksPerUpdate(int ticksPerUpdate) {
-		this.ticksPerUpdate = ticksPerUpdate;
-	}
+    public Optional<World> getWorld() {
+        return world;
+    }
 
-	public int getTicksPerUpdate() {
-		return ticksPerUpdate;
-	}
+    public GuiContainer getGuiContainer() {
+        return guiContainer;
+    }
 
-	public Optional<World> getWorld() {
-		return world;
-	}
+    public GameRenderer getGameRenderer() {
+        return gameRenderer;
+    }
 
-	public GuiContainer getGuiContainer() {
-		return guiContainer;
-	}
+    public static StationAlpha getInstance() {
+        return instance;
+    }
 
-	public GameRenderer getGameRenderer() {
-		return gameRenderer;
-	}
-
-	public static StationAlpha getInstance() {
-		return instance;
-	}
-
-	public GameState getCurrentState() {
-		return currentState;
-	}
+    public GameState getCurrentState() {
+        return currentState;
+    }
 }

@@ -26,15 +26,18 @@ public class GuiContainer {
 
     private final GameGui gameGui;
     private final MainMenu mainMenu;
+    private final LoadingScreen loadingScreen;
 
     public GuiContainer() {
         guis = new ArrayList<>();
 
         this.gameGui = new GameGui();
         this.mainMenu = new MainMenu();
+        this.loadingScreen = new LoadingScreen();
 
         guis.add(gameGui);
         guis.add(mainMenu);
+        guis.add(loadingScreen);
     }
 
     public void render(){
@@ -55,6 +58,7 @@ public class GuiContainer {
     void updateScenes(StationAlpha.GameState gameState) {
         gameGui.setVisible(false);
         mainMenu.setVisible(false);
+        loadingScreen.setVisible(false);
 
         switch(gameState){
             case IN_GAME:
@@ -62,6 +66,9 @@ public class GuiContainer {
                 break;
             case MAIN_MENU:
                 mainMenu.setVisible(true);
+                break;
+            case LOADING:
+                loadingScreen.setVisible(true);
                 break;
         }
     }
@@ -86,5 +93,9 @@ public class GuiContainer {
 
     public GameGui getGameGui() {
         return gameGui;
+    }
+
+    public LoadingScreen getLoadingScreen() {
+        return loadingScreen;
     }
 }
