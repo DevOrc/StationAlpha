@@ -1,6 +1,5 @@
-package com.noahcharlton.stationalpha.gui;
+package com.noahcharlton.stationalpha.gui.components;
 
-import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -17,19 +17,29 @@ import java.util.Optional;
 
 public class StationAlpha extends ApplicationAdapter {
 
+	public enum GameState{MAIN_MENU, IN_GAME}
+
 	private static final Logger logger = LogManager.getLogger(StationAlpha.class);
 	private static StationAlpha instance;
 	private GameRenderer gameRenderer;
 
+	private GameState currentState = GameState.MAIN_MENU;
 	private GuiContainer guiContainer;
 	private Optional<World> world = Optional.empty();
 	private int ticksPerUpdate = 1;
 
-	public StationAlpha() {
+	public StationAlpha(boolean updateInstance) {
+		if(!updateInstance)
+			return;
+
 		if(instance != null)
 			throw new GdxRuntimeException("Cannot create instance more than once!");
 
 		instance = this;
+	}
+
+	public StationAlpha() {
+		this(true);
 	}
 
 	@Override
@@ -42,7 +52,6 @@ public class StationAlpha extends ApplicationAdapter {
 		ManufacturingRecipes.init();
 
 		guiContainer = new GuiContainer();
-		world = Optional.of(new World(true));
 
 		logger.info("Asset Count: " + AssetManager.getInstance().getNumberOfAssets());
 	}
@@ -60,6 +69,19 @@ public class StationAlpha extends ApplicationAdapter {
 	}
 
 	private void update() {
+		switch(currentState){
+			case IN_GAME:
+				updateInGame();
+				break;
+		}
+	}
+
+	public void startGame(){
+		currentState = GameState.IN_GAME;
+		world = Optional.of(new World(true));
+	}
+
+	private void updateInGame() {
 		for(int i = 0; i < ticksPerUpdate; i++){
 			world.ifPresent(World::update);
 		}
@@ -97,5 +119,9 @@ public class StationAlpha extends ApplicationAdapter {
 
 	public static StationAlpha getInstance() {
 		return instance;
+	}
+
+	public GameState getCurrentState() {
+		return currentState;
 	}
 }

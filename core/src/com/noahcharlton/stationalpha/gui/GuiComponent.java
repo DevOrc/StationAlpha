@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public abstract class GuiComponent {
 
+    public static final Color ACCENT_COLOR = new Color(0, 176f / 255, 240f / 255, 1f);
     protected static final BitmapFont font;
 
     static {

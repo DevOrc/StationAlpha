@@ -10,7 +10,7 @@ import com.noahcharlton.stationalpha.gui.GuiComponent;
 public abstract class Pane extends GuiComponent {
 
     private static final int BORDER_WIDTH = 2;
-    private Color borderColor = Color.FIREBRICK;
+    private Color borderColor = GuiComponent.ACCENT_COLOR;
     private Color backgroundColor = Color.DARK_GRAY;
 
     private boolean borderNorth;
