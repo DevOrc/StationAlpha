@@ -44,7 +44,7 @@ public class MainMenuButtonPane extends Pane {
 
     @Override
     protected void updateSize() {
-        setX(Gdx.graphics.getWidth() - WIDTH - 100);
+        setX(100);
         setY(100);
     }
 

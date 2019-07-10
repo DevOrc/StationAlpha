@@ -3,12 +3,20 @@ package com.noahcharlton.stationalpha.gui.scenes.mainmenu;
 import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.LibGdxTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
 public class MainMenuTests extends LibGdxTest {
+
+    @Test
+    void planetTextureFileExists() {
+        String path = MainMenu.planetTexture.getPath();
+
+        Assertions.assertTrue(Gdx.files.internal(path).exists());
+    }
 
     @ParameterizedTest
     @MethodSource("fontPathProvider")
