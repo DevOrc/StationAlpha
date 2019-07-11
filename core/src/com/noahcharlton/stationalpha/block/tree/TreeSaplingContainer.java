@@ -7,15 +7,18 @@ import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
+import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class TreeSaplingContainer extends BlockContainer {
 
+    private static final int OXYGEN_REQUIREMENT = 15;
     private static final int BASE_GROWTH_TIME = 6000;
     private static final int RANDOM_GROWTH_BOUND = 4000;
 
@@ -34,6 +37,11 @@ public class TreeSaplingContainer extends BlockContainer {
 
     @Override
     public void onUpdate() {
+        if(!areaIsSurvivable()){
+            killTree();
+            return;
+        }
+
         if(tick > 0)
             tick--;
         else
@@ -42,6 +50,14 @@ public class TreeSaplingContainer extends BlockContainer {
         if(DebugKeys.isDebugPressed(DebugKeys.MAGICAL_GROWTH)){
             tick = 0;
         }
+    }
+
+    private boolean areaIsSurvivable() {
+        return getTile().getOxygenLevel() > OXYGEN_REQUIREMENT && Optional.of(Floor.DIRT).equals(getTile().getFloor());
+    }
+
+    private void killTree() {
+        this.getTile().setBlock(Blocks.getDeadPlant());
     }
 
     @Override

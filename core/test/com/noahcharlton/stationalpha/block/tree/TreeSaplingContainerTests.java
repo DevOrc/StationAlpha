@@ -2,9 +2,11 @@ package com.noahcharlton.stationalpha.block.tree;
 
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -129,5 +131,36 @@ public class TreeSaplingContainerTests {
         String[] actual = container.getDebugInfo();
 
         Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void tickSubtractsWithOxygenTest() {
+        container.getTile().setFloor(Floor.DIRT);
+        int startTick = container.getTick();
+
+        container.getTile().changeOxygenLevel(25f);
+        container.onUpdate();
+
+        Assertions.assertTrue( container.getTick() < startTick);
+    }
+
+    @Test
+    void noOxygenKillsTreeTest() {
+        container.getTile().setFloor(Floor.DIRT);
+        Assumptions.assumeTrue(container.getTile().getOxygenLevel() < 10);
+
+        container.onUpdate();
+
+        Assertions.assertSame(Blocks.getDeadPlant(), container.getTile().getBlock().get());
+    }
+
+    @Test
+    void noDirtKillsTreeTest() {
+        container.getTile().setFloor(Floor.METAL);
+        container.getTile().changeOxygenLevel(100f);
+
+        container.onUpdate();
+
+        Assertions.assertSame(Blocks.getDeadPlant(), container.getTile().getBlock().get());
     }
 }
