@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.world;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.item.Item;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -84,6 +85,15 @@ public class WorldTests {
         world.updateWorkers();
 
         Assertions.assertEquals(0, world.getWorkers().size());
+    }
+
+    @Test
+    void fillInventoryTest() {
+        world.fillInventory();
+
+        for(Item item: Item.values()){
+            Assertions.assertTrue(world.getInventory().getAmountForItem(item) > 0);
+        }
     }
 }
 class BlockUpdateTestContainer extends BlockContainer {

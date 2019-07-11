@@ -97,7 +97,13 @@ public class World {
         goalManager.update();
 
         if(DebugKeys.isDebugPressed(DebugKeys.INVENTORY)){
-            inventory.changeAmountForItem(Item.TEST_ITEM, 1);
+            fillInventory();
+        }
+    }
+
+    void fillInventory() {
+        for(Item item: Item.values()){
+            inventory.changeAmountForItem(item, 1);
         }
     }
 

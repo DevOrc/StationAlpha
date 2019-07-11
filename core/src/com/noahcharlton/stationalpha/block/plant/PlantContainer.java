@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.block.plant;
 
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Inventory;
@@ -51,6 +52,8 @@ public class PlantContainer extends BlockContainer {
     public void onUpdate() {
         if(onDirtFloor() && hasOxygen())
             tick--;
+        else
+            killPlant();
 
         if(tick <= 0){
             stage++;
@@ -64,6 +67,10 @@ public class PlantContainer extends BlockContainer {
             if(!job.isPresent())
                 createJob();
         }
+    }
+
+    private void killPlant() {
+        this.getTile().setBlock(Blocks.getDeadPlant());
     }
 
     private void createJob() {

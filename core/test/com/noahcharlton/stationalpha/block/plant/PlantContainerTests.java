@@ -90,4 +90,24 @@ public class PlantContainerTests {
 
         Assertions.assertEquals(plantContainer.getTicksPerStage(), plantContainer.getTick());
     }
+
+    @Test
+    void noOxygenKillsPlantTest() {
+        tile.setFloor(Floor.DIRT);
+        tile.changeOxygenLevel(-50f);
+
+        plantContainer.onUpdate();
+
+        Assertions.assertEquals(Blocks.getDeadPlant(), tile.getBlock().get());
+    }
+
+    @Test
+    void noDirtKillsPlantTest() {
+        tile.setFloor(Floor.METAL);
+        tile.changeOxygenLevel(25f);
+
+        plantContainer.onUpdate();
+
+        Assertions.assertEquals(Blocks.getDeadPlant(), tile.getBlock().get());
+    }
 }

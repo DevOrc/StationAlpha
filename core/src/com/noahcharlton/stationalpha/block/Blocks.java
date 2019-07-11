@@ -28,10 +28,11 @@ public class Blocks {
     private static Block iceBlock = new IceBlock();
     private static Block dustCollector = new DustCollector();
     private static Block synthesizer = new Synthesizer();
+    private static Block deadPlant = new DeadPlant();
 
     public static void init(){
         Collections.addAll(blocks, wall, door, compressor, iceBlock, potatoPlant, workbench, bedBlock, treeBlock,
-                treeSapling, composter, dustCollector, synthesizer);
+                treeSapling, composter, dustCollector, synthesizer, deadPlant);
     }
     public static Block getWall() {
         return wall;
@@ -79,6 +80,10 @@ public class Blocks {
 
     public static Block getComposter() {
         return composter;
+    }
+
+    public static Block getDeadPlant() {
+        return deadPlant;
     }
 
     public static ArrayList<Block> getBlocks() {
