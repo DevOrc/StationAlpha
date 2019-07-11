@@ -31,11 +31,15 @@ public class MainMenu extends Pane {
     }
 
     @Override
-    public void drawForeground(SpriteBatch b) {
-
-        drawTitle(b);
+    public void drawBackground(SpriteBatch b) {
+        super.drawBackground(b);
 
         drawPlanet(b);
+    }
+
+    @Override
+    public void drawForeground(SpriteBatch b) {
+        drawTitle(b);
     }
 
     private void drawPlanet(SpriteBatch b) {

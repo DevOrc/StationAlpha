@@ -1,7 +1,6 @@
 package com.noahcharlton.stationalpha.gui.scenes.selectable;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 
 public class SelectableHelpButton extends MenuButton {
@@ -15,7 +14,6 @@ public class SelectableHelpButton extends MenuButton {
         super("Help", onClick);
 
         setDrawBorder(true, true, false, true);
-        setBorderColor(Color.WHITE);
 
         this.selectableBox = box;
     }

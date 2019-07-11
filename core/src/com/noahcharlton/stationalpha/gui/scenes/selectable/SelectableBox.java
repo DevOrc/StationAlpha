@@ -21,7 +21,6 @@ public class SelectableBox extends Pane {
 
     public SelectableBox() {
         setDrawBorder(true, true, true, true);
-        setBorderColor(Color.WHITE);
 
         addAllGui(helpButton, helpMenu);
     }

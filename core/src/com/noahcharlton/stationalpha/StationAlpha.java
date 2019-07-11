@@ -19,6 +19,10 @@ public class StationAlpha extends ApplicationAdapter {
 
     public enum GameState {LOADING, MAIN_MENU, IN_GAME}
 
+    public static final String VERSION = "0.1";
+    public static final int DEFAULT_WIDTH = 1280;
+    public static final int DEFAULT_HEIGHT = 720;
+
     private static final Logger logger = LogManager.getLogger(StationAlpha.class);
     private static StationAlpha instance;
     private GameRenderer gameRenderer;

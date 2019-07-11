@@ -19,7 +19,6 @@ public class HelpMenu extends Pane {
         setVisible(false);
 
         setBackgroundColor(Color.DARK_GRAY);
-        setBorderColor(Color.GRAY);
         setDrawBorder(true, true, true, true);
 
         addAllGui(closeButton);
@@ -64,7 +63,6 @@ class CloseMenuButton extends Pane {
         this.menu = menu;
 
         setDrawBorder(true, true, true, true);
-        setBorderColor(Color.GRAY);
     }
 
     @Override

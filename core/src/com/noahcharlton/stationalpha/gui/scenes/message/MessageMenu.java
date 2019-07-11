@@ -20,7 +20,6 @@ public class MessageMenu extends Pane {
 
     public MessageMenu() {
         setDrawBorder(true, true, true, true);
-        setBorderColor(Color.WHITE);
 
         addGui(menuButton);
     }
@@ -77,7 +76,6 @@ class CloseMenuButton extends Pane {
         this.menu = menu;
 
         setDrawBorder(true, true, true, true);
-        setBorderColor(Color.WHITE);
     }
 
     @Override

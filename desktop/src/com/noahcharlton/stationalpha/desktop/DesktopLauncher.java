@@ -12,9 +12,9 @@ public class DesktopLauncher {
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		config.title = "Station Alpha";
-		config.width = 1280;
-		config.height = 720;
+		config.title = "Station Alpha " + StationAlpha.VERSION;
+		config.width = StationAlpha.DEFAULT_WIDTH;
+		config.height = StationAlpha.DEFAULT_HEIGHT;
 		config.vSyncEnabled = false;
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 0;
