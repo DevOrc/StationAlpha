@@ -4,12 +4,19 @@ import com.noahcharlton.stationalpha.worker.pathfinding.SimpleGraphPath;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MovementManagerTests {
 
     private final Worker worker = Worker.create(new World());
     private final WorkerMovementManager manager = worker.getAi().getMovementManager();
+
+    @BeforeEach
+    void setUp() {
+        worker.setPixelX(0);
+        worker.setPixelY(0);
+    }
 
     @Test
     void workerMoveRelativeXTest() {

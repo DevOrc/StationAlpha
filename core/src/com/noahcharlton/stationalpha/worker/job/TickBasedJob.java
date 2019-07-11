@@ -42,6 +42,9 @@ public class TickBasedJob extends Job {
     @Override
     public Optional<JobRenderer> createRenderer() {
         return Optional.of((batch, job) -> {
+            if(!getAssignedWorker().isPresent())
+                return;
+
             Worker worker = getAssignedWorker().get();
 
             WorkerRenderer.defaultRender(batch, worker);

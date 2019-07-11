@@ -30,8 +30,8 @@ public class Worker {
         this.name = name;
         this.world = world;
 
-        this.pixelX = 0;
-        this.pixelY = 0;
+        this.pixelX = World.WORLD_PIXEL_SIZE / 2;
+        this.pixelY = World.WORLD_PIXEL_SIZE / 2;
 
         this.ai = new WorkerAI(this);
         addRole(WorkerRole.GENERAL);

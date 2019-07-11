@@ -23,6 +23,14 @@ public class GameRenderer {
         spriteBatch = new SpriteBatch();
 
         initRenderers();
+        initCameraPosition();
+    }
+
+    private void initCameraPosition() {
+        int centerX = (World.WORLD_PIXEL_SIZE / 2) - (Gdx.graphics.getWidth() / 2);
+        int centerY = (World.WORLD_PIXEL_SIZE / 2) - (Gdx.graphics.getHeight() / 2);
+
+        camera.translate(centerX, centerY);
     }
 
     private void initRenderers() {
