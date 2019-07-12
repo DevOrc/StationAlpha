@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.worker;
 
+import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.worker.pathfinding.SimpleGraphPath;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -9,13 +10,44 @@ import org.junit.jupiter.api.Test;
 
 public class MovementManagerTests {
 
-    private final Worker worker = Worker.create(new World());
+    private final World world = new World();
+    private final Worker worker = Worker.create(world);
     private final WorkerMovementManager manager = worker.getAi().getMovementManager();
 
     @BeforeEach
     void setUp() {
         worker.setPixelX(0);
         worker.setPixelY(0);
+    }
+
+    @Test
+    void movesToOpenAdjacentTileIfStuckTest() {
+        world.getTileAt(0, 0).get().setBlock(Blocks.getWall());
+        world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
+
+        manager.checkIfStuck();
+
+        Assertions.assertEquals(world.getTileAt(0, 1).get(), worker.getTileOn());
+    }
+
+    @Test
+    void ifStuckMovesRightIfNoOptionTest() {
+        world.getTileAt(0, 0).get().setBlock(Blocks.getWall());
+        world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
+        world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
+
+        manager.checkIfStuck();
+
+        Assertions.assertEquals(world.getTileAt(1, 0).get(), worker.getTileOn());
+    }
+
+    @Test
+    void doesNotGetStuckOnPassableBlock() {
+        world.getTileAt(0, 0).get().setBlock(Blocks.getPotatoPlant());
+
+        manager.checkIfStuck();
+
+        Assertions.assertEquals(world.getTileAt(0, 0).get(), worker.getTileOn());
     }
 
     @Test

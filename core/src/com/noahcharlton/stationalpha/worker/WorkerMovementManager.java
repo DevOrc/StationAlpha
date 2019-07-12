@@ -31,6 +31,25 @@ public class WorkerMovementManager {
         path.calcPathSync().ifPresent(this::moveAlongPath);
     }
 
+    public void checkIfStuck() {
+        if(worker.getTileOn().getBlock().filter(block -> !block.isPassable()).isPresent()){
+            moveOutOfBlock();
+        }
+    }
+
+    private void moveOutOfBlock() {
+        Tile tile = worker.getTileOn();
+        Optional<Tile> adjacent = tile.getOpenAdjecent();
+
+        if(adjacent.isPresent()){
+            worker.setPixelX(adjacent.get().getX() * Tile.TILE_SIZE);
+            worker.setPixelY(adjacent.get().getY() * Tile.TILE_SIZE);
+        }else{
+            moveWorkerRelative(Tile.TILE_SIZE, 0);
+            return;
+        }
+    }
+
     private void moveAlongPath(GraphPath<Tile> tiles) {
         if(tiles.getCount() == 0)
             return;

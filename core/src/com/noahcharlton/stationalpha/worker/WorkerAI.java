@@ -20,6 +20,8 @@ public class WorkerAI {
     }
 
     public void update(){
+        movementManager.checkIfStuck();
+
         if( movementManager.onTargetTile() && atTileOrigin()){
             checkStartJob();
         }else{
