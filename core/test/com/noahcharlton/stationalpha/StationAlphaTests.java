@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -32,5 +33,23 @@ public class StationAlphaTests extends LibGdxTest{
     @Test
     void cannotCreateInstanceMoreThanOnceTest() {
         Assertions.assertThrows(GdxRuntimeException.class, () -> new StationAlpha(true));
+    }
+
+    @Test
+    void gotoMainMenuEmptyWorldTestTest() {
+        gameInstance.startGame();
+
+        Assumptions.assumeTrue(gameInstance.getWorld().isPresent());
+        gameInstance.gotoMainMenu();
+
+        Assertions.assertFalse(gameInstance.getWorld().isPresent());
+    }
+
+    @Test
+    void gotoMainMenuSetsStateTest() {
+        Assumptions.assumeTrue(gameInstance.getCurrentState() == StationAlpha.GameState.LOADING);
+        gameInstance.gotoMainMenu();
+
+        Assertions.assertEquals(StationAlpha.GameState.MAIN_MENU, gameInstance.getCurrentState());
     }
 }

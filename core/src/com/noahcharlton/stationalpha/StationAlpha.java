@@ -81,6 +81,11 @@ public class StationAlpha extends ApplicationAdapter {
         world = Optional.of(new World(true));
     }
 
+    public void gotoMainMenu() {
+        world = Optional.empty();
+        currentState = GameState.MAIN_MENU;
+    }
+
     private void updateInGame() {
         for(int i = 0; i < ticksPerUpdate; i++) {
             world.ifPresent(World::update);
