@@ -1,4 +1,4 @@
-package com.noahcharlton.stationalpha.block.tree;
+package com.noahcharlton.stationalpha.block.sapling;
 
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;

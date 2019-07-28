@@ -1,7 +1,10 @@
 package com.noahcharlton.stationalpha.engine.input.mine;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.block.mineable.MineableBlockContainer;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
@@ -21,12 +24,26 @@ public class MineJob extends TickBasedJob {
     private final List<Item> outputItems;
     private final int outputAmount;
 
-    MineJob(Tile blockTile, Tile openBlock, List<Item> outputItems, int outputAmount) {
+    public MineJob(Tile blockTile, Tile openBlock, List<Item> outputItems, int outputAmount) {
         super(openBlock, TICKS);
 
         this.blockTile = blockTile;
         this.outputItems = outputItems;
         this.outputAmount = outputAmount;
+
+        setBlockMineState(blockTile);
+    }
+
+    void setBlockMineState(Tile blockTile) {
+        if(blockTile.getContainer().isPresent()){
+            BlockContainer blockContainer = blockTile.getContainer().get();
+
+            if(blockContainer instanceof MineableBlockContainer){
+                ((MineableBlockContainer) blockContainer).setCurrentJob(this);
+            }else{
+                throw new GdxRuntimeException("Cannot mine block with container of type: " + blockContainer);
+            }
+        }
     }
 
     @Override

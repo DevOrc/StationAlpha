@@ -1,5 +1,8 @@
 package com.noahcharlton.stationalpha.engine.input.mine;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.job.Job;
@@ -7,6 +10,7 @@ import com.noahcharlton.stationalpha.worker.job.JobTests;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -16,6 +20,22 @@ public class MineJobTests extends JobTests {
     private World world;
     private MineJob job;
     private Tile rockTile;
+
+    @Test
+    void throwsExceptionIfContainerNotMineable() {
+        rockTile.setBlock(Blocks.getIce(), new BlockContainer(rockTile, Blocks.getWall(), BlockRotation.NORTH));
+
+        Assertions.assertThrows(GdxRuntimeException.class, () -> job.setBlockMineState(rockTile));
+    }
+
+    @Test
+    void doesNotSetStateIfNoContainerTest() {
+        Tile randomTile = world.getTileAt(5, 5).get();
+
+        Assumptions.assumeFalse(randomTile.getContainer().isPresent());
+
+        job.setBlockMineState(randomTile);
+    }
 
     @Test
     void onFinishRemoveBlockTest() {

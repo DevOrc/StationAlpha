@@ -23,6 +23,11 @@ public class JobTests extends LibGdxTest {
     }
 
     @Test
+    protected void assignedWorkerEmptyByDefaultTest() {
+        Assertions.assertFalse(job.getAssignedWorker().isPresent());
+    }
+
+    @Test
     protected void jobDefaultStateTest() {
         Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
     }

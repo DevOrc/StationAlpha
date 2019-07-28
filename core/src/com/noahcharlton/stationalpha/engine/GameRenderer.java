@@ -35,6 +35,7 @@ public class GameRenderer {
 
     private void initRenderers() {
         WorkerRenderer.init();
+        InGameIcon.loadTextures();
     }
 
     public void render(){

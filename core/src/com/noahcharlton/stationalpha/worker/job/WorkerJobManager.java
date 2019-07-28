@@ -45,12 +45,14 @@ public class WorkerJobManager {
     }
 
     public void setCurrentJob(Job job) {
-        if(this.currentJob.filter(j -> j.getStage() != Job.JobStage.FINISHED).isPresent()){
-            currentJob.get().cancel();
-            JobQueue.getInstance().addJob(currentJob.get());
+        Optional<Job> oldJob = this.currentJob;
+        this.currentJob = Optional.ofNullable(job);
+
+        if(oldJob.filter(j -> j.getStage() != Job.JobStage.FINISHED).isPresent()){
+            oldJob.get().cancel();
+            JobQueue.getInstance().addJob(oldJob.get());
         }
 
-        this.currentJob = Optional.ofNullable(job);
         this.currentJob.ifPresent(j -> j.setWorker(worker));
     }
 

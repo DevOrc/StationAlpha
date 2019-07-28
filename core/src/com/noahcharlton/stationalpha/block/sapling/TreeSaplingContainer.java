@@ -1,4 +1,4 @@
-package com.noahcharlton.stationalpha.block.tree;
+package com.noahcharlton.stationalpha.block.sapling;
 
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Block;

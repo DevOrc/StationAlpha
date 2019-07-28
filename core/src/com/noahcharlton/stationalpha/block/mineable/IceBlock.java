@@ -1,10 +1,15 @@
-package com.noahcharlton.stationalpha.block;
+package com.noahcharlton.stationalpha.block.mineable;
 
 import com.noahcharlton.stationalpha.HelpInfo;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 
 import java.util.Optional;
 
-public class IceBlock extends Block {
+public class IceBlock extends MineableBlock {
+
+    public IceBlock() {
+        super(InGameIcon.PICK_AXE);
+    }
 
     @Override
     public String getDisplayName() {

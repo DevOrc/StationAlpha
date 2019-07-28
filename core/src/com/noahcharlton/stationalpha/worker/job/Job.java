@@ -14,7 +14,7 @@ public class Job {
     private final Optional<JobRenderer> renderer;
     private final Tile target;
 
-    private Optional<Worker> assignedWorker;
+    private Optional<Worker> assignedWorker = Optional.empty();
     private JobStage jobStage;
 
     protected Job(Tile target) {
@@ -45,6 +45,8 @@ public class Job {
     }
 
     public void cancel(){
+        assignedWorker.ifPresent(worker -> worker.getAi().getJobManager().setCurrentJob(null));
+
         assignedWorker = Optional.empty();
         jobStage = JobStage.PRE_START;
     }

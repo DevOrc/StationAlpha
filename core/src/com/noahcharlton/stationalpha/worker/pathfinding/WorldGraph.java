@@ -5,7 +5,6 @@ import com.badlogic.gdx.ai.pfa.DefaultConnection;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.utils.Array;
 import com.noahcharlton.stationalpha.block.Block;
-import com.noahcharlton.stationalpha.block.door.DoorBlock;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -52,9 +51,6 @@ public class WorldGraph implements IndexedGraph<Tile> {
     boolean doesTileBlockPaths(Tile tile) {
         if(tile.getBlock().isPresent()){
             Block block = tile.getBlock().get();
-
-            if(block instanceof DoorBlock)
-                return false;
 
             return !block.isPassable();
         }

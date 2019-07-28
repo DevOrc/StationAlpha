@@ -19,6 +19,12 @@ public class SleepJobTests extends JobTests {
     private Worker worker;
     private SleepJob sleepJob;
 
+    @Override
+    protected void assignedWorkerEmptyByDefaultTest() {
+        //Sleep Jobs (unlike most jobs) have a worker on object construction
+        Assertions.assertTrue(sleepJob.getAssignedWorker().isPresent());
+    }
+
     @Test
     void finishesAfter360TicksTest() {
         for(int i = 0; i < 360; i++) {

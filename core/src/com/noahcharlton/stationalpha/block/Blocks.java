@@ -5,9 +5,10 @@ import com.noahcharlton.stationalpha.block.dust.DustCollector;
 import com.noahcharlton.stationalpha.block.composter.ComposterBlock;
 import com.noahcharlton.stationalpha.block.door.DoorBlock;
 import com.noahcharlton.stationalpha.block.dust.Synthesizer;
+import com.noahcharlton.stationalpha.block.mineable.IceBlock;
 import com.noahcharlton.stationalpha.block.plant.PotatoPlant;
-import com.noahcharlton.stationalpha.block.tree.TreeBlock;
-import com.noahcharlton.stationalpha.block.tree.TreeSaplingBlock;
+import com.noahcharlton.stationalpha.block.mineable.TreeBlock;
+import com.noahcharlton.stationalpha.block.sapling.TreeSaplingBlock;
 import com.noahcharlton.stationalpha.block.workbench.Workbench;
 
 import java.util.ArrayList;

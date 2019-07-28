@@ -1,12 +1,13 @@
-package com.noahcharlton.stationalpha.block.tree;
+package com.noahcharlton.stationalpha.block.mineable;
 
-import com.noahcharlton.stationalpha.block.Block;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 
 import java.util.Optional;
 
-public class TreeBlock extends Block {
+public class TreeBlock extends MineableBlock {
 
     public TreeBlock() {
+        super(InGameIcon.AXE);
         setOpaque(false);
     }
 

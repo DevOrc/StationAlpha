@@ -56,7 +56,7 @@ public class DefaultGoals implements GoalSupplier {
             return "Gather " + getGoalCount() + " steel so that you can start your base." +
                     " You can collect steel by mining space rock. To mine rock, use the mining " +
                     "tool in the actions menu. \n\nOnce you have space rock, you can use the workbench, " +
-                    "to craft the steel.\n\nOnce this goal has been achieved, you will receive 10 more dirt" +
+                    "to craft steel.\n\nOnce this goal has been achieved, you will receive 10 dirt" +
                     " to help you grow your farm.";
         }
     }
@@ -80,8 +80,8 @@ public class DefaultGoals implements GoalSupplier {
         public String getTextDesc() {
             return "Grow " + getGoalCount() + " potatoes so that your worker can eat. To grow potatoes, " +
                     "you need to place potatoes plants (in the block menu) on a dirt floor. \n\n In order for the " +
-                    "plants to grow they must have oxygen. To get oxygen, use the compressor block. " +
-                    "Note: The room must be enclosed (walls and floors) or else the oxygen will escape!";
+                    "plants to grow they must have oxygen. To get oxygen, use the compressor block. Note: The room " +
+                    "must be enclosed (with walls/airlocks and floors) or else the oxygen will escape!";
         }
     }
 

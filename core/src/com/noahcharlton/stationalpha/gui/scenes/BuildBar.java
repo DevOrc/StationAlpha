@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.gui.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.components.ComponentGroup;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.layout.HStretchLayout;
@@ -34,12 +35,14 @@ public class BuildBar extends ComponentGroup {
         }
     }
 
-    private Runnable createRunnable(List<BuildBarMenu> menus, BuildBarMenu menu) {
+    Runnable createRunnable(List<BuildBarMenu> menus, BuildBarMenu menu) {
         return () -> {
             boolean previouslyVisible = menu.isVisible();
 
             menus.forEach(m -> m.setVisible(false));
             menu.setVisible(!previouslyVisible);
+
+            InputHandler.getInstance().setBuildAction(null);
         };
     }
 

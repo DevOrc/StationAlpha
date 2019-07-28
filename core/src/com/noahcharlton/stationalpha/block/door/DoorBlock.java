@@ -14,9 +14,13 @@ import java.util.Optional;
 
 public class DoorBlock extends Block implements BlockRenderer {
 
+    public DoorBlock() {
+        setPassable(true);
+    }
+
     @Override
     public String getDisplayName() {
-        return "Door";
+        return "Airlock";
     }
 
     @Override
