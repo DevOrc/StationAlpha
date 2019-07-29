@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
-import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 
 public class HelpMenu extends Pane {
@@ -26,15 +25,13 @@ public class HelpMenu extends Pane {
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        if(!InputHandler.getInstance().getCurrentlySelected().map(Selectable::getHelpInfo).isPresent()){
-            return;
-        }
+        InputHandler.getInstance().getCurrentlySelected()
+                .ifPresent(s -> s.getHelpInfo().ifPresent(helpInfo -> render(b, s.getTitle(), helpInfo)));
+    }
 
-        Selectable selectable = InputHandler.getInstance().getCurrentlySelected().get();
-        String helpInfo = selectable.getHelpInfo().get();
-
+    private void render(SpriteBatch b, String title, String helpInfo) {
         setFontData(1f, Color.WHITE);
-        font.draw(b, "Help:  " + selectable.getTitle(), getX() + 20, getY() + getHeight() - 25);
+        font.draw(b, "Help:  " + title, getX() + 20, getY() + getHeight() - 25);
 
         setFontData(.75f, Color.WHITE);
         font.draw(b, helpInfo, getX() + 20, getY() + getHeight() - 75, WIDTH - 40,
