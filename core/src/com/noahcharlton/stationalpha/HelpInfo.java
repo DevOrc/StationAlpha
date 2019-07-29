@@ -13,4 +13,8 @@ public class HelpInfo {
 
     public static final String START_INFO = "Congrats on starting your first space station! Check the goals menu " +
             "to see your first task. Good Luck!";
+
+    public static final String WORKBENCH_INFO = "The workbench allows you to craft more complex things. To craft, use " +
+            "the manufacture menu. Once you click craft, a worker will begin to work on that task. Note: The workbench " +
+            "only works on craftable things. Dirt/Unobtainium require other machines.";
 }

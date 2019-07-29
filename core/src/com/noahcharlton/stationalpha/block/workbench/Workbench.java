@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block.workbench;
 
+import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
@@ -26,6 +27,11 @@ public class Workbench extends Block {
     @Override
     public String getDisplayName() {
         return "Workbench";
+    }
+
+    @Override
+    public Optional<String> getHelpInfo() {
+        return Optional.of(HelpInfo.WORKBENCH_INFO);
     }
 
     @Override
