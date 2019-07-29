@@ -11,6 +11,7 @@ import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class BuildFloor implements BuildAction{
 
@@ -32,8 +33,10 @@ public class BuildFloor implements BuildAction{
         if(button == Input.Buttons.RIGHT){
             if(tile.getFloor().isPresent())
                 tile.setFloor(null);
-            else
+            else{
+                InputHandler.getInstance().setCurrentlySelected(Optional.empty());
                 InputHandler.getInstance().setBuildAction(null);
+            }
         }
     }
 

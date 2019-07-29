@@ -42,6 +42,7 @@ public class Worker {
     }
 
     public void die(String reason){
+        ai.getJobManager().setCurrentJob(null);
         logger.debug("Worker Died ({}): {}", name, reason);
         MessageQueue.getInstance().add("Worker Died!", reason);
 

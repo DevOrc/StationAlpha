@@ -1,6 +1,8 @@
 package com.noahcharlton.stationalpha.worker;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.worker.job.Job;
+import com.noahcharlton.stationalpha.worker.job.TestJob;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
@@ -102,5 +104,26 @@ public class WorkerTests {
         worker.removeRole(WorkerRole.GENERAL);
 
         Assertions.assertEquals(0, worker.getRoles().size());
+    }
+
+    @Test
+    void jobIsCancelledOnDeath() {
+        TestJob job = new TestJob();
+        worker.getAi().getJobManager().setCurrentJob(job);
+
+        job.start();
+        worker.die("Test");
+
+        Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
+    }
+
+    @Test
+    void workerHasNoJobOnDeath() {
+        TestJob job = new TestJob();
+        worker.getAi().getJobManager().setCurrentJob(job);
+
+        worker.die("Test");
+
+        Assertions.assertFalse(worker.getAi().getJobManager().getCurrentJob().isPresent());
     }
 }

@@ -19,7 +19,7 @@ public class DesktopLauncher {
 		config.height = StationAlpha.DEFAULT_HEIGHT;
 		config.vSyncEnabled = false;
 		config.foregroundFPS = 60;
-		config.backgroundFPS = 0;
+		config.backgroundFPS = 51;
 
 		config.addIcon("icon.png", Files.FileType.Internal);
 

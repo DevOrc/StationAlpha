@@ -13,6 +13,7 @@ public enum Item {
     WOOD("wood", "Wood"),
     LEAVES("leaves", "Leaves"),
     DIRT("dirt", "Dirt"),
+    COPPER("copper", "Copper"),
     SPACE_DUST("dust", "Space Dust"),
     UNOBTAINIUM("unobtainium", "Unobtainium");
 

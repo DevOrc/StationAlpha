@@ -1,9 +1,7 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
-import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.layout.LayoutManager;
-import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
 
@@ -11,6 +9,7 @@ import java.util.ArrayList;
 
 public class ManufacturingMenu extends BuildBarMenu<ManufacturingRecipe> {
 
+    private static final int HEIGHT = 500;
     static final int WIDTH = ManufacturingLayoutManager.BUTTON_WIDTH + (2 * ManufacturingLayoutManager.PADDING);
 
     private final ManufacturingRecipeGui recipeGui;
@@ -39,7 +38,7 @@ public class ManufacturingMenu extends BuildBarMenu<ManufacturingRecipe> {
 
     @Override
     protected void updateSize() {
-        setHeight(Gdx.graphics.getHeight() - 10 - BuildBar.HEIGHT);
+        setHeight(HEIGHT);
         setWidth(WIDTH);
     }
 

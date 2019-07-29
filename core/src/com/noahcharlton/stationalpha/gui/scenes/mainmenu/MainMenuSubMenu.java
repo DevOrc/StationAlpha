@@ -40,14 +40,25 @@ public abstract class MainMenuSubMenu extends Pane {
     static class SettingsMenu extends MainMenuSubMenu{
 
         private final MenuButton fullScreenToggle;
+        private final MenuButton vSyncToggle;
+
+        private boolean vSync = true;//Default to vSync on
 
         public SettingsMenu(MainMenuButtonPane buttonPane) {
             super(buttonPane);
 
             this.fullScreenToggle = new MenuButton("Toggle Fullscreen", this::updateFullscreen);
             this.fullScreenToggle.setWidth(250);
+            this.vSyncToggle = new MenuButton("VSync", this::toggleVSync);
+            this.vSyncToggle.setWidth(250);
+            Gdx.graphics.setVSync(vSync);
 
-            addAllGui(fullScreenToggle);
+            addAllGui(fullScreenToggle, vSyncToggle);
+        }
+
+        @Override
+        protected void update() {
+            this.vSyncToggle.setText("VSync: " + (vSync ? "On":"Off"));
         }
 
         @Override
@@ -56,6 +67,8 @@ public abstract class MainMenuSubMenu extends Pane {
 
             fullScreenToggle.setX(getX() + 10);
             fullScreenToggle.setY(getY() + getHeight() - MenuButton.HEIGHT - 10);
+            vSyncToggle.setX(getX() + 10);
+            vSyncToggle.setY(getY() + getHeight() - MenuButton.HEIGHT - 70);
         }
 
         private void updateFullscreen() {
@@ -64,6 +77,11 @@ public abstract class MainMenuSubMenu extends Pane {
             }else{
                 Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
             }
+        }
+
+        private void toggleVSync() {
+            vSync = !vSync;
+            Gdx.graphics.setVSync(vSync);
         }
     }
 
