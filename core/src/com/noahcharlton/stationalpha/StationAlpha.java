@@ -7,6 +7,7 @@ import com.noahcharlton.stationalpha.engine.GameRenderer;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.GuiContainer;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
 import com.noahcharlton.stationalpha.world.World;
@@ -79,6 +80,9 @@ public class StationAlpha extends ApplicationAdapter {
     public void startGame() {
         currentState = GameState.IN_GAME;
         world = Optional.of(new World(true));
+
+        MessageQueue.getInstance().getMessages().clear();
+        MessageQueue.getInstance().add("Welcome!", HelpInfo.START_INFO);
     }
 
     public void gotoMainMenu() {

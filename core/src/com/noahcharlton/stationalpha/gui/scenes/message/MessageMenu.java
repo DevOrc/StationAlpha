@@ -12,7 +12,7 @@ import java.util.Optional;
 public class MessageMenu extends Pane {
 
     private static final int DISPLAYING_WIDTH = 300;
-    private static final int DISPLAYING_HEIGHT = 125;
+    private static final int DISPLAYING_HEIGHT = 200;
     private static final int SPACING = 16;
 
     private final CloseMenuButton menuButton = new CloseMenuButton(this);

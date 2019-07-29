@@ -1,6 +1,8 @@
 package com.noahcharlton.stationalpha;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.gui.scenes.message.Message;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
@@ -51,5 +53,26 @@ public class StationAlphaTests extends LibGdxTest{
         gameInstance.gotoMainMenu();
 
         Assertions.assertEquals(StationAlpha.GameState.MAIN_MENU, gameInstance.getCurrentState());
+    }
+
+    @Test
+    void startGameClearsQueueTest() {
+        MessageQueue.getInstance().add("", "");
+        MessageQueue.getInstance().add("", "");
+        MessageQueue.getInstance().add("", "");
+        MessageQueue.getInstance().add("", "");
+
+        gameInstance.startGame();
+
+        Assertions.assertEquals(1, MessageQueue.getInstance().getMessages().size());
+    }
+
+    @Test
+    void hintMessageAddedOnStart() {
+        gameInstance.startGame();
+
+        Message m = MessageQueue.getInstance().getMessages().getFirst();
+
+        Assertions.assertEquals(HelpInfo.START_INFO, m.getDescription());
     }
 }
