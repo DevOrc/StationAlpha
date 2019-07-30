@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.block.bed.BedContainer;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.job.TestJob;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -132,5 +133,24 @@ public class WorkerNeedsManagerTests {
         }
 
         Assertions.assertEquals(0, worker.getWorld().getInventory().getAmountForItem(Item.POTATO));
+    }
+
+    @Test
+    void doesNotGetHungryWhileSleepingTest() {
+        needsManager.setSleepTick(0);
+        needsManager.update();
+
+        Assertions.assertEquals(0, needsManager.getFoodTick());
+    }
+
+    @Test
+    void showMessageWhenLessThan10PotatoesTest() {
+        MessageQueue.getInstance().getMessages().clear();
+        worker.getWorld().getInventory().setAmountForItem(Item.POTATO, 10);
+
+        needsManager.eat();
+        needsManager.eat();
+
+        Assertions.assertEquals(1, MessageQueue.getInstance().getMessages().size());
     }
 }

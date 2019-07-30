@@ -42,11 +42,15 @@ public class ManagedTexture implements Asset {
     }
 
     private byte[] loadData(FileHandle file) {
-
         try {
             return file.readBytes();
-        } catch (GdxRuntimeException e) {
-            throw new GdxRuntimeException("Failed to load texture at path: " + file, e);
+        } catch (GdxRuntimeException ioException) {
+            GdxRuntimeException e = new GdxRuntimeException("Failed to load texture at path: " + file, ioException);
+            Gdx.app.postRunnable(() -> {
+                throw e;
+            });
+
+            throw e;
         }
     }
 

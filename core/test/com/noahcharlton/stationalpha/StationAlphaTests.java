@@ -64,7 +64,7 @@ public class StationAlphaTests extends LibGdxTest{
 
         gameInstance.startGame();
 
-        Assertions.assertEquals(1, MessageQueue.getInstance().getMessages().size());
+        Assertions.assertEquals(2, MessageQueue.getInstance().getMessages().size());
     }
 
     @Test

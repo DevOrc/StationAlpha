@@ -113,9 +113,8 @@ public abstract class MainMenuSubMenu extends Pane {
             GLVersion glInfo = Gdx.graphics.getGLVersion();
             return new String[]{
                     "Author: Noah Charlton",
-                    "Source Code: github.com/DevOrc/StationAlpha",
                     "Game Version: " + StationAlpha.VERSION,
-                    "\n\n",
+                    "\n\n\n",
                     "LibGDX Version: " + Version.VERSION,
                     "GL Version: " + glInfo.getMajorVersion() + "." + glInfo.getMinorVersion(),
                     "Vendor: " + glInfo.getVendorString(),

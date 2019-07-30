@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.block;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -90,6 +91,11 @@ public class WallBlock extends Block implements BlockRenderer{
     static boolean isWallBlock(World world, int x, int y){
         return world.getTileAt(x, y).map( northTile ->
                 northTile.getBlock().map(block -> block instanceof WallBlock).orElse(false)).orElse(false);
+    }
+
+    @Override
+    public Optional<String> getHelpInfo() {
+        return Optional.of(HelpInfo.WALL_INFO);
     }
 
     @Override

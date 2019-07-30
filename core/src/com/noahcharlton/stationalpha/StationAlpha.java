@@ -20,7 +20,7 @@ public class StationAlpha extends ApplicationAdapter {
 
     public enum GameState {LOADING, MAIN_MENU, IN_GAME}
 
-    public static final String VERSION = "0.1";
+    public static final String VERSION = "0.1.0";
     public static final int DEFAULT_WIDTH = 1280;
     public static final int DEFAULT_HEIGHT = 720;
 
@@ -83,6 +83,7 @@ public class StationAlpha extends ApplicationAdapter {
 
         MessageQueue.getInstance().getMessages().clear();
         MessageQueue.getInstance().add("Welcome!", HelpInfo.START_INFO);
+        MessageQueue.getInstance().add("Controls", HelpInfo.CONTROLS);
     }
 
     public void gotoMainMenu() {

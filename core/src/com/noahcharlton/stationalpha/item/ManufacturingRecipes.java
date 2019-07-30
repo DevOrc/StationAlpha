@@ -13,9 +13,9 @@ public class ManufacturingRecipes {
 
     public static void init(){
         add(Item.SPACE_ROCK, 1, Item.STEEL, 3, 180, RecipeType.CRAFT);
-        add(Item.SPACE_ROCK, 5, Item.COPPER, 1, 360, RecipeType.CRAFT);
+        add(Item.SPACE_ROCK, 8, Item.COPPER, 1, 360, RecipeType.CRAFT);
         add(Item.LEAVES, 32, Item.DIRT, 1, 20_000, RecipeType.COMPOST);
-        add(Item.SPACE_DUST, 5, Item.UNOBTAINIUM,1, 10_000, RecipeType.SYNTHESIZE);
+        add(Item.SPACE_DUST, 15, Item.UNOBTAINIUM,1, 10_000, RecipeType.SYNTHESIZE);
 
         MineActions.init();
     }

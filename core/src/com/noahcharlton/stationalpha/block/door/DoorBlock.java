@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block.door;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRenderer;
@@ -61,6 +62,11 @@ public class DoorBlock extends Block implements BlockRenderer {
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         return new DoorContainer(tile, this, rotation);
+    }
+
+    @Override
+    public Optional<String> getHelpInfo() {
+        return Optional.of(HelpInfo.AIRLOCK_INFO);
     }
 
     @Override

@@ -14,7 +14,18 @@ public class HelpInfo {
     public static final String START_INFO = "Congrats on starting your first space station! Check the goals menu " +
             "to see your first task. Good Luck!";
 
+    public static final String COMPRESSOR_INFO = "Compressors adds oxygen to your space station. Note: The room the " +
+            "compressor is in must be enclosed (with walls and floors) or else the oxygen will vent into space. ";
+
+    public static final String WALL_INFO = "Nothing can pass through walls.";
+
+    public static final String AIRLOCK_INFO = "Airlocks are used to keep air in your space station, while also " +
+            "allowing workers to exit into empty space";
+
     public static final String WORKBENCH_INFO = "The workbench allows you to craft more complex things. To craft, use " +
             "the manufacture menu. Once you click craft, a worker will begin to work on that task. Note: The workbench " +
             "only works on craftable things. Dirt/Unobtainium require other machines.";
+
+    public static final String CONTROLS = "You can move around the world using WASD. You can zoom in and out using " +
+            "the Z/X keys. \n\nWhen building use left click to place and right click to destroy. ";
 }

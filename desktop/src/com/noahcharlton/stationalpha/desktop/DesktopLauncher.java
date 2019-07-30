@@ -20,6 +20,7 @@ public class DesktopLauncher {
 		config.vSyncEnabled = false;
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 51;
+		config.forceExit = false;
 
 		config.addIcon("icon.png", Files.FileType.Internal);
 

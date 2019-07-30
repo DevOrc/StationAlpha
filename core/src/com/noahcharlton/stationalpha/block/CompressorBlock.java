@@ -1,5 +1,7 @@
 package com.noahcharlton.stationalpha.block;
 
+import com.noahcharlton.stationalpha.HelpInfo;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -23,6 +25,16 @@ public class CompressorBlock extends Block {
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         return new CompressorContainer(tile, rotation);
+    }
+
+    @Override
+    public Optional<String> getHelpInfo() {
+        return Optional.of(HelpInfo.COMPRESSOR_INFO);
+    }
+
+    @Override
+    public Optional<Item> getRequiredItem() {
+        return Optional.of(Item.COPPER);
     }
 }
 class CompressorContainer extends BlockContainer{

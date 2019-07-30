@@ -31,8 +31,8 @@ public class GameGui extends GuiComponent {
     private final BuildBarMenu quitMenu = new QuitMenu();
 
     public GameGui() {
-        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu, workerMenu, goalMenu,
-                manufactureMenu, actionsMenu, quitMenu);
+        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu, actionsMenu, manufactureMenu,
+                workerMenu, goalMenu, quitMenu);
 
         debugBox = new DebugBox();
         buildBar = new BuildBar(menus);

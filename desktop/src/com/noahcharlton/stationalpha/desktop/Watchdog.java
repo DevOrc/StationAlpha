@@ -25,13 +25,14 @@ public class Watchdog implements Thread.UncaughtExceptionHandler {
         logger.info("Game threw exception! Exiting app...");
         e.printStackTrace();
 
-        new Thread(() -> showErrorMessage(e)).start();
+        SwingUtilities.invokeLater(() -> showErrorMessage(e));
     }
 
     private void showErrorMessage(Throwable error) {
-
+        logger.debug("Showing error dialog!");
         JOptionPane.showMessageDialog(null, getDetails(error),
                 "Error", JOptionPane.ERROR_MESSAGE);
+        logger.debug("Error dialog closed! Shutting down JVM");
 
         System.exit(-1);
     }

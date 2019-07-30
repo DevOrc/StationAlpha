@@ -24,7 +24,9 @@ public class WorkerNeedsManager {
 
     public void update(){
         updateSleep();
-        updateFood();
+
+        if(!isSleeping())
+            updateFood();
     }
 
     void updateSleep() {
@@ -83,10 +85,14 @@ public class WorkerNeedsManager {
         }
     }
 
-    private void eat() {
+    void eat() {
         foodTick = 0;
 
         Inventory inventory = worker.getWorld().getInventory();
+
+        if(inventory.getAmountForItem(Item.POTATO) < 10){
+            MessageQueue.getInstance().add("LOW FOOD!", "WARNING: YOU ARE LOW ON POTATOES");
+        }
 
         if(inventory.getAmountForItem(Item.POTATO) > 0){
             inventory.changeAmountForItem(Item.POTATO, -1);
