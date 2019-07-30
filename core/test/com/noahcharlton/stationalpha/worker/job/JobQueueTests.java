@@ -1,5 +1,8 @@
 package com.noahcharlton.stationalpha.worker.job;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.worker.SleepJob;
+import com.noahcharlton.stationalpha.worker.TestWorker;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,15 @@ import java.util.Optional;
 public class JobQueueTests {
 
     private final JobQueue jobQueue = new JobQueue();
+
+    @Test
+    void cannotAddSleepJobToQueue() {
+        SleepJob job = new SleepJob(null, new TestWorker());
+
+        Assertions.assertThrows(GdxRuntimeException.class, () -> {
+           jobQueue.addJob(job);
+        });
+    }
 
     @Test
     void hasQueueForAllRolesTest() {

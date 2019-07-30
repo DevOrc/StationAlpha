@@ -51,7 +51,9 @@ public abstract class MainMenuSubMenu extends Pane {
             this.fullScreenToggle.setWidth(250);
             this.vSyncToggle = new MenuButton("VSync", this::toggleVSync);
             this.vSyncToggle.setWidth(250);
-            Gdx.graphics.setVSync(vSync);
+
+            if(Gdx.graphics != null)
+                Gdx.graphics.setVSync(vSync);
 
             addAllGui(fullScreenToggle, vSyncToggle);
         }

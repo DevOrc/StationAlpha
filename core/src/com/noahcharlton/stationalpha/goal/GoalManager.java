@@ -1,5 +1,7 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -20,7 +22,9 @@ public class GoalManager {
     public void update() {
         currentGoal.update(world);
 
-        if(currentGoal.isCompleted()) {
+        boolean debugKey = Gdx.input != null ? Gdx.input.isKeyJustPressed(Input.Keys.G) : false;
+
+        if(currentGoal.isCompleted() || debugKey) {
             currentGoal.onComplete(world);
             showGoalCompletedMessage();
 

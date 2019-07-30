@@ -1,5 +1,7 @@
 package com.noahcharlton.stationalpha.worker.job;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.worker.SleepJob;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 
 import java.util.ArrayDeque;
@@ -20,6 +22,10 @@ public class JobQueue {
     }
 
     public void addJob(Job job){
+        if(job instanceof SleepJob){
+            throw new GdxRuntimeException("Cannot add sleep job to queue!");
+        }
+
         Objects.requireNonNull(job, "Job cannot be null!");
 
         jobs.get(job.getRequiredRole()).add(job);

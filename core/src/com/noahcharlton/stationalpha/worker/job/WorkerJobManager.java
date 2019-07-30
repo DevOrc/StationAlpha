@@ -46,13 +46,14 @@ public class WorkerJobManager {
 
     public void setCurrentJob(Job job) {
         Optional<Job> oldJob = this.currentJob;
-        this.currentJob = Optional.ofNullable(job);
+        this.currentJob = Optional.empty();//Prevent infinite loop
 
         if(oldJob.filter(j -> j.getStage() != Job.JobStage.FINISHED).isPresent()){
             oldJob.get().cancel();
             JobQueue.getInstance().addJob(oldJob.get());
         }
 
+        this.currentJob = Optional.ofNullable(job);
         this.currentJob.ifPresent(j -> j.setWorker(worker));
     }
 

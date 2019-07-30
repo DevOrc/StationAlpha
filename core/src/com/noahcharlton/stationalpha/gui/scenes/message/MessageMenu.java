@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public class MessageMenu extends Pane {
 
-    private static final int DISPLAYING_WIDTH = 300;
-    private static final int DISPLAYING_HEIGHT = 200;
+    private static final int DISPLAYING_WIDTH = 420;
+    private static final int DISPLAYING_HEIGHT = 275;
     private static final int SPACING = 16;
 
     private final CloseMenuButton menuButton = new CloseMenuButton(this);
@@ -39,6 +39,7 @@ public class MessageMenu extends Pane {
 
             setFontData(.6f, Color.WHITE);
             drawCenteredText(b, message.getDescription(), DISPLAYING_HEIGHT * 6 / 10);
+            drawCenteredText(b, MessageQueue.getInstance().getMessages().size() + " Messages Left", 25);
         });
     }
 
