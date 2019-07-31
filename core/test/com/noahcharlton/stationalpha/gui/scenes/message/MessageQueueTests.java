@@ -38,4 +38,31 @@ public class MessageQueueTests {
     void emptyByDefaultTest() {
         Assertions.assertFalse(messageQueue.poll().isPresent());
     }
+
+    @Test
+    void doesNotAddSameMessageTwiceTest() {
+        Message message = new Message("Foo", "Bar");
+
+        messageQueue.add(message);
+        messageQueue.add(message);
+
+        Assertions.assertEquals(1, messageQueue.getMessages().size());
+    }
+
+    @Test
+    void doesNotAddSameDetailsTwiceTest() {
+        messageQueue.add("1234", "5678");
+        messageQueue.add("1234", "5678");
+
+        Assertions.assertEquals(1, messageQueue.getMessages().size());
+    }
+
+    @Test
+    void messageQueueLimitsAt25Spots() {
+        for(int i = 0; i < 50; i++){
+            messageQueue.add("", "" + i);
+        }
+
+        Assertions.assertEquals(25, messageQueue.getMessages().size());
+    }
 }

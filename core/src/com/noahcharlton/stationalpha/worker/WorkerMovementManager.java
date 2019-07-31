@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.worker;
 
 import com.badlogic.gdx.ai.pfa.GraphPath;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.worker.pathfinding.Path;
 import com.noahcharlton.stationalpha.worker.pathfinding.WorldGraph;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -27,8 +28,16 @@ public class WorkerMovementManager {
 
         Tile target = targetTile.get();
         Path path = worldGraph.generatePath(worker.getTileOn(), target);
+        Optional<GraphPath<Tile>> graphPath = path.calcPathSync();
 
-        path.calcPathSync().ifPresent(this::moveAlongPath);
+        if(graphPath.isPresent()){
+            moveAlongPath(graphPath.get());
+        }else{
+            MessageQueue.getInstance().add("No path found!",
+                    worker.getName() + " can't get to tile " + target);
+
+            worker.getAi().getJobManager().setCurrentJob(null);
+        }
     }
 
     public void checkIfStuck() {

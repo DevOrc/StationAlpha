@@ -9,6 +9,16 @@ public class MessageQueue {
     private final ArrayDeque<Message> messages = new ArrayDeque<>();
 
     public void add(Message message){
+        if(messages.size() >= 25){
+            return;
+        }
+
+        if(!messages.isEmpty()){
+            if(messages.getLast().equals(message)){
+                return;
+            }
+        }
+
         messages.add(message);
     }
 
