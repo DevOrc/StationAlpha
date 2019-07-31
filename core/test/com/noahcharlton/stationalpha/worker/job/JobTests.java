@@ -23,6 +23,14 @@ public class JobTests extends LibGdxTest {
     }
 
     @Test
+    void hasToStringMethod() {
+        String info = job.toString();
+
+        //Check if default toString is used
+        Assertions.assertFalse(info.contains("com.noahcharlton.stationalpha"));
+    }
+
+    @Test
     protected void assignedWorkerEmptyByDefaultTest() {
         Assertions.assertFalse(job.getAssignedWorker().isPresent());
     }

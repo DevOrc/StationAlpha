@@ -2,10 +2,15 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
+import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
+import com.noahcharlton.stationalpha.worker.WorkerSelectable;
+
+import java.util.Optional;
 
 public class WorkerInfoRow extends Pane {
 
@@ -17,6 +22,7 @@ public class WorkerInfoRow extends Pane {
     static final int PREFERRED_HEIGHT = 45;
 
     private final String name;
+    private Optional<Worker> worker = Optional.empty();
 
     protected WorkerInfoRow(String name){
         this.name = name;
@@ -24,10 +30,19 @@ public class WorkerInfoRow extends Pane {
         setBackgroundColor(Color.BLACK);
     }
 
+    @Override
+    protected void onClick() {
+        if(worker.isPresent()){
+            Optional<Selectable> selectable = Optional.of(new WorkerSelectable(worker.get()));
+            InputHandler.getInstance().setCurrentlySelected(selectable);
+        }
+    }
+
     public WorkerInfoRow(Worker worker) {
         this(worker.getName());
 
         addItems(worker);
+        this.worker = Optional.of(worker);
     }
 
     private void addItems(Worker worker) {

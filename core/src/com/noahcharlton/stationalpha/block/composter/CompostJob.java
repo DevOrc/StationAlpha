@@ -55,4 +55,8 @@ public abstract class CompostJob extends TickBasedJob {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Composting: " + super.toString();
+    }
 }

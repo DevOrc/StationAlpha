@@ -35,6 +35,11 @@ public class SleepJob extends TickBasedJob {
         });
     }
 
+    @Override
+    public String toString() {
+        return "Sleeping: " + super.toString();
+    }
+
     boolean hasAccessibleBedroom() {
         return worker.getBedroom().filter(bedContainer -> bedContainer.getTile().getOpenAdjecent().isPresent()).isPresent();
     }

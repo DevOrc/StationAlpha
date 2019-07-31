@@ -29,6 +29,11 @@ public class WorkbenchJob extends TickBasedJob {
         recipe.addProducts(getTarget().getWorld().getInventory());
     }
 
+    @Override
+    public String toString() {
+        return "Crafting: " + super.toString();
+    }
+
     public ManufacturingRecipe getRecipe() {
         return recipe;
     }

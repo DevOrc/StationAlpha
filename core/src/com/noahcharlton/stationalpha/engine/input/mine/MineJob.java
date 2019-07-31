@@ -63,4 +63,9 @@ public class MineJob extends TickBasedJob {
         BuildBlock block = new BuildBlock(Blocks.getWall());
         block.onClick(blockTile, Input.Buttons.RIGHT);
     }
+
+    @Override
+    public String toString() {
+        return "Mining: " + super.toString();
+    }
 }

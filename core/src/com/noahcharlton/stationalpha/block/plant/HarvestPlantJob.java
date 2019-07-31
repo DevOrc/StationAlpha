@@ -25,4 +25,9 @@ public class HarvestPlantJob extends TickBasedJob {
 
         container.harvest();
     }
+
+    @Override
+    public String toString() {
+        return "Harvesting: " + super.toString();
+    }
 }

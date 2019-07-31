@@ -71,4 +71,9 @@ public class TickBasedJob extends Job {
     public int getJobDuration() {
         return tickDuration;
     }
+
+    @Override
+    public String toString() {
+        return "" + tick + " / " + tickDuration + "";
+    }
 }

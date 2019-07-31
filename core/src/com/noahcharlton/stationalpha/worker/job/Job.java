@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.world.Tile;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.Optional;
 
@@ -49,6 +50,12 @@ public class Job {
 
         assignedWorker = Optional.empty();
         jobStage = JobStage.PRE_START;
+    }
+
+    @Override
+    public String toString() {
+        LogManager.getLogger(Job.class).warn("Unimplemented toString method for job!");
+        return "Basic Job";
     }
 
     public WorkerRole getRequiredRole(){

@@ -38,6 +38,11 @@ public class SynthesizerJob extends TickBasedJob {
         recipe.addProducts(inventory);
     }
 
+    @Override
+    public String toString() {
+        return "Synthesizing: " + super.toString();
+    }
+
     public ManufacturingRecipe getRecipe() {
         return recipe;
     }

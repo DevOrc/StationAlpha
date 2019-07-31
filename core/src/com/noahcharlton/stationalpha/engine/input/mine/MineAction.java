@@ -3,10 +3,12 @@ package com.noahcharlton.stationalpha.engine.input.mine;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Block;
+import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
+import com.noahcharlton.stationalpha.world.World;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,10 +37,34 @@ public class MineAction implements BuildAction {
         boolean clickedOnBlock = tile.getBlock().map(block -> block == input).orElse(false);
 
         if(leftClick && clickedOnBlock){
-            Tile rootTile = tile.getContainer().get().getTile();
+            BlockContainer container = tile.getContainer().get();
 
-            rootTile.getOpenAdjecent().ifPresent(adjacent -> createJob(tile, adjacent));
+            getOpenAdjacent(container).ifPresent(adjacent -> createJob(tile, adjacent));
         }
+    }
+
+    private Optional<Tile> getOpenAdjacent(BlockContainer container) {
+        Tile rootTile = container.getTile();
+        World world = rootTile.getWorld();
+
+        for(int x = 0; x < container.getWidth(); x++){
+            for(int y = 0; y < container.getHeight(); y++){
+                if(isEdgeOfContainer(container, x, y)){
+                    Optional<Tile> tile = world.getTileAt(x + rootTile.getX(), y + rootTile.getY());
+                    System.out.println(tile);
+                    Optional<Tile> adjacent = tile.flatMap(Tile::getOpenAdjecent);
+
+                    if(adjacent.isPresent())
+                        return adjacent;
+                }
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    static boolean isEdgeOfContainer(BlockContainer container, int x, int y) {
+        return x == 0 || y ==0 || x + 1 == container.getWidth() || y + 1 == container.getHeight();
     }
 
     void createJob(Tile rockTile, Tile adjacentTile) {

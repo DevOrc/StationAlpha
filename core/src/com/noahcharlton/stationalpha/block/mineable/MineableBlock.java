@@ -60,8 +60,12 @@ class MineableBlockRenderer extends DefaultBlockRenderer{
     }
 
     private void renderIcon(Tile tile, SpriteBatch batch) {
+        BlockContainer container = getContainer(tile);
+
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
+        x += (container.getWidth() / 2) * Tile.TILE_SIZE;
+        y += (container.getHeight() / 2) * Tile.TILE_SIZE;
 
         batch.setColor(new Color(1f, 1f, 1f, .5f));
         batch.draw(icon.getTexture().get(), x, y);
