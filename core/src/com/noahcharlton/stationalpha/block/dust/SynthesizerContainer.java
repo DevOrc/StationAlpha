@@ -54,9 +54,11 @@ public class SynthesizerContainer extends BlockContainer {
         Optional<ManufacturingRecipe> recipe = world.getManufacturingManager().getNextRecipe(RecipeType.SYNTHESIZE);
         Optional<Tile> tile = getJobTile(world);
 
-        if(recipe.isPresent() && tile.filter(t -> !t.getBlock().isPresent()).isPresent()) {
+        boolean recipeValid = recipe.filter(r -> r.resourcesAvailable(world.getInventory())).isPresent();
+
+        if(recipeValid && tile.filter(t -> !t.getBlock().isPresent()).isPresent()) {
             startJob(recipe.get(), tile.get());
-        }else{
+        } else {
             recipe.ifPresent(r -> world.getManufacturingManager().addRecipeToQueue(r));
         }
     }
@@ -105,6 +107,7 @@ public class SynthesizerContainer extends BlockContainer {
 
     /**
      * Used for testing only!
+     *
      * @param currentJob
      */
     void setCurrentJob(Optional<Job> currentJob) {

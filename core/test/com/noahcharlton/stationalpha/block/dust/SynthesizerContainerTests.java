@@ -82,6 +82,28 @@ public class SynthesizerContainerTests {
     }
 
     @Test
+    void doesNotStartJobIfNotEnoughResourcesTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.TEST_ITEM, 15, Item.SPACE_ROCK,
+                0, 100, RecipeType.SYNTHESIZE);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.checkAndCreateJob();
+
+        Assertions.assertEquals(Optional.empty(), container.getCurrentJob());
+    }
+
+    @Test
+    void doesNotStartJobReAddsRecipeTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.TEST_ITEM, 15, Item.SPACE_ROCK,
+                0, 100, RecipeType.SYNTHESIZE);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.checkAndCreateJob();
+
+        Assertions.assertSame(recipe, world.getManufacturingManager().getNextRecipe(RecipeType.SYNTHESIZE).get());
+    }
+
+    @Test
     void checkAndCreateJobTileNotAvailableDoesNotStartJob() {
         ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
                 100, RecipeType.SYNTHESIZE);
