@@ -4,6 +4,7 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRenderer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -22,6 +23,11 @@ public class ComposterBlock extends Block {
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {
         return new ComposterContainer(tile, this, blockRotation);
+    }
+
+    @Override
+    public Optional<Item> getRequiredItem() {
+        return Optional.of(Item.WOOD);
     }
 
     @Override

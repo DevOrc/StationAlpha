@@ -7,7 +7,10 @@ import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.World;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class ItemList extends GuiComponent {
 
@@ -15,10 +18,12 @@ public class ItemList extends GuiComponent {
     protected void drawBackground(SpriteBatch batch) {
         HashMap<Item, Integer> inventory = World.getInstance().get().getInventory().getItems();
 
-        Item[] items = Item.values();
 
-        for(int i = 0; i < items.length; i++) {
-            Item item = items[i];
+        List<Item> items = new ArrayList<>(Arrays.asList(Item.values()));
+        items.removeIf(item -> item == Item.TEST_ITEM);
+
+        for(int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
 
             renderItem(i, item, inventory.get(item), batch);
         }

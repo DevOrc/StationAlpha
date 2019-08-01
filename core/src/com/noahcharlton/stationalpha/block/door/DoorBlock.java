@@ -9,6 +9,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRenderer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
+import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -62,6 +63,11 @@ public class DoorBlock extends Block implements BlockRenderer {
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         return new DoorContainer(tile, this, rotation);
+    }
+
+    @Override
+    public Optional<Item> getRequiredItem() {
+        return Optional.of(Item.STEEL);
     }
 
     @Override

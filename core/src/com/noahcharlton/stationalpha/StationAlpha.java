@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
@@ -31,7 +32,10 @@ public class StationAlpha extends ApplicationAdapter {
     private GameState currentState = GameState.LOADING;
     private GuiContainer guiContainer;
     private Optional<World> world = Optional.empty();
+
     private int ticksPerUpdate = 1;
+    private double tickLength = 1 / (60.0 * ticksPerUpdate);
+    private double tickTime = 0;
 
     public StationAlpha(boolean updateInstance) {
         if(!updateInstance)
@@ -92,7 +96,11 @@ public class StationAlpha extends ApplicationAdapter {
     }
 
     private void updateInGame() {
-        for(int i = 0; i < ticksPerUpdate; i++) {
+        tickTime += Gdx.graphics.getDeltaTime();
+
+        while(tickTime > tickLength){
+            tickTime -= tickLength;
+
             world.ifPresent(World::update);
         }
     }
@@ -107,8 +115,10 @@ public class StationAlpha extends ApplicationAdapter {
         AssetManager.getInstance().dispose();
     }
 
-    public void setTicksPerUpdate(int ticksPerUpdate) {
-        this.ticksPerUpdate = ticksPerUpdate;
+    public void setTicksPerUpdate(int tps) {
+        this.tickTime = 0;
+        this.ticksPerUpdate = tps;
+        this.tickLength = 1 / (60.0 * ticksPerUpdate);
     }
 
     public int getTicksPerUpdate() {

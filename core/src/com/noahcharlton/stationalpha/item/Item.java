@@ -6,16 +6,16 @@ import org.apache.logging.log4j.LogManager;
 
 public enum Item {
 
-    SPACE_ROCK("space_rock", "Space Rock"),
-    TEST_ITEM("test_item", "Test Item"),
+    DIRT("dirt", "Dirt"),
     POTATO("potato", "Potato"),
-    STEEL("steel", "Steel"),
     WOOD("wood", "Wood"),
     LEAVES("leaves", "Leaves"),
-    DIRT("dirt", "Dirt"),
-    COPPER("copper", "Copper"),
+    SPACE_ROCK("space_rock", "Space Rock"),
     SPACE_DUST("dust", "Space Dust"),
-    UNOBTAINIUM("unobtainium", "Unobtainium");
+    STEEL("steel", "Steel"),
+    COPPER("copper", "Copper"),
+    UNOBTAINIUM("unobtainium", "Unobtainium"),
+    TEST_ITEM("test_item", "Test Item");
 
     private final String displayName;
     private final String id;

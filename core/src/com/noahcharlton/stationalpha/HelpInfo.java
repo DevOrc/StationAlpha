@@ -11,6 +11,9 @@ public class HelpInfo {
             "Dead plants form when plants (saplings, potatoes, etc.) fail to survive in their environment. " +
             "In order to grow, plants need oxygen (at least 15%) and dirt floors.";
 
+    public static final String SAPLING_INFO = "Saplings need three things in order to grow: oxygen, dirt, and space. " +
+            "Saplings require a 3x3 area (centered on the sapling) to grow. ";
+
     public static final String START_INFO = "Congrats on starting your first space station! Check the goals menu " +
             "to see your first task. Good Luck!";
 

@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block.sapling;
 
+import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
@@ -22,6 +23,11 @@ public class TreeSaplingBlock extends Block {
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {
         return new TreeSaplingContainer(tile, this, blockRotation);
+    }
+
+    @Override
+    public Optional<String> getHelpInfo() {
+        return Optional.of(HelpInfo.SAPLING_INFO);
     }
 
     @Override
