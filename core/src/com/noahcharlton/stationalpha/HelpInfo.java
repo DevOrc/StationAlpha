@@ -9,21 +9,21 @@ public class HelpInfo {
 
     public static final String DEAD_PLANT_INFO = "" +
             "Dead plants form when plants (saplings, potatoes, etc.) fail to survive in their environment. " +
-            "In order to grow, plants need oxygen (at least 15%) and dirt floors.";
+            "To grow, plants need oxygen (at least 15%) and dirt floors.";
 
-    public static final String SAPLING_INFO = "Saplings need three things in order to grow: oxygen, dirt, and space. " +
+    public static final String SAPLING_INFO = "Saplings need three things to grow: oxygen, dirt, and space. " +
             "Saplings require a 3x3 area (centered on the sapling) to grow. ";
 
     public static final String START_INFO = "Congrats on starting your first space station! Check the goals menu " +
             "to see your first task. Good Luck!";
 
-    public static final String COMPRESSOR_INFO = "Compressors adds oxygen to your space station. Note: The room the " +
+    public static final String COMPRESSOR_INFO = "Compressors add oxygen to your space station. Note: The room the " +
             "compressor is in must be enclosed (with walls and floors) or else the oxygen will vent into space. ";
 
     public static final String WALL_INFO = "Nothing can pass through walls.";
 
-    public static final String AIRLOCK_INFO = "Airlocks are used to keep air in your space station, while also " +
-            "allowing workers to exit into empty space";
+    public static final String AIRLOCK_INFO = "Airlocks are used to keep the air in your space station, while also" +
+            " allowing workers to exit into space";
 
     public static final String WORKBENCH_INFO = "The workbench allows you to craft more complex things. To craft, use " +
             "the manufacture menu. Once you click craft, a worker will begin to work on that task. Note: The workbench " +

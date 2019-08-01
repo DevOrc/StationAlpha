@@ -8,8 +8,7 @@ public class DefaultGoals implements GoalSupplier {
 
     private int currentGoalID = -1;
 
-    public DefaultGoals() {
-    }
+    public DefaultGoals() {}
 
     public Goal getNext() {
         currentGoalID++;
@@ -80,7 +79,7 @@ public class DefaultGoals implements GoalSupplier {
         public String getTextDesc() {
             return "Grow " + getGoalCount() + " potatoes so that your worker can eat. To grow potatoes, " +
                     "you need to place potatoes plants (in the block menu) on a dirt floor. \n\n In order for the " +
-                    "plants to grow they must have oxygen. To get oxygen, use the compressor block. Note: The room " +
+                    "plants to grow, they must have oxygen. To get oxygen, use the compressor block. Note: The room " +
                     "must be enclosed (with walls/airlocks and floors) or else the oxygen will escape!";
         }
     }
@@ -120,7 +119,7 @@ public class DefaultGoals implements GoalSupplier {
         }
 
         public String getTextDesc() {
-            return "Using dust collectors, collect one piece of space dust. Eventually you will be able to use the " +
+            return "Using dust collectors, collect one piece of space dust. Eventually, you will be able to use the " +
                     "space dust to synthesize unobtainium";
         }
     }
