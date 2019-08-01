@@ -1,5 +1,8 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu;
 
+import com.noahcharlton.stationalpha.HelpInfo;
+import com.noahcharlton.stationalpha.gui.scenes.message.Message;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
@@ -29,5 +32,28 @@ public class WorkerMenuTests {
         menu.createButtons(Collections.emptyList());
 
         Assertions.assertEquals(1, menu.getSubGuis().size());
+    }
+
+    @Test
+    void onSetVisibleAddsTipMessage() {
+        MessageQueue.getInstance().getMessages().clear();
+        WorkerMenu workerMenu = new WorkerMenu();
+
+        workerMenu.setVisible(true);
+
+        Message message = MessageQueue.getInstance().getMessages().getFirst();
+        Assertions.assertEquals(HelpInfo.WORKER_MENU_INFO, message.getDescription());
+    }
+
+    @Test
+    void tipMessageOnlyAppearsOnceTest() {
+        MessageQueue.getInstance().getMessages().clear();
+        WorkerMenu workerMenu = new WorkerMenu();
+
+        workerMenu.setVisible(true);
+        workerMenu.setVisible(true);
+        workerMenu.setVisible(true);
+
+        Assertions.assertEquals(1, MessageQueue.getInstance().getMessages().size());
     }
 }

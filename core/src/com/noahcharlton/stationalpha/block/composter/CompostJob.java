@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.block.composter;
 
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -17,6 +18,11 @@ public abstract class CompostJob extends TickBasedJob {
         this.recipe = recipe;
 
         JobQueue.getInstance().addJob(this);
+    }
+
+    @Override
+    public WorkerRole getRequiredRole() {
+        return WorkerRole.GARDENER;
     }
 
     @Override

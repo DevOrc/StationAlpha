@@ -1,7 +1,9 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu;
 
+import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.gui.components.layout.VStretchLayout;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -11,6 +13,7 @@ import java.util.List;
 public class WorkerMenu extends BuildBarMenu<Worker> {
 
     private static final int WIDTH = WorkerInfoRow.WIDTH + 10;
+    private boolean opened;
     private int tableRowCount;
 
     public WorkerMenu() {
@@ -52,6 +55,16 @@ public class WorkerMenu extends BuildBarMenu<Worker> {
     @Override
     protected Runnable createRunnable(Worker worker) {
         return () -> {};
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+
+        if(!opened && visible){
+            opened = true;
+            MessageQueue.getInstance().add("Tip!", HelpInfo.WORKER_MENU_INFO);
+        }
     }
 
     @Override

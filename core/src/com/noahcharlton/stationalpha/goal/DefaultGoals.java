@@ -111,7 +111,6 @@ public class DefaultGoals implements GoalSupplier {
 
         @Override
         public void onComplete(World world) {
-            world.getInventory().changeAmountForItem(Item.SPACE_DUST, -1);
             world.getInventory().changeAmountForItem(Item.UNOBTAINIUM, 1);
         }
 
@@ -121,8 +120,8 @@ public class DefaultGoals implements GoalSupplier {
         }
 
         public String getTextDesc() {
-            return "Collect 1 piece of space dust using the dust collector. Once this goal" +
-                    " is completed, you will receive one piece of unobtainium to build a synthesizer. ";
+            return "Using dust collectors, collect one piece of space dust. Eventually you will be able to use the " +
+                    "space dust to synthesize unobtainium";
         }
     }
 
@@ -138,8 +137,8 @@ public class DefaultGoals implements GoalSupplier {
         }
 
         public String getTextDesc() {
-            return "Now that you have space dust, you can use the synthesizer to create unobtainium. It will take your" +
-                    "workers multiple sessions to synthesize one piece. ";
+            return "Now that you have space dust, you can use the synthesizer to create unobtainium. Because " +
+                    "synthesizing takes so long, it will take your workers multiple sessions to synthesize one piece. ";
         }
     }
 }

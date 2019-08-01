@@ -31,4 +31,7 @@ public class HelpInfo {
 
     public static final String CONTROLS = "You can move around the world using WASD. You can zoom in and out using " +
             "the Z/X keys. \n\nWhen building use left click to place and right click to destroy. ";
+
+    public static final String WORKER_MENU_INFO = "The worker menu allows you to change what type of jobs your " +
+            "worker will work on! The 4 roles are general, crafter, gardener, and synthesizer.";
 }
