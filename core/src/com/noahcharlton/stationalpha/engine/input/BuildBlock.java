@@ -47,7 +47,7 @@ public class BuildBlock implements BuildAction {
     private void onRightClick(Tile tile) {
         if(!tile.getBlock().isPresent()) {
             InputHandler.getInstance().setBuildAction(null);
-            InputHandler.getInstance().setCurrentlySelected(Optional.empty());
+            InputHandler.getInstance().setCurrentlySelected(null);
         } else {
             destroyBlock(tile);
         }

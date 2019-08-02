@@ -117,22 +117,22 @@ public class ComposterContainer extends BlockContainer {
     /**
      * Used for testing only!
      */
-    void setTick(Optional<Integer> tick) {
-        this.tick = tick;
+    void setTick(int tick) {
+        this.tick = Optional.of(tick);
     }
 
     /**
      * Used for testing only!
      */
-    void setCurrentRecipe(Optional<ManufacturingRecipe> currentRecipe) {
-        this.currentRecipe = currentRecipe;
+    void setCurrentRecipe(ManufacturingRecipe currentRecipe) {
+        this.currentRecipe = Optional.ofNullable(currentRecipe);
     }
 
     /**
      * Used for testing only!
      */
-    void setCurrentJob(Optional<Job> currentJob) {
-        this.currentJob = currentJob;
+    void setCurrentJob(Job currentJob) {
+        this.currentJob = Optional.ofNullable(currentJob);
     }
 
     public Optional<Integer> getTick() {

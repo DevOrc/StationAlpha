@@ -46,7 +46,7 @@ public class ComposterContainerTests {
     void jobCanceledOnContainerDestroyed() {
         Job job = new TestJob();
         job.start();
-        container.setCurrentJob(Optional.of(job));
+        container.setCurrentJob(job);
 
         container.onDestroy();
 
@@ -56,7 +56,7 @@ public class ComposterContainerTests {
     @Test
     void compostStartedSetJobToEmpty() {
         Job job = new TestJob();
-        container.setCurrentJob(Optional.of(job));
+        container.setCurrentJob(job);
 
         container.onCompostStarted();
 
@@ -67,7 +67,7 @@ public class ComposterContainerTests {
     void compostFinishedRecipeReset() {
         ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1,
                 Item.DIRT, 1, 100);
-        container.setCurrentRecipe(Optional.of(recipe));
+        container.setCurrentRecipe(recipe);
 
         container.onCompostFinished();
 
@@ -77,7 +77,7 @@ public class ComposterContainerTests {
     @Test
     void compostFinishedJobReset() {
         Job job = new TestJob();
-        container.setCurrentJob(Optional.of(job));
+        container.setCurrentJob(job);
 
         container.onCompostFinished();
 
@@ -86,7 +86,7 @@ public class ComposterContainerTests {
 
     @Test
     void compostFinishedTickReset() {
-        container.setTick(Optional.of(100));
+        container.setTick(100);
 
         container.onCompostFinished();
 
@@ -97,7 +97,7 @@ public class ComposterContainerTests {
     void tickSetOnCompostStart() {
         ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1,
                 Item.DIRT, 1, 123);
-        container.setCurrentRecipe(Optional.of(recipe));
+        container.setCurrentRecipe(recipe);
 
         container.onCompostStarted();
 
@@ -158,7 +158,7 @@ public class ComposterContainerTests {
 
     @Test
     void updateCompostSubtractsTickWhenAboveZeroTest() {
-        container.setTick(Optional.of(103));
+        container.setTick(103);
 
         container.updateCompost(103);
 
@@ -169,7 +169,7 @@ public class ComposterContainerTests {
     void updateCompostZeroTickCreatesEndJobTest() {
         ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1,
                 Item.DIRT, 1, 123);
-        container.setCurrentRecipe(Optional.of(recipe));
+        container.setCurrentRecipe(recipe);
         container.updateCompost(0);
 
         Assertions.assertTrue(container.getCurrentJob().isPresent());

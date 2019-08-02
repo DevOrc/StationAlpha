@@ -71,14 +71,10 @@ public class WorkbenchContainer extends BlockContainer {
         Optional<ManufacturingRecipe> nextRecipe = getTile().getWorld().getManufacturingManager()
                 .getNextRecipe(RecipeType.CRAFT);
 
-        if(nextRecipe.isPresent()){
-            return createJobFromRecipe(openAdjacent, nextRecipe.get());
-        }else{
-            return false;
-        }
+        return nextRecipe.filter(recipe -> createJobFromRecipe(openAdjacent.get(), recipe)).isPresent();
     }
 
-    private boolean createJobFromRecipe(Optional<Tile> openAdjacent, ManufacturingRecipe recipe) {
+    private boolean createJobFromRecipe(Tile openAdjacent, ManufacturingRecipe recipe) {
         World world = getTile().getWorld();
 
         if(!recipe.resourcesAvailable(world.getInventory())){
@@ -87,7 +83,7 @@ public class WorkbenchContainer extends BlockContainer {
         }
 
         recipe.removeRequirements(world.getInventory());
-        WorkbenchJob job = new WorkbenchJob(openAdjacent.get(), recipe);
+        WorkbenchJob job = new WorkbenchJob(openAdjacent, recipe);
 
         JobQueue.getInstance().addJob(job);
         this.job = Optional.of(job);

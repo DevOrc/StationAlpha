@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 public class SleepJobTests extends JobTests {
 
     private World world;
@@ -56,7 +54,7 @@ public class SleepJobTests extends JobTests {
         BedContainer container = (BedContainer) world.getTileAt(0, 0).get().getContainer().get();
 
         TestWorker worker = new TestWorker();
-        worker.setBedroom(Optional.of(container));
+        worker.setBedroom(container);
         SleepJob sleepJob = new SleepJob(null, worker);
 
         Assertions.assertTrue(sleepJob.hasAccessibleBedroom());
@@ -71,7 +69,7 @@ public class SleepJobTests extends JobTests {
         BedContainer container = (BedContainer) world.getTileAt(0, 0).get().getContainer().get();
 
         TestWorker worker = new TestWorker();
-        worker.setBedroom(Optional.of(container));
+        worker.setBedroom(container);
         SleepJob sleepJob = new SleepJob(null, worker);
         Assumptions.assumeTrue(sleepJob.hasAccessibleBedroom());
 

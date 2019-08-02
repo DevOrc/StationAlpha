@@ -57,7 +57,7 @@ public class WorldGraphTests {
     void doesTileBlockPathsNoBlockTest() {
         Tile tile = new Tile(0, 0, world);
 
-        Assertions.assertFalse(graph.doesTileBlockPaths(tile));
+        Assertions.assertTrue(WorldGraph.isTilePassable(tile));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class WorldGraphTests {
         Tile tile = new Tile(0, 0, world);
         tile.setBlock(Blocks.getWall());
 
-        Assertions.assertTrue(graph.doesTileBlockPaths(tile));
+        Assertions.assertFalse(WorldGraph.isTilePassable(tile));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class WorldGraphTests {
         Tile tile = new Tile(0, 0, world);
         tile.setBlock(Blocks.getDoor());
 
-        Assertions.assertFalse(graph.doesTileBlockPaths(tile));
+        Assertions.assertTrue(WorldGraph.isTilePassable(tile));
     }
 
     @Test
@@ -81,6 +81,6 @@ public class WorldGraphTests {
         Tile tile = new Tile(0, 0, world);
         tile.setBlock(Blocks.getTreeSapling());
 
-        Assertions.assertFalse(graph.doesTileBlockPaths(tile));
+        Assertions.assertTrue(WorldGraph.isTilePassable(tile));
     }
 }

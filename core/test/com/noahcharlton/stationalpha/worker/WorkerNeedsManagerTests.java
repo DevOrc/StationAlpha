@@ -13,8 +13,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 public class WorkerNeedsManagerTests {
 
     private final Worker worker = new TestWorker();
@@ -43,7 +41,7 @@ public class WorkerNeedsManagerTests {
         World world = worker.getWorld();
         world.getInventory().changeAmountForItem(Item.STEEL, 1);
         new BuildBlock(Blocks.getBedBlock()).onClick(world.getTileAt(0, 0).get(), Input.Buttons.LEFT);
-        worker.setBedroom(Optional.of((BedContainer) world.getTileAt(0, 0).get().getContainer().get()));
+        worker.setBedroom((BedContainer) world.getTileAt(0, 0).get().getContainer().get());
 
         SleepJob job = needsManager.createSleepJob();
 
@@ -56,7 +54,7 @@ public class WorkerNeedsManagerTests {
         world.getInventory().changeAmountForItem(Item.STEEL, 1);
         new BuildBlock(Blocks.getBedBlock()).onClick(world.getTileAt(0, 0).get(), Input.Buttons.LEFT);
         world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
-        worker.setBedroom(Optional.of((BedContainer) world.getTileAt(0, 0).get().getContainer().get()));
+        worker.setBedroom((BedContainer) world.getTileAt(0, 0).get().getContainer().get());
 
         worker.setPixelX(Tile.TILE_SIZE * 5);
         worker.setPixelY(Tile.TILE_SIZE * 4);
@@ -70,7 +68,7 @@ public class WorkerNeedsManagerTests {
         worker.setPixelX(Tile.TILE_SIZE * 8);
         worker.setPixelY(Tile.TILE_SIZE * 6);
 
-        worker.setBedroom(Optional.empty());
+        worker.setBedroom(null);
         SleepJob job = needsManager.createSleepJob();
 
         Assertions.assertEquals(new Tile(8, 6, worker.getWorld()), job.getTarget());

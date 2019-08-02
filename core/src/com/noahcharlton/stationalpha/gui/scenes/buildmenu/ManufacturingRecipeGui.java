@@ -27,21 +27,20 @@ public class ManufacturingRecipeGui extends Pane {
     public ManufacturingRecipeGui() {
         setDrawBorder(true, true, false, false);
 
-        makeOneButton = new MenuButton("Make 1", () -> makeRecipe(1, World.getInstance()));
-        makeFiveButton = new MenuButton("Make 5", () -> makeRecipe(5, World.getInstance()));
-        makeTwentyButton = new MenuButton("Make 20", () -> makeRecipe(20, World.getInstance()));
+        makeOneButton = new MenuButton("Make 1", () -> makeRecipe(1));
+        makeFiveButton = new MenuButton("Make 5", () -> makeRecipe(5));
+        makeTwentyButton = new MenuButton("Make 20", () -> makeRecipe(20));
 
         addAllGui(makeOneButton, makeFiveButton, makeTwentyButton);
     }
 
-    void makeRecipe(int times, Optional<World> w) {
-        if(!w.isPresent())
-            return;
+    void makeRecipe(int times){
+        World.getInstance().ifPresent(world -> makeRecipe(times, world));
+    }
 
+    void makeRecipe(int times, World world) {
         if(!currentRecipe.isPresent())
             return;
-
-        World world = w.get();
 
         for(int i = 0; i < times; i++){
             world.getManufacturingManager().addRecipeToQueue(currentRecipe.get());

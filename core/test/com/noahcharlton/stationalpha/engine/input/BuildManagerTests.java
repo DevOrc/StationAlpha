@@ -22,7 +22,7 @@ public class BuildManagerTests {
         world.getInventory().changeAmountForItem(Item.STEEL, 1);
         Tile tile = world.getTileAt(0, 0).get();
 
-        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
+        buildManager.setAction(new BuildBlock(Blocks.getWall()));
         buildManager.build(tile, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Blocks.getWall(), tile.getBlock().get());
@@ -33,7 +33,7 @@ public class BuildManagerTests {
         World world = new World();
         Tile tile = world.getTileAt(0, 0).get();
 
-        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getIce())));
+        buildManager.setAction(new BuildBlock(Blocks.getIce()));
         buildManager.build(tile, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Blocks.getIce(), tile.getBlock().get());
@@ -45,7 +45,7 @@ public class BuildManagerTests {
         Tile tile = world.getTileAt(0, 0).get();
         tile.setBlock(Blocks.getWall());
 
-        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
+        buildManager.setAction(new BuildBlock(Blocks.getWall()));
         buildManager.build(tile, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Blocks.getWall(), tile.getBlock().get());
@@ -57,7 +57,7 @@ public class BuildManagerTests {
         Tile tile = world.getTileAt(0, 0).get();
         tile.setBlock(Blocks.getIce());
 
-        buildManager.setAction(Optional.of(new BuildBlock(Blocks.getWall())));
+        buildManager.setAction(new BuildBlock(Blocks.getWall()));
         buildManager.build(tile, Input.Buttons.RIGHT);
 
         Assertions.assertFalse(tile.getBlock().isPresent());
@@ -68,7 +68,7 @@ public class BuildManagerTests {
         World world = new World();
         Tile tile = world.getTileAt(0, 0).get();
 
-        buildManager.setAction(Optional.of(new BuildFloor(Floor.GRASS)));
+        buildManager.setAction(new BuildFloor(Floor.GRASS));
         buildManager.build(tile, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Floor.GRASS, tile.getFloor().get());
@@ -80,7 +80,7 @@ public class BuildManagerTests {
         Tile tile = world.getTileAt(0, 0).get();
         tile.setFloor(Floor.WOOD);
 
-        buildManager.setAction(Optional.of(new BuildFloor(Floor.GRASS)));
+        buildManager.setAction(new BuildFloor(Floor.GRASS));
         buildManager.build(tile, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Floor.GRASS, tile.getFloor().get());
@@ -91,7 +91,7 @@ public class BuildManagerTests {
         Tile tile = new Tile(0,0, new World());
         tile.setFloor(Floor.WOOD);
 
-        buildManager.setAction(Optional.of(new BuildFloor(Floor.WOOD)));
+        buildManager.setAction(new BuildFloor(Floor.WOOD));
         buildManager.build(tile, Input.Buttons.RIGHT);
 
         Assertions.assertFalse(tile.getBlock().isPresent());
@@ -99,8 +99,8 @@ public class BuildManagerTests {
 
     @Test
     void doesNotSelectWhenHasBuildAction() {
-        InputHandler.getInstance().setCurrentlySelected(Optional.empty());
-        buildManager.setAction(Optional.of(new TestBuildAction()));
+        InputHandler.getInstance().setCurrentlySelected(null);
+        buildManager.setAction(new TestBuildAction());
         World world = new World();
         Tile tile = world.getTileAt(0, 0).get();
 
@@ -134,9 +134,9 @@ public class BuildManagerTests {
 
     @Test
     void clickedOutsideWorldSelectsNothingTest() {
-        InputHandler.getInstance().setCurrentlySelected(Optional.of(new Tile(0, 0, new World())));
+        InputHandler.getInstance().setCurrentlySelected(new Tile(0, 0, new World()));
 
-        buildManager.onTileClicked(Input.Buttons.LEFT, Optional.empty());
+        buildManager.handleGameClick(-1000, -1000, Input.Buttons.LEFT);
 
         Assertions.assertEquals(Optional.empty(), InputHandler.getInstance().getCurrentlySelected());
     }

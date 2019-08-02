@@ -33,29 +33,27 @@ public class WorldGraph implements IndexedGraph<Tile> {
         int x = src.getX();
         int y = src.getY();
 
-        checkConnection(src, world.getTileAt(x + 1, y)).ifPresent(output::add);
-        checkConnection(src, world.getTileAt(x - 1, y)).ifPresent(output::add);
-        checkConnection(src, world.getTileAt(x, y + 1)).ifPresent(output::add);
-        checkConnection(src, world.getTileAt(x, y - 1)).ifPresent(output::add);
+        createValidConnection(src, x + 1, y).ifPresent(output::add);
+        createValidConnection(src, x - 1, y).ifPresent(output::add);
+        createValidConnection(src, x, y + 1).ifPresent(output::add);
+        createValidConnection(src, x, y - 1).ifPresent(output::add);
 
         return output;
     }
 
-    private Optional<Connection<Tile>> checkConnection(Tile src, Optional<Tile> dest) {
-        if(dest.map(this::doesTileBlockPaths).orElse(false))
-            return Optional.empty();
-
-        return dest.map(tile -> new DefaultConnection<>(src, tile));
+    private Optional<DefaultConnection<Tile>> createValidConnection(Tile src, int x, int y) {
+        return world.getTileAt(x, y).filter(WorldGraph::isTilePassable)
+                .map(dest -> new DefaultConnection<>(src, dest));
     }
 
-    boolean doesTileBlockPaths(Tile tile) {
+    static boolean isTilePassable(Tile tile) {
         if(tile.getBlock().isPresent()){
             Block block = tile.getBlock().get();
 
-            return !block.isPassable();
+            return block.isPassable();
         }
 
-        return false;
+        return true;
     }
 
     @Override

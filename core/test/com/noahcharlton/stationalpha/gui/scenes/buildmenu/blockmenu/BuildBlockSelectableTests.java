@@ -12,7 +12,7 @@ public class BuildBlockSelectableTests {
 
     @Test
     void getDebugInfoEmptyRequirementTest() {
-        RequiredItemTestBlock testBlock = new RequiredItemTestBlock(Optional.empty());
+        RequiredItemTestBlock testBlock = new RequiredItemTestBlock(null);
         BuildBlock builder = new BuildBlock(testBlock);
         BuildBlockSelectable selectable = new BuildBlockSelectable(builder);
 
@@ -23,7 +23,7 @@ public class BuildBlockSelectableTests {
 
     @Test
     void getDebugInfoHasRequirementTest() {
-        RequiredItemTestBlock testBlock = new RequiredItemTestBlock(Optional.of(Item.STEEL));
+        RequiredItemTestBlock testBlock = new RequiredItemTestBlock(Item.STEEL);
         BuildBlock builder = new BuildBlock(testBlock);
         BuildBlockSelectable selectable = new BuildBlockSelectable(builder);
 
@@ -36,8 +36,8 @@ class RequiredItemTestBlock extends Block {
 
     private final Optional<Item> requiredItem;
 
-    public RequiredItemTestBlock(Optional<Item>  requiredItem) {
-        this.requiredItem = requiredItem;
+    public RequiredItemTestBlock(Item requiredItem) {
+        this.requiredItem = Optional.ofNullable(requiredItem);
     }
 
     @Override

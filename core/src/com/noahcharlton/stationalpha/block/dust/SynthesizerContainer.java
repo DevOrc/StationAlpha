@@ -110,7 +110,7 @@ public class SynthesizerContainer extends BlockContainer {
      *
      * @param currentJob
      */
-    void setCurrentJob(Optional<Job> currentJob) {
-        this.currentJob = currentJob;
+    void setCurrentJob(Job currentJob) {
+        this.currentJob = Optional.ofNullable(currentJob);
     }
 }

@@ -5,8 +5,6 @@ import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 
-import java.util.Optional;
-
 public class BlockGroupMenu extends BuildBarMenu<Block> {
 
     public BlockGroupMenu(BlockGroup group) {
@@ -23,7 +21,7 @@ public class BlockGroupMenu extends BuildBarMenu<Block> {
 
             InputHandler.getInstance().setBuildAction(buildBlock);
 
-            InputHandler.getInstance().setCurrentlySelected(Optional.of(selectable));
+            InputHandler.getInstance().setCurrentlySelected(selectable);
         };
     }
 

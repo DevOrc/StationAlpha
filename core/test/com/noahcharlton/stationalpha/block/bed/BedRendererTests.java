@@ -12,15 +12,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 public class BedRendererTests {
 
     private final BedRenderer renderer = new BedRenderer(Blocks.getBedBlock());
 
     @Test
     void isOccupiedEmptyWorkerReturnsFalseTest() {
-        Assertions.assertFalse(renderer.isBedOccupied(Optional.empty()));
+        Assertions.assertFalse(renderer.isBedOccupied(null));
     }
 
     @Test
@@ -28,7 +26,7 @@ public class BedRendererTests {
         TestWorker worker = new TestWorker();
         worker.getAi().getJobManager().setCurrentJob(new TestJob());
 
-        Assertions.assertFalse(renderer.isBedOccupied(Optional.of(worker)));
+        Assertions.assertFalse(renderer.isBedOccupied(null));
     }
 
     @Test
@@ -37,7 +35,7 @@ public class BedRendererTests {
         SleepJob sleepJob = new SleepJob(null, worker);
         worker.getAi().getJobManager().setCurrentJob(sleepJob);
 
-        Assertions.assertFalse(renderer.isBedOccupied(Optional.of(worker)));
+        Assertions.assertFalse(renderer.isBedOccupied(worker));
     }
 
     @Test
@@ -48,7 +46,7 @@ public class BedRendererTests {
 
         sleepJob.finish();
 
-        Assertions.assertFalse(renderer.isBedOccupied(Optional.of(worker)));
+        Assertions.assertFalse(renderer.isBedOccupied(worker));
     }
 
     @Test
@@ -64,12 +62,12 @@ public class BedRendererTests {
         worker.getAi().getJobManager().setCurrentJob(sleepJob);
 
         sleepJob.start();
-        worker.setBedroom(Optional.of(container));
-        Assumptions.assumeTrue(renderer.isBedOccupied(Optional.of(worker)));
+        worker.setBedroom(container);
+        Assumptions.assumeTrue(renderer.isBedOccupied(worker));
 
         world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
 
-        Assertions.assertFalse(renderer.isBedOccupied(Optional.of(worker)));
+        Assertions.assertFalse(renderer.isBedOccupied(worker));
     }
 
     @Test
@@ -83,10 +81,10 @@ public class BedRendererTests {
         TestWorker worker = new TestWorker();
         SleepJob sleepJob = new SleepJob(null, worker);
         worker.getAi().getJobManager().setCurrentJob(sleepJob);
-        worker.setBedroom(Optional.of(container));
+        worker.setBedroom(container);
 
         sleepJob.start();
 
-        Assertions.assertTrue(renderer.isBedOccupied(Optional.of(worker)));
+        Assertions.assertTrue(renderer.isBedOccupied(worker));
     }
 }

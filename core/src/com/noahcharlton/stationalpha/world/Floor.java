@@ -8,22 +8,26 @@ import java.util.Optional;
 
 public enum Floor {
 
-    METAL("metal.png", "Metal", Optional.of(Item.STEEL)),
-    WOOD("wood.png", "Wood", Optional.of(Item.WOOD)),
-    DIRT("dirt.png", "Soil", Optional.of(Item.DIRT)),
-    BRICK("brick.png", "Brick", Optional.empty()),
-    GRASS("grass.png", "Grass", Optional.empty());
+    METAL("metal.png", "Metal", Item.STEEL),
+    WOOD("wood.png", "Wood", Item.WOOD),
+    DIRT("dirt.png", "Soil", Item.DIRT),
+    BRICK("brick.png", "Brick"),
+    GRASS("grass.png", "Grass");
 
     private final Optional<Item> requiredItem;
     private final String displayName;
     private final String filename;
     private final ManagedTexture texture;
 
-    Floor(String filename, String displayName, Optional<Item> item) {
+    Floor(String filename, String displayName, Item item) {
         this.filename = filename;
         this.displayName = displayName;
-        this.requiredItem = item;
+        this.requiredItem = Optional.ofNullable(item);
         this.texture = new ManagedTexture("floor/" + filename);
+    }
+
+    Floor(String filename, String displayName) {
+        this(filename, displayName, null);
     }
 
     public void render(SpriteBatch batch, Tile tile){

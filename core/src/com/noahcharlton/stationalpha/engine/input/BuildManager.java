@@ -31,9 +31,9 @@ public class BuildManager {
 
         if(tile.isPresent() && !lastTile.equals(tile)){
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-                onTileClicked(Input.Buttons.LEFT, tile);
+                onTileClicked(Input.Buttons.LEFT, tile.get());
             }else if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
-                onTileClicked(Input.Buttons.RIGHT, tile);
+                onTileClicked(Input.Buttons.RIGHT, tile.get());
             }
         }
     }
@@ -46,19 +46,24 @@ public class BuildManager {
 
         Optional<Tile> tile = getTileFromPixel(x, y);
 
-        onTileClicked(button, tile);
-    }
-
-    void onTileClicked(int button, Optional<Tile> tile) {
         if(tile.isPresent()){
-            lastTile = tile;
-            build(tile.get(), button);
+            onTileClicked(button, tile.get());
         }else if(button == Input.Buttons.LEFT){
-            InputHandler.getInstance().setCurrentlySelected(Optional.empty());
+            InputHandler.getInstance().setCurrentlySelected(null);
         }
     }
 
+    void onTileClicked(int button, Tile tile){
+        lastTile = Optional.of(tile);
+        build(tile, button);
+    }
+
     Vector3 toWorldPos(int x, int y) {
+        if(gameInstance.getGameRenderer() == null){
+            return new Vector3(x, y, 0);//When headless, no need to un-project cause the camera has not moved
+
+        }
+
         Vector3 v = new Vector3(x, y, 0);
         OrthographicCamera cam = gameInstance.getGameRenderer().getCamera();
         Viewport viewport = gameInstance.getGameRenderer().getViewport();
@@ -90,11 +95,11 @@ public class BuildManager {
     private void updateCurrentlySelected(Tile tile) {
         Selectable selectable = tile.getContainer().map(container -> (Selectable) container).orElse(tile);
 
-        InputHandler.getInstance().setCurrentlySelected(Optional.of(selectable));
+        InputHandler.getInstance().setCurrentlySelected(selectable);
     }
 
-    public void setAction(Optional<BuildAction> action) {
-        this.action = action;
+    public void setAction(BuildAction action) {
+        this.action = Optional.ofNullable(action);
     }
 
     public Optional<BuildAction> getAction() {

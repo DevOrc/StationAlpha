@@ -77,15 +77,15 @@ public class InputHandler implements SimpleInputProcessor {
     public void setBuildAction(BuildAction action) {
         logger.debug("New Build Action: " + action);
 
-        buildManager.setAction(Optional.ofNullable(action));
+        buildManager.setAction(action);
     }
 
     public BuildManager getBuildManager() {
         return buildManager;
     }
 
-    public void setCurrentlySelected(Optional<Selectable> currentlySelected) {
-        this.currentlySelected = currentlySelected;
+    public void setCurrentlySelected(Selectable currentlySelected) {
+        this.currentlySelected = Optional.ofNullable(currentlySelected);
     }
 
     public Optional<Selectable> getCurrentlySelected() {

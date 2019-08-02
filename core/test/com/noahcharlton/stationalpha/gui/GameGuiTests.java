@@ -6,15 +6,13 @@ import com.noahcharlton.stationalpha.engine.input.Selectable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 public class GameGuiTests extends LibGdxTest {
 
     private final GameGui gameGui = new GameGui();
 
     @Test
     void nothingSelectedBoxTest() {
-        InputHandler.getInstance().setCurrentlySelected(Optional.empty());
+        InputHandler.getInstance().setCurrentlySelected(null);
 
         gameGui.update();
 
@@ -23,7 +21,7 @@ public class GameGuiTests extends LibGdxTest {
 
     @Test
     void somethingSelectedBoxTest() {
-        InputHandler.getInstance().setCurrentlySelected(Optional.of(new TestSelectable()));
+        InputHandler.getInstance().setCurrentlySelected(new TestSelectable());
 
         gameGui.update();
 

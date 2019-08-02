@@ -31,35 +31,36 @@ public class BedRenderer extends DefaultBlockRenderer {
     @Override
     public void renderBlock(SpriteBatch batch, Tile tile) {
 
-        if(!getContainer(tile).getTile().equals(tile)){
+        if(!getContainer(tile).getTile().equals(tile)) {
             return;
         }
 
         BedContainer bedContainer = (BedContainer) getContainer(tile);
 
-        drawTexture(batch, tile, bedContainer.getWorker());
 
-        if(bedContainer.getWorker().isPresent()){
+        if(bedContainer.getWorker().isPresent()) {
+            drawTexture(batch, tile, bedContainer.getWorker().get());
             drawName(batch, tile, bedContainer);
         }
     }
 
-    private void drawTexture(SpriteBatch batch, Tile tile, Optional<Worker> worker) {
-        if(isBedOccupied(worker)){
+    private void drawTexture(SpriteBatch batch, Tile tile, Worker worker) {
+        if(isBedOccupied(worker)) {
             drawSubTextureTexture(batch, tile, OCCUPIED_Y);
-        }else{
+        } else {
             drawSubTextureTexture(batch, tile, UNOCCUPIED_Y);
         }
     }
 
-    boolean isBedOccupied(Optional<Worker> worker){
-        if(worker.isPresent()){
-            Optional<Job> currentJob = worker.get().getAi().getJobManager().getCurrentJob();
-            Optional<Tile> adjacent = worker.get().getBedroom().flatMap(bed -> bed.getTile().getOpenAdjecent());
+    boolean isBedOccupied(Worker worker) {
+        if(worker == null)
+            return false;
 
-            if(currentJob.filter(job -> isInProgressSleep(job)).isPresent() && adjacent.isPresent()){
-                return true;
-            }
+        Optional<Job> currentJob = worker.getAi().getJobManager().getCurrentJob();
+        Optional<Tile> adjacent = worker.getBedroom().flatMap(bed -> bed.getTile().getOpenAdjecent());
+
+        if(currentJob.filter(this::isInProgressSleep).isPresent() && adjacent.isPresent()) {
+            return true;
         }
 
         return false;
@@ -69,7 +70,7 @@ public class BedRenderer extends DefaultBlockRenderer {
         return job instanceof SleepJob && job.getStage() == Job.JobStage.IN_PROGRESS;
     }
 
-    private void drawSubTextureTexture(SpriteBatch batch, Tile tile, int srcY){
+    private void drawSubTextureTexture(SpriteBatch batch, Tile tile, int srcY) {
         BlockContainer container = getContainer(tile);
         Texture texture = Blocks.getBedBlock().getTexture().get().get();
 
@@ -93,7 +94,7 @@ public class BedRenderer extends DefaultBlockRenderer {
         font.setColor(Color.WHITE);
         font.getData().setScale(.22f);
 
-        switch(bedContainer.getRotation()){
+        switch(bedContainer.getRotation()) {
             case NORTH:
                 font.draw(batch, name, x + pillowSize, y + (Tile.TILE_SIZE * 3 / 4),
                         (Tile.TILE_SIZE * 2) - pillowSize, Align.center, true);

@@ -34,7 +34,9 @@ public class WorkerInfoRow extends Pane {
     protected void onClick() {
         if(worker.isPresent()){
             Optional<Selectable> selectable = Optional.of(new WorkerSelectable(worker.get()));
-            InputHandler.getInstance().setCurrentlySelected(selectable);
+
+
+            selectable.ifPresent(s -> InputHandler.getInstance().setCurrentlySelected(s));
         }
     }
 

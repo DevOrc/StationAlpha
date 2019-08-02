@@ -76,8 +76,8 @@ public class Worker {
         return pos;
     }
 
-    public void setBedroom(Optional<BedContainer> bedroom) {
-        this.bedroom = bedroom;
+    public void setBedroom(BedContainer bedroom) {
+        this.bedroom = Optional.ofNullable(bedroom);
     }
 
     public Optional<BedContainer> getBedroom() {

@@ -31,7 +31,7 @@ public class BedContainer extends BlockContainer {
             if(!worker.getBedroom().isPresent()){
                 this.worker = Optional.of(worker);
 
-                worker.setBedroom(Optional.of(this));
+                worker.setBedroom(this);
                 break;
             }
         }
@@ -39,7 +39,7 @@ public class BedContainer extends BlockContainer {
 
     @Override
     public void onDestroy() {
-        worker.ifPresent(w -> w.setBedroom(Optional.empty()));
+        worker.ifPresent(w -> w.setBedroom(null));
     }
 
     public Optional<Worker> getWorker(){

@@ -7,8 +7,6 @@ import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
-
 public class ManufacturingRecipeGuiTests {
 
     private final ManufacturingRecipeGui gui = new ManufacturingRecipeGui();
@@ -34,18 +32,20 @@ public class ManufacturingRecipeGuiTests {
         World world = new World();
 
         gui.setRecipe(new ManufacturingRecipe(Item.POTATO, 1, Item.POTATO, 1, 1));
-        gui.makeRecipe(25, Optional.of(world));
+        gui.makeRecipe(25, world);
 
         Assertions.assertEquals(25, world.getManufacturingManager().getQueueForType(RecipeType.CRAFT).size());
     }
 
     @Test
     void makeRecipeEmptyWorldTest() {
-        gui.makeRecipe(1, Optional.empty());
+        gui.setRecipe(new ManufacturingRecipe(Item.POTATO, 1, Item.POTATO, 1, 1));
+
+        gui.makeRecipe(1);
     }
 
     @Test
     void makeRecipeEmptyRecipeTest() {
-        gui.makeRecipe(1, Optional.of(new World()));
+        gui.makeRecipe(1, new World());
     }
 }

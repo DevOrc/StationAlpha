@@ -38,7 +38,7 @@ public class SynthesizerContainerTests {
     @Test
     void onDestroyJobIsCancelledTest() {
         TestJob job = new TestJob();
-        container.setCurrentJob(Optional.of(job));
+        container.setCurrentJob(job);
 
         job.start();
         container.onDestroy();
@@ -49,7 +49,7 @@ public class SynthesizerContainerTests {
     @Test
     void jobRemovedOnFinish() {
         TestJob job = new TestJob();
-        container.setCurrentJob(Optional.of(job));
+        container.setCurrentJob(job);
 
         job.start();
         job.finish();
