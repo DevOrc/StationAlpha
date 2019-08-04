@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 public abstract class ComposterJobTests extends JobTests{
 
-    protected static final ManufacturingRecipe recipe = new ManufacturingRecipe(Item.LEAVES, 4, Item.DIRT,
-            5, 180, RecipeType.COMPOST);
+    protected static final ManufacturingRecipe recipe = new ManufacturingRecipe(Item.LEAVES.stack(4),
+            Item.DIRT.stack(5), 180, RecipeType.COMPOST);
 
     protected World world;
 

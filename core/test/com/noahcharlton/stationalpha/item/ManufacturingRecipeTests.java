@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 
 public class ManufacturingRecipeTests {
 
-    private final ManufacturingRecipe recipe = new ManufacturingRecipe(Item.SPACE_ROCK, 1,
-            Item.STEEL, 3, 100);
+    private final ManufacturingRecipe recipe = new ManufacturingRecipe(Item.SPACE_ROCK.stack(1),
+            Item.STEEL.stack(3), 100);
 
     private final Inventory inventory = new World().getInventory();
 

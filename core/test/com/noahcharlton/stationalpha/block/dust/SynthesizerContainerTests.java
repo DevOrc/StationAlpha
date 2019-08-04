@@ -60,7 +60,7 @@ public class SynthesizerContainerTests {
 
     @Test
     void startJobRemovesRequirementsTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1, Item.SPACE_ROCK, 1,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(1), Item.SPACE_ROCK.stack(1),
                 100, RecipeType.SYNTHESIZE);
         Inventory inventory = world.getInventory();
         inventory.setAmountForItem(Item.DIRT, 4);
@@ -73,7 +73,7 @@ public class SynthesizerContainerTests {
     @Test
     void startJobAddsJobToJobQueue() {
         JobQueue.getInstance().getJobQueue(WorkerRole.SCIENTIST).clear();
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
                 100, RecipeType.SYNTHESIZE);
 
         container.startJob(recipe, tile);
@@ -83,8 +83,7 @@ public class SynthesizerContainerTests {
 
     @Test
     void doesNotStartJobIfNotEnoughResourcesTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.TEST_ITEM, 15, Item.SPACE_ROCK,
-                0, 100, RecipeType.SYNTHESIZE);
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.TEST_ITEM.stack(15), Item.SPACE_ROCK.stack(0), 100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
 
         container.checkAndCreateJob();
@@ -94,8 +93,8 @@ public class SynthesizerContainerTests {
 
     @Test
     void doesNotStartJobReAddsRecipeTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.TEST_ITEM, 15, Item.SPACE_ROCK,
-                0, 100, RecipeType.SYNTHESIZE);
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.TEST_ITEM.stack(15), Item.SPACE_ROCK.stack(0),
+                100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
 
         container.checkAndCreateJob();
@@ -105,7 +104,7 @@ public class SynthesizerContainerTests {
 
     @Test
     void checkAndCreateJobTileNotAvailableDoesNotStartJob() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(-0), Item.SPACE_ROCK.stack(0),
                 100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
         world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
@@ -117,7 +116,7 @@ public class SynthesizerContainerTests {
 
     @Test
     void checkAndCreateJobTileNotAvailableReAddsRecipeToQueue() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
                 100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
         world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
@@ -129,7 +128,7 @@ public class SynthesizerContainerTests {
 
     @Test
     void checkAndCreateJobEverythingValidCreatesJobTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
                 100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
 
@@ -153,13 +152,13 @@ public class SynthesizerContainerTests {
 
     @Test
     void getDebugInfoOutputNameTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
                 100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
 
         container.checkAndCreateJob();
 
-        String expected = "Currently Producing: Space Rock";
+        String expected = "Currently Producing: 0 Space Rock";
         String[] actual = container.getDebugInfo();
 
         Assertions.assertTrue(Arrays.asList(actual).contains(expected));
@@ -167,7 +166,7 @@ public class SynthesizerContainerTests {
 
     @Test
     void getDebugInfoZeroPercentTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
                 100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
 
@@ -181,7 +180,7 @@ public class SynthesizerContainerTests {
 
     @Test
     void getDebugInfo50PercentDoneTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 0, Item.SPACE_ROCK, 0,
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
                 100, RecipeType.SYNTHESIZE);
         world.getManufacturingManager().addRecipeToQueue(recipe);
 

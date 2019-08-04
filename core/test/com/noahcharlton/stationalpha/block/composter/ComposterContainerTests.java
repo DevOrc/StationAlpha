@@ -65,8 +65,7 @@ public class ComposterContainerTests {
 
     @Test
     void compostFinishedRecipeReset() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1,
-                Item.DIRT, 1, 100);
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(1), Item.DIRT.stack(1), 100);
         container.setCurrentRecipe(recipe);
 
         container.onCompostFinished();
@@ -95,8 +94,8 @@ public class ComposterContainerTests {
 
     @Test
     void tickSetOnCompostStart() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1,
-                Item.DIRT, 1, 123);
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(1), Item.DIRT.stack(1), 123);
+
         container.setCurrentRecipe(recipe);
 
         container.onCompostStarted();
@@ -113,11 +112,11 @@ public class ComposterContainerTests {
 
     @Test
     void startCompostingNoOpenTileDoesNotCreateJobTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.DIRT.stack(0), 100);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
         world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
         world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
-        world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT, 0,
-                Item.DIRT, 0, 123, RecipeType.COMPOST));
-
         container.startComposting();
 
         Assertions.assertEquals(Optional.empty(), container.getCurrentJob());
@@ -127,8 +126,8 @@ public class ComposterContainerTests {
     void startCompostingNotEnoughResourcesDoesNotCreateJobTest() {
         world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
         world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
-        world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT, 1,
-                Item.DIRT, 0, 123, RecipeType.COMPOST));
+        world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT.stack(1),
+                Item.DIRT.stack(0), 123, RecipeType.COMPOST));
 
         container.startComposting();
 
@@ -137,8 +136,8 @@ public class ComposterContainerTests {
 
     @Test
     void startCompostingBasicTest() {
-        world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT, 0,
-                Item.DIRT, 0, 123, RecipeType.COMPOST));
+        world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT.stack(0),
+                Item.DIRT.stack(0), 123, RecipeType.COMPOST));
 
         container.startComposting();
 
@@ -147,8 +146,8 @@ public class ComposterContainerTests {
 
     @Test
     void startCompostingRemovesRequirementsTest() {
-        world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT, 3,
-                Item.DIRT, 0, 123, RecipeType.COMPOST));
+        world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT.stack(3),
+                Item.DIRT.stack(0), 123, RecipeType.COMPOST));
         world.getInventory().changeAmountForItem(Item.DIRT, 5);
 
         container.startComposting();
@@ -167,8 +166,8 @@ public class ComposterContainerTests {
 
     @Test
     void updateCompostZeroTickCreatesEndJobTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1,
-                Item.DIRT, 1, 123);
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(1),
+                Item.DIRT.stack(1), 123);
         container.setCurrentRecipe(recipe);
         container.updateCompost(0);
 

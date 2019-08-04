@@ -27,6 +27,10 @@ public enum Item {
         texture = new ManagedTexture("items/" + id + ".png");
     }
 
+    public ItemStack stack(int amount){
+        return ItemStack.of(this, amount);
+    }
+
     public Texture getTexture() {
         return texture.get();
     }

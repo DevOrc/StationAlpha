@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -58,8 +59,11 @@ public class ManufacturingRecipeGui extends Pane {
     private void drawRecipe(SpriteBatch b, ManufacturingRecipe recipe) {
         int y = getY() + SPACING + MenuButton.HEIGHT + (SPACING * 3);
 
-        String inputText = recipe.getInputItem().getDisplayName() + ":  " + recipe.getInputAmount();
-        String outputText = recipe.getOutputItem().getDisplayName() + ":  " + recipe.getOutputAmount();
+        ItemStack input = recipe.getInput();
+        ItemStack output = recipe.getOutput();
+
+        String inputText = input.getItem().getDisplayName() + ":  " + input.getAmount();
+        String outputText = output.getItem().getDisplayName() + ":  " + output.getAmount();
         String timeText = "Time: " + recipe.getTime() + " ticks";
         String typeText = "Type: " + recipe.getType().name().toLowerCase();
 

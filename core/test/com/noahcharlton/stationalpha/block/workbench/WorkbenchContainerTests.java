@@ -37,7 +37,7 @@ public class WorkbenchContainerTests {
     @Test
     void notEnoughRockForRecipeDoesNotStartJobTest() {
         world.getManufacturingManager().addRecipeToQueue(
-                new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1, 1));
+                new ManufacturingRecipe(Item.SPACE_ROCK.stack(11), Item.TEST_ITEM.stack(1), 1));
 
         Assertions.assertFalse(container.createJobFromRecipe());
     }
@@ -45,7 +45,7 @@ public class WorkbenchContainerTests {
     @Test
     void notEnoughRockForRecipeReAddsRecipeToQueueTest() {
         world.getManufacturingManager().addRecipeToQueue(
-                new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1, 1));
+                new ManufacturingRecipe(Item.SPACE_ROCK.stack(0), Item.TEST_ITEM.stack(1), 1));
 
         Assertions.assertTrue(world.getManufacturingManager().getNextRecipe(RecipeType.CRAFT).isPresent());
     }
@@ -97,7 +97,7 @@ public class WorkbenchContainerTests {
         setupRecipe();
         container.createJobFromRecipe();
 
-        String expected = "Currently Producing: Test Item";
+        String expected = "Currently Producing: 1 Test Item";
         String[] actual = container.getDebugInfo();
 
         Assertions.assertTrue(Arrays.asList(actual).contains(expected));
@@ -129,7 +129,7 @@ public class WorkbenchContainerTests {
 
     private void setupRecipe(){
         world.getManufacturingManager().addRecipeToQueue(
-                new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM, 1, 1));
+                new ManufacturingRecipe(Item.SPACE_ROCK.stack(1), Item.TEST_ITEM.stack(1), 1));
 
         world.getInventory().setAmountForItem(Item.SPACE_ROCK, 1);
     }

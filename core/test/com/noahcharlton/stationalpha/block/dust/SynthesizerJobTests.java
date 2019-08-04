@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 
 public class SynthesizerJobTests extends JobTests {
 
-    private static final ManufacturingRecipe recipe = new ManufacturingRecipe(Item.SPACE_DUST, 1,
-            Item.SPACE_ROCK, 3, 125, RecipeType.SYNTHESIZE);
+    private static final ManufacturingRecipe recipe = new ManufacturingRecipe(Item.SPACE_DUST.stack(1),
+            Item.SPACE_ROCK.stack(3), 125, RecipeType.SYNTHESIZE);
 
     private final World world = new World();
 

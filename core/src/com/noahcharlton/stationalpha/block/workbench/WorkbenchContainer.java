@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
@@ -32,8 +33,10 @@ public class WorkbenchContainer extends BlockContainer {
         ManufacturingRecipe recipe = job.getRecipe();
         double percent = (double) job.getTick() / job.getJobDuration() * 100.0;
 
+        ItemStack output = recipe.getOutput();
+
         return new String[]{
-                "Currently Producing: " + recipe.getOutputItem().getDisplayName(),
+                "Currently Producing: " + output.getAmount() + " " + output.getItem(),
                 "Progress: " + ((int) percent) + "%"
         };
     }

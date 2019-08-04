@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block.composter;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
@@ -45,12 +46,16 @@ public class ComposterContainer extends BlockContainer {
     @Override
     public String[] getDebugInfo() {
         if(currentRecipe.isPresent() && tick.isPresent()){
+            ItemStack output = currentRecipe.get().getOutput();
             return combineDebugInfo(
-                    "Currently Making: " + currentRecipe.get().getOutputItem().getDisplayName(),
+                    "Currently Making: " + output.getAmount() + " " + output.getItem().getDisplayName(),
                     "Progress: " + calcPercent(tick.get(), currentRecipe.get().getTime()) + "%"
             );
         }else if(currentRecipe.isPresent()){
-            return combineDebugInfo("Currently Making: " + currentRecipe.get().getOutputItem().getDisplayName());
+            ItemStack output = currentRecipe.get().getOutput();
+            String producing = "Currently Making: " + output.getAmount() + " " + output.getItem().getDisplayName();
+
+            return combineDebugInfo(producing);
         }else{
             return combineDebugInfo("Currently Making: None");
         }

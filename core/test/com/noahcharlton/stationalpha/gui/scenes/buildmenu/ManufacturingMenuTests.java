@@ -14,8 +14,7 @@ public class ManufacturingMenuTests {
 
     @Test
     void setVisibleFalseResetsRecipeGui() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.SPACE_ROCK, 1, Item.TEST_ITEM,
-                1, 120);
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.SPACE_ROCK.stack(1), Item.TEST_ITEM.stack(1), 120);
 
         menu.getRecipeGui().setRecipe(recipe);
         menu.setVisible(false);

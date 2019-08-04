@@ -22,8 +22,8 @@ public class ManufacturingManagerTests {
     @ParameterizedTest
     @EnumSource(RecipeType.class)
     void basicQueueTest(RecipeType type) {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT, 1,
-                Item.DIRT, 1, 0, type);
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(1),
+                Item.DIRT.stack(1), 0, type);
 
         manager.addRecipeToQueue(recipe);
 

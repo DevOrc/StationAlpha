@@ -6,60 +6,45 @@ import java.util.Objects;
 
 public class ManufacturingRecipe {
 
-    private final Item inputItem;
-    private final int inputAmount;
-
-    private final Item outputItem;
-    private final int outputAmount;
+    private final ItemStack input;
+    private final ItemStack output;
 
     private final RecipeType type;
     private final int time;
 
-    public ManufacturingRecipe(Item inputItem, int inputAmount, Item outputItem, int outputAmount, int time){
-        this(inputItem, inputAmount, outputItem, outputAmount, time, RecipeType.CRAFT);
+    public ManufacturingRecipe(ItemStack input, ItemStack output, int time){
+        this(input, output, time, RecipeType.CRAFT);
     }
 
-    public ManufacturingRecipe(Item inputItem, int inputAmount, Item outputItem, int outputAmount,
-                               int time, RecipeType type){
-        this.inputItem = Objects.requireNonNull(inputItem);
-        this.inputAmount = Objects.requireNonNull(inputAmount);
-        this.outputItem = Objects.requireNonNull(outputItem);
-        this.outputAmount = Objects.requireNonNull(outputAmount);
+    public ManufacturingRecipe(ItemStack input, ItemStack output, int time, RecipeType type){
+        this.input = Objects.requireNonNull(input);
+        this.output = Objects.requireNonNull(output);
         this.time = time;
         this.type = type;
     }
 
-
     public boolean resourcesAvailable(Inventory inventory) {
-        return inventory.getAmountForItem(inputItem) >= inputAmount;
+        return input.resourcesAvailable(inventory);
     }
 
     public void removeRequirements(Inventory inventory){
-        inventory.changeAmountForItem(inputItem, -inputAmount);
+        inventory.changeAmountForItem(input.getItem(), -input.getAmount());
     }
 
     public void addProducts(Inventory inventory){
-        inventory.changeAmountForItem(outputItem, outputAmount);
+        inventory.changeAmountForItem(output.getItem(), output.getAmount());
     }
 
     public int getTime() {
         return time;
     }
 
-    public int getInputAmount() {
-        return inputAmount;
+    public ItemStack getInput() {
+        return input;
     }
 
-    public Item getInputItem() {
-        return inputItem;
-    }
-
-    public int getOutputAmount() {
-        return outputAmount;
-    }
-
-    public Item getOutputItem() {
-        return outputItem;
+    public ItemStack getOutput() {
+        return output;
     }
 
     public RecipeType getType() {
@@ -68,6 +53,6 @@ public class ManufacturingRecipe {
 
     @Override
     public String toString() {
-        return outputItem.getDisplayName();
+        return output.toString();
     }
 }

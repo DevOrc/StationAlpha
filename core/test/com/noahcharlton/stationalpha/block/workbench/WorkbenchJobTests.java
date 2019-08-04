@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class WorkbenchJobTests extends JobTests {
 
     private static final ManufacturingRecipe recipe =
-            new ManufacturingRecipe(Item.TEST_ITEM, 0, Item.TEST_ITEM, 4, 120);
+            new ManufacturingRecipe(Item.TEST_ITEM.stack(0), Item.TEST_ITEM.stack(4), 120);
 
     private final World world;
     private final WorkbenchJob job;

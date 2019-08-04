@@ -14,7 +14,7 @@ public class ManufacturingRecipeGuiTests {
     @Test
     void setSameRecipeTwiceSetsToEmptyTest() {
         ManufacturingRecipe recipe =
-                new ManufacturingRecipe(Item.TEST_ITEM, 1, Item.TEST_ITEM, 1, 1);
+                new ManufacturingRecipe(Item.TEST_ITEM.stack(1), Item.TEST_ITEM.stack(1), 1);
 
         gui.setRecipe(recipe);
         gui.setRecipe(recipe);
@@ -31,7 +31,7 @@ public class ManufacturingRecipeGuiTests {
     void makeRecipeBasicTest() {
         World world = new World();
 
-        gui.setRecipe(new ManufacturingRecipe(Item.POTATO, 1, Item.POTATO, 1, 1));
+        gui.setRecipe(new ManufacturingRecipe(Item.POTATO.stack(1), Item.POTATO.stack(1), 1));
         gui.makeRecipe(25, world);
 
         Assertions.assertEquals(25, world.getManufacturingManager().getQueueForType(RecipeType.CRAFT).size());
@@ -39,7 +39,7 @@ public class ManufacturingRecipeGuiTests {
 
     @Test
     void makeRecipeEmptyWorldTest() {
-        gui.setRecipe(new ManufacturingRecipe(Item.POTATO, 1, Item.POTATO, 1, 1));
+        gui.setRecipe(new ManufacturingRecipe(Item.POTATO.stack(1), Item.POTATO.stack(1), 1));
 
         gui.makeRecipe(1);
     }

@@ -32,8 +32,10 @@ public class SynthesizerContainer extends BlockContainer {
         ManufacturingRecipe recipe = synthesizerJob.getRecipe();
         double percent = (double) synthesizerJob.getTick() / synthesizerJob.getJobDuration() * 100.0;
 
+        String producing = recipe.getOutput().getAmount() + " " + recipe.getOutput().getItem().getDisplayName();
+
         return new String[]{
-                "Currently Producing: " + recipe.getOutputItem().getDisplayName(),
+                "Currently Producing: " + producing,
                 "Progress: " + ((int) percent) + "%"
         };
     }
