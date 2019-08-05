@@ -12,6 +12,11 @@ public class TreeBlock extends MineableBlock {
     }
 
     @Override
+    public String getID() {
+        return "tree";
+    }
+
+    @Override
     public String getDisplayName() {
         return "Tree";
     }

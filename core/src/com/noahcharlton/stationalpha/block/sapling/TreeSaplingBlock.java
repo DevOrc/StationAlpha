@@ -16,6 +16,11 @@ public class TreeSaplingBlock extends Block {
     }
 
     @Override
+    public String getID() {
+        return "tree_sapling";
+    }
+
+    @Override
     protected Optional<String> getTextureFileName() {
         return Optional.of("tree_sapling.png");
     }

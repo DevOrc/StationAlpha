@@ -16,6 +16,11 @@ public class CompressorBlock extends Block {
     }
 
     @Override
+    public String getID() {
+        return "compressor";
+    }
+
+    @Override
     public String getDisplayName() {
         return "Compressor";
     }

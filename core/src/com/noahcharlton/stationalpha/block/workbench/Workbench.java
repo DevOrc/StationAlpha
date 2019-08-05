@@ -15,6 +15,11 @@ public class Workbench extends Block {
     }
 
     @Override
+    public String getID() {
+        return "workbench";
+    }
+
+    @Override
     public int getDimensionedWidth() {
         return 3;
     }

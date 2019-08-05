@@ -18,6 +18,11 @@ public class WallBlock extends Block implements BlockRenderer{
     private static final Color innerWallColor = new Color(112f/255f, 112f/255f, 112f/255f, 1f);
 
     @Override
+    public String getID() {
+        return "wall";
+    }
+
+    @Override
     public List<ItemStack> getRequirements() {
         return Collections.singletonList(Item.STEEL.stack(1));
     }

@@ -21,6 +21,11 @@ public abstract class Plant extends Block {
     }
 
     @Override
+    public String getID() {
+        return "plant_" + getPlantName();
+    }
+
+    @Override
     protected BlockRenderer createRenderer() {
         return new PlantRenderer(this);
     }

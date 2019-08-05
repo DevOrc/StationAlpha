@@ -92,6 +92,11 @@ class OpaqueTestBlock extends Block {
     }
 
     @Override
+    public String getID() {
+        return "";
+    }
+
+    @Override
     protected Optional<String> getTextureFileName() {
         return Optional.empty();
     }

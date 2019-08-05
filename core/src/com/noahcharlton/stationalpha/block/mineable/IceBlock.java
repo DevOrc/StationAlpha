@@ -12,6 +12,11 @@ public class IceBlock extends MineableBlock {
     }
 
     @Override
+    public String getID() {
+        return "space_rock";
+    }
+
+    @Override
     public String getDisplayName() {
         return "Space Rock";
     }

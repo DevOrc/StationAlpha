@@ -14,6 +14,11 @@ public class BlockTests {
     void emptyTexturePathCausesEmptyTextureTest() {
         Block block = new Block() {
             @Override
+            public String getID() {
+                return "";
+            }
+
+            @Override
             protected Optional<String> getTextureFileName() {
                 return Optional.empty();
             }
@@ -45,6 +50,11 @@ public class BlockTests {
     }
 }
 class NullRendererTestBlock extends Block{
+
+    @Override
+    public String getID() {
+        return "";
+    }
 
     @Override
     protected Optional<String> getTextureFileName() {

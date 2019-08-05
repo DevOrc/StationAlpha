@@ -190,6 +190,11 @@ class ContainerCountTestBlock extends Block {
     private int containerCount;
 
     @Override
+    public String getID() {
+        return "";
+    }
+
+    @Override
     public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         containerCount++;
         return super.createContainer(tile, rotation);

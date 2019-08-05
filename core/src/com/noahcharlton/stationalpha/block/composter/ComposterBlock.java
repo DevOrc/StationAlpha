@@ -19,6 +19,11 @@ public class ComposterBlock extends Block {
     }
 
     @Override
+    public String getID() {
+        return "composter";
+    }
+
+    @Override
     public String getDisplayName() {
         return "Composter";
     }

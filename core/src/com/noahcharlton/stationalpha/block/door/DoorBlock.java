@@ -24,6 +24,11 @@ public class DoorBlock extends Block implements BlockRenderer {
     }
 
     @Override
+    public String getID() {
+        return "airlock";
+    }
+
+    @Override
     public String getDisplayName() {
         return "Airlock";
     }

@@ -14,6 +14,11 @@ import java.util.Optional;
 public class DustCollector extends Block {
 
     @Override
+    public String getID() {
+        return "dust_collector";
+    }
+
+    @Override
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {
         return new DustCollectorContainer(tile, this, blockRotation);
     }

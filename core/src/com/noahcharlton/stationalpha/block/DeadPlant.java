@@ -12,6 +12,11 @@ public class DeadPlant extends Block{
     }
 
     @Override
+    public String getID() {
+        return "dead_plant";
+    }
+
+    @Override
     protected Optional<String> getTextureFileName() {
         return Optional.of("dead_plant.png");
     }

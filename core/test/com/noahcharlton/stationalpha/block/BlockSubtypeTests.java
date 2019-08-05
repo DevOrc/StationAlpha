@@ -4,12 +4,33 @@ import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.LibGdxTest;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class BlockSubtypeTests extends LibGdxTest {
+
+    @Test
+    void noDuplicateIDTest() {
+        Set<String> IDs = new HashSet<>();
+
+        for(Block block : Blocks.getBlocks()){
+            if(IDs.contains(block.getID()))
+                throw new RuntimeException("Duplicate ID: '" + block.getID() + "' for " + block.getDisplayName());
+
+            IDs.add(block.getID());
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("getBlockArguments")
+    void nonNullIDTest(Block block) {
+        Assertions.assertNotNull(block.getID());
+    }
 
     @ParameterizedTest
     @MethodSource("getBlockArguments")

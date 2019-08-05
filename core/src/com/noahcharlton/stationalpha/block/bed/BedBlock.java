@@ -19,6 +19,11 @@ public class BedBlock extends Block {
     }
 
     @Override
+    public String getID() {
+        return "bed";
+    }
+
+    @Override
     public String getDisplayName() {
         return "Bed";
     }

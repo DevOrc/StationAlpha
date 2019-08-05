@@ -26,6 +26,8 @@ public abstract class Block {
         Objects.requireNonNull(renderer, "Renderer cannot be null!");
     }
 
+    public abstract String getID();
+
     private Optional<ManagedTexture> loadTexture() {
         return getTextureFileName().map(path -> new ManagedTexture("blocks/" + path));
     }

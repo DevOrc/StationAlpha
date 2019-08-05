@@ -38,7 +38,9 @@ public class BuildBlockSelectableTests {
 }
 class RequiredItemTestBlock extends Block {
 
-    public RequiredItemTestBlock() {
+    @Override
+    public String getID() {
+        return "";
     }
 
     @Override

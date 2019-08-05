@@ -112,6 +112,11 @@ class BlockUpdateTestContainer extends BlockContainer {
 class BlockUpdateTestBlock extends Block{
 
     @Override
+    public String getID() {
+        return "";
+    }
+
+    @Override
     public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         return new BlockUpdateTestContainer(tile, this);
     }
