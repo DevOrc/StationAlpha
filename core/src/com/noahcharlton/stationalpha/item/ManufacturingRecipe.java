@@ -12,6 +12,8 @@ public class ManufacturingRecipe {
     private final RecipeType type;
     private final int time;
 
+
+    @Deprecated
     public ManufacturingRecipe(ItemStack input, ItemStack output, int time){
         this(input, output, time, RecipeType.CRAFT);
     }
@@ -35,6 +37,52 @@ public class ManufacturingRecipe {
         inventory.changeAmountForItem(output.getItem(), output.getAmount());
     }
 
+    public static Builder createBuilder(){
+        return new Builder();
+    }
+
+    static class Builder{
+
+        private ItemStack input;
+        private ItemStack output;
+        private RecipeType type;
+        private int time;
+
+        private Builder(){}
+
+        public ManufacturingRecipe build(){
+            Objects.requireNonNull(type, "Recipe type must be set!");
+            Objects.requireNonNull(input, "Input must be set!");
+            Objects.requireNonNull(output, "Output must be set!");
+
+            if(time < 1){
+                throw new IllegalArgumentException("Time must be greater than zero!");
+            }
+
+            return new ManufacturingRecipe(input, output, time, type);
+        }
+
+        public Builder setInput(ItemStack input) {
+            this.input = input;
+            return this;
+        }
+
+        public Builder setOutput(ItemStack output) {
+            this.output = output;
+            return this;
+        }
+
+        public Builder setType(RecipeType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder setTime(int time) {
+            this.time = time;
+            return this;
+        }
+    }
+
     public int getTime() {
         return time;
     }
@@ -55,4 +103,5 @@ public class ManufacturingRecipe {
     public String toString() {
         return output.toString();
     }
+
 }

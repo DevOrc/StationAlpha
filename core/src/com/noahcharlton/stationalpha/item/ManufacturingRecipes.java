@@ -9,19 +9,43 @@ public class ManufacturingRecipes {
 
     private static final List<ManufacturingRecipe> recipes = new ArrayList<>();
 
-    private ManufacturingRecipes() {}
-
-    public static void init(){
-        add(Item.SPACE_ROCK.stack(1), Item.STEEL.stack(3), 180, RecipeType.CRAFT);
-        add(Item.SPACE_ROCK.stack(8), Item.COPPER.stack(1), 360, RecipeType.CRAFT);
-        add(Item.LEAVES.stack(32), Item.DIRT.stack(1), 20_000, RecipeType.COMPOST);
-        add(Item.SPACE_DUST.stack(15), Item.UNOBTAINIUM.stack(1), 10_000, RecipeType.SYNTHESIZE);
-
-        MineActions.init();
+    private ManufacturingRecipes() {
     }
 
-    private static void add(ItemStack input, ItemStack output, int time, RecipeType type){
-        recipes.add(new ManufacturingRecipe(input, output, time, type));
+    public static void init() {
+        recipes.add(ManufacturingRecipe.createBuilder()
+                .setInput(Item.SPACE_ROCK.stack(1))
+                .setOutput(Item.STEEL.stack(3))
+                .setTime(180)
+                .setType(RecipeType.CRAFT)
+                .build()
+        );
+
+        recipes.add(ManufacturingRecipe.createBuilder()
+                .setInput(Item.SPACE_ROCK.stack(8))
+                .setOutput(Item.COPPER.stack(1))
+                .setTime(360)
+                .setType(RecipeType.CRAFT)
+                .build()
+        );
+
+        recipes.add(ManufacturingRecipe.createBuilder()
+                .setInput(Item.LEAVES.stack(32))
+                .setOutput(Item.DIRT.stack(1))
+                .setTime(20_000)
+                .setType(RecipeType.COMPOST)
+                .build()
+        );
+
+        recipes.add(ManufacturingRecipe.createBuilder()
+                .setInput(Item.SPACE_DUST.stack(15))
+                .setOutput(Item.UNOBTAINIUM.stack(1))
+                .setTime(15_000)
+                .setType(RecipeType.SYNTHESIZE)
+                .build()
+        );
+
+        MineActions.init();
     }
 
     public static List<ManufacturingRecipe> getRecipes() {
