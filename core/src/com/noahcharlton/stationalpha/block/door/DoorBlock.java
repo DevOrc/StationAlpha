@@ -10,8 +10,11 @@ import com.noahcharlton.stationalpha.block.BlockRenderer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class DoorBlock extends Block implements BlockRenderer {
@@ -66,8 +69,8 @@ public class DoorBlock extends Block implements BlockRenderer {
     }
 
     @Override
-    public Optional<Item> getRequiredItem() {
-        return Optional.of(Item.STEEL);
+    public List<ItemStack> getRequirements() {
+        return Collections.singletonList(Item.STEEL.stack(1));
     }
 
     @Override

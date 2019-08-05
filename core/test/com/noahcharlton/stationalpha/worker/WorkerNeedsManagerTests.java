@@ -39,7 +39,7 @@ public class WorkerNeedsManagerTests {
     @Test
     void createSleepJobTargetIsAdjacentToPillow() {
         World world = worker.getWorld();
-        world.getInventory().changeAmountForItem(Item.STEEL, 1);
+        world.getInventory().fillAllItems();
         new BuildBlock(Blocks.getBedBlock()).onClick(world.getTileAt(0, 0).get(), Input.Buttons.LEFT);
         worker.setBedroom((BedContainer) world.getTileAt(0, 0).get().getContainer().get());
 
@@ -51,7 +51,7 @@ public class WorkerNeedsManagerTests {
     @Test
     void createSleepJobBedNotAccessibleSleepsOnCurrentTile() {
         World world = worker.getWorld();
-        world.getInventory().changeAmountForItem(Item.STEEL, 1);
+        world.getInventory().fillAllItems();
         new BuildBlock(Blocks.getBedBlock()).onClick(world.getTileAt(0, 0).get(), Input.Buttons.LEFT);
         world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
         worker.setBedroom((BedContainer) world.getTileAt(0, 0).get().getContainer().get());

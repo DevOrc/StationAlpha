@@ -2,8 +2,11 @@ package com.noahcharlton.stationalpha.block;
 
 import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class CompressorBlock extends Block {
@@ -33,8 +36,8 @@ public class CompressorBlock extends Block {
     }
 
     @Override
-    public Optional<Item> getRequiredItem() {
-        return Optional.of(Item.COPPER);
+    public List<ItemStack> getRequirements() {
+        return Collections.singletonList(Item.COPPER.stack(1));
     }
 }
 class CompressorContainer extends BlockContainer{

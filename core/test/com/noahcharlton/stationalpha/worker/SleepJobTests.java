@@ -4,7 +4,6 @@ import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.block.bed.BedContainer;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
-import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobTests;
 import com.noahcharlton.stationalpha.world.World;
@@ -48,7 +47,7 @@ public class SleepJobTests extends JobTests {
     @Test
     void hasAccessibleBedroomBasicTest() {
         World world = new World();
-        world.getInventory().changeAmountForItem(Item.STEEL, 1);
+        world.getInventory().fillAllItems();
         BuildBlock buildBlock = new BuildBlock(Blocks.getBedBlock());
         buildBlock.onClick(world.getTileAt(0, 0).get(), Input.Buttons.LEFT);
         BedContainer container = (BedContainer) world.getTileAt(0, 0).get().getContainer().get();
@@ -63,7 +62,7 @@ public class SleepJobTests extends JobTests {
     @Test
     void hasAccessibleBedroomBlockedTest() {
         World world = new World();
-        world.getInventory().changeAmountForItem(Item.STEEL, 1);
+        world.getInventory().fillAllItems();
         BuildBlock buildBlock = new BuildBlock(Blocks.getBedBlock());
         buildBlock.onClick(world.getTileAt(0, 0).get(), Input.Buttons.LEFT);
         BedContainer container = (BedContainer) world.getTileAt(0, 0).get().getContainer().get();

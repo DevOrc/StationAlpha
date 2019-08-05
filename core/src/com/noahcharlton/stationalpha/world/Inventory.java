@@ -29,6 +29,15 @@ public class Inventory {
         setAmountForItem(item, getAmountForItem(item) + amount);
     }
 
+    /**
+     * Used for testing to remove the requirements for building
+     */
+    public void fillAllItems() {
+        for(Item item : Item.values()){
+            setAmountForItem(item, 1000);
+        }
+    }
+
     public HashMap<Item, Integer> getItems() {
         return items;
     }

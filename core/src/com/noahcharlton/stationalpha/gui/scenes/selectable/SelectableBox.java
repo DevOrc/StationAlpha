@@ -35,24 +35,23 @@ public class SelectableBox extends Pane {
     }
 
     private void renderSelectable(SpriteBatch b, Selectable selectable) {
-        int y = 35;
+        int y = getHeight() - 25;
         int spacing = 20;
+
+        setFontData(.85f, Color.WHITE);
+        y -= drawCenteredText(b, selectable.getTitle(), y).height;
+        y -= spacing * 2;
 
         setFontData(.55f, Color.WHITE);
 
         for(String info : selectable.getDebugInfo()){
-            y += drawCenteredText(b, info, y).height + (spacing * .75);
+            y -= drawCenteredText(b, info, y).height + (spacing * .75);
         }
 
         setFontData(.65f, Color.WHITE);
-        y += spacing;
-        y += drawCenteredText(b, selectable.getDesc(), y).height + spacing;
+        y -= drawCenteredText(b, selectable.getDesc(), y).height + spacing;
 
-
-        setFontData(.85f, Color.WHITE);
-        y += drawCenteredText(b, selectable.getTitle(), y).height;
-
-        height = y;
+        height = getHeight() - y - 10;
     }
 
     @Override

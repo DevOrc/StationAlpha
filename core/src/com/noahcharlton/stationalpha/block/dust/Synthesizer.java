@@ -4,8 +4,11 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class Synthesizer extends Block {
@@ -16,8 +19,8 @@ public class Synthesizer extends Block {
     }
 
     @Override
-    public Optional<Item> getRequiredItem() {
-        return Optional.of(Item.UNOBTAINIUM);
+    public List<ItemStack> getRequirements() {
+        return Collections.singletonList(Item.UNOBTAINIUM.stack(1));
     }
 
     @Override

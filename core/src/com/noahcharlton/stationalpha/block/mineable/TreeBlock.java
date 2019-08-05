@@ -17,11 +17,6 @@ public class TreeBlock extends MineableBlock {
     }
 
     @Override
-    public boolean isPlayerBuildable() {
-        return false;
-    }
-
-    @Override
     public int getDimensionedWidth() {
         return 3;
     }

@@ -3,7 +3,6 @@ package com.noahcharlton.stationalpha.block.bed;
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
-import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.SleepJob;
 import com.noahcharlton.stationalpha.worker.TestWorker;
 import com.noahcharlton.stationalpha.worker.job.TestJob;
@@ -52,7 +51,7 @@ public class BedRendererTests {
     @Test
     void isOccupiedBedNotAccessibleReturnsFalseTest() {
         World world = new World();
-        world.getInventory().changeAmountForItem(Item.STEEL, 1);
+        world.getInventory().fillAllItems();
         BuildBlock buildBlock = new BuildBlock(Blocks.getBedBlock());
         buildBlock.onClick(world.getTileAt(0 ,0).get(), Input.Buttons.LEFT);
         BedContainer container = (BedContainer) world.getTileAt(0,0).get().getContainer().get();
@@ -73,7 +72,7 @@ public class BedRendererTests {
     @Test
     void isOccupiedBasicTest() {
         World world = new World();
-        world.getInventory().changeAmountForItem(Item.STEEL, 1);
+        world.getInventory().fillAllItems();
         BuildBlock buildBlock = new BuildBlock(Blocks.getBedBlock());
         buildBlock.onClick(world.getTileAt(0 ,0).get(), Input.Buttons.LEFT);
         BedContainer container = (BedContainer) world.getTileAt(0,0).get().getContainer().get();

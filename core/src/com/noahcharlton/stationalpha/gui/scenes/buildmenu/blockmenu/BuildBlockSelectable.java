@@ -3,7 +3,7 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
-import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ItemStack;
 
 import java.util.Optional;
 
@@ -31,8 +31,26 @@ public class BuildBlockSelectable implements Selectable {
     public String[] getDebugInfo() {
             return new String[]{
                     "Rotation: " + buildBlock.getRotation(),
-                    "Requirement: " + block.getRequiredItem().map(Item::getDisplayName).orElse("None"),
+                    getRequirementAsString(),
             };
+    }
+
+    private String getRequirementAsString() {
+        StringBuilder builder = new StringBuilder("Requirements:");
+
+        if(block.getRequirements().isEmpty()){
+            return "Requirements: None";
+        }
+
+        for(ItemStack stack: block.getRequirements()){
+            builder.append("\n    ");
+            builder.append(stack.getAmount());
+            builder.append(" ");
+            builder.append(stack.getItem().getDisplayName());
+            builder.append("");
+        }
+
+        return builder.toString();
     }
 
     @Override

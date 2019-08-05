@@ -9,6 +9,7 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -84,12 +85,16 @@ public class BuildBlock implements BuildAction {
     }
 
     private void removeRequiredResources(World world) {
-        block.getRequiredItem().ifPresent(item -> world.getInventory().changeAmountForItem(item, -1));
+        for(ItemStack stack : block.getRequirements()){
+            world.getInventory().changeAmountForItem(stack.getItem(), -stack.getAmount());
+        }
     }
 
     boolean hasResourcesToBuild(Block block, World world) {
-        if(block.getRequiredItem().isPresent()){
-            return world.getInventory().getAmountForItem(block.getRequiredItem().get()) > 0;
+        for(ItemStack stack : block.getRequirements()){
+            if(!stack.resourcesAvailable(world.getInventory())){
+                return false;
+            }
         }
 
         return true;

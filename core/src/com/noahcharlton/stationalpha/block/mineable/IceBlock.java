@@ -22,11 +22,6 @@ public class IceBlock extends MineableBlock {
     }
 
     @Override
-    public boolean isPlayerBuildable() {
-        return false;
-    }
-
-    @Override
     public Optional<String> getHelpInfo() {
         return Optional.of(HelpInfo.ICE_INFO);
     }

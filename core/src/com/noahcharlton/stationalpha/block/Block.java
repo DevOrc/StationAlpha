@@ -3,9 +3,11 @@ package com.noahcharlton.stationalpha.block;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
-import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -58,12 +60,8 @@ public abstract class Block {
         return 1;
     }
 
-    public Optional<Item> getRequiredItem(){
-        return Optional.empty();
-    }
-
-    public boolean isPlayerBuildable(){
-        return true;
+    public List<ItemStack> getRequirements(){
+        return Collections.emptyList();
     }
 
     @Override
