@@ -11,6 +11,7 @@ import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
+import com.noahcharlton.stationalpha.world.save.SaveGame;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -84,6 +85,10 @@ public class World {
                 }
             }
         }
+    }
+
+    public void save(){
+        SaveGame.create(this);
     }
 
     public void render(SpriteBatch spriteBatch) {

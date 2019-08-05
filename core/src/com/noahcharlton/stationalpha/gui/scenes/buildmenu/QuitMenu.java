@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.StationAlpha;
+import com.noahcharlton.stationalpha.world.World;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,8 @@ public class QuitMenu extends BuildBarMenu<QuitMenuOption> {
     private static List<QuitMenuOption> createOptions() {
         return Arrays.asList(
                 new QuitMenuOption("Quit to Desktop", () -> Gdx.app.exit()),
-                new QuitMenuOption("Quit to Main Menu", QuitMenu::quitToMainMenu)
+                new QuitMenuOption("Quit to Main Menu", QuitMenu::quitToMainMenu),
+                new QuitMenuOption("Save Game", () -> World.getInstance().ifPresent(World::save))
         );
     }
 
