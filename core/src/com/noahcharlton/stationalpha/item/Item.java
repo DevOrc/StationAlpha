@@ -39,6 +39,10 @@ public enum Item {
         return displayName;
     }
 
+    /**
+     * @deprecated Should use Item.name() and Item.valueOf()
+     */
+    @Deprecated
     public String getId() {
         return id;
     }

@@ -16,6 +16,13 @@ public class SaveGameLoader {
 
         verifyVersion(element);
         loadWorld(element, world);
+        loadInventory(element, world);
+    }
+
+    private static void loadInventory(XmlReader.Element element, World world) {
+        XmlReader.Element elements = Objects.requireNonNull(element.getChildByName("Inventory"));
+
+        InventoryLoader.load(elements, world.getInventory());
     }
 
     private static void loadWorld(XmlReader.Element element, World world) {

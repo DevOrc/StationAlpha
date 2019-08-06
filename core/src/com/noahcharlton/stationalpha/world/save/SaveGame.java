@@ -32,7 +32,8 @@ public class SaveGame {
 
     private void save() {
         writeMiscInfo();
-        new WorldSaver(world, writer).save();
+        new InventorySaver(world).save(writer);
+        new WorldSaver(world).save(writer);
     }
 
     void writeMiscInfo() {

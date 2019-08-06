@@ -8,18 +8,16 @@ import com.noahcharlton.stationalpha.world.World;
 public class WorldSaver {
 
     private final World world;
-    private QuietXmlWriter writer;
 
-    public WorldSaver(World world, QuietXmlWriter writer) {
+    public WorldSaver(World world) {
         this.world = world;
-        this.writer = writer;
     }
 
-    void save() {
-        saveTiles();
+    void save(QuietXmlWriter writer) {
+        saveTiles(writer);
     }
 
-    private void saveTiles() {
+    private void saveTiles(QuietXmlWriter writer) {
         QuietXmlWriter tilesGroup = writer.element("Tiles");
 
         for(int x = 0; x < World.WORLD_TILE_SIZE; x++) {

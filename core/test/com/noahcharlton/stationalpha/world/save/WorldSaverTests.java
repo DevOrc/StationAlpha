@@ -17,7 +17,7 @@ public class WorldSaverTests {
     private final World world = new World();
     private final StringWriter stringWriter = new StringWriter();
     private final QuietXmlWriter xmlWriter = new QuietXmlWriter(new XmlWriter(stringWriter));
-    private final WorldSaver saveGame = new WorldSaver(world, xmlWriter);
+    private final WorldSaver saveGame = new WorldSaver(world);
 
     @Test
     void saveTileNoBlockNoFloorTest() {
