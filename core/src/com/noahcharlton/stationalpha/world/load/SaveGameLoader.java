@@ -15,8 +15,15 @@ public class SaveGameLoader {
         XmlReader.Element element = new XmlReader().parse(xml);
 
         verifyVersion(element);
-        loadWorld(element, world);
+        loadWorkers(element, world);
         loadInventory(element, world);
+        loadWorld(element, world);
+    }
+
+    private static void loadWorkers(XmlReader.Element element, World world) {
+        XmlReader.Element elements = Objects.requireNonNull(element.getChildByName("Workers"));
+
+        WorkerLoader.load(elements, world);
     }
 
     private static void loadInventory(XmlReader.Element element, World world) {

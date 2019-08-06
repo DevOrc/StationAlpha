@@ -101,8 +101,13 @@ public class WorkerNeedsManager {
         }
     }
 
-    void setSleepTick(int sleepTick) {
+    public void setSleepTick(int sleepTick) {
         this.sleepTick = sleepTick;
+    }
+
+    public WorkerNeedsManager setFoodTick(int foodTick) {
+        this.foodTick = foodTick;
+        return this;
     }
 
     public int getFoodTick() {
