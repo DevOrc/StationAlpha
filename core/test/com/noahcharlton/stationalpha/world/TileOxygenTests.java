@@ -12,6 +12,29 @@ public class TileOxygenTests {
     private final Tile tile = world.getTileAt(3, 3).get();
 
     @Test
+    void setOxygenLevelOver100Trims() {
+        tile.setFloor(Floor.METAL);
+        tile.setOxygen(250);
+
+        Assertions.assertEquals(100, tile.getOxygenLevel());
+    }
+
+    @Test
+    void setOxygenLevelBelowZeroTrims() {
+        tile.setFloor(Floor.METAL);
+        tile.setOxygen(-100);
+
+        Assertions.assertEquals(0, tile.getOxygenLevel());
+    }
+
+    @Test
+    void setOxygenNoFloorRemovesAllOxygenTest() {
+        tile.setOxygen(22);
+
+        Assertions.assertEquals(0, tile.getOxygenLevel());
+    }
+
+    @Test
     void changeOxygenLevelOver100Trims() {
         tile.setFloor(Floor.METAL);
         tile.changeOxygenLevel(250);

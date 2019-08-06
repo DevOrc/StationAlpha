@@ -23,9 +23,10 @@ public class SaveGame {
 
     private void save(FileHandle file) {
         logger.info("Saving to: " + file.file().getPath());
-        writer = new QuietXmlWriter(file);
+        writer = new QuietXmlWriter(file).element("SaveGame");
 
         save();
+        writer.pop();
         writer.flush();
     }
 

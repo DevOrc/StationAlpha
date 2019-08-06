@@ -33,6 +33,13 @@ public class StationAlphaTests extends LibGdxTest{
     }
 
     @Test
+    void onLoadGameStateChangeToInGame() {
+        gameInstance.loadGame();
+
+        Assertions.assertEquals(StationAlpha.GameState.IN_GAME, gameInstance.getCurrentState());
+    }
+
+    @Test
     void cannotCreateInstanceMoreThanOnceTest() {
         Assertions.assertThrows(GdxRuntimeException.class, () -> new StationAlpha(true));
     }

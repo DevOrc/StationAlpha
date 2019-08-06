@@ -93,8 +93,8 @@ public final class Tile implements Selectable {
         src.changeOxygenLevel(-diff);
     }
 
-    public void changeOxygenLevel(float amount){
-        oxygenLevel += amount;
+    public void setOxygen(float oxygen) {
+        oxygenLevel = oxygen;
 
         if(oxygenLevel > 100)
             oxygenLevel = 100;
@@ -103,6 +103,10 @@ public final class Tile implements Selectable {
             oxygenLevel = 0;
 
         applyOxygenRules();
+    }
+
+    public void changeOxygenLevel(float amount){
+       setOxygen(oxygenLevel + amount);
     }
 
     private void applyOxygenRules() {

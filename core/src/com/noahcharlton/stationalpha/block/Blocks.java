@@ -13,6 +13,7 @@ import com.noahcharlton.stationalpha.block.workbench.Workbench;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 public class Blocks {
 
@@ -35,6 +36,16 @@ public class Blocks {
         Collections.addAll(blocks, wall, door, compressor, iceBlock, potatoPlant, workbench, bedBlock, treeBlock,
                 treeSapling, composter, dustCollector, synthesizer, deadPlant);
     }
+
+    public static Optional<Block> getByID(String blockID) {
+        for(Block block: blocks){
+            if(block.getID().equals(blockID))
+                return Optional.of(block);
+        }
+
+        return Optional.empty();
+    }
+
     public static Block getWall() {
         return wall;
     }

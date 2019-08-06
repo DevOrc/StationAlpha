@@ -45,6 +45,10 @@ public class MainMenuButtonPane extends Pane {
             clickOnMenu(aboutMenu);
         }));
 
+        addGui(new MainMenuButton("Load", () -> {
+            StationAlpha.getInstance().loadGame();
+        }));
+
         addGui(new MainMenuButton("Start", () -> {
             StationAlpha.getInstance().startGame();
         }));

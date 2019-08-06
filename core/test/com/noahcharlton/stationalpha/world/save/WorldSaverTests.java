@@ -14,9 +14,10 @@ import java.io.StringWriter;
 
 public class WorldSaverTests {
 
-    protected final World world = new World();
-    protected final StringWriter stringWriter = new StringWriter();
-    protected final WorldSaver saveGame = new WorldSaver(world, new QuietXmlWriter(new XmlWriter(stringWriter)));
+    private final World world = new World();
+    private final StringWriter stringWriter = new StringWriter();
+    private final QuietXmlWriter xmlWriter = new QuietXmlWriter(new XmlWriter(stringWriter));
+    private final WorldSaver saveGame = new WorldSaver(world, xmlWriter);
 
     @Test
     void saveTileNoBlockNoFloorTest() {
@@ -24,7 +25,7 @@ public class WorldSaverTests {
         tile.setFloor(Floor.DIRT);
         tile.changeOxygenLevel(35f);
 
-        saveGame.saveTile(tile).pop();
+        saveGame.saveTile(tile, xmlWriter).pop();
 
         String expected = stringWriter.toString();
         Assertions.assertEquals("<Tile x=\"1\" y=\"5\" oxygen=\"35.0\"/>\n", expected);
@@ -36,7 +37,7 @@ public class WorldSaverTests {
         Tile otherTile = world.getTileAt(5, 6).get();
         BlockContainer blockContainer = new BlockContainer(rootTile, Blocks.getWall());
 
-        saveGame.saveBlock(otherTile, blockContainer, new QuietXmlWriter(new XmlWriter(stringWriter)));
+        saveGame.saveBlock(otherTile, blockContainer, xmlWriter);
 
         String expected = stringWriter.toString();
         Assertions.assertEquals("<Container rootX=\"5\" rootY=\"5\"/>\n", expected);
@@ -47,7 +48,7 @@ public class WorldSaverTests {
         Tile tile = world.getTileAt(5, 5).get();
         BlockContainer blockContainer = new BlockContainer(tile, Blocks.getWall(), BlockRotation.EAST);
 
-        saveGame.saveBlock(tile, blockContainer, new QuietXmlWriter(new XmlWriter(stringWriter)));
+        saveGame.saveBlock(tile, blockContainer, xmlWriter);
 
         String expected = stringWriter.toString();
         Assertions.assertEquals("<Container Block=\"wall\" Rotation=\"EAST\"/>\n", expected);
@@ -55,7 +56,7 @@ public class WorldSaverTests {
 
     @Test
     void saveFloorTest() {
-        saveGame.saveFloor(Floor.WOOD, new QuietXmlWriter(new XmlWriter(stringWriter)));
+        saveGame.saveFloor(Floor.WOOD, xmlWriter);
 
         String expected = stringWriter.toString();
         Assertions.assertEquals("<Floor>WOOD</Floor>\n", expected);

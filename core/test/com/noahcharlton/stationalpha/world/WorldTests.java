@@ -4,6 +4,7 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.worker.TestWorker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -94,6 +95,14 @@ public class WorldTests {
         for(Item item: Item.values()){
             Assertions.assertTrue(world.getInventory().getAmountForItem(item) > 0);
         }
+    }
+
+    @Test
+    void loadResetsWorkersTest() {
+        world.getWorkers().add(new TestWorker());
+        world.load();
+
+        Assertions.assertEquals(0, world.getWorkers().size());
     }
 }
 class BlockUpdateTestContainer extends BlockContainer {

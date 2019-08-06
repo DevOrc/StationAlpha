@@ -20,10 +20,12 @@ public class WorldSaver {
     }
 
     private void saveTiles() {
+        QuietXmlWriter tilesGroup = writer.element("Tiles");
+
         for(int x = 0; x < World.WORLD_TILE_SIZE; x++) {
             for(int y = 0; y < World.WORLD_TILE_SIZE; y++) {
                 world.getTileAt(x, y).ifPresent(tile -> {
-                    QuietXmlWriter element = saveTile(tile);
+                    QuietXmlWriter element = saveTile(tile, tilesGroup);
 
                     tile.getFloor().ifPresent(floor -> saveFloor(floor, element));
                     tile.getContainer().ifPresent(container -> saveBlock(tile, container, element));
@@ -31,6 +33,8 @@ public class WorldSaver {
                 });
             }
         }
+
+        tilesGroup.pop();
     }
 
     void saveFloor(Floor floor, QuietXmlWriter element) {
@@ -51,7 +55,7 @@ public class WorldSaver {
         }
     }
 
-    QuietXmlWriter saveTile(Tile tile) {
+    QuietXmlWriter saveTile(Tile tile, QuietXmlWriter writer) {
         return writer.element("Tile")
                 .attribute("x", tile.getX())
                 .attribute("y", tile.getY())
