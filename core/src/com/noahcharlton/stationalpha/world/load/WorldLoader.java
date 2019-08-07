@@ -58,9 +58,9 @@ public class WorldLoader {
                 .orElseThrow(() -> new GdxRuntimeException("Unknown block found in save file: " + blockID));
 
         BlockContainer container = block.createContainer(tile, rotation);
-        container.onLoad(containerElement);
-
         tile.setBlock(block, container);
+
+        container.onLoad(containerElement);
     }
 
     static void loadContainerCopy(Tile tile, XmlReader.Element containerElement) {

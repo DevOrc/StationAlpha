@@ -71,6 +71,19 @@ public abstract class Block {
         return getDisplayName();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(!(o instanceof Block)) return false;
+        Block block = (Block) o;
+        return getID().equals(block.getID());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isOpaque());
+    }
+
     protected void setOpaque(boolean opaque) {
         isOpaque = opaque;
     }

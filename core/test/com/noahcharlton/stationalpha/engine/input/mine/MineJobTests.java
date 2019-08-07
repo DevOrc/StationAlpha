@@ -10,7 +10,6 @@ import com.noahcharlton.stationalpha.worker.job.JobTests;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -29,12 +28,10 @@ public class MineJobTests extends JobTests {
     }
 
     @Test
-    void doesNotSetStateIfNoContainerTest() {
+    void setStateIfNoContainerFailsTest() {
         Tile randomTile = world.getTileAt(5, 5).get();
 
-        Assumptions.assumeFalse(randomTile.getContainer().isPresent());
-
-        job.setBlockMineState(randomTile);
+        Assertions.assertThrows(GdxRuntimeException.class, () -> job.setBlockMineState(randomTile));
     }
 
     @Test
@@ -61,6 +58,7 @@ public class MineJobTests extends JobTests {
     public Job getJob() {
         world = new World();
         rockTile = world.getTileAt(4, 5).get();
+        rockTile.setBlock(Blocks.getIce());
         Tile adjacent = world.getTileAt(5, 5).get();
         adjacent.setBlock(null);
 

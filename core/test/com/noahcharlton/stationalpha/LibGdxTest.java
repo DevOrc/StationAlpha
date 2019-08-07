@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
 
 public class LibGdxTest {
 
@@ -11,5 +12,6 @@ public class LibGdxTest {
 
         new StationAlpha();
         Blocks.init();
+        ManufacturingRecipes.init();
     }
 }

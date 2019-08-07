@@ -13,7 +13,7 @@ public class Path {
     private final Tile dest;
 
     public Path(WorldGraph worldGraph, Tile src, Tile dest) {
-        if(!src.getWorld().equals(dest.getWorld())){
+        if(!src.getWorld().equals(dest.getWorld())) {
             throw new IllegalArgumentException("Worlds must match!");
         }
 
@@ -22,7 +22,7 @@ public class Path {
         this.dest = dest;
     }
 
-    public Optional<GraphPath<Tile>> calcPathSync(){
+    public Optional<GraphPath<Tile>> calcPathSync() {
         GraphPath<Tile> path = new SimpleGraphPath();
 
         boolean pathFound = new IndexedAStarPathFinder<>(worldGraph)

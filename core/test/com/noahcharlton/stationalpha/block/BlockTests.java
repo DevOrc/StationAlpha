@@ -11,6 +11,16 @@ import java.util.Optional;
 public class BlockTests {
 
     @Test
+    void blockEqualsSameIDTest() {
+        Assertions.assertEquals(new IDTestBlock("FooBar"), new IDTestBlock("FooBar"));
+    }
+
+    @Test
+    void blockEqualsNotSameIDTest() {
+        Assertions.assertNotEquals(new IDTestBlock("Zebra"), new IDTestBlock("Horse"));
+    }
+
+    @Test
     void emptyTexturePathCausesEmptyTextureTest() {
         Block block = new Block() {
             @Override
@@ -64,5 +74,23 @@ class NullRendererTestBlock extends Block{
     @Override
     protected BlockRenderer createRenderer() {
         return null;
+    }
+}
+class IDTestBlock extends Block{
+
+    private final String id;
+
+    public IDTestBlock(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getID() {
+        return id;
+    }
+
+    @Override
+    protected Optional<String> getTextureFileName() {
+        return Optional.empty();
     }
 }

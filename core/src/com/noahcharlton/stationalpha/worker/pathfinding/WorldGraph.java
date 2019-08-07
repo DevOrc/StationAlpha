@@ -24,7 +24,7 @@ public class WorldGraph implements IndexedGraph<Tile> {
 
     @Override
     public int getIndex(Tile node) {
-        return node.getY() * 150 + node.getX();
+        return node.getY() * World.WORLD_TILE_SIZE + node.getX();
     }
 
     @Override

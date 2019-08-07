@@ -1,7 +1,6 @@
 package com.noahcharlton.stationalpha.engine.input.mine;
 
 import com.noahcharlton.stationalpha.block.Blocks;
-import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.item.Item;
 
 import java.util.Arrays;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class MineActions {
 
-    private static List<BuildAction> actions = Collections.emptyList();
+    private static List<MineAction> actions = Collections.emptyList();
 
     public static void init() {
         actions = Arrays.asList(
@@ -28,7 +27,7 @@ public class MineActions {
         );
     }
 
-    public static List<BuildAction> getActions() {
+    public static List<MineAction> getActions() {
         return actions;
     }
 }

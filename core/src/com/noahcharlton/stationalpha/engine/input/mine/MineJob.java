@@ -43,6 +43,8 @@ public class MineJob extends TickBasedJob {
             }else{
                 throw new GdxRuntimeException("Cannot mine block with container of type: " + blockContainer);
             }
+        }else{
+            throw new GdxRuntimeException("Cannot mine a block when there is no container!");
         }
     }
 

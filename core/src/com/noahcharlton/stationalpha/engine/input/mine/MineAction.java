@@ -39,8 +39,12 @@ public class MineAction implements BuildAction {
         if(leftClick && clickedOnBlock){
             BlockContainer container = tile.getContainer().get();
 
-            getOpenAdjacent(container).ifPresent(adjacent -> createJob(tile, adjacent));
+            createJob(tile, container);
         }
+    }
+
+     public void createJob(Tile tile, BlockContainer container) {
+        getOpenAdjacent(container).ifPresent(adjacent -> createJob(tile, adjacent));
     }
 
     private Optional<Tile> getOpenAdjacent(BlockContainer container) {
@@ -67,12 +71,16 @@ public class MineAction implements BuildAction {
     }
 
     void createJob(Tile rockTile, Tile adjacentTile) {
-        jobQueue.addJob(new MineJob(rockTile, adjacentTile, output, outputAmount));
+         jobQueue.addJob(new MineJob(rockTile, adjacentTile, output, outputAmount));
     }
 
     @Override
     public String getName() {
         return displayName;
+    }
+
+    public Block getInput() {
+        return input;
     }
 
     @Override
