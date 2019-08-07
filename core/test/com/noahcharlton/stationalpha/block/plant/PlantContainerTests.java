@@ -4,8 +4,12 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.io.StringWriter;
 
 public class PlantContainerTests {
 
@@ -109,5 +113,43 @@ public class PlantContainerTests {
         plantContainer.onUpdate();
 
         Assertions.assertEquals(Blocks.getDeadPlant(), tile.getBlock().get());
+    }
+
+    @Test
+    void onSaveBasicTest() {
+        StringWriter stringWriter = new StringWriter();
+
+        plantContainer.onSave(new QuietXmlWriter(stringWriter));
+
+        String expected = String.format("<Data tick=\"%d\" stage=\"%d\" ticksPerStage=\"%d\"/>\n",
+                plantContainer.getTick(), plantContainer.getStage(), plantContainer.getTicksPerStage());
+        Assertions.assertEquals(expected, stringWriter.toString());
+    }
+
+    @Test
+    void onLoadTickTest() {
+        String xml = "<Data tick=\"24\" stage=\"3\" ticksPerStage=\"643\"/>\n";
+
+        plantContainer.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(24, plantContainer.getTick());
+    }
+
+    @Test
+    void onLoadStageTest() {
+        String xml = "<Data tick=\"52\" stage=\"2\" ticksPerStage=\"235\"/>\n";
+
+        plantContainer.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(2, plantContainer.getStage());
+    }
+
+    @Test
+    void onLoadTicksPerStageTest() {
+        String xml = "<Data tick=\"4\" stage=\"5\" ticksPerStage=\"876\"/>\n";
+
+        plantContainer.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(876, plantContainer.getTicksPerStage());
     }
 }

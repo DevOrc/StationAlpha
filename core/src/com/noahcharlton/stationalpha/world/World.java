@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class World {
 
-    public static final int WORLD_TILE_SIZE = 150;
+    public static final int WORLD_TILE_SIZE = 7;
     public static final int WORLD_PIXEL_SIZE = WORLD_TILE_SIZE * Tile.TILE_SIZE;
 
     private final Tile[][] tiles = new Tile[WORLD_TILE_SIZE][WORLD_TILE_SIZE];

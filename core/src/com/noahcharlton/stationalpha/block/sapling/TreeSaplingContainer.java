@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.block.sapling;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
@@ -10,6 +11,7 @@ import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,7 @@ public class TreeSaplingContainer extends BlockContainer {
 
     private static final Random random = new Random();
 
-    private final int startingAmount;
-
+    private int startingAmount;
     private int tick;
 
     public TreeSaplingContainer(Tile tile, Block block, BlockRotation rotation) {
@@ -37,7 +38,7 @@ public class TreeSaplingContainer extends BlockContainer {
 
     @Override
     public void onUpdate() {
-        if(!areaIsSurvivable()){
+        if(!areaIsSurvivable()) {
             killTree();
             return;
         }
@@ -47,7 +48,7 @@ public class TreeSaplingContainer extends BlockContainer {
         else
             createTree();
 
-        if(DebugKeys.isDebugPressed(DebugKeys.MAGICAL_GROWTH)){
+        if(DebugKeys.isDebugPressed(DebugKeys.MAGICAL_GROWTH)) {
             tick = 0;
         }
     }
@@ -66,12 +67,12 @@ public class TreeSaplingContainer extends BlockContainer {
 
         return combineDebugInfo(
                 "Progress: " + ((int) percent) + "%",
-                "Space: " + (hasEnoughSpace() ? "Good":"Low")
+                "Space: " + (hasEnoughSpace() ? "Good" : "Low")
         );
     }
 
     void createTree() {
-        if(hasEnoughSpace()){
+        if(hasEnoughSpace()) {
 
             BuildBlock blockBuilder = new BuildBlock(Blocks.getTreeBlock());
 
@@ -81,7 +82,7 @@ public class TreeSaplingContainer extends BlockContainer {
         }
     }
 
-    boolean hasEnoughSpace(){
+    boolean hasEnoughSpace() {
         List<Tile> tiles = getTilesAdjacentWithDiagonals();
 
         return allTilesOpen(tiles) && allAdjacentTilesPresent(tiles);
@@ -118,6 +119,21 @@ public class TreeSaplingContainer extends BlockContainer {
         world.getTileAt(x + 1, y + 1).ifPresent(tiles::add);
 
         return tiles;
+    }
+
+    @Override
+    public void onSave(QuietXmlWriter writer) {
+        writer.element("Data")
+                .attribute("tick", tick)
+                .attribute("start", startingAmount)
+                .pop();
+    }
+
+    public void onLoad(XmlReader.Element element){
+        XmlReader.Element data = element.getChildByName("Data");
+
+        tick = data.getIntAttribute("tick");
+        startingAmount = data.getIntAttribute("start");
     }
 
     void setTick(int tick) {

@@ -5,10 +5,13 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -162,5 +165,34 @@ public class TreeSaplingContainerTests {
         container.onUpdate();
 
         Assertions.assertSame(Blocks.getDeadPlant(), container.getTile().getBlock().get());
+    }
+
+    @Test
+    void onSaveBasicTest() {
+        StringWriter stringWriter = new StringWriter();
+        container.setTick(234);
+
+        container.onSave(new QuietXmlWriter(stringWriter));
+
+        String expected = "<Data tick=\"234\" start=\"" + container.getStartingAmount() + "\"/>\n";
+        Assertions.assertEquals(expected, stringWriter.toString());
+    }
+
+    @Test
+    void onLoadTickTest() {
+        String xml = "<Data tick=\"23\" start=\"3673\"/>\n";
+
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(23, container.getTick());
+    }
+
+    @Test
+    void onLoadStartingAmountTest() {
+        String xml = "<Data tick=\"74\" start=\"5367\"/>\n";
+
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(5367, container.getStartingAmount());
     }
 }

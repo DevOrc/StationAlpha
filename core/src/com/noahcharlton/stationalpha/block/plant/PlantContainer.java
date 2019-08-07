@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block.plant;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
@@ -7,6 +8,7 @@ import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Optional;
 import java.util.Random;
@@ -16,10 +18,10 @@ public class PlantContainer extends BlockContainer {
     private static final Random random = new Random();
     private static final int OXYGEN_REQUIREMENT = 15;
     private final Plant plant;
-    private final int ticksPerStage;
 
     private Optional<HarvestPlantJob> job = Optional.empty();
 
+    private int ticksPerStage;
     private int stage;
     private int tick;
 
@@ -92,6 +94,24 @@ public class PlantContainer extends BlockContainer {
         Inventory inventory = getTile().getWorld().getInventory();
 
         inventory.changeAmountForItem(plant.getProduct(), 1);
+    }
+
+    @Override
+    public void onSave(QuietXmlWriter writer) {
+        writer.element("Data")
+                .attribute("tick", tick)
+                .attribute("stage", stage)
+                .attribute("ticksPerStage", ticksPerStage)
+                .pop();
+    }
+
+    @Override
+    public void onLoad(XmlReader.Element element) {
+        XmlReader.Element data = element.getChildByName("Data");
+
+        tick = data.getIntAttribute("tick");
+        stage = data.getIntAttribute("stage");
+        ticksPerStage = data.getIntAttribute("ticksPerStage");
     }
 
     private boolean hasOxygen() {

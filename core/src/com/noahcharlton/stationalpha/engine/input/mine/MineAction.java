@@ -51,7 +51,6 @@ public class MineAction implements BuildAction {
             for(int y = 0; y < container.getHeight(); y++){
                 if(isEdgeOfContainer(container, x, y)){
                     Optional<Tile> tile = world.getTileAt(x + rootTile.getX(), y + rootTile.getY());
-                    System.out.println(tile);
                     Optional<Tile> adjacent = tile.flatMap(Tile::getOpenAdjecent);
 
                     if(adjacent.isPresent())
