@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block.composter;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
@@ -8,10 +9,13 @@ import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.TestJob;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.StringWriter;
 import java.util.Optional;
 
 public class ComposterContainerTests {
@@ -105,7 +109,7 @@ public class ComposterContainerTests {
 
     @Test
     void startCompostingNoJobDoesNotCreateJobTest() {
-        container.startComposting();
+        container.attemptToStartComposting();
 
         Assertions.assertEquals(Optional.empty(), container.getCurrentJob());
     }
@@ -117,7 +121,7 @@ public class ComposterContainerTests {
 
         world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
         world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
-        container.startComposting();
+        container.attemptToStartComposting();
 
         Assertions.assertEquals(Optional.empty(), container.getCurrentJob());
     }
@@ -129,9 +133,32 @@ public class ComposterContainerTests {
         world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT.stack(1),
                 Item.DIRT.stack(0), 123, RecipeType.COMPOST));
 
-        container.startComposting();
+        container.attemptToStartComposting();
 
         Assertions.assertEquals(Optional.empty(), container.getCurrentJob());
+    }
+
+    @Test
+    void createCompostingJobNoOpenTileReAddsRecipeTestTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.DIRT.stack(0),
+                100, RecipeType.COMPOST);
+
+        world.getTileAt(0, 1).get().setBlock(Blocks.getWall());
+        world.getTileAt(1, 0).get().setBlock(Blocks.getWall());
+        container.createCompostingJob(recipe);
+
+        Assertions.assertSame(recipe, world.getManufacturingManager().getNextRecipe(RecipeType.COMPOST).get());
+    }
+
+    @Test
+    void attemptToStartCompostingNotEnoughResourcesReAddsRecipeTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(1), Item.DIRT.stack(0),
+                123, RecipeType.COMPOST);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.attemptToStartComposting();
+
+        Assertions.assertSame(recipe, world.getManufacturingManager().getNextRecipe(RecipeType.COMPOST).get());
     }
 
     @Test
@@ -139,7 +166,7 @@ public class ComposterContainerTests {
         world.getManufacturingManager().addRecipeToQueue(new ManufacturingRecipe(Item.DIRT.stack(0),
                 Item.DIRT.stack(0), 123, RecipeType.COMPOST));
 
-        container.startComposting();
+        container.attemptToStartComposting();
 
         Assertions.assertTrue(container.getCurrentJob().isPresent());
     }
@@ -150,7 +177,7 @@ public class ComposterContainerTests {
                 Item.DIRT.stack(0), 123, RecipeType.COMPOST));
         world.getInventory().changeAmountForItem(Item.DIRT, 5);
 
-        container.startComposting();
+        container.attemptToStartComposting();
 
         Assertions.assertEquals(2, world.getInventory().getAmountForItem(Item.DIRT));
     }
@@ -182,5 +209,91 @@ public class ComposterContainerTests {
         container.createEndCompostJob();
 
         Assertions.assertEquals(Optional.empty(), container.getCurrentJob());
+    }
+
+    @Test
+    void onSaveNoRecipeSavesNothingTest() {
+        StringWriter writer = new StringWriter();
+        container.setCurrentRecipe(null);
+
+        container.onSave(new QuietXmlWriter(writer));
+
+        Assertions.assertEquals("", writer.toString());
+    }
+
+    @Test
+    void onSaveNoTickHasNoTickTest() {
+        ManufacturingRecipe recipe =
+                new ManufacturingRecipe(Item.LEAVES.stack(0), Item.LEAVES.stack(0), 50, RecipeType.CRAFT);
+        StringWriter writer = new StringWriter();
+        container.setCurrentRecipe(recipe);
+
+        container.onSave(new QuietXmlWriter(writer));
+
+        XmlReader.Element output = LoadTestUtils.asElement(writer.toString());
+        Assertions.assertFalse(output.hasChild("Tick"));
+    }
+
+    @Test
+    void onSaveHasTickTest() {
+        ManufacturingRecipe recipe =
+                new ManufacturingRecipe(Item.LEAVES.stack(0), Item.LEAVES.stack(0), 50, RecipeType.CRAFT);
+        StringWriter writer = new StringWriter();
+        container.setCurrentRecipe(recipe);
+        container.setTick(542);
+
+        container.onSave(new QuietXmlWriter(writer));
+
+        XmlReader.Element output = LoadTestUtils.asElement(writer.toString());
+        Assertions.assertEquals(542, output.getInt("Tick"));
+    }
+
+    @Test
+    void loadRecipeNoTickCreatesJobTest() {
+        String xml = "<Recipe>" +
+                "<Time>25000</Time>" +
+                "<Type>SYNTHESIZE</Type>" +
+                "<Input item=\"LEAVES\" amount=\"5\"/>" +
+                "<Output item=\"DIRT\" amount=\"3\"/>" +
+                "</Recipe>";
+
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertTrue(container.getCurrentJob().isPresent());
+    }
+
+    @Test
+    void onLoadNoRecipeTest() {
+        container.onLoad(LoadTestUtils.asChild(""));
+
+        Assertions.assertFalse(container.getCurrentRecipe().isPresent());
+    }
+
+    @Test
+    void onLoadNoRecipeNoTickTest() {
+        container.onLoad(LoadTestUtils.asChild(""));
+
+        Assertions.assertFalse(container.getTick().isPresent());
+    }
+
+    @Test
+    void onLoadNoRecipeNoJobTest() {
+        container.onLoad(LoadTestUtils.asChild(""));
+
+        Assertions.assertFalse(container.getCurrentJob().isPresent());
+    }
+
+    @Test
+    void loadTickNoTickTest() {
+        container.loadTick(LoadTestUtils.asChild(""));
+
+        Assertions.assertFalse(container.getTick().isPresent());
+    }
+
+    @Test
+    void loadTickRecipeTickTest() {
+        container.loadTick(LoadTestUtils.asChild("<Tick>19295</Tick>"));
+
+        Assertions.assertEquals(19295, (int) container.getTick().get());
     }
 }

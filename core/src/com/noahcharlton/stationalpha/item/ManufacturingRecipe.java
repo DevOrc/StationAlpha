@@ -1,6 +1,8 @@
 package com.noahcharlton.stationalpha.item;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.world.Inventory;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Objects;
 
@@ -37,11 +39,44 @@ public class ManufacturingRecipe {
         inventory.changeAmountForItem(output.getItem(), output.getAmount());
     }
 
+    public void writeRecipe(QuietXmlWriter recipeWriter) {
+        recipeWriter.element("Input")
+                .attribute("item", input.getItem().name())
+                .attribute("amount", input.getAmount())
+                .pop();
+
+        recipeWriter.element("Output")
+                .attribute("item", output.getItem().name())
+                .attribute("amount", output.getAmount())
+                .pop();
+
+        recipeWriter.element("Type", type.toString());
+        recipeWriter.element("Time", time);
+    }
+
+    public static ManufacturingRecipe loadRecipe(XmlReader.Element recipe) {
+        XmlReader.Element input = Objects.requireNonNull(recipe.getChildByName("Input"));
+        XmlReader.Element output = Objects.requireNonNull(recipe.getChildByName("Output"));
+        String type = recipe.get("Type");
+        int time = recipe.getInt("Time");
+
+        return ManufacturingRecipe.createBuilder()
+                .setType(RecipeType.valueOf(type))
+                .setTime(time)
+                .setInput(parseItemStack(input))
+                .setOutput(parseItemStack(output))
+                .build();
+    }
+
+    private static ItemStack parseItemStack(XmlReader.Element input) {
+        return Item.valueOf(input.getAttribute("item")).stack(input.getIntAttribute("amount"));
+    }
+
     public static Builder createBuilder(){
         return new Builder();
     }
 
-    static class Builder{
+    public static class Builder{
 
         private ItemStack input;
         private ItemStack output;

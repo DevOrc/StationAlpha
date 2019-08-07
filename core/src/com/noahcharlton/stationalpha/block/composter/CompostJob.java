@@ -2,17 +2,17 @@ package com.noahcharlton.stationalpha.block.composter;
 
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
+import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
-import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
 import com.noahcharlton.stationalpha.world.Tile;
 
-public abstract class CompostJob extends TickBasedJob {
+public abstract class CompostJob extends Job {
 
     protected final ComposterContainer container;
     protected final ManufacturingRecipe recipe;
 
     public CompostJob(ComposterContainer container, Tile target, ManufacturingRecipe recipe) {
-        super(target, recipe.getTime());
+        super(target);
 
         this.container = container;
         this.recipe = recipe;

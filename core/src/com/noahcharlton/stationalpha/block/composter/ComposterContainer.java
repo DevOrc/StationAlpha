@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block.composter;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
@@ -9,6 +10,7 @@ import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.world.ManufacturingManager;
 import com.noahcharlton.stationalpha.world.Tile;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Optional;
 
@@ -29,7 +31,7 @@ public class ComposterContainer extends BlockContainer {
     @Override
     public void onUpdate() {
         if(!currentRecipe.isPresent()) {
-            startComposting();
+            attemptToStartComposting();
         } else {
             tick.ifPresent(this::updateCompost);
         }
@@ -75,21 +77,25 @@ public class ComposterContainer extends BlockContainer {
         currentJob = target.map(tile -> new CompostJob.EndCompostJob(this, tile, currentRecipe.get()));
     }
 
-    void startComposting() {
-        Optional<ManufacturingRecipe> recipe = manager.getNextRecipe(RecipeType.COMPOST);
+    void attemptToStartComposting(){
+        manager.getNextRecipe(RecipeType.COMPOST).ifPresent(recipe -> {
+            if(recipe.resourcesAvailable(getTile().getWorld().getInventory())){
+                createCompostingJob(recipe);
+            }else{
+                manager.addRecipeToQueue(recipe);
+            }
+        });
+    }
+
+    void createCompostingJob(ManufacturingRecipe recipe) {
         Optional<Tile> target = getTile().getOpenAdjecent();
 
-        if(target.isPresent() && recipe.isPresent()) {
-            if(!recipe.get().resourcesAvailable(getTile().getWorld().getInventory())) {
-                manager.addRecipeToQueue(recipe.get());
-                return;
-            }
-
-            createCompostJob(target.get(), recipe.get());
-            currentRecipe = recipe;
-            recipe.get().removeRequirements(getTile().getWorld().getInventory());
-
-            return;
+        if(target.isPresent()){
+            createCompostJob(target.get(), recipe);
+            currentRecipe = Optional.of(recipe);
+            recipe.removeRequirements(getTile().getWorld().getInventory());
+        }else{
+            manager.addRecipeToQueue(recipe);
         }
 
         return;
@@ -113,6 +119,46 @@ public class ComposterContainer extends BlockContainer {
     @Override
     public void onDestroy() {
         currentJob.ifPresent(Job::cancel);
+    }
+
+    @Override
+    public void onSave(QuietXmlWriter writer) {
+        currentRecipe.ifPresent(recipe -> {
+            QuietXmlWriter recipeWriter = writer.element("Recipe");
+
+            tick.ifPresent(tick -> recipeWriter.element("Tick", tick));
+            recipe.writeRecipe(recipeWriter);
+            recipeWriter.pop();
+        });
+    }
+
+    @Override
+    public void onLoad(XmlReader.Element element) {
+        XmlReader.Element recipe = element.getChildByName("Recipe");
+
+        if(recipe != null){
+            loadTick(recipe);
+
+            if(tick.isPresent()){
+                setCurrentRecipe(ManufacturingRecipe.loadRecipe(recipe));
+            }else{
+                createCompostingJob(ManufacturingRecipe.loadRecipe(recipe));
+            }
+        }else{
+            this.currentRecipe = Optional.empty();
+            this.tick = Optional.empty();
+            this.currentJob = Optional.empty();
+        }
+    }
+
+    void loadTick(XmlReader.Element recipe) {
+        int tick = recipe.getInt("Tick", -1);
+
+        if(tick >= 0){
+            setTick(tick);
+        }else{
+            this.tick = Optional.empty();
+        }
     }
 
     public Optional<Job> getCurrentJob() {
