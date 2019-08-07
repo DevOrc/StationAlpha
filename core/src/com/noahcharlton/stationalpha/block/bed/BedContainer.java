@@ -1,11 +1,13 @@
 package com.noahcharlton.stationalpha.block.bed;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Optional;
 
@@ -29,10 +31,36 @@ public class BedContainer extends BlockContainer {
 
         for(Worker worker : world.getWorkers()){
             if(!worker.getBedroom().isPresent()){
-                this.worker = Optional.of(worker);
-
-                worker.setBedroom(this);
+                setWorker(worker);
                 break;
+            }
+        }
+    }
+
+    void setWorker(Worker worker) {
+        this.worker = Optional.of(worker);
+
+        worker.setBedroom(this);
+    }
+
+    @Override
+    public void onSave(QuietXmlWriter writer) {
+        worker.ifPresent(worker -> writer.element("Owner", worker.getName()));
+    }
+
+    @Override
+    public void onLoad(XmlReader.Element element) {
+        String owner = element.get("Owner", null);
+
+        if(owner != null){
+            setOwnerByName(owner);
+        }
+    }
+
+    private void setOwnerByName(String owner) {
+        for(Worker worker : this.getTile().getWorld().getWorkers()){
+            if(worker.getName().equals(owner) && !worker.getBedroom().isPresent()){
+                setWorker(worker);
             }
         }
     }

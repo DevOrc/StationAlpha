@@ -55,10 +55,37 @@ public class WorldSaverTests {
     }
 
     @Test
+    void saveBlockRootTileContainerSaveTest() {
+        Tile tile = world.getTileAt(5, 5).get();
+        SaveTestContainer blockContainer = new SaveTestContainer(tile);
+
+        saveGame.saveBlock(tile, blockContainer, xmlWriter);
+
+        Assertions.assertTrue(blockContainer.isSaved());
+    }
+
+    @Test
     void saveFloorTest() {
         saveGame.saveFloor(Floor.WOOD, xmlWriter);
 
         String expected = stringWriter.toString();
         Assertions.assertEquals("<Floor>WOOD</Floor>\n", expected);
+    }
+}
+class SaveTestContainer extends BlockContainer{
+
+    private boolean isSaved;
+
+    public SaveTestContainer(Tile tile) {
+        super(tile, Blocks.getWall());
+    }
+
+    @Override
+    public void onSave(QuietXmlWriter writer) {
+        isSaved = true;
+    }
+
+    public boolean isSaved() {
+        return isSaved;
     }
 }

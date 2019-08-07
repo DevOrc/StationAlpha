@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.XmlWriter;
 
 import java.io.IOException;
+import java.io.StringWriter;
 
 public class QuietXmlWriter {
 
@@ -16,6 +17,10 @@ public class QuietXmlWriter {
 
     public QuietXmlWriter(XmlWriter xmlWriter) {
         this.xmlWriter = xmlWriter;
+    }
+
+    public QuietXmlWriter(StringWriter writer){
+        this(new XmlWriter(writer));
     }
 
     public QuietXmlWriter element(String name) {

@@ -46,10 +46,12 @@ public class WorldSaver {
                     .attribute("rootY", container.getTile().getY())
                     .pop();
         }else{
-            element.element("Container")
+            QuietXmlWriter containerWriter = element.element("Container")
                 .attribute("Block", container.getBlock().getID())
-                .attribute("Rotation", container.getRotation().name())
-                .pop();
+                .attribute("Rotation", container.getRotation().name());
+
+            container.onSave(containerWriter);
+            containerWriter.pop();
         }
     }
 

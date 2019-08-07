@@ -1,7 +1,9 @@
 package com.noahcharlton.stationalpha.block;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.world.Tile;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -28,6 +30,9 @@ public class BlockContainer implements Selectable {
 
     public void onDestroy(){}
 
+    public void onSave(QuietXmlWriter writer){}
+
+    public void onLoad(XmlReader.Element element){}
 
     @Override
     public String getTitle() {

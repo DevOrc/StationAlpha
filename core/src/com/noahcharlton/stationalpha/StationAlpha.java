@@ -85,6 +85,7 @@ public class StationAlpha extends ApplicationAdapter {
         currentState = GameState.IN_GAME;
         world = Optional.of(new World(false));
         world.get().load();
+        setTicksPerUpdate(0);
     }
 
     public void startGame() {
