@@ -8,9 +8,12 @@ import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.StringWriter;
 import java.util.Arrays;
 
 public class WorkbenchContainerTests {
@@ -132,5 +135,59 @@ public class WorkbenchContainerTests {
                 new ManufacturingRecipe(Item.SPACE_ROCK.stack(1), Item.TEST_ITEM.stack(1), 1));
 
         world.getInventory().setAmountForItem(Item.SPACE_ROCK, 1);
+    }
+
+    @Test
+    void onSaveNoJobTest() {
+        StringWriter writer = new StringWriter();
+
+        container.onSave(new QuietXmlWriter(writer));
+
+        Assertions.assertEquals("", writer.toString());
+    }
+
+    @Test
+    void onSaveBasicJobTest() {
+        StringWriter writer = new StringWriter();
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
+                100, RecipeType.CRAFT);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.createJobFromRecipe();
+        container.onSave(new QuietXmlWriter(writer));
+
+        String expected = "<Job>\n\t<Input item=\"DIRT\" amount=\"0\"/>\n\t" +
+                "<Output item=\"SPACE_ROCK\" amount=\"0\"/>\n\t<Type>CRAFT</Type>\n\t" +
+                "<Time>100</Time>\n\t<Tick>0</Tick>\n</Job>\n";
+        Assertions.assertEquals(expected, writer.toString());
+    }
+
+    @Test
+    void onLoadNothingNoJobTest() {
+        container.onLoad(LoadTestUtils.asChild(""));
+
+        Assertions.assertFalse(container.getJob().isPresent());
+    }
+
+    @Test
+    void onLoadSetsJobTickTest() {
+        String xml = "<Job>\n\t<Input item=\"UNOBTAINIUM\" amount=\"0\"/>\n\t" +
+                "<Output item=\"SPACE_DUST\" amount=\"0\"/>\n\t<Type>CRAFT</Type>\n\t" +
+                "<Time>100</Time>\n\t<Tick>42</Tick>\n</Job>\n";
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(42, container.getJob().get().getTick());
+    }
+
+    @Test
+    void onLoadSetsRecipeTest() {
+        String xml = "<Job>\n\t<Input item=\"WOOD\" amount=\"32\"/>\n\t" +
+                "<Output item=\"DIRT\" amount=\"11\"/>\n\t<Type>CRAFT</Type>\n\t" +
+                "<Time>1235</Time>\n\t<Tick>0</Tick>\n</Job>\n";
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.WOOD.stack(32), Item.DIRT.stack(11),
+                1235, RecipeType.CRAFT);
+        Assertions.assertEquals(recipe, container.getJob().get().getRecipe());
     }
 }

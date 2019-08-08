@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.block.workbench;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
@@ -11,6 +12,7 @@ import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Optional;
 
@@ -65,7 +67,7 @@ public class WorkbenchContainer extends BlockContainer {
      * @return if the job was created; used for unit testing
      */
     boolean createJobFromRecipe() {
-        Optional<Tile> openAdjacent = getWorkingTile(getTile(), getRotation());
+        Optional<Tile> openAdjacent = getWorkingTile();
 
         if(!openAdjacent.isPresent()) {
             return false;
@@ -94,13 +96,13 @@ public class WorkbenchContainer extends BlockContainer {
         return true;
     }
 
-    private Optional<Tile> getWorkingTile(Tile rootTile, BlockRotation rotation) {
+    private Optional<Tile> getWorkingTile() {
         Optional<Tile> workingTile;
-        World world = rootTile.getWorld();
-        int x = rootTile.getX();
-        int y = rootTile.getY();
+        World world = getTile().getWorld();
+        int x = getTile().getX();
+        int y = getTile().getY();
 
-        switch(rotation) {
+        switch(getRotation()) {
             case NORTH:
                 workingTile = world.getTileAt(x + 1, y - 1);
                 break;
@@ -114,10 +116,49 @@ public class WorkbenchContainer extends BlockContainer {
                 workingTile = world.getTileAt(x - 1, y + 1);
                 break;
             default:
-                throw new GdxRuntimeException("Unknown Variant: " + rotation);
+                throw new GdxRuntimeException("Unknown Variant: " + getRotation());
         }
 
         return workingTile.filter(t -> !t.getBlock().isPresent());
+    }
+
+
+    @Override
+    public void onSave(QuietXmlWriter writer) {
+        job.ifPresent(job -> {
+            QuietXmlWriter element = writer.element("Job");
+
+            job.getRecipe().writeRecipe(element);
+            element.element("Tick", job.getTick());
+
+            element.pop();
+        });
+    }
+
+    @Override
+    public void onLoad(XmlReader.Element element) {
+        if(element.hasChild("Job")){
+            loadJob(element.getChildByName("Job"));
+        }else{
+            job = Optional.empty();
+        }
+    }
+
+    private void loadJob(XmlReader.Element jobElement) {
+        ManufacturingRecipe recipe = ManufacturingRecipe.loadRecipe(jobElement);
+        int tick = jobElement.getInt("Tick");
+
+        Optional<Tile> jobTile = getWorkingTile();
+
+        if(jobTile.isPresent()){
+            WorkbenchJob job = new WorkbenchJob(jobTile.get(), recipe);
+            job.setTick(tick);
+
+            this.job = Optional.of(job);
+            JobQueue.getInstance().addJob(job);
+        }else{
+            getTile().getWorld().getManufacturingManager().addRecipeToQueue(recipe);
+        }
     }
 
     Optional<WorkbenchJob> getJob() {

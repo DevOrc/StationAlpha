@@ -29,6 +29,10 @@ public class WorkbenchJob extends TickBasedJob {
         recipe.addProducts(getTarget().getWorld().getInventory());
     }
 
+    public void setTick(int tick){
+        this.tick = tick;
+    }
+
     @Override
     public String toString() {
         return "Crafting: " + super.toString();
