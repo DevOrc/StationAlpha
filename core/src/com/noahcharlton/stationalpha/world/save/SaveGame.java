@@ -48,7 +48,7 @@ public class SaveGame {
         this.writer = new QuietXmlWriter(new XmlWriter(writer));
     }
 
-    public static void create(World world) {
-        new SaveGame(world).save(Gdx.files.external("/station-alpha/save.xml"));
+    public static void create(World world, int saveNumber) {
+        new SaveGame(world).save(Gdx.files.external("/station-alpha/save" + saveNumber + ".xml"));
     }
 }

@@ -34,7 +34,7 @@ public class StationAlphaTests extends LibGdxTest{
 
     @Test
     void onLoadGameStateChangeToInGame() {
-        gameInstance.loadGame();
+        gameInstance.loadGame(0);
 
         Assertions.assertEquals(StationAlpha.GameState.IN_GAME, gameInstance.getCurrentState());
     }

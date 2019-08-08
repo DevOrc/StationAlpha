@@ -14,7 +14,7 @@ import java.util.List;
 public class MainMenuButtonPane extends Pane {
 
     private final Logger logger = LogManager.getLogger(MainMenuButtonPane.class);
-    static final int BUTTON_COUNT = 4;
+    static final int BUTTON_COUNT = 5;
     static final int PADDING = 15;
 
     private static final int WIDTH = PADDING * 2 + MainMenuButton.WIDTH;
@@ -22,7 +22,8 @@ public class MainMenuButtonPane extends Pane {
 
     private final MainMenuSubMenu.SettingsMenu settingsMenu = new MainMenuSubMenu.SettingsMenu(this);
     private final MainMenuSubMenu.AboutMenu aboutMenu = new MainMenuSubMenu.AboutMenu(this);
-    private final List<MainMenuSubMenu> menus = Arrays.asList(aboutMenu, settingsMenu);
+    private final MainMenuSubMenu.LoadMenu loadMenu = new MainMenuSubMenu.LoadMenu(this);
+    private final List<MainMenuSubMenu> menus = Arrays.asList(aboutMenu, settingsMenu, loadMenu);
 
     public MainMenuButtonPane() {
         setBackgroundColor(Color.BLACK);
@@ -46,7 +47,7 @@ public class MainMenuButtonPane extends Pane {
         }));
 
         addGui(new MainMenuButton("Load", () -> {
-            StationAlpha.getInstance().loadGame();
+            clickOnMenu(loadMenu);
         }));
 
         addGui(new MainMenuButton("Start", () -> {

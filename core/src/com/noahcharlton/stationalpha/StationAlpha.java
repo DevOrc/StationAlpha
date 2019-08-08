@@ -81,11 +81,21 @@ public class StationAlpha extends ApplicationAdapter {
         guiContainer.render();
     }
 
-    public void loadGame() {
+    public void loadGame(int saveNumber) {
         currentState = GameState.IN_GAME;
         world = Optional.of(new World(false));
-        world.get().load();
         setTicksPerUpdate(0);
+
+        loadGameSafe(saveNumber);
+    }
+
+    private void loadGameSafe(int saveNumber) {
+        try{
+            world.get().load(saveNumber);
+        }catch(GdxRuntimeException e){
+            logger.info("Failed to load save {}!", saveNumber, e);
+            gotoMainMenu();
+        }
     }
 
     public void startGame() {

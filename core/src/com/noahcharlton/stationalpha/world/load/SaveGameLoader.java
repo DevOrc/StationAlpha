@@ -57,11 +57,11 @@ public class SaveGameLoader {
         }
     }
 
-    public static void load(World world){
+    public static void load(World world, int saveNum){
         if(Gdx.graphics == null) // Running in headless mode (a.k.a. in test mode)
             return;
 
-        FileHandle handle = Gdx.files.external("/station-alpha/save.xml");
+        FileHandle handle = Gdx.files.external("/station-alpha/save" + saveNum + ".xml");
 
         load(handle.readString(), world);
     }

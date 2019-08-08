@@ -100,7 +100,7 @@ public class WorldTests {
     @Test
     void loadResetsWorkersTest() {
         world.getWorkers().add(new TestWorker());
-        world.load();
+        world.load(0);
 
         Assertions.assertEquals(0, world.getWorkers().size());
     }

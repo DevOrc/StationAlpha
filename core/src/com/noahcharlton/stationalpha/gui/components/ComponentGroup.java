@@ -25,7 +25,12 @@ public abstract class ComponentGroup extends Pane{
     public void drawBackground(SpriteBatch b) {
         super.drawBackground(b);
 
-        layoutManager.layout(this, getSubGuis());
+        layout();
+    }
+
+    void layout() {
+        if(layoutManager != null)
+            layoutManager.layout(this, getSubGuis());
     }
 
     public void setLayoutManager(LayoutManager layoutManager) {

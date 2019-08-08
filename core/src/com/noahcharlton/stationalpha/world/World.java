@@ -88,14 +88,14 @@ public class World {
         }
     }
 
-    public void save(){
-        SaveGame.create(this);
+    public void save(int saveNumber){
+        SaveGame.create(this, saveNumber);
     }
 
-    public void load() {
+    public void load(int saveNumber) {
         this.workers.clear();
 
-        SaveGameLoader.load(this);
+        SaveGameLoader.load(this, saveNumber);
     }
 
     public void render(SpriteBatch spriteBatch) {
