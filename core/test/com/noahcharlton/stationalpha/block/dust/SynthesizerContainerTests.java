@@ -9,14 +9,16 @@ import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
-import com.noahcharlton.stationalpha.worker.job.TestJob;
 import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -37,7 +39,9 @@ public class SynthesizerContainerTests {
 
     @Test
     void onDestroyJobIsCancelledTest() {
-        TestJob job = new TestJob();
+        ManufacturingRecipe recipe = new ManufacturingRecipe(
+                Item.DIRT.stack(0), Item.LEAVES.stack(0), 250, RecipeType.CRAFT);
+        SynthesizerJob job = new SynthesizerJob(tile, recipe);
         container.setCurrentJob(job);
 
         job.start();
@@ -48,7 +52,9 @@ public class SynthesizerContainerTests {
 
     @Test
     void jobRemovedOnFinish() {
-        TestJob job = new TestJob();
+        ManufacturingRecipe recipe = new ManufacturingRecipe(
+                Item.DIRT.stack(0), Item.LEAVES.stack(0), 250, RecipeType.CRAFT);
+        SynthesizerJob job = new SynthesizerJob(tile, recipe);
         container.setCurrentJob(job);
 
         job.start();
@@ -192,5 +198,60 @@ public class SynthesizerContainerTests {
         String[] actual = container.getDebugInfo();
 
         Assertions.assertTrue(Arrays.asList(actual).contains(expected));
+    }
+
+    @Test
+    void onSaveNoJobTest() {
+        StringWriter writer = new StringWriter();
+
+        container.setCurrentJob(null);
+        container.onSave(new QuietXmlWriter(writer));
+
+        Assertions.assertEquals("", writer.toString());
+    }
+
+    @Test
+    void onSaveBasicJobTest() {
+        StringWriter writer = new StringWriter();
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
+                100, RecipeType.SYNTHESIZE);
+        world.getManufacturingManager().addRecipeToQueue(recipe);
+
+        container.checkAndCreateJob();
+        container.onSave(new QuietXmlWriter(writer));
+
+        String expected = "<Job>\n\t<Input item=\"DIRT\" amount=\"0\"/>\n\t" +
+                "<Output item=\"SPACE_ROCK\" amount=\"0\"/>\n\t<Type>SYNTHESIZE</Type>\n\t" +
+                "<Time>100</Time>\n\t<Tick>0</Tick>\n</Job>\n";
+        Assertions.assertEquals(expected, writer.toString());
+    }
+
+    @Test
+    void onLoadNothingNoJobTest() {
+        container.onLoad(LoadTestUtils.asChild(""));
+
+        Assertions.assertFalse(container.getCurrentJob().isPresent());
+    }
+
+    @Test
+    void onLoadSetsJobTickTest() {
+        String xml = "<Job>\n\t<Input item=\"DIRT\" amount=\"0\"/>\n\t" +
+                "<Output item=\"SPACE_ROCK\" amount=\"0\"/>\n\t<Type>SYNTHESIZE</Type>\n\t" +
+                "<Time>100</Time>\n\t<Tick>52</Tick>\n</Job>\n";
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(52, container.getCurrentJob().get().getTick());
+    }
+
+    @Test
+    void onLoadSetsRecipeTest() {
+        String xml = "<Job>\n\t<Input item=\"STEEL\" amount=\"32\"/>\n\t" +
+                "<Output item=\"WOOD\" amount=\"11\"/>\n\t<Type>SYNTHESIZE</Type>\n\t" +
+                "<Time>1235</Time>\n\t<Tick>0</Tick>\n</Job>\n";
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.STEEL.stack(32), Item.WOOD.stack(11),
+                1235, RecipeType.SYNTHESIZE);
+        Assertions.assertEquals(recipe, container.getCurrentJob().get().getRecipe());
     }
 }

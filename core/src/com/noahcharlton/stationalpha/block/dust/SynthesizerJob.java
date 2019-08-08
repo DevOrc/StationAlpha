@@ -43,6 +43,10 @@ public class SynthesizerJob extends TickBasedJob {
         return "Synthesizing: " + super.toString();
     }
 
+    public void setTick(int tick){
+        this.tick = tick;
+    }
+
     public ManufacturingRecipe getRecipe() {
         return recipe;
     }

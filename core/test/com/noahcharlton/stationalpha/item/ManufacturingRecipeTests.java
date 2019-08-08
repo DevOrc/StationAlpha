@@ -174,4 +174,20 @@ public class ManufacturingRecipeTests {
                 .setType(RecipeType.CRAFT)
                 .setTime(1);
     }
+
+    @Test
+    void isEqualsTest() {
+        ManufacturingRecipe recipe1 = createDefaultBuilder().build();
+        ManufacturingRecipe recipe2 =  createDefaultBuilder().build();
+
+        Assertions.assertEquals(recipe1, recipe2);
+    }
+
+    @Test
+    void isEqualsNotEqualsTest() {
+        ManufacturingRecipe recipe1 = createDefaultBuilder().build();
+        ManufacturingRecipe recipe2 = createDefaultBuilder().setTime(543).build();
+
+        Assertions.assertNotEquals(recipe1, recipe2);
+    }
 }

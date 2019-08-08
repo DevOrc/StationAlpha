@@ -135,6 +135,22 @@ public class ManufacturingRecipe {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(!(o instanceof ManufacturingRecipe)) return false;
+        ManufacturingRecipe recipe = (ManufacturingRecipe) o;
+        return getTime() == recipe.getTime() &&
+                Objects.equals(getInput(), recipe.getInput()) &&
+                Objects.equals(getOutput(), recipe.getOutput()) &&
+                getType() == recipe.getType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getInput(), getOutput(), getType(), getTime());
+    }
+
+    @Override
     public String toString() {
         return output.toString();
     }
