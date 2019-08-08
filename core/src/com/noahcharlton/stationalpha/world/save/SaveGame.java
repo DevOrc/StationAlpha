@@ -34,6 +34,7 @@ public class SaveGame {
         writeMiscInfo();
         new WorkerSaver(world).save(writer);
         new InventorySaver(world).save(writer);
+        new ManufacturingManagerSaver(world.getManufacturingManager()).save(writer);
         new WorldSaver(world).save(writer);
     }
 

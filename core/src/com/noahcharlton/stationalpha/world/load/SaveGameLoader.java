@@ -17,7 +17,14 @@ public class SaveGameLoader {
         verifyVersion(element);
         loadWorkers(element, world);
         loadInventory(element, world);
+        loadManufacturingManager(element, world);
         loadWorld(element, world);
+    }
+
+    private static void loadManufacturingManager(XmlReader.Element element, World world){
+        XmlReader.Element elements = Objects.requireNonNull(element.getChildByName("ManufacturingQueue"));
+
+        ManufacturingManagerLoader.load(elements, world.getManufacturingManager());
     }
 
     private static void loadWorkers(XmlReader.Element element, World world) {
