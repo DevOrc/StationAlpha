@@ -11,26 +11,24 @@ public class ConduitRenderer {
 
     enum Direction {NORTH, SOUTH, EAST, WEST}
 
-    public static void render(World world, SpriteBatch batch){
-        for(int x = 0; x < World.WORLD_TILE_SIZE; x++){
-            for(int y = 0; y < World.WORLD_TILE_SIZE; y++){
-                world.getTileAt(x, y).ifPresent(tile -> renderTile(tile, batch));
+    private static final Color color = new Color(.35f, .2f, .2f, 1f);
+
+    public static void render(World world, SpriteBatch batch) {
+        for(int x = 0; x < World.WORLD_TILE_SIZE; x++) {
+            for(int y = 0; y < World.WORLD_TILE_SIZE; y++) {
+                world.getTileAt(x, y).filter(Tile::hasConduit).ifPresent(tile -> renderTile(tile, batch));
             }
         }
     }
 
-    private static void renderTile(Tile tile, SpriteBatch batch) {
+    public static void renderTile(Tile tile, SpriteBatch batch) {
         int baseX = tile.getX() * Tile.TILE_SIZE;
         int baseY = tile.getY() * Tile.TILE_SIZE;
 
-        if(tile.hasConduit()){
-            ShapeUtil.drawRect(baseX + 12, baseY + 12, 8, 8, Color.RED, batch);
+        ShapeUtil.drawRect(baseX + 12, baseY + 12, 8, 8, color, batch);
 
-            List<Tile> tileList = tile.getAdjacent();
-            tileList.forEach(neighbor -> drawArm(tile, neighbor, batch));
-        }
-
-
+        List<Tile> tileList = tile.getAdjacent();
+        tileList.forEach(neighbor -> drawArm(tile, neighbor, batch));
     }
 
     private static void drawArm(Tile tile, Tile neighbor, SpriteBatch batch) {
@@ -41,18 +39,18 @@ public class ConduitRenderer {
         int baseX = (tile.getX() * Tile.TILE_SIZE);
         int baseY = (tile.getY() * Tile.TILE_SIZE);
 
-        switch(direction){
+        switch(direction) {
             case NORTH:
-                ShapeUtil.drawRect(baseX + 12, baseY + 12, 8, Tile.TILE_SIZE - 12, Color.RED, batch);
+                ShapeUtil.drawRect(baseX + 12, baseY + 12, 8, Tile.TILE_SIZE - 12, color, batch);
                 break;
             case SOUTH:
-                ShapeUtil.drawRect(baseX + 12, baseY, 8, Tile.TILE_SIZE - 12, Color.RED, batch);
+                ShapeUtil.drawRect(baseX + 12, baseY, 8, Tile.TILE_SIZE - 12, color, batch);
                 break;
             case EAST:
-                ShapeUtil.drawRect(baseX + 12, baseY + 12, Tile.TILE_SIZE - 12, 8, Color.RED, batch);
+                ShapeUtil.drawRect(baseX + 12, baseY + 12, Tile.TILE_SIZE - 12, 8, color, batch);
                 break;
             case WEST:
-                ShapeUtil.drawRect(baseX, baseY + 12, Tile.TILE_SIZE - 12, 8, Color.RED, batch);
+                ShapeUtil.drawRect(baseX, baseY + 12, Tile.TILE_SIZE - 12, 8, color, batch);
                 break;
         }
     }

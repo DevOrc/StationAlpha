@@ -7,6 +7,7 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
+import com.noahcharlton.stationalpha.engine.input.PlayerActions;
 import com.noahcharlton.stationalpha.gui.GuiContainer;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.item.Item;
@@ -59,6 +60,7 @@ public class StationAlpha extends ApplicationAdapter {
         Blocks.init();
         Item.init();
         ManufacturingRecipes.init();
+        PlayerActions.init();
 
         guiContainer = new GuiContainer();
 

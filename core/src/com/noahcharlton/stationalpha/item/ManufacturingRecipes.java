@@ -1,7 +1,5 @@
 package com.noahcharlton.stationalpha.item;
 
-import com.noahcharlton.stationalpha.engine.input.mine.MineActions;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +42,6 @@ public class ManufacturingRecipes {
                 .setType(RecipeType.SYNTHESIZE)
                 .build()
         );
-
-        MineActions.init();
     }
 
     public static List<ManufacturingRecipe> getRecipes() {

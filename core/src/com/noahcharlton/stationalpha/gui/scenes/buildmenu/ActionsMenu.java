@@ -1,20 +1,18 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
+import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
-import com.noahcharlton.stationalpha.engine.input.mine.MineAction;
-import com.noahcharlton.stationalpha.engine.input.mine.MineActions;
+import com.noahcharlton.stationalpha.engine.input.PlayerActions;
 
-public class ActionsMenu extends BuildBarMenu<MineAction>{
+public class ActionsMenu extends BuildBarMenu<BuildAction>{
 
     public ActionsMenu() {
-        super(MineActions.getActions());
+        super(PlayerActions.getActions());
     }
 
     @Override
-    protected Runnable createRunnable(MineAction item) {
-        return () -> {
-            InputHandler.getInstance().setBuildAction(item);
-        };
+    protected Runnable createRunnable(BuildAction item) {
+        return () -> InputHandler.getInstance().setBuildAction(item);
     }
 
     @Override
