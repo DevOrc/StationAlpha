@@ -26,6 +26,7 @@ public final class Tile implements Selectable {
     private Optional<BlockContainer> container;
     private Optional<Floor> floor;
     private float oxygenLevel;
+    private boolean hasConduit;
 
     public Tile(int x, int y, World world) {
         this.world = world;
@@ -199,6 +200,14 @@ public final class Tile implements Selectable {
         this.floor = Optional.ofNullable(floor);
 
         world.triggerWorldUpdate(x, y);
+    }
+
+    public void setConduit(boolean hasConduit) {
+        this.hasConduit = hasConduit;
+    }
+
+    public boolean hasConduit() {
+        return hasConduit;
     }
 
     public Optional<Block> getBlock() {

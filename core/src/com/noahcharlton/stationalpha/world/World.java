@@ -150,15 +150,13 @@ public class World {
     }
 
     private void renderTiles(SpriteBatch spriteBatch) {
+        drawFloors(spriteBatch);
+        ConduitRenderer.render(this, spriteBatch);
+        drawBlocks(spriteBatch);
+    }
+
+    private void drawBlocks(SpriteBatch spriteBatch) {
         boolean drawOxygen = DebugKeys.isDebugPressed(DebugKeys.OXYGEN_LEVEL);
-
-        for(int x = 0; x < WORLD_TILE_SIZE; x++){
-            for(int y = 0; y < WORLD_TILE_SIZE; y++){
-                Tile tile = tiles[x][y];
-
-                tile.getFloor().ifPresent(floor -> floor.render(spriteBatch, tile));
-            }
-        }
 
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
@@ -168,6 +166,16 @@ public class World {
 
                 if(drawOxygen)
                     tile.drawOxygen(spriteBatch);
+            }
+        }
+    }
+
+    private void drawFloors(SpriteBatch spriteBatch) {
+        for(int x = 0; x < WORLD_TILE_SIZE; x++){
+            for(int y = 0; y < WORLD_TILE_SIZE; y++){
+                Tile tile = tiles[x][y];
+
+                tile.getFloor().ifPresent(floor -> floor.render(spriteBatch, tile));
             }
         }
     }
