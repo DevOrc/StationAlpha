@@ -22,7 +22,8 @@ enum BlockGroup {
             Blocks.getCompressor(),
             Blocks.getDustCollector()),
     MISC("Misc.",
-            Blocks.getBedBlock());
+            Blocks.getBedBlock(),
+            Blocks.getSolarPanel());
     final String name;
     final List<Block> blocks;
 

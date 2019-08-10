@@ -17,6 +17,8 @@ public class DebugKeys {
 
     public static final int MAGICAL_GROWTH = Input.Keys.Y;
 
+    public static final int CONDUIT_VIEW = Input.Keys.F;
+
     public static boolean isDebugPressed(int key){
         if(Gdx.input != null)
             return Gdx.input.isKeyPressed(DEBUG_KEY) && Gdx.input.isKeyPressed(key);

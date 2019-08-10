@@ -6,8 +6,10 @@ import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Tile;
+import com.noahcharlton.stationalpha.world.TilePowerTests;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.io.StringWriter;
@@ -24,12 +26,27 @@ public class WorldSaverTests {
         Tile tile = world.getTileAt(1, 5).get();
         tile.setFloor(Floor.DIRT);
         tile.changeOxygenLevel(35f);
+        tile.setConduit(true);
+        tile.setPower(22);
 
         saveGame.saveTile(tile, xmlWriter).pop();
 
-        String expected = stringWriter.toString();
-        Assertions.assertEquals("<Tile x=\"1\" y=\"5\" oxygen=\"35.0\"/>\n", expected);
+        String expected = "<Tile x=\"1\" y=\"5\" oxygen=\"35.0\" manualConduit=\"true\" power=\"22\"/>\n";
+        Assertions.assertEquals(expected, stringWriter.toString());
     }
+
+    @Test
+    void saveTileNonManualConduitTest() {
+        Tile tile = world.getTileAt(6, 9).get();
+        tile.setBlock(Blocks.getWall(), new TilePowerTests.TestPowerContainer(tile));
+
+        Assumptions.assumeTrue(tile.hasConduit());
+        saveGame.saveTile(tile, xmlWriter).pop();
+
+        String expected = "<Tile x=\"6\" y=\"9\" oxygen=\"0.0\" manualConduit=\"false\" power=\"0\"/>\n";
+        Assertions.assertEquals(expected, stringWriter.toString());
+    }
+
 
     @Test
     void saveBlockNotRootTileTest() {

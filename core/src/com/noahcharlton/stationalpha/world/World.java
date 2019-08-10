@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.block.BlockContainer;
@@ -128,6 +129,7 @@ public class World {
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 tiles[x][y].updateOxygen();
+                tiles[x][y].updatePower();
 
                 updateContainer(tiles[x][y]);
             }
@@ -151,8 +153,14 @@ public class World {
 
     private void renderTiles(SpriteBatch spriteBatch) {
         drawFloors(spriteBatch);
-        ConduitRenderer.render(this, spriteBatch);
-        drawBlocks(spriteBatch);
+
+        if(Gdx.input.isKeyPressed(DebugKeys.CONDUIT_VIEW)){
+            drawBlocks(spriteBatch);
+            ConduitRenderer.render(this, spriteBatch);
+        }else{
+            ConduitRenderer.render(this, spriteBatch);
+            drawBlocks(spriteBatch);
+        }
     }
 
     private void drawBlocks(SpriteBatch spriteBatch) {

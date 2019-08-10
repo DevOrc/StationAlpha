@@ -7,16 +7,17 @@ import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.block.power.PoweredContainer;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Stream;
 
 public final class Tile implements Selectable {
 
     public static final int TILE_SIZE = 32;
+    private static final int MAX_POWER = 25;
 
     private final World world;
     private final int x;
@@ -26,7 +27,9 @@ public final class Tile implements Selectable {
     private Optional<BlockContainer> container;
     private Optional<Floor> floor;
     private float oxygenLevel;
-    private boolean hasConduit;
+
+    private boolean hasPlacedConduit;
+    private int power;
 
     public Tile(int x, int y, World world) {
         this.world = world;
@@ -130,6 +133,61 @@ public final class Tile implements Selectable {
         font.draw(spriteBatch, text, pixelX, pixelY, Tile.TILE_SIZE, Align.center, false);
     }
 
+    public void updatePower(){
+        if(!hasConduit()){
+            return;
+        }
+
+        Stream<Tile> connections = getAdjacent().stream().filter(Tile::hasConduit);
+
+        connections.forEach(tile -> transferPower(tile, this));
+    }
+
+    static void transferPower(Tile dest, Tile src) {
+        if(dest.getPower() > src.getPower())
+            return;
+
+        int diff = (int) Math.round((src.power - dest.power) / 2.0);
+
+        if(diff > 5){
+            diff = 5;
+        }
+
+        src.setPower(src.getPower() - diff);
+        dest.setPower(dest.getPower() + diff);
+    }
+
+    public void setPower(int power) {
+        if(!hasConduit())
+            power = 0;
+
+        this.power = Math.min(MAX_POWER, Math.max(0, power));
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setConduit(boolean hasConduit) {
+        this.hasPlacedConduit = hasConduit;
+    }
+
+    public boolean hasConduit() {
+        boolean poweredContainer = container.filter(container -> container instanceof PoweredContainer).isPresent();
+
+        return hasPlacedConduit || poweredContainer;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated
+     * This should not be used! Instead use hasConduit()
+     *  This function returns if the user placed a conduit, not if one is present!
+     */
+    public boolean hasPlacedConduit() {
+        return hasPlacedConduit;
+    }
+
     @Override
     public String getTitle() {
         return toString();
@@ -142,10 +200,14 @@ public final class Tile implements Selectable {
 
     @Override
     public String[] getDebugInfo() {
-        return new String[]{
-                "Floor: " + floor.map(Floor::toString).orElse("None"),
-                "Oxygen: " + oxygenLevel,
-        };
+        List<String> info = new ArrayList<>();
+        info.add("Floor: " + floor.map(Floor::toString).orElse("None"));
+        info.add("Oxygen: " + oxygenLevel);
+
+        if(hasConduit())
+            info.add("Power: " + getPower());
+
+        return info.toArray(new String[0]);
     }
 
     @Override
@@ -200,14 +262,6 @@ public final class Tile implements Selectable {
         this.floor = Optional.ofNullable(floor);
 
         world.triggerWorldUpdate(x, y);
-    }
-
-    public void setConduit(boolean hasConduit) {
-        this.hasConduit = hasConduit;
-    }
-
-    public boolean hasConduit() {
-        return hasConduit;
     }
 
     public Optional<Block> getBlock() {
