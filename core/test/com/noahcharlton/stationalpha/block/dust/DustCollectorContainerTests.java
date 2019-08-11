@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.block.dust;
 
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
 import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
@@ -13,16 +14,28 @@ import java.io.StringWriter;
 public class DustCollectorContainerTests {
 
     private final World world = new World();
-    private final DustCollectorContainer container = new DustCollectorContainer(world.getTileAt(0, 0).get(),
+    private final Tile tile = world.getTileAt(0, 0).get();
+    private final DustCollectorContainer container = new DustCollectorContainer(tile,
             Blocks.getDustCollector(), BlockRotation.EAST);
 
     @Test
     void tickDecrementsOnUpdateTest() {
+        tile.setConduit(true);
+        tile.setPower(25);
         int start = container.getTick();
 
         container.onUpdate();
 
         Assertions.assertEquals(1, start - container.getTick());
+    }
+
+    @Test
+    void doesNotDecreaseTickOnNoPowerTest() {
+        int start = container.getTick();
+
+        container.onUpdate();
+
+        Assertions.assertEquals(start, container.getTick());
     }
 
     @Test

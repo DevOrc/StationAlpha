@@ -41,8 +41,11 @@ class MineableBlockRenderer extends DefaultBlockRenderer{
     public void renderBlock(SpriteBatch batch, Tile tile) {
         super.renderBlock(batch, tile);
 
-        if(shouldRenderIcon(tile))
-            renderIcon(tile, batch);
+        if(shouldRenderIcon(tile)){
+            batch.setColor(new Color(1f, 1f, 1f, .5f));
+            renderIcon(tile, batch, icon);
+            batch.setColor(new Color(1f, 1f, 1f, 1f));
+        }
     }
 
     boolean shouldRenderIcon(Tile tile){
@@ -57,19 +60,6 @@ class MineableBlockRenderer extends DefaultBlockRenderer{
         }
 
         return false;
-    }
-
-    private void renderIcon(Tile tile, SpriteBatch batch) {
-        BlockContainer container = getContainer(tile);
-
-        int x = tile.getX() * Tile.TILE_SIZE;
-        int y = tile.getY() * Tile.TILE_SIZE;
-        x += (container.getWidth() / 2) * Tile.TILE_SIZE;
-        y += (container.getHeight() / 2) * Tile.TILE_SIZE;
-
-        batch.setColor(new Color(1f, 1f, 1f, .5f));
-        batch.draw(icon.getTexture().get(), x, y);
-        batch.setColor(new Color(1f, 1f, 1f, 1f));
     }
 
     public void setIcon(InGameIcon icon) {

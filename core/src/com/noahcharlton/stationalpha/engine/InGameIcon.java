@@ -3,7 +3,7 @@ package com.noahcharlton.stationalpha.engine;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 
 public enum InGameIcon {
-    PICK_AXE("pick_axe.png"), AXE("axe.png");
+    PICK_AXE("pick_axe.png"), AXE("axe.png"), NO_POWER("no_power.png");
 
     private final String path;
     private final ManagedTexture managedTexture;
