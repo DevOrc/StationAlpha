@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public final class Tile implements Selectable {
 
     public static final int TILE_SIZE = 32;
-    private static final int MAX_POWER = 25;
+    public static final int MAX_POWER = 25;
 
     private final World world;
     private final int x;
