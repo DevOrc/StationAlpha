@@ -1,30 +1,50 @@
 package com.noahcharlton.stationalpha.goal;
 
-import com.noahcharlton.stationalpha.worker.Worker;
-import com.noahcharlton.stationalpha.world.World;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Goal {
+public class Goal {
 
+    private String name;
+    private String desc;
+
+    private List<Goal> requirements = new ArrayList<>();
     private boolean completed;
 
-    final void update(World world){
-        if(completed)
-            return;
+    public boolean allRequirementsCompleted(){
+        for(Goal goal: requirements){
+            if(!goal.isCompleted())
+                return false;
+        }
 
-        completed = checkCompleted(world);
+        return true;
     }
 
-    protected abstract boolean checkCompleted(World world);
-
-    public void onComplete(World world){
-        world.getWorkers().add(Worker.create(world));
+    public void addRequirement(Goal goal){
+        requirements.add(goal);
     }
 
-    public abstract String getName();
+    public String getName() {
+        return name;
+    }
 
-    public abstract String getDescription();
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     public boolean isCompleted() {
         return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

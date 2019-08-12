@@ -21,8 +21,8 @@ public class HStretchLayout implements LayoutManager {
 
     @Override
     public void layout(GuiComponent parent, ArrayList<GuiComponent> children) {
-        containerY = parent.getX() + padding;
-        containerX = parent.getY() + padding;
+        containerX = parent.getX() + padding;
+        containerY = parent.getY() + padding;
         containerWidth = parent.getWidth() - (padding * 2);
         containerHeight = parent.getHeight() - (padding * 2);
 
