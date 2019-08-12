@@ -30,7 +30,6 @@ public class BedRenderer extends DefaultBlockRenderer {
 
     @Override
     public void renderBlock(SpriteBatch batch, Tile tile) {
-
         if(!getContainer(tile).getTile().equals(tile)) {
             return;
         }
@@ -41,14 +40,16 @@ public class BedRenderer extends DefaultBlockRenderer {
         if(bedContainer.getWorker().isPresent()) {
             drawTexture(batch, tile, bedContainer.getWorker().get());
             drawName(batch, tile, bedContainer);
+        }else{
+            drawPartialTexture(batch, tile, UNOCCUPIED_Y);
         }
     }
 
     private void drawTexture(SpriteBatch batch, Tile tile, Worker worker) {
         if(isBedOccupied(worker)) {
-            drawSubTextureTexture(batch, tile, OCCUPIED_Y);
+            drawPartialTexture(batch, tile, OCCUPIED_Y);
         } else {
-            drawSubTextureTexture(batch, tile, UNOCCUPIED_Y);
+            drawPartialTexture(batch, tile, UNOCCUPIED_Y);
         }
     }
 
@@ -70,7 +71,7 @@ public class BedRenderer extends DefaultBlockRenderer {
         return job instanceof SleepJob && job.getStage() == Job.JobStage.IN_PROGRESS;
     }
 
-    private void drawSubTextureTexture(SpriteBatch batch, Tile tile, int srcY) {
+    private void drawPartialTexture(SpriteBatch batch, Tile tile, int srcY) {
         BlockContainer container = getContainer(tile);
         Texture texture = Blocks.getBedBlock().getTexture().get().get();
 
