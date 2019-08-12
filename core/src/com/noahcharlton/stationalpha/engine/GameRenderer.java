@@ -71,7 +71,6 @@ public class GameRenderer {
     }
 
     public void updateCamera(){
-        CameraInputHandler.update(camera);
         camera.update();
 
         spriteBatch.setProjectionMatrix(camera.combined);
