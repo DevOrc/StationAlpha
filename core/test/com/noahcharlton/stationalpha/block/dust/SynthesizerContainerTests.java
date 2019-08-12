@@ -41,7 +41,7 @@ public class SynthesizerContainerTests {
     void onDestroyJobIsCancelledTest() {
         ManufacturingRecipe recipe = new ManufacturingRecipe(
                 Item.DIRT.stack(0), Item.LEAVES.stack(0), 250, RecipeType.CRAFT);
-        SynthesizerJob job = new SynthesizerJob(tile, recipe);
+        SynthesizerJob job = new SynthesizerJob(tile, recipe, container);
         container.setCurrentJob(job);
 
         job.start();
@@ -54,7 +54,7 @@ public class SynthesizerContainerTests {
     void jobRemovedOnFinish() {
         ManufacturingRecipe recipe = new ManufacturingRecipe(
                 Item.DIRT.stack(0), Item.LEAVES.stack(0), 250, RecipeType.CRAFT);
-        SynthesizerJob job = new SynthesizerJob(tile, recipe);
+        SynthesizerJob job = new SynthesizerJob(tile, recipe, container);
         container.setCurrentJob(job);
 
         job.start();
@@ -192,7 +192,10 @@ public class SynthesizerContainerTests {
 
         container.checkAndCreateJob();
 
-        for(int i = 0; i < recipe.getTime() / 2; i++){container.getCurrentJob().get().update();}
+        for(int i = 0; i < recipe.getTime() / 2; i++){
+            tile.setPower(25);
+            container.getCurrentJob().get().update();
+        }
 
         String expected = "Progress: 50%";
         String[] actual = container.getDebugInfo();

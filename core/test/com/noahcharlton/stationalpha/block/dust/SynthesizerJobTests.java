@@ -21,6 +21,7 @@ public class SynthesizerJobTests extends JobTests {
             Item.SPACE_ROCK.stack(3), 125, RecipeType.SYNTHESIZE);
 
     private final World world = new World();
+    private Tile tile;
 
     @Test
     void jobLengthMatchesRecipeTimeTest() {
@@ -34,6 +35,7 @@ public class SynthesizerJobTests extends JobTests {
         TickBasedJob job = (TickBasedJob) getJob();
 
         for(int i = 0; i < 5; i++){
+            tile.setPower(25);
             job.update();
         }
         job.cancel();
@@ -43,8 +45,18 @@ public class SynthesizerJobTests extends JobTests {
     }
 
     @Test
+    void jobDoesNotTickIfNoPower() {
+        TickBasedJob job = (TickBasedJob) getJob();
+
+        tile.setPower(0);
+        job.update();
+
+        Assertions.assertEquals(0, job.getTick());
+    }
+
+    @Test
     void addProductsOnFinishTest() {
-        Inventory inventory = getJob().getTarget().getWorld().getInventory();
+        Inventory inventory = world.getInventory();
 
         getJob().finish();
 
@@ -53,10 +65,11 @@ public class SynthesizerJobTests extends JobTests {
 
     @Override
     public Job getJob() {
-        Tile tile = world.getTileAt(0, 0).get();
+        tile = world.getTileAt(0, 0).get();
+        world.getInventory().setAmountForItem(Item.UNOBTAINIUM, 1);
         BuildBlock buildBlock = new BuildBlock(Blocks.getSynthesizer());
         buildBlock.onClick(tile, Input.Buttons.LEFT);
 
-        return new SynthesizerJob(tile, recipe);
+        return new SynthesizerJob(tile, recipe, (SynthesizerContainer) tile.getContainer().get());
     }
 }

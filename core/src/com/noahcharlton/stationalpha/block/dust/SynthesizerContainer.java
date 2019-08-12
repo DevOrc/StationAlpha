@@ -2,8 +2,8 @@ package com.noahcharlton.stationalpha.block.dust;
 
 import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
-import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.block.power.PoweredBlockContainer;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
@@ -14,7 +14,7 @@ import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Optional;
 
-public class SynthesizerContainer extends BlockContainer {
+public class SynthesizerContainer extends PoweredBlockContainer {
 
     private Optional<SynthesizerJob> currentJob = Optional.empty();
 
@@ -39,6 +39,11 @@ public class SynthesizerContainer extends BlockContainer {
                 "Currently Producing: " + producing,
                 "Progress: " + ((int) percent) + "%"
         };
+    }
+
+    @Override
+    public int getPowerPerTick() {
+        return 2;
     }
 
     @Override
@@ -70,7 +75,7 @@ public class SynthesizerContainer extends BlockContainer {
         World world = tile.getWorld();
 
         recipe.removeRequirements(world.getInventory());
-        currentJob = Optional.of(new SynthesizerJob(tile, recipe));
+        currentJob = Optional.of(new SynthesizerJob(tile, recipe, this));
 
         JobQueue.getInstance().addJob(currentJob.get());
     }
@@ -134,7 +139,7 @@ public class SynthesizerContainer extends BlockContainer {
         Optional<Tile> jobTile = getJobTile();
 
         if(jobTile.isPresent()){
-            SynthesizerJob job = new SynthesizerJob(jobTile.get(), recipe);
+            SynthesizerJob job = new SynthesizerJob(jobTile.get(), recipe, this);
             job.setTick(tick);
 
             setCurrentJob(job);
