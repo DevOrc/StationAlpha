@@ -11,7 +11,7 @@ import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public abstract class ComposterJobTests extends JobTests{
+public class ComposterJobTests extends JobTests{
 
     protected static final ManufacturingRecipe recipe = new ManufacturingRecipe(Item.LEAVES.stack(4),
             Item.DIRT.stack(5), 180, RecipeType.COMPOST);

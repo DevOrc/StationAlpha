@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.goal;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class GoalManagerTests implements GoalSupplier{
@@ -56,7 +57,8 @@ public class GoalManagerTests implements GoalSupplier{
         Assertions.assertEquals(1, MessageQueue.getInstance().getMessages().size());
     }
 
-    static class SecondGoalNullSupplier implements GoalSupplier{
+    @Nested
+    class SecondGoalNullSupplier implements GoalSupplier{
 
         boolean firstSupplied = false;
 
