@@ -1,18 +1,21 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu.goalmenu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.noahcharlton.stationalpha.gui.GuiComponent;
+import com.badlogic.gdx.utils.Align;
+import com.noahcharlton.stationalpha.engine.ShapeUtil;
+import com.noahcharlton.stationalpha.goal.Goal;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
-import com.noahcharlton.stationalpha.world.World;
 
 import java.util.Collections;
 
 public class GoalMenu extends BuildBarMenu<Void> {
 
     private static final int WINDOW_OFFSET = 50;
+    private static final int BOX_WIDTH = 200;
+    private static final int BOX_HEIGHT = 50;
 
     private final GoalTabPane tabPane = new GoalTabPane(this);
 
@@ -30,8 +33,23 @@ public class GoalMenu extends BuildBarMenu<Void> {
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        setFontData(.75f, GuiComponent.ACCENT_COLOR);
-        font.draw(b, tabPane.getSelected().getDisplayName(), getX() + 20, getY() + 20);
+        for(Goal goal: tabPane.getSelected().getGoals()){
+            renderGoal(goal, b);
+        }
+    }
+
+    private void renderGoal(Goal goal, SpriteBatch b) {
+        int x = goal.getX() + getX();
+        int y = goal.getY() + getY();
+
+        Color borderColor = goal.isCompleted() ? Color.GREEN : Color.FIREBRICK;
+        ShapeUtil.drawRect(x, y, BOX_WIDTH, BOX_HEIGHT, borderColor, b);
+        ShapeUtil.drawRect(x + 2, y + 2, BOX_WIDTH - 4, BOX_HEIGHT - 4, Color.BLACK, b);
+
+        setFontData(.6f, Color.WHITE);
+        int fontPadding = 5;
+        font.draw(b, goal.getName(), x + fontPadding, y + 30,
+                BOX_WIDTH - (fontPadding * 2), Align.center, false);
     }
 
     @Override
@@ -57,9 +75,5 @@ public class GoalMenu extends BuildBarMenu<Void> {
 
         int height = Gdx.graphics.getHeight() - BuildBar.HEIGHT - (WINDOW_OFFSET * 2);
         setHeight(height);
-    }
-
-    private World getWorld(){
-        return World.getInstance().orElseThrow(() -> new GdxRuntimeException("World not available!"));
     }
 }

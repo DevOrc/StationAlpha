@@ -7,6 +7,10 @@ public enum GoalTab {
 
     BASICS("Basics"), BOTANY("Botany"), TECH("Tech");
 
+    static{
+        init();
+    }
+
     private final String name;
     private List<Goal> goals = new ArrayList<>();
 
@@ -14,8 +18,23 @@ public enum GoalTab {
         this.name = name;
     }
 
+    private static void init() {
+        Goal testGoal = new Goal("Test Goal", "Description");
+        testGoal.setPosition(250, 250);
+
+        BASICS.addGoal(testGoal);
+    }
+
+    private void addGoal(Goal goal) {
+        goals.add(goal);
+    }
+
     public String getDisplayName() {
         return name;
+    }
+
+    public List<Goal> getGoals() {
+        return goals;
     }
 
     @Override

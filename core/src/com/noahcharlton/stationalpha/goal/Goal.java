@@ -11,6 +11,22 @@ public class Goal {
     private List<Goal> requirements = new ArrayList<>();
     private boolean completed;
 
+    private int x;
+    private int y;
+
+    public Goal() {
+        this("", "");
+    }
+
+    public Goal(String name, String desc) {
+        this.name = name;
+        this.desc = desc;
+        this.completed = false;
+
+        this.x = 0;
+        this.y = 0;
+    }
+
     public boolean allRequirementsCompleted(){
         for(Goal goal: requirements){
             if(!goal.isCompleted())
@@ -18,6 +34,11 @@ public class Goal {
         }
 
         return true;
+    }
+
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     public void addRequirement(Goal goal){
@@ -46,5 +67,13 @@ public class Goal {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

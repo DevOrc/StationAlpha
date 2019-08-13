@@ -29,4 +29,18 @@ public class GoalTests {
 
         Assertions.assertFalse(goal.allRequirementsCompleted());
     }
+
+    @Test
+    void setPositionXTest() {
+        goal.setPosition(25, 63);
+
+        Assertions.assertEquals(25, goal.getX());
+    }
+
+    @Test
+    void setPositionYTest() {
+        goal.setPosition(52, 75);
+
+        Assertions.assertEquals(75, goal.getY());
+    }
 }
