@@ -20,7 +20,7 @@ public enum GoalTab {
 
     private static void init() {
         Goal testGoal = new Goal("Test Goal", "Description");
-        testGoal.setPosition(250, 250);
+        testGoal.setPosition(20, 20);
 
         BASICS.addGoal(testGoal);
     }

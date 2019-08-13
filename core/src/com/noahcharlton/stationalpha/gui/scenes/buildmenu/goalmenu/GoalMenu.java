@@ -18,11 +18,12 @@ public class GoalMenu extends BuildBarMenu<Void> {
     private static final int BOX_HEIGHT = 50;
 
     private final GoalTabPane tabPane = new GoalTabPane(this);
+    private final GoalInfoBox infoBox = new GoalInfoBox(this);
 
     public GoalMenu() {
         super(Collections.emptyList());
 
-        addGui(tabPane);
+        addAllGui(tabPane, infoBox);
         setDrawBorder(true, true, true, true);
     }
 
@@ -33,14 +34,14 @@ public class GoalMenu extends BuildBarMenu<Void> {
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        for(Goal goal: tabPane.getSelected().getGoals()){
+        for(Goal goal : tabPane.getSelected().getGoals()) {
             renderGoal(goal, b);
         }
     }
 
     private void renderGoal(Goal goal, SpriteBatch b) {
         int x = goal.getX() + getX();
-        int y = goal.getY() + getY();
+        int y = goal.getY() + getY() + GoalInfoBox.HEIGHT;
 
         Color borderColor = goal.isCompleted() ? Color.GREEN : Color.FIREBRICK;
         ShapeUtil.drawRect(x, y, BOX_WIDTH, BOX_HEIGHT, borderColor, b);
@@ -50,6 +51,22 @@ public class GoalMenu extends BuildBarMenu<Void> {
         int fontPadding = 5;
         font.draw(b, goal.getName(), x + fontPadding, y + 30,
                 BOX_WIDTH - (fontPadding * 2), Align.center, false);
+    }
+
+    @Override
+    protected void onClick() {
+        int clickX = Gdx.input.getX() - getX();
+        int clickY = Gdx.graphics.getHeight() - Gdx.input.getY() - getY() - GoalInfoBox.HEIGHT;
+
+        for(Goal goal : tabPane.getSelected().getGoals()) {
+            if(clickX > goal.getX() && clickY > goal.getY() && clickX < goal.getX() + BOX_WIDTH &&
+                    clickY < goal.getY() + BOX_HEIGHT){
+                infoBox.setSelectedGoal(goal);
+                return;
+            }
+        }
+
+        infoBox.setSelectedGoal(null);
     }
 
     @Override
