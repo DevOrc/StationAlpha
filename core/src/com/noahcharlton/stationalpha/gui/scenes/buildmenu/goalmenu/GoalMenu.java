@@ -37,7 +37,6 @@ public class GoalMenu extends BuildBarMenu<Void> {
         for(Goal goal : tabPane.getSelected().getGoals()) {
             renderGoal(goal, b);
         }
-        ShapeUtil.drawLine(getX(), getY(), getX() + 50, getY() + 40, Color.GOLDENROD, b);
     }
 
     private void renderGoal(Goal goal, SpriteBatch b) {

@@ -1,10 +1,13 @@
 package com.noahcharlton.stationalpha.goal;
 
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+
+import java.io.StringWriter;
 
 public class GoalManagerTests {
 
@@ -43,6 +46,19 @@ public class GoalManagerTests {
         goalManager.updateGoal(goal);
 
         Assertions.assertFalse(goal.isUpdated());
+    }
+
+    @Test
+    void saveGoalBasicTest() {
+        StringWriter writer = new StringWriter();
+        TestGoal goal = new TestGoal();
+        goal.setName("Zebra");
+        goal.setCompleted(true);
+
+        goalManager.saveGoal(new QuietXmlWriter(writer), goal);
+
+        String expected = "<Goal name=\"Zebra\" completed=\"true\"/>\n";
+        Assertions.assertEquals(expected, writer.toString());
     }
 }
 class TestGoal extends Goal{
