@@ -14,7 +14,7 @@ import java.util.Collections;
 public class GoalMenu extends BuildBarMenu<Void> {
 
     private static final int WINDOW_OFFSET = 50;
-    private static final int BOX_WIDTH = 200;
+    private static final int BOX_WIDTH = 250;
     private static final int BOX_HEIGHT = 50;
 
     private final GoalTabPane tabPane = new GoalTabPane(this);
@@ -37,6 +37,7 @@ public class GoalMenu extends BuildBarMenu<Void> {
         for(Goal goal : tabPane.getSelected().getGoals()) {
             renderGoal(goal, b);
         }
+        ShapeUtil.drawLine(getX(), getY(), getX() + 50, getY() + 40, Color.GOLDENROD, b);
     }
 
     private void renderGoal(Goal goal, SpriteBatch b) {
@@ -51,6 +52,20 @@ public class GoalMenu extends BuildBarMenu<Void> {
         int fontPadding = 5;
         font.draw(b, goal.getName(), x + fontPadding, y + 30,
                 BOX_WIDTH - (fontPadding * 2), Align.center, false);
+
+        drawRequirements(goal, b);
+    }
+
+    private void drawRequirements(Goal goal, SpriteBatch b) {
+        int x2 = goal.getX() + getX();
+        int y2 = goal.getY() + getY() + GoalInfoBox.HEIGHT +  (BOX_HEIGHT / 2);
+
+        for(Goal requirement: goal.getRequirements()){
+            int x1 = requirement.getX() + getX() + BOX_WIDTH;
+            int y1 = requirement.getY() +  getY() + GoalInfoBox.HEIGHT + (BOX_HEIGHT / 2);
+
+            ShapeUtil.drawLine(x1, y1, x2, y2, Color.GOLDENROD, b);
+        }
     }
 
     @Override

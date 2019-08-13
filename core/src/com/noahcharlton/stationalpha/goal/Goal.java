@@ -80,4 +80,8 @@ public class Goal {
     public int getY() {
         return y;
     }
+
+    public List<Goal> getRequirements() {
+        return requirements;
+    }
 }
