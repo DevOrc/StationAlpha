@@ -1,5 +1,7 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.noahcharlton.stationalpha.world.World;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class Goal {
         this.x = 0;
         this.y = 0;
     }
+
+    public void update(World world) {}
 
     public boolean allRequirementsCompleted(){
         for(Goal goal: requirements){

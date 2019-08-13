@@ -1,5 +1,7 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.noahcharlton.stationalpha.item.Item;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +21,14 @@ public enum GoalTab {
     }
 
     private static void init() {
-        Goal testGoal = new Goal("Test Goal", "Description");
-        testGoal.setPosition(20, 20);
+        Goal steelGoal = new ItemGoal(Item.STEEL, 20);
+        steelGoal.setPosition(20, 20);
+        Goal secondSteelGoal = new ItemGoal(Item.STEEL, 40);
+        secondSteelGoal.setPosition(350, 20);
+        secondSteelGoal.addRequirement(steelGoal);
 
-        BASICS.addGoal(testGoal);
+        BASICS.addGoal(steelGoal);
+        BASICS.addGoal(secondSteelGoal);
     }
 
     private void addGoal(Goal goal) {
