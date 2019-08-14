@@ -50,7 +50,7 @@ public class Worker {
     }
 
     public static Worker create(World world){
-        return new Worker(WorkerNameGenerator.generate(), world);
+        return new Worker(WorkerNameGenerator.generate(world), world);
     }
 
     public void setPixelX(int pixelX) {
