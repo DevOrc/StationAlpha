@@ -36,6 +36,14 @@ public class ManufacturingRecipes {
         );
 
         recipes.add(ManufacturingRecipe.createBuilder()
+                .setInput(Item.WOOD.stack(30))
+                .setOutput(Item.WOODROOT.stack(1))
+                .setTime(15_000)
+                .setType(RecipeType.SYNTHESIZE)
+                .build()
+        );
+
+        recipes.add(ManufacturingRecipe.createBuilder()
                 .setInput(Item.SPACE_DUST.stack(15))
                 .setOutput(Item.UNOBTAINIUM.stack(1))
                 .setTime(15_000)

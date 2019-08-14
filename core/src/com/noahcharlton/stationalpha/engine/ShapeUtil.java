@@ -32,8 +32,8 @@ public class ShapeUtil {
     }
 
     public static final void drawLine(int x1, int y1, int x2, int y2,  Color color, SpriteBatch b){
-        if(x1 > x2 || y1 > y2){
-            throw new IllegalArgumentException("Point 1 must be lower than point 2!");
+        if(x1 > x2){
+            throw new IllegalArgumentException("x1 must be lower than x2!");
         }
 
         int thickness = 2;

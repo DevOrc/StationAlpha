@@ -8,6 +8,7 @@ public enum Item {
 
     DIRT("dirt", "Dirt"),
     POTATO("potato", "Potato"),
+    WOODROOT("woodroot", "Woodroot"),
     WOOD("wood", "Wood"),
     LEAVES("leaves", "Leaves"),
     SPACE_ROCK("space_rock", "Space Rock"),

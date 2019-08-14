@@ -12,11 +12,4 @@ public class ShapeUtilTests {
             ShapeUtil.drawLine(20, 0, 15, 10, Color.WHITE, null);
         });
     }
-
-    @Test
-    void drawLineY2LowerThanY1Test() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            ShapeUtil.drawLine(0, 50, 15, 45, Color.WHITE, null);
-        });
-    }
 }

@@ -93,7 +93,7 @@ public class PlantContainer extends BlockContainer {
     void addProductToInventory() {
         Inventory inventory = getTile().getWorld().getInventory();
 
-        inventory.changeAmountForItem(plant.getProduct(), 1);
+        inventory.changeAmountForItem(plant.getProduct(), plant.getAmountPerHarvest());
     }
 
     @Override

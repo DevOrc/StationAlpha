@@ -18,6 +18,9 @@ public abstract class Plant extends Block {
     public Plant(int stageCount, int ticksPerStage) {
         this.stageCount = stageCount;
         this.ticksPerStage = ticksPerStage;
+
+        setOpaque(false);
+        setPassable(true);
     }
 
     @Override
@@ -39,6 +42,8 @@ public abstract class Plant extends Block {
     protected Optional<String> getTextureFileName() {
         return Optional.of("plant/" + getPlantName() + ".png");
     }
+
+    public abstract int getAmountPerHarvest();
 
     public abstract Item getProduct();
 
