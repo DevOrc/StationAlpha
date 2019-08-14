@@ -44,16 +44,26 @@ public class DustCollectorContainerTests {
 
         container.onSave(new QuietXmlWriter(writer));
 
-        String expected = "<Tick>" + container.getTick() + "</Tick>\n";
+        String expected = "<Tick>" + container.getTick() + "</Tick>\n" +
+                "<StartTick>" + container.getStartTick() + "</StartTick>\n";
         Assertions.assertEquals(expected, writer.toString());
     }
 
     @Test
-    void onLoadBasicTest() {
-        String xml = "<Tick>234</Tick>";
+    void onLoadTickTest() {
+        String xml = "<Tick>234</Tick><StartTick>510</StartTick>";
 
         container.onLoad(LoadTestUtils.asChild(xml));
 
         Assertions.assertEquals(234, container.getTick());
+    }
+
+    @Test
+    void onLoadStartTickTest() {
+        String xml = "<Tick>234</Tick><StartTick>510</StartTick>";
+
+        container.onLoad(LoadTestUtils.asChild(xml));
+
+        Assertions.assertEquals(510, container.getStartTick());
     }
 }

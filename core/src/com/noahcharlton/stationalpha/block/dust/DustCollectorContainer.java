@@ -12,6 +12,7 @@ public class DustCollectorContainer extends PoweredBlockContainer {
 
     private static final int BASE_TIME = 7200;
 
+    private int startTick;
     private int tick;
 
     public DustCollectorContainer(Tile tile, Block block, BlockRotation rotation) {
@@ -22,6 +23,7 @@ public class DustCollectorContainer extends PoweredBlockContainer {
 
     private void generateTick() {
         tick = (int) (BASE_TIME * (Math.random() + 1));
+        startTick = tick;
     }
 
     @Override
@@ -44,16 +46,29 @@ public class DustCollectorContainer extends PoweredBlockContainer {
     }
 
     @Override
+    public String[] getDebugInfo() {
+        int dustCollected  = startTick == 0 ? 0 : 100 * (startTick - tick) / startTick;
+        double percent = dustCollected / 100.0;
+        return combineDebugInfo("Dust Collected: " + percent);
+    }
+
+    @Override
     public void onSave(QuietXmlWriter writer) {
         writer.element("Tick", tick);
+        writer.element("StartTick", startTick);
     }
 
     @Override
     public void onLoad(XmlReader.Element element) {
         tick = element.getInt("Tick");
+        startTick = element.getInt("StartTick");
     }
 
     public int getTick() {
         return tick;
+    }
+
+    public int getStartTick() {
+        return startTick;
     }
 }
