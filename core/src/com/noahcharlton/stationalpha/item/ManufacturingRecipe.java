@@ -152,7 +152,7 @@ public class ManufacturingRecipe {
 
     @Override
     public String toString() {
-        return output.toString();
+        return output.getItem().toString();
     }
 
 }
