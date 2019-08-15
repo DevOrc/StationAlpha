@@ -15,6 +15,7 @@ public enum Item {
     SPACE_DUST("dust", "Space Dust"),
     STEEL("steel", "Steel"),
     COPPER("copper", "Copper"),
+    POWER_INGOT("power_ingot", "Power Ingot"),
     UNOBTAINIUM("unobtainium", "Unobtainium"),
     TEST_ITEM("test_item", "Test Item");
 

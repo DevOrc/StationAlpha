@@ -10,7 +10,7 @@ public class GoalTabPane extends ComponentGroup {
     private static final int HEIGHT = MenuButton.HEIGHT;
 
     private final GoalMenu goalMenu;
-    private GoalTab selected = GoalTab.BASICS;
+    private GoalTab selected = GoalTab.TECH;
 
     public GoalTabPane(GoalMenu goalMenu) {
         this.goalMenu = goalMenu;

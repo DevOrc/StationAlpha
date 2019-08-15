@@ -8,7 +8,7 @@ import java.util.List;
 
 public enum GoalTab {
 
-    BASICS("Basics"), BOTANY("Botany"), TECH("Tech");
+    TECH("Basics"), BOTANY("Botany");
 
     static{
         init();
@@ -26,13 +26,35 @@ public enum GoalTab {
     }
 
     private static void init() {
-        initBasicTab();
-        initBotanyTab();
         initTechTab();
+        initBotanyTab();
     }
 
-    private static void initBasicTab() {
+    private static void initTechTab() {
+        Goal steelGoal = new ItemGoal(Item.STEEL, 80);
+        steelGoal.setPosition(25, 175);
 
+        Goal copperGoal = new ItemGoal(Item.COPPER, 5);
+        copperGoal.setPosition(25, 75);
+
+        Goal spaceDustGoal = new ItemGoal(Item.SPACE_DUST, 25);
+        spaceDustGoal.setPosition(325, 125);
+        spaceDustGoal.addRequirement(copperGoal, steelGoal);
+
+        Goal synthesizeUnobtainiumGoal = new ItemGoal(Item.UNOBTAINIUM, 5);
+        synthesizeUnobtainiumGoal.setPosition(625, 175);
+        synthesizeUnobtainiumGoal.addRequirement(spaceDustGoal);
+
+        Goal synthesizePowerIngotGoal = new ItemGoal(Item.POWER_INGOT, 5);
+        synthesizePowerIngotGoal.setPosition(625, 75);
+        synthesizePowerIngotGoal.addRequirement(spaceDustGoal);
+
+        Goal arcReactorGoal = new ItemGoal(Item.TEST_ITEM, 25);
+        arcReactorGoal.setPosition(925, 125);
+        arcReactorGoal.addRequirement(synthesizeUnobtainiumGoal, synthesizePowerIngotGoal);
+
+        TECH.addGoals(steelGoal, copperGoal, spaceDustGoal, synthesizeUnobtainiumGoal,
+                synthesizePowerIngotGoal, arcReactorGoal);
     }
 
     private static void initBotanyTab() {
@@ -56,11 +78,6 @@ public enum GoalTab {
         growWoodrootGoal.addRequirement(collectWoodGoal);
 
         BOTANY.addGoals(firstPotatoGoal, collectWoodGoal, compostDirtGoal, secondPotatoGoal, growWoodrootGoal);
-    }
-
-    private static void initTechTab() {
-
-
     }
 
     public String getDisplayName() {

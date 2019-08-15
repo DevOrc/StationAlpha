@@ -10,8 +10,8 @@ public class GoalTabPaneTests {
     private final GoalTabPane tabMenu = new GoalTabPane(goalMenu);
 
     @Test
-    void selectedDefaultsToBasicTest() {
-        Assertions.assertEquals(GoalTab.BASICS, tabMenu.getSelected());
+    void selectedDefaultsToTechTest() {
+        Assertions.assertEquals(GoalTab.TECH, tabMenu.getSelected());
     }
 
     @Test

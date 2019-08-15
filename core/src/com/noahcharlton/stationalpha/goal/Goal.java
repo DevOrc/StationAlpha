@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.goal;
 import com.noahcharlton.stationalpha.world.World;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Goal {
@@ -45,8 +46,8 @@ public class Goal {
         this.y = y;
     }
 
-    public void addRequirement(Goal goal){
-        requirements.add(goal);
+    public void addRequirement(Goal... goal){
+        Collections.addAll(requirements, goal);
     }
 
     public String getName() {
