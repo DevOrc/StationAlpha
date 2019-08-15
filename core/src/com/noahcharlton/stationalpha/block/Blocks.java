@@ -9,6 +9,7 @@ import com.noahcharlton.stationalpha.block.mineable.IceBlock;
 import com.noahcharlton.stationalpha.block.plant.PotatoPlant;
 import com.noahcharlton.stationalpha.block.mineable.TreeBlock;
 import com.noahcharlton.stationalpha.block.plant.WoodrootPlant;
+import com.noahcharlton.stationalpha.block.power.ArcReactorBlock;
 import com.noahcharlton.stationalpha.block.power.BatteryBlock;
 import com.noahcharlton.stationalpha.block.power.SolarPanelBlock;
 import com.noahcharlton.stationalpha.block.sapling.TreeSaplingBlock;
@@ -37,11 +38,12 @@ public class Blocks {
     private static Block solarPanelBlock = new SolarPanelBlock();
     private static Block batteryBlock = new BatteryBlock();
     private static Block woodrootPlant = new WoodrootPlant();
+    private static Block arcReactorBlock = new ArcReactorBlock();
 
     public static void init(){
         Collections.addAll(blocks, wall, door, compressor, iceBlock, potatoPlant, workbench, bedBlock, treeBlock,
                 treeSapling, composter, dustCollector, synthesizer, deadPlant, solarPanelBlock, batteryBlock,
-                woodrootPlant);
+                woodrootPlant, arcReactorBlock);
     }
 
     public static Optional<Block> getByID(String blockID) {
@@ -115,6 +117,10 @@ public class Blocks {
 
     public static Block getWoodrootPlant() {
         return woodrootPlant;
+    }
+
+    public static Block getArcReactor() {
+        return arcReactorBlock;
     }
 
     public static ArrayList<Block> getBlocks() {
