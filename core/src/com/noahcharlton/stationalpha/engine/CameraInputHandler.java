@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class CameraInputHandler {
 
-    private static final float zoomSpeed = 0.05f;
-    private static final float moveSpeed = 10f;
+    private static final float zoomSpeed = 3f;
+    private static final float moveSpeed = 600f;
 
     public static void update(OrthographicCamera cam) {
         updateCameraPosition(cam);
@@ -16,28 +16,28 @@ public class CameraInputHandler {
 
     private static void updateCameraPosition(OrthographicCamera cam) {
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            cam.translate(moveSpeed, 0);
+            cam.translate(moveSpeed * Gdx.graphics.getDeltaTime(), 0);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            cam.translate(-moveSpeed, 0);
+            cam.translate(-moveSpeed * Gdx.graphics.getDeltaTime(), 0);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            cam.translate(0, -moveSpeed);
+            cam.translate(0, -moveSpeed * Gdx.graphics.getDeltaTime());
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            cam.translate(0, moveSpeed);
+            cam.translate(0, moveSpeed * Gdx.graphics.getDeltaTime());
         }
     }
 
     private static void updateCameraZoom(OrthographicCamera cam) {
         if (Gdx.input.isKeyPressed(Input.Keys.X)) {
-            cam.zoom += zoomSpeed;
+            cam.zoom += zoomSpeed * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
-            cam.zoom -= zoomSpeed;
+            cam.zoom -= zoomSpeed * Gdx.graphics.getDeltaTime();
         }
 
         trimZoom(cam);

@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Blocks;
-import com.noahcharlton.stationalpha.engine.CameraInputHandler;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
@@ -121,7 +120,6 @@ public class StationAlpha extends ApplicationAdapter {
         while(tickTime > tickLength){
             tickTime -= tickLength;
 
-            CameraInputHandler.update(gameRenderer.getCamera());
             world.ifPresent(World::update);
         }
     }
