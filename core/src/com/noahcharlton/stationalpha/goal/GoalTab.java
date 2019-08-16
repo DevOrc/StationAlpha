@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public enum GoalTab {
         synthesizePowerIngotGoal.setPosition(625, 75);
         synthesizePowerIngotGoal.addRequirement(spaceDustGoal);
 
-        Goal arcReactorGoal = new ItemGoal(Item.TEST_ITEM, 25);
+        Goal arcReactorGoal = new BuildBlockGoal(Blocks.getArcReactor());
         arcReactorGoal.setPosition(925, 125);
         arcReactorGoal.addRequirement(synthesizeUnobtainiumGoal, synthesizePowerIngotGoal);
 
