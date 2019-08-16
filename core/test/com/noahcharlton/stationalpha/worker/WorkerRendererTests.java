@@ -2,6 +2,8 @@ package com.noahcharlton.stationalpha.worker;
 
 import com.noahcharlton.stationalpha.worker.job.JobRenderer;
 import com.noahcharlton.stationalpha.worker.job.TestJob;
+import com.noahcharlton.stationalpha.world.Floor;
+import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -58,6 +60,28 @@ public class WorkerRendererTests {
         WorkerRenderer.render(null, worker);
 
         Assertions.assertTrue(job.hasBeenRendered());
+    }
+
+    @Test
+    void shouldRenderHelmetEnoughOxygenTest() {
+        Worker worker = new TestWorker();
+        Tile tile = worker.getTileOn();
+
+        tile.setFloor(Floor.METAL);
+        tile.setOxygen(25f);
+
+        Assertions.assertFalse(WorkerRenderer.shouldRenderHelmet(worker));
+    }
+
+    @Test
+    void shouldRenderHelmetNotEnoughOxygenTest() {
+        Worker worker = new TestWorker();
+        Tile tile = worker.getTileOn();
+
+        tile.setFloor(Floor.METAL);
+        tile.setOxygen(5f);
+
+        Assertions.assertTrue(WorkerRenderer.shouldRenderHelmet(worker));
     }
 }
 class CustomRendererTestJob extends TestJob {

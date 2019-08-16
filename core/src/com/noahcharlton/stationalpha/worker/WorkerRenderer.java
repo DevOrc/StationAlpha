@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobRenderer;
@@ -13,6 +14,9 @@ import com.noahcharlton.stationalpha.worker.job.WorkerJobManager;
 import java.util.Optional;
 
 public class WorkerRenderer {
+
+    private static final float HELMET_THRESHOLD = 15f;
+    private static final ManagedTexture helmetTexture = new ManagedTexture("worker/worker_helmet.png");
 
     public static void init(){
         WorkerRole.loadTextures();
@@ -34,7 +38,14 @@ public class WorkerRenderer {
 
         batch.draw(getRenderableRole(worker).getWorkerTexture().get(), worker.getPixelX(), worker.getPixelY());
 
+        if(shouldRenderHelmet(worker))
+            batch.draw(helmetTexture.get(), worker.getPixelX(), worker.getPixelY());
+
         renderName(batch, worker);
+    }
+
+    static boolean shouldRenderHelmet(Worker worker) {
+        return worker.getTileOn().getOxygenLevel() <= HELMET_THRESHOLD;
     }
 
     static WorkerRole getRenderableRole(Worker worker) {

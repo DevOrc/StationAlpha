@@ -1,11 +1,13 @@
 package com.noahcharlton.stationalpha.world;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
+import com.noahcharlton.stationalpha.engine.input.PlaceConduit;
 import com.noahcharlton.stationalpha.goal.GoalManager;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
@@ -153,13 +155,19 @@ public class World {
     private void renderTiles(SpriteBatch spriteBatch) {
         drawFloors(spriteBatch);
 
-        if(Gdx.input.isKeyPressed(DebugKeys.CONDUIT_VIEW)){
+        if(conduitViewMode()){
             drawBlocks(spriteBatch);
             ConduitRenderer.render(this, spriteBatch);
         }else{
             ConduitRenderer.render(this, spriteBatch);
             drawBlocks(spriteBatch);
         }
+    }
+
+    boolean conduitViewMode() {
+        Optional<BuildAction> buildAction = InputHandler.getInstance().getBuildManager().getAction();
+
+        return buildAction.filter(action -> action instanceof PlaceConduit).isPresent();
     }
 
     private void drawBlocks(SpriteBatch spriteBatch) {
