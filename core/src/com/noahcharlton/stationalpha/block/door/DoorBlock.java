@@ -3,7 +3,6 @@ package com.noahcharlton.stationalpha.block.door;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRenderer;
@@ -19,18 +18,25 @@ import java.util.Optional;
 
 public class DoorBlock extends Block implements BlockRenderer {
 
-    public DoorBlock() {
+    private final Color color;
+    private final String name;
+
+    public DoorBlock(String name, boolean opaque, Color color) {
+        this.name = name;
+        this.color = color;
+
+        setOpaque(opaque);
         setPassable(true);
     }
 
     @Override
     public String getID() {
-        return "airlock";
+        return "door_block_" + name;
     }
 
     @Override
     public String getDisplayName() {
-        return "Airlock";
+        return name;
     }
 
     @Override
@@ -53,14 +59,14 @@ public class DoorBlock extends Block implements BlockRenderer {
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
 
-        ShapeUtil.drawRect(x, y + 12, Tile.TILE_SIZE, 8, Color.FOREST, batch);
+        ShapeUtil.drawRect(x, y + 12, Tile.TILE_SIZE, 8, color, batch);
     }
 
     private void drawNorthSouth(SpriteBatch batch, Tile tile) {
         int x = tile.getX() * Tile.TILE_SIZE;
         int y = tile.getY() * Tile.TILE_SIZE;
 
-        ShapeUtil.drawRect(x + 12, y, 8, Tile.TILE_SIZE, Color.FOREST, batch);
+        ShapeUtil.drawRect(x + 12, y, 8, Tile.TILE_SIZE, color, batch);
     }
 
     @Override
@@ -80,7 +86,7 @@ public class DoorBlock extends Block implements BlockRenderer {
 
     @Override
     public Optional<String> getHelpInfo() {
-        return Optional.of(HelpInfo.AIRLOCK_INFO);
+        return Optional.empty();
     }
 
     @Override

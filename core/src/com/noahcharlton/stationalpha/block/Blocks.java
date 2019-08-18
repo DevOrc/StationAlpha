@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block;
 
+import com.badlogic.gdx.graphics.Color;
 import com.noahcharlton.stationalpha.block.bed.BedBlock;
 import com.noahcharlton.stationalpha.block.dust.DustCollector;
 import com.noahcharlton.stationalpha.block.composter.ComposterBlock;
@@ -24,7 +25,8 @@ public class Blocks {
 
     private static final ArrayList<Block> blocks = new ArrayList<>();
     private static Block wall = new WallBlock();
-    private static Block door = new DoorBlock();
+    private static Block airlock = new DoorBlock("Airlock", true, Color.FOREST);
+    private static Block door = new DoorBlock("Door", false, Color.BROWN);
     private static Block compressor = new CompressorBlock();
     private static Block potatoPlant = new PotatoPlant();
     private static Block workbench = new Workbench();
@@ -43,7 +45,7 @@ public class Blocks {
     private static Block scaffoldingBlock = new ScaffoldingBlock();
 
     public static void init(){
-        Collections.addAll(blocks, wall, door, compressor, iceBlock, potatoPlant, workbench, bedBlock, treeBlock,
+        Collections.addAll(blocks, wall, airlock, door, compressor, iceBlock, potatoPlant, workbench, bedBlock, treeBlock,
                 treeSapling, composter, dustCollector, synthesizer, deadPlant, solarPanelBlock, batteryBlock,
                 woodrootPlant, arcReactorBlock, scaffoldingBlock);
     }
@@ -115,6 +117,10 @@ public class Blocks {
 
     public static Block getBattery() {
         return batteryBlock;
+    }
+
+    public static Block getAirlock() {
+        return airlock;
     }
 
     public static Block getWoodrootPlant() {

@@ -1,5 +1,7 @@
 package com.noahcharlton.stationalpha.block.scaffolding;
 
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
@@ -8,12 +10,13 @@ import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 import java.util.Optional;
 
 public class ScaffoldingContainer extends BlockContainer {
 
-    private final Block blockToBuild;
+    private Block blockToBuild;
     private Optional<ScaffoldingJob> currentJob = Optional.empty();
 
     public ScaffoldingContainer(Tile tile, Block blockToBuild, BlockRotation rotation) {
@@ -24,6 +27,9 @@ public class ScaffoldingContainer extends BlockContainer {
 
     @Override
     public void onUpdate() {
+        if(blockToBuild == null)
+            return;
+
         if(!currentJob.isPresent())
             createJob();
 
@@ -70,6 +76,26 @@ public class ScaffoldingContainer extends BlockContainer {
         });
     }
 
+    @Override
+    public void onSave(QuietXmlWriter writer) {
+        writer.element("Block", blockToBuild.getID());
+    }
+
+    @Override
+    public void onLoad(XmlReader.Element element) {
+        String blockID = element.get("Block");
+
+        blockToBuild = Blocks.getByID(blockID)
+                .orElseThrow(() -> new GdxRuntimeException("Unknown block id: " + blockID));
+    }
+
+    @Override
+    public String[] getDebugInfo() {
+        if(blockToBuild == null)
+            return super.getDebugInfo();
+        return super.combineDebugInfo("Block: " + blockToBuild.getDisplayName());
+    }
+
     public int getWidth(){
         if(getRotation() == BlockRotation.NORTH || getRotation() == BlockRotation.SOUTH)
             return blockToBuild.getDimensionedWidth();
@@ -86,5 +112,9 @@ public class ScaffoldingContainer extends BlockContainer {
 
     public Optional<ScaffoldingJob> getCurrentJob() {
         return currentJob;
+    }
+
+    public Block getBlockToBuild() {
+        return blockToBuild;
     }
 }

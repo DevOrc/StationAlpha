@@ -14,6 +14,7 @@ public class WorkerMovementManager {
     private final Worker worker;
 
     private Optional<Tile> targetTile = Optional.empty();
+    private long pathfindingTimeout;
 
     WorkerMovementManager(WorkerAI workerAI, Worker worker) {
         this.workerAI = workerAI;
@@ -22,7 +23,7 @@ public class WorkerMovementManager {
     }
 
     public void update(){
-        if(!targetTile.isPresent())
+        if(!targetTile.isPresent() || pathfindingTimeout > System.currentTimeMillis())
             return;
 
         Tile target = targetTile.get();
@@ -32,8 +33,7 @@ public class WorkerMovementManager {
         if(graphPath.isPresent()){
             moveAlongPath(graphPath.get());
         }else{
-            //Causes too many problems at the moment - s8 " + target);
-
+            pathfindingTimeout = System.currentTimeMillis() + 750;
             worker.getAi().getJobManager().setCurrentJob(null);
         }
     }

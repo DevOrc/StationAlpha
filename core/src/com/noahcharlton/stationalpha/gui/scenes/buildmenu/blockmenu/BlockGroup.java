@@ -10,7 +10,8 @@ enum BlockGroup {
 
     STRUCTURE("Structure",
             Blocks.getWall(),
-            Blocks.getDoor()),
+            Blocks.getDoor(),
+            Blocks.getAirlock()),
     CRAFTING("Crafting",
             Blocks.getWorkbench(),
             Blocks.getSynthesizer(),

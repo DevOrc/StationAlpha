@@ -22,9 +22,6 @@ public class HelpInfo {
 
     public static final String WALL_INFO = "Nothing can pass through walls.";
 
-    public static final String AIRLOCK_INFO = "Airlocks are used to keep the air in your space station, while also" +
-            " allowing workers to exit into space";
-
     public static final String WORKBENCH_INFO = "The workbench allows you to craft more complex things. To craft, use " +
             "the manufacture menu. Once you click craft, a worker will begin to work on that task. Note: The workbench " +
             "only works on craftable things. Dirt/Unobtainium require other machines.";
