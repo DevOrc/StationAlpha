@@ -1,7 +1,6 @@
 package com.noahcharlton.stationalpha.worker;
 
 import com.badlogic.gdx.ai.pfa.GraphPath;
-import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.worker.pathfinding.Path;
 import com.noahcharlton.stationalpha.worker.pathfinding.WorldGraph;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -33,8 +32,7 @@ public class WorkerMovementManager {
         if(graphPath.isPresent()){
             moveAlongPath(graphPath.get());
         }else{
-            MessageQueue.getInstance().add("No path found!",
-                    worker.getName() + " can't get to tile " + target);
+            //Causes too many problems at the moment - s8 " + target);
 
             worker.getAi().getJobManager().setCurrentJob(null);
         }

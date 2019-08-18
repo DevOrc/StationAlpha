@@ -65,11 +65,15 @@ public final class Tile implements Selectable {
         ArrayList<Tile> adjacentTiles = this.getAdjacent();
 
         for(Tile tile : adjacentTiles){
-            if(!tile.getBlock().filter(block -> !block.isPassable()).isPresent())
+            if(!tile.hasNonPassableBlock())
                 return Optional.of(tile);
         }
 
         return Optional.empty();
+    }
+
+    public boolean hasNonPassableBlock() {
+        return getBlock().filter(block -> !block.isPassable()).isPresent();
     }
 
     public void updateOxygen(){

@@ -167,6 +167,29 @@ public class TileTests {
 
         Assertions.assertTrue(container.isDestroyed());
     }
+
+    @Test
+    void hasNonPassableBlockNoBlockTest() {
+        Tile tile = world.getTileAt(0, 0).get();
+
+        Assertions.assertFalse(tile.hasNonPassableBlock());
+    }
+
+    @Test
+    void hasNonPassableBlockPassableBlockTest() {
+        Tile tile = world.getTileAt(0, 0).get();
+        tile.setBlock(Blocks.getDoor());
+
+        Assertions.assertFalse(tile.hasNonPassableBlock());
+    }
+
+    @Test
+    void hasNonPassableBlockBlockTest() {
+        Tile tile = world.getTileAt(0, 0).get();
+        tile.setBlock(Blocks.getWall());
+
+        Assertions.assertTrue(tile.hasNonPassableBlock());
+    }
 }
 class OnDestroyTestContainer extends BlockContainer{
 

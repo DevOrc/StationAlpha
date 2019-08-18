@@ -4,14 +4,17 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.worker.job.Job;
+import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+
+import java.util.Optional;
 
 public class ScaffoldingContainer extends BlockContainer {
 
     private final Block blockToBuild;
-
-    private int tick = 500;
+    private Optional<ScaffoldingJob> currentJob = Optional.empty();
 
     public ScaffoldingContainer(Tile tile, Block blockToBuild, BlockRotation rotation) {
         super(tile, Blocks.getScaffoldingBlock(), rotation);
@@ -20,12 +23,29 @@ public class ScaffoldingContainer extends BlockContainer {
     }
 
     @Override
-    public void onUpdate(){
-        tick--;
+    public void onUpdate() {
+        if(!currentJob.isPresent())
+            createJob();
 
-        if(tick < 0){
-            finishBuilding();
+        if(currentJob.isPresent()){
+            Job job = currentJob.get();
+            Tile target = job.getTarget();
+
+            if(target.hasNonPassableBlock()){
+                JobQueue.getInstance().getJobQueue(job.getRequiredRole()).remove(job);
+                currentJob = Optional.empty();
+            }
         }
+    }
+
+    private void createJob() {
+        currentJob = getTile().getOpenAdjecent().map(adjacent -> {
+            ScaffoldingJob job = new ScaffoldingJob(adjacent, this);
+
+            JobQueue.getInstance().addJob(job);
+
+            return job;
+        });
     }
 
     void finishBuilding() {
@@ -39,6 +59,15 @@ public class ScaffoldingContainer extends BlockContainer {
                 world.getTileAt(x, y).get().setBlock(blockToBuild, container);
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        currentJob.filter(job -> job.getStage() != Job.JobStage.FINISHED).ifPresent(job -> {
+            job.cancel();
+
+            JobQueue.getInstance().getJobQueue(job.getRequiredRole()).remove(job);
+        });
     }
 
     public int getWidth(){
@@ -55,7 +84,7 @@ public class ScaffoldingContainer extends BlockContainer {
         return blockToBuild.getDimensionedWidth();
     }
 
-    public int getTick() {
-        return tick;
+    public Optional<ScaffoldingJob> getCurrentJob() {
+        return currentJob;
     }
 }
