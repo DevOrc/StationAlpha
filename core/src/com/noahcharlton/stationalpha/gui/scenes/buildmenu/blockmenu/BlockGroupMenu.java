@@ -17,6 +17,7 @@ public class BlockGroupMenu extends BuildBarMenu<Block> {
     protected Runnable createRunnable(Block block) {
         return () -> {
             BuildBlock buildBlock = new BuildBlock(block);
+            buildBlock.setUseScaffolding(true);
             BuildBlockSelectable selectable = new BuildBlockSelectable(buildBlock);
 
             InputHandler.getInstance().setBuildAction(buildBlock);

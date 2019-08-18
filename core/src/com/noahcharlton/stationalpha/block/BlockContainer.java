@@ -69,13 +69,13 @@ public class BlockContainer implements Selectable {
         return rotation;
     }
 
-    public final int getWidth(){
+    public int getWidth(){
         if(rotation == BlockRotation.NORTH || rotation == BlockRotation.SOUTH) return block.getDimensionedWidth();
 
         return block.getDimensionedHeight();
     }
 
-    public final int getHeight(){
+    public int getHeight(){
         if(rotation == BlockRotation.NORTH || rotation == BlockRotation.SOUTH) return block.getDimensionedHeight();
 
         return block.getDimensionedWidth();

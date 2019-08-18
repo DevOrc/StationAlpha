@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.block.scaffolding.ScaffoldingContainer;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -92,6 +93,24 @@ public class BuildBlockTests {
 
         Assertions.assertSame(world.getTileAt(0, 0).get().getContainer().get(),
                 world.getTileAt(1, 0).get().getContainer().get());
+    }
+
+    @Test
+    void useScaffoldingCreatesScaffoldingContainerTest() {
+        Tile tile = world.getTileAt(0, 0).get();
+        BuildBlock buildBlock = new BuildBlock(Blocks.getWall());
+        buildBlock.setUseScaffolding(true);
+
+        Assertions.assertTrue(buildBlock.createContainer(tile) instanceof ScaffoldingContainer);
+    }
+
+    @Test
+    void scaffoldingBlockContainerHasCorrectBlockTest() {
+        Tile tile = world.getTileAt(0, 0).get();
+        BuildBlock buildBlock = new BuildBlock(Blocks.getWall());
+        buildBlock.setUseScaffolding(true);
+
+        Assertions.assertTrue(buildBlock.createContainer(tile) instanceof ScaffoldingContainer);
     }
 
     @ParameterizedTest(name = "destroyMultiblock(clickX = {0})")

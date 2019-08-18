@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.block.scaffolding.ScaffoldingContainer;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -20,6 +21,7 @@ public class BuildBlock implements BuildAction {
 
     private final Block block;
     private BlockRotation rotation = BlockRotation.NORTH;
+    private boolean useScaffolding = false;
 
     public BuildBlock(Block block) {
         Objects.requireNonNull(block, "block cannot be null!");
@@ -37,7 +39,7 @@ public class BuildBlock implements BuildAction {
     @Override
     public void onClick(Tile tile, int button) {
         if(button == Input.Buttons.LEFT) {
-            build(tile, block.createContainer(tile, rotation));
+            build(tile);
         }
 
         if(button == Input.Buttons.RIGHT) {
@@ -68,7 +70,9 @@ public class BuildBlock implements BuildAction {
         }
     }
 
-    private void build(Tile tile, BlockContainer container) {
+    private void build(Tile tile) {
+        BlockContainer container = createContainer(tile);
+
         if(!checkBlock(tile, container) || !hasResourcesToBuild(block, tile.getWorld())) return;
 
         World world = tile.getWorld();
@@ -79,9 +83,18 @@ public class BuildBlock implements BuildAction {
 
         for(int x = rootX; x < rootX + container.getWidth(); x++) {
             for(int y = rootY; y < rootY + container.getHeight(); y++) {
-                world.getTileAt(x, y).get().setBlock(block, container);
+                world.getTileAt(x, y).get().setBlock(container.getBlock(), container);
             }
         }
+    }
+
+    BlockContainer createContainer(Tile tile) {
+        boolean debugMode = Gdx.input != null && Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
+
+        if(useScaffolding && !debugMode)
+            return new ScaffoldingContainer(tile, block, rotation);
+
+        return block.createContainer(tile, rotation);
     }
 
     private void removeRequiredResources(World world) {
@@ -145,6 +158,10 @@ public class BuildBlock implements BuildAction {
         int height = (rotated ? block.getDimensionedWidth() : block.getDimensionedHeight()) * Tile.TILE_SIZE;
 
         ShapeUtil.drawRect(x, y, width, height, color, b);
+    }
+
+    public void setUseScaffolding(boolean useScaffolding) {
+        this.useScaffolding = useScaffolding;
     }
 
     public Block getBlock() {

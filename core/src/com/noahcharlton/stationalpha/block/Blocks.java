@@ -13,6 +13,7 @@ import com.noahcharlton.stationalpha.block.power.ArcReactorBlock;
 import com.noahcharlton.stationalpha.block.power.BatteryBlock;
 import com.noahcharlton.stationalpha.block.power.SolarPanelBlock;
 import com.noahcharlton.stationalpha.block.sapling.TreeSaplingBlock;
+import com.noahcharlton.stationalpha.block.scaffolding.ScaffoldingBlock;
 import com.noahcharlton.stationalpha.block.workbench.Workbench;
 
 import java.util.ArrayList;
@@ -39,11 +40,12 @@ public class Blocks {
     private static Block batteryBlock = new BatteryBlock();
     private static Block woodrootPlant = new WoodrootPlant();
     private static Block arcReactorBlock = new ArcReactorBlock();
+    private static Block scaffoldingBlock = new ScaffoldingBlock();
 
     public static void init(){
         Collections.addAll(blocks, wall, door, compressor, iceBlock, potatoPlant, workbench, bedBlock, treeBlock,
                 treeSapling, composter, dustCollector, synthesizer, deadPlant, solarPanelBlock, batteryBlock,
-                woodrootPlant, arcReactorBlock);
+                woodrootPlant, arcReactorBlock, scaffoldingBlock);
     }
 
     public static Optional<Block> getByID(String blockID) {
@@ -121,6 +123,10 @@ public class Blocks {
 
     public static Block getArcReactor() {
         return arcReactorBlock;
+    }
+
+    public static Block getScaffoldingBlock() {
+        return scaffoldingBlock;
     }
 
     public static ArrayList<Block> getBlocks() {
