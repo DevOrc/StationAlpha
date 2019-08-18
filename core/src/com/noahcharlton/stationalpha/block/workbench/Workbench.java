@@ -36,7 +36,7 @@ public class Workbench extends Block {
 
     @Override
     public Optional<String> getHelpInfo() {
-        return Optional.of(HelpInfo.WORKBENCH_INFO);
+        return Optional.of(HelpInfo.get("workbench_info"));
     }
 
     @Override

@@ -56,6 +56,7 @@ public class StationAlpha extends ApplicationAdapter {
     public void create() {
         gameRenderer = new GameRenderer();
 
+        HelpInfo.init();
         InputHandler.init();
         Blocks.init();
         Item.init();
@@ -105,8 +106,8 @@ public class StationAlpha extends ApplicationAdapter {
         world = Optional.of(new World(true));
 
         MessageQueue.getInstance().getMessages().clear();
-        MessageQueue.getInstance().add("Welcome!", HelpInfo.START_INFO);
-        MessageQueue.getInstance().add("Controls", HelpInfo.CONTROLS);
+        MessageQueue.getInstance().add("Welcome!", HelpInfo.get("start_message"));
+        MessageQueue.getInstance().add("Controls", HelpInfo.get("controls_message"));
     }
 
     public void gotoMainMenu() {

@@ -23,7 +23,7 @@ public class DeadPlant extends Block{
 
     @Override
     public Optional<String> getHelpInfo() {
-        return Optional.of(HelpInfo.DEAD_PLANT_INFO);
+        return Optional.of(HelpInfo.get("dead_plant_info"));
     }
 
     @Override

@@ -1,0 +1,42 @@
+<HelpInfo>
+    <Entry id="testEntry">
+        FooBar
+    </Entry>
+    <Entry id="worker_menu_info">
+        The worker menu allows you to change what type of jobs your worker
+        will work on! The 4 roles are general, crafter, gardener, and synthesizer.
+    </Entry>
+    <Entry id="controls_message">
+        You can move around the world using WASD. You can zoom in and out using
+        the Z/X keys. When building use left click to place and right click to destroy.
+    </Entry>
+    <Entry id="start_message">
+        Congrats on starting your first space station! Check the goals menu to see your first task. Good Luck!
+    </Entry>
+    <Entry id="wall_info">
+        Nothing can pass through walls.
+    </Entry>
+    <Entry id="ice_block_info">
+        Space rock appears randomly throughout the world. One can obtain it by using the mine space
+        rock tool (in the actions menu). Once you have it, you can use the workbench to turn it into
+        steel to build walls, metal floors, etc.
+    </Entry>
+    <Entry id="workbench_info">
+        The workbench allows you to craft more complex things. To craft, use the manufacture menu.
+        Once you click craft, a worker will begin to work on that task. Note: The workbench only works
+        on craftable things. Dirt/Unobtainium require other machines.
+    </Entry>
+    <Entry id="compressor_info">
+        Compressors add oxygen to your space station. Note: The room the compressor is in must be enclosed
+        (with walls and floors) or else the oxygen will vent into space.
+    </Entry>
+    <Entry id="sapling_info">
+        Saplings need three things to grow: oxygen, dirt, and space.
+        Saplings require a 3x3 area (centered on the sapling) to grow.
+    </Entry>
+    <Entry id="dead_plant_info">
+        Dead plants form when plants (saplings, potatoes, etc.) fail to survive
+        in their environment. To grow, plants need oxygen (at least 15%) and dirt floors.
+    </Entry>
+</HelpInfo>
+

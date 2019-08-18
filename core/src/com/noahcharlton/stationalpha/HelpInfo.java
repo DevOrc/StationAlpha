@@ -1,34 +1,33 @@
 package com.noahcharlton.stationalpha;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.XmlReader;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class HelpInfo {
 
-    public static final String ICE_INFO = "" +
-            "Space rock appears randomly throughout the world. One can obtain it by using the " +
-            "mine space rock tool (in the actions menu). \n\n" +
-            "Once you have it, you can use the workbench to turn it into steel to build walls, metal floors, etc.";
+    private static final Map<String, String> info = new HashMap<>();
 
-    public static final String DEAD_PLANT_INFO = "" +
-            "Dead plants form when plants (saplings, potatoes, etc.) fail to survive in their environment. " +
-            "To grow, plants need oxygen (at least 15%) and dirt floors.";
+    public static void init(){
+        String xml = Gdx.files.internal("help.xml").readString();
+        XmlReader.Element reader = new XmlReader().parse(xml);
 
-    public static final String SAPLING_INFO = "Saplings need three things to grow: oxygen, dirt, and space. " +
-            "Saplings require a 3x3 area (centered on the sapling) to grow. ";
+        for(XmlReader.Element child: reader.getChildrenByName("Entry")){
+            String id = child.getAttribute("id");
+            String text = child.getText().replaceAll("\\s+", " ").replace("\\n", "\n");
 
-    public static final String START_INFO = "Congrats on starting your first space station! Check the goals menu " +
-            "to see your first task. Good Luck!";
+            if(info.containsKey(id)){
+                throw new GdxRuntimeException("Duplicate HelpInfo Entry: " + id);
+            }
 
-    public static final String COMPRESSOR_INFO = "Compressors add oxygen to your space station. Note: The room the " +
-            "compressor is in must be enclosed (with walls and floors) or else the oxygen will vent into space. ";
+            info.put(id, text);
+        }
+    }
 
-    public static final String WALL_INFO = "Nothing can pass through walls.";
-
-    public static final String WORKBENCH_INFO = "The workbench allows you to craft more complex things. To craft, use " +
-            "the manufacture menu. Once you click craft, a worker will begin to work on that task. Note: The workbench " +
-            "only works on craftable things. Dirt/Unobtainium require other machines.";
-
-    public static final String CONTROLS = "You can move around the world using WASD. You can zoom in and out using " +
-            "the Z/X keys. \n\nWhen building use left click to place and right click to destroy. ";
-
-    public static final String WORKER_MENU_INFO = "The worker menu allows you to change what type of jobs your " +
-            "worker will work on! The 4 roles are general, crafter, gardener, and synthesizer.";
+    public static String get(String id){
+        return info.get(id);
+    }
 }

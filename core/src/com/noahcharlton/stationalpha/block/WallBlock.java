@@ -103,7 +103,7 @@ public class WallBlock extends Block implements BlockRenderer{
 
     @Override
     public Optional<String> getHelpInfo() {
-        return Optional.of(HelpInfo.WALL_INFO);
+        return Optional.of(HelpInfo.get("wall_info"));
     }
 
     @Override

@@ -63,7 +63,7 @@ public class WorkerMenu extends BuildBarMenu<Worker> {
 
         if(!opened && visible){
             opened = true;
-            MessageQueue.getInstance().add("Tip!", HelpInfo.WORKER_MENU_INFO);
+            MessageQueue.getInstance().add("Tip!", HelpInfo.get("worker_menu_info"));
         }
     }
 

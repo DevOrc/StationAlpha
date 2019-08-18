@@ -32,7 +32,7 @@ public class TreeSaplingBlock extends Block {
 
     @Override
     public Optional<String> getHelpInfo() {
-        return Optional.of(HelpInfo.SAPLING_INFO);
+        return Optional.of(HelpInfo.get("sapling_info"));
     }
 
     @Override

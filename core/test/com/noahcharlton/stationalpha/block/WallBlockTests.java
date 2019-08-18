@@ -94,4 +94,9 @@ public class WallBlockTests {
     void isWallBlockFalseTest() {
         Assertions.assertFalse(WallBlock.isWallBlock(world, 65, 5));
     }
+
+    @Test
+    void helpInfoBasicTest() {
+        Assertions.assertTrue(Blocks.getWall().getHelpInfo().isPresent());
+    }
 }

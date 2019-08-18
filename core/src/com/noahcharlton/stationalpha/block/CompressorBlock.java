@@ -37,7 +37,7 @@ public class CompressorBlock extends Block {
 
     @Override
     public Optional<String> getHelpInfo() {
-        return Optional.of(HelpInfo.COMPRESSOR_INFO);
+        return Optional.of(HelpInfo.get("compressor_info"));
     }
 
     @Override

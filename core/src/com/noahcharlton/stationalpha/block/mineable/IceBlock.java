@@ -28,6 +28,6 @@ public class IceBlock extends MineableBlock {
 
     @Override
     public Optional<String> getHelpInfo() {
-        return Optional.of(HelpInfo.ICE_INFO);
+        return Optional.of(HelpInfo.get("ice_block_info"));
     }
 }

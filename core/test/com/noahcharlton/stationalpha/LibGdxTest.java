@@ -12,6 +12,7 @@ public class LibGdxTest {
         Gdx.files = new HeadlessFiles();
 
         new StationAlpha();
+        HelpInfo.init();
         Blocks.init();
         ManufacturingRecipes.init();
         PlayerActions.init();

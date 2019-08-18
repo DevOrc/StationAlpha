@@ -42,7 +42,7 @@ public class WorkerMenuTests {
         workerMenu.setVisible(true);
 
         Message message = MessageQueue.getInstance().getMessages().getFirst();
-        Assertions.assertEquals(HelpInfo.WORKER_MENU_INFO, message.getDescription());
+        Assertions.assertEquals(HelpInfo.get("worker_menu_info"), message.getDescription());
     }
 
     @Test

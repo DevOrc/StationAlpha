@@ -80,6 +80,16 @@ public class StationAlphaTests extends LibGdxTest{
 
         Message m = MessageQueue.getInstance().getMessages().getFirst();
 
-        Assertions.assertEquals(HelpInfo.START_INFO, m.getDescription());
+        Assertions.assertEquals(HelpInfo.get("start_message"), m.getDescription());
+    }
+
+    @Test
+    void controlMessageOnStart() {
+        gameInstance.startGame();
+
+        MessageQueue.getInstance().getMessages().poll();
+        Message m = MessageQueue.getInstance().getMessages().poll();
+
+        Assertions.assertEquals(HelpInfo.get("controls_message"), m.getDescription());
     }
 }
