@@ -23,6 +23,10 @@ public class Path {
     }
 
     public Optional<GraphPath<Tile>> calcPathSync() {
+        if(!dest.getOpenAdjecent().isPresent()){
+            return Optional.empty();
+        }
+
         GraphPath<Tile> path = new SimpleGraphPath();
 
         boolean pathFound = new IndexedAStarPathFinder<>(worldGraph)
