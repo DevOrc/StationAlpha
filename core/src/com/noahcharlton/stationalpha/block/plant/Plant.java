@@ -21,6 +21,7 @@ public abstract class Plant extends Block {
 
         setOpaque(false);
         setPassable(true);
+        setAutoBuild(true);
     }
 
     @Override

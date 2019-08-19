@@ -18,6 +18,7 @@ public abstract class Block {
 
     private boolean isPassable = false;
     private boolean isOpaque = true;
+    private boolean autoBuild = false;
 
     public Block() {
         this.texture = loadTexture();
@@ -98,6 +99,14 @@ public abstract class Block {
 
     public boolean isOpaque() {
         return isOpaque;
+    }
+
+    protected void setAutoBuild(boolean autoBuild) {
+        this.autoBuild = autoBuild;
+    }
+
+    public boolean doesAutoBuild() {
+        return autoBuild;
     }
 
     public final void render(SpriteBatch spriteBatch, Tile tile) {

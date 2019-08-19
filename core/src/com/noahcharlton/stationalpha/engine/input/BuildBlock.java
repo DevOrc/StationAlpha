@@ -91,7 +91,7 @@ public class BuildBlock implements BuildAction {
     BlockContainer createContainer(Tile tile) {
         boolean debugMode = Gdx.input != null && Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
 
-        if(useScaffolding && !debugMode)
+        if(useScaffolding && !debugMode && !block.doesAutoBuild())
             return new ScaffoldingContainer(tile, block, rotation);
 
         return block.createContainer(tile, rotation);
