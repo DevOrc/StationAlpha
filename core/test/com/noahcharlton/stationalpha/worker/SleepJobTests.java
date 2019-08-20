@@ -23,6 +23,11 @@ public class SleepJobTests extends JobTests {
         Assertions.assertTrue(sleepJob.getAssignedWorker().isPresent());
     }
 
+    @Override
+    protected void permanentCancelDoesNotAddToJobQueueTest() {
+        //Should not run cause sleep job will fail if added to the queue
+    }
+
     @Test
     void finishesAfter360TicksTest() {
         for(int i = 0; i < 360; i++) {

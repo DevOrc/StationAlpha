@@ -9,6 +9,7 @@ import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
+import com.noahcharlton.stationalpha.worker.job.JobQueueTests;
 import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -48,6 +49,19 @@ public class SynthesizerContainerTests {
         container.onDestroy();
 
         Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
+    }
+
+    @Test
+    void onDestroyJobNotAddedToQueueTest() {
+        ManufacturingRecipe recipe = new ManufacturingRecipe(
+                Item.DIRT.stack(0), Item.LEAVES.stack(0), 250, RecipeType.CRAFT);
+        SynthesizerJob job = new SynthesizerJob(tile, recipe, container);
+        container.setCurrentJob(job);
+        JobQueue.getInstance().addJob(job);
+
+        container.onDestroy();
+
+        JobQueueTests.assertNotInJobQueue(job);
     }
 
     @Test

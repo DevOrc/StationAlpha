@@ -45,7 +45,7 @@ public class WorkbenchContainer extends BlockContainer {
 
     @Override
     public void onDestroy() {
-        job.ifPresent(Job::cancel);
+        job.ifPresent(Job::permanentEnd);
     }
 
     @Override

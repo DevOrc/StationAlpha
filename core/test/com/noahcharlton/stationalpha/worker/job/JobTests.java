@@ -85,4 +85,14 @@ public class JobTests extends LibGdxTest {
 
         Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
     }
+
+    @Test
+    protected void permanentCancelDoesNotAddToJobQueueTest() {
+        JobQueue.getInstance().getJobQueue(getJob().getRequiredRole()).clear();
+
+        new TestWorker().getAi().getJobManager().setCurrentJob(job);
+        job.permanentEnd();
+
+        JobQueueTests.assertNotInJobQueue(job);
+    }
 }

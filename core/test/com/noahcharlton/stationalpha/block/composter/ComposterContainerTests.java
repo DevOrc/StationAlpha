@@ -5,7 +5,9 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.item.RecipeType;
+import com.noahcharlton.stationalpha.worker.TestWorker;
 import com.noahcharlton.stationalpha.worker.job.Job;
+import com.noahcharlton.stationalpha.worker.job.JobQueueTests;
 import com.noahcharlton.stationalpha.worker.job.TestJob;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -55,6 +57,19 @@ public class ComposterContainerTests {
         container.onDestroy();
 
         Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
+    }
+
+    @Test
+    void onDestroyJobNotAddedToQueueTest() {
+        Job job = new TestJob();
+        new TestWorker().getAi().getJobManager().setCurrentJob(job);
+
+        job.start();
+        container.setCurrentJob(job);
+
+        container.onDestroy();
+
+        JobQueueTests.assertNotInJobQueue(job);
     }
 
     @Test

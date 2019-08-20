@@ -13,6 +13,7 @@ public class ScaffoldingBlock extends Block implements BlockRenderer {
 
     public ScaffoldingBlock() {
         setOpaque(false);
+        setPassable(true);
     }
 
     @Override

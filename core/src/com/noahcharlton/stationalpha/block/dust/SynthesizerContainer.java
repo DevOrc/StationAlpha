@@ -108,7 +108,7 @@ public class SynthesizerContainer extends PoweredBlockContainer {
 
     @Override
     public void onDestroy() {
-        currentJob.ifPresent(Job::cancel);
+        currentJob.ifPresent(Job::permanentEnd);
     }
 
     @Override

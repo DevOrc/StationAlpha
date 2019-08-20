@@ -118,7 +118,7 @@ public class ComposterContainer extends BlockContainer {
 
     @Override
     public void onDestroy() {
-        currentJob.ifPresent(Job::cancel);
+        currentJob.ifPresent(Job::permanentEnd);
     }
 
     @Override

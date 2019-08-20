@@ -52,6 +52,12 @@ public class Job {
         jobStage = JobStage.PRE_START;
     }
 
+    public final void permanentEnd(){
+        cancel();
+
+        JobQueue.getInstance().getJobQueue(getRequiredRole()).remove(this);
+    }
+
     @Override
     public String toString() {
         LogManager.getLogger(Job.class).warn("Unimplemented toString method for job!");

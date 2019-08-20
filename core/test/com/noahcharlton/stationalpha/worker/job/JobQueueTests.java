@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.opentest4j.AssertionFailedError;
 
 import java.util.Optional;
 
@@ -63,6 +64,25 @@ public class JobQueueTests {
     @EnumSource(WorkerRole.class)
     void getReturnsEmptyOptionalWhenQueueEmptyTest(WorkerRole role) {
         Assertions.assertEquals(Optional.empty(), jobQueue.get(role));
+    }
+
+    @Test
+    void assertNotInJobQueueTrueTest() {
+        Job job = new TestJob();
+        assertNotInJobQueue(job);
+    }
+
+    @Test
+    void assertNotInJobQueueFalseTest() {
+        Job job = new TestJob();
+        JobQueue.getInstance().addJob(job);
+
+        Assertions.assertThrows(AssertionFailedError.class, () -> assertNotInJobQueue(job));
+
+    }
+
+    public static void assertNotInJobQueue(Job job){
+        Assertions.assertFalse(JobQueue.getInstance().getJobQueue(job.getRequiredRole()).contains(job));
     }
 }
 class TestRoleJob extends TestJob{

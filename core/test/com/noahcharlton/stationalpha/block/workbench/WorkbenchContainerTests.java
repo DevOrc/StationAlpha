@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.item.RecipeType;
 import com.noahcharlton.stationalpha.worker.job.Job;
+import com.noahcharlton.stationalpha.worker.job.JobQueueTests;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
@@ -30,6 +31,17 @@ public class WorkbenchContainerTests {
 
         Assertions.assertTrue(container.getJob().get().getStage() == Job.JobStage.PRE_START);
         Assertions.assertFalse(container.getJob().get().getAssignedWorker().isPresent());
+    }
+
+    @Test
+    void onDestroyJobNotAddedToQueueTest() {
+        setupRecipe();
+        container.createJobFromRecipe();
+        Job job = container.getJob().get();
+
+        container.onDestroy();
+
+        JobQueueTests.assertNotInJobQueue(job);
     }
 
     @Test
