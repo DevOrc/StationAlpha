@@ -10,9 +10,6 @@ import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class MainMenuSubMenu extends Pane {
 
     private static final int SPACE = 25;
@@ -123,47 +120,6 @@ public abstract class MainMenuSubMenu extends Pane {
                     "Java Version: " + System.getProperty("java.version"),
                     "OS: " + System.getProperty("os.name")
             };
-        }
-    }
-
-    static class LoadMenu extends MainMenuSubMenu{
-
-        private final List<MenuButton> buttons = new ArrayList<>();
-
-        public LoadMenu(MainMenuButtonPane buttonPane) {
-            super(buttonPane);
-
-            initButtons();
-            buttons.forEach(this::addGui);
-        }
-
-        private void initButtons() {
-            for(int i = 0; i < 10; i++){
-                int finalI = i;
-                MenuButton button = new MenuButton("Load " + i, () -> {
-                    StationAlpha.getInstance().loadGame(finalI);
-                });
-
-                this.buttons.add(button);
-            }
-        }
-
-        @Override
-        protected void updatePosition() {
-            super.updatePosition();
-
-            int width = getWidth() / 2;
-            int height = getHeight() / 5;
-
-            for(int x = 0; x < 2; x++){
-                for(int y = 0; y < 5; y++){
-                    MenuButton button = buttons.get((x * 5) + y);
-                    button.setX(x == 0 ? getX() : getX() + width);
-                    button.setY(getY() + getHeight() - ((y + 1) * height));
-                    button.setWidth(width);
-                    button.setHeight(height);
-                }
-            }
         }
     }
 }

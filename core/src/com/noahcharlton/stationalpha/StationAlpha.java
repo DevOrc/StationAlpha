@@ -13,6 +13,7 @@ import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadGameException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -95,9 +96,10 @@ public class StationAlpha extends ApplicationAdapter {
     private void loadGameSafe(int saveNumber) {
         try{
             world.get().load(saveNumber);
-        }catch(GdxRuntimeException e){
-            logger.info("Failed to load save {}!", saveNumber, e);
+        }catch(RuntimeException e){
             gotoMainMenu();
+
+            throw new LoadGameException(e);
         }
     }
 

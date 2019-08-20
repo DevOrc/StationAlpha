@@ -22,7 +22,7 @@ public class MainMenuButtonPane extends Pane {
 
     private final MainMenuSubMenu.SettingsMenu settingsMenu = new MainMenuSubMenu.SettingsMenu(this);
     private final MainMenuSubMenu.AboutMenu aboutMenu = new MainMenuSubMenu.AboutMenu(this);
-    private final MainMenuSubMenu.LoadMenu loadMenu = new MainMenuSubMenu.LoadMenu(this);
+    private final LoadMenu loadMenu = new LoadMenu(this);
     private final List<MainMenuSubMenu> menus = Arrays.asList(aboutMenu, settingsMenu, loadMenu);
 
     public MainMenuButtonPane() {

@@ -70,6 +70,9 @@ public class SaveGameLoader {
 
         FileHandle handle = Gdx.files.external("/station-alpha/save" + saveNum + ".xml");
 
+        if(!handle.exists())
+            throw new GdxRuntimeException("Save file " + saveNum + " does not exist!");
+
         load(handle.readString(), world);
     }
 }
