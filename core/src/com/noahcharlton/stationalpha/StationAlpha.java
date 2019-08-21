@@ -57,7 +57,6 @@ public class StationAlpha extends ApplicationAdapter {
     public void create() {
         gameRenderer = new GameRenderer();
 
-        HelpInfo.init();
         InputHandler.init();
         Blocks.init();
         Item.init();

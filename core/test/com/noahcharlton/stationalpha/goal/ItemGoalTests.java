@@ -9,7 +9,7 @@ public class ItemGoalTests {
 
     @Test
     void itemGoalNameTest() {
-        Goal goal = new ItemGoal(Item.STEEL, 25);
+        Goal goal = new ItemGoal(Item.STEEL, 25, "", "");
 
         Assertions.assertEquals("Collect 25 Steel", goal.getName());
     }
@@ -18,7 +18,7 @@ public class ItemGoalTests {
     void itemGoalDescriptionTest() {
         World world = new World();
         world.getInventory().setAmountForItem(Item.STEEL, 12);
-        Goal goal = new ItemGoal(Item.STEEL, 32);
+        Goal goal = new ItemGoal(Item.STEEL, 32, "", "");
 
         goal.update(world);
 
@@ -29,7 +29,7 @@ public class ItemGoalTests {
     void itemGoalUpdateIsCompletedTest() {
         World world = new World();
         world.getInventory().setAmountForItem(Item.STEEL, 40);
-        Goal goal = new ItemGoal(Item.STEEL, 32);
+        Goal goal = new ItemGoal(Item.STEEL, 32, "", "");
 
         goal.update(world);
 

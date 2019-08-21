@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
 
@@ -32,25 +33,29 @@ public enum GoalTab {
     }
 
     private static void initTechTab() {
-        Goal steelGoal = new ItemGoal(Item.STEEL, 80);
+        Goal steelGoal = new ItemGoal(Item.STEEL, 80, "Mine for Steel", "steel_goal_desc");
         steelGoal.setPosition(25, 175);
 
-        Goal copperGoal = new ItemGoal(Item.COPPER, 5);
+        Goal copperGoal = new ItemGoal(Item.COPPER, 5, "Mine for Copper", "copper_goal_desc");
         copperGoal.setPosition(25, 75);
 
-        Goal spaceDustGoal = new ItemGoal(Item.SPACE_DUST, 25);
+        Goal spaceDustGoal = new ItemGoal(Item.SPACE_DUST, 25, "Collect Space Dust", "space_dust_goal");
         spaceDustGoal.setPosition(325, 125);
         spaceDustGoal.addRequirement(copperGoal, steelGoal);
 
-        Goal synthesizeUnobtainiumGoal = new ItemGoal(Item.UNOBTAINIUM, 5);
+        Goal synthesizeUnobtainiumGoal = new ItemGoal(Item.UNOBTAINIUM, 5, "Synthesize Unobtainium",
+                "unobtainium_goal_desc");
         synthesizeUnobtainiumGoal.setPosition(625, 175);
         synthesizeUnobtainiumGoal.addRequirement(spaceDustGoal);
 
-        Goal synthesizePowerIngotGoal = new ItemGoal(Item.POWER_INGOT, 5);
+        Goal synthesizePowerIngotGoal = new ItemGoal(Item.POWER_INGOT, 5, "Synthesize Power Ingot",
+                "power_ingot_goal_desc");
         synthesizePowerIngotGoal.setPosition(625, 75);
         synthesizePowerIngotGoal.addRequirement(spaceDustGoal);
 
         Goal arcReactorGoal = new BuildBlockGoal(Blocks.getArcReactor());
+        arcReactorGoal.setName("Build an Arc Reactor");
+        arcReactorGoal.setDesc(HelpInfo.get("arc_reactor_goal_desc"));
         arcReactorGoal.setPosition(925, 125);
         arcReactorGoal.addRequirement(synthesizeUnobtainiumGoal, synthesizePowerIngotGoal);
 
@@ -59,26 +64,22 @@ public enum GoalTab {
     }
 
     private static void initBotanyTab() {
-        Goal firstPotatoGoal = new ItemGoal(Item.POTATO, 100);
+        Goal firstPotatoGoal = new ItemGoal(Item.POTATO, 100, "Grow Potatoes", "potato_goal_1_desc");
         firstPotatoGoal.setPosition(20, 125);
 
-        Goal collectWoodGoal = new ItemGoal(Item.WOOD, 100);
+        Goal collectWoodGoal = new ItemGoal(Item.WOOD, 100, "Grow/Chop Trees", "chop_trees_goal_desc");
         collectWoodGoal.setPosition(350, 175);
         collectWoodGoal.addRequirement(firstPotatoGoal);
 
-        Goal compostDirtGoal = new ItemGoal(Item.DIRT, 100);
+        Goal compostDirtGoal = new ItemGoal(Item.DIRT, 8, "Compost Leaves", "dirt_goal_desc");
         compostDirtGoal.setPosition(350, 75);
         compostDirtGoal.addRequirement(firstPotatoGoal);
 
-        Goal secondPotatoGoal = new ItemGoal(Item.POTATO, 150);
-        secondPotatoGoal.setPosition(675, 75);
-        secondPotatoGoal.addRequirement(compostDirtGoal);
-
-        Goal growWoodrootGoal = new ItemGoal(Item.WOODROOT, 25);
+        Goal growWoodrootGoal = new ItemGoal(Item.WOODROOT, 25, "Grow woodroot", "");
         growWoodrootGoal.setPosition(675, 175);
         growWoodrootGoal.addRequirement(collectWoodGoal);
 
-        BOTANY.addGoals(firstPotatoGoal, collectWoodGoal, compostDirtGoal, secondPotatoGoal, growWoodrootGoal);
+        BOTANY.addGoals(firstPotatoGoal, collectWoodGoal, compostDirtGoal, growWoodrootGoal);
     }
 
     public String getDisplayName() {

@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -8,11 +9,16 @@ public class ItemGoal extends Goal {
     private final Item item;
     private final int amount;
 
-    public ItemGoal(Item item, int amount) {
-        super(formatName(item, amount), "");
+    private final String baseDesc;
+
+    public ItemGoal(Item item, int amount, String name, String desc) {
+        super(name, "");
 
         this.item = item;
         this.amount = amount;
+        this.baseDesc = HelpInfo.get(desc);
+
+        updateDescription(0);
     }
 
     @Override
@@ -22,10 +28,10 @@ public class ItemGoal extends Goal {
         if(currentAmount >= amount)
             setCompleted(true);
 
-        setDesc(currentAmount + " / " + amount);
+        updateDescription(currentAmount);
     }
 
-    private static String formatName(Item item, int amount) {
-        return String.format("Collect %d %s", amount, item.getDisplayName());
+    private void updateDescription(int currentAmount) {
+        setDesc(baseDesc + "\n" + currentAmount + " / " + amount + "  " + item.getDisplayName());
     }
 }

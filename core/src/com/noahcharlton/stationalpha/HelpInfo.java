@@ -3,15 +3,20 @@ package com.noahcharlton.stationalpha;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.XmlReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class HelpInfo {
 
+    private static final Logger logger = LogManager.getLogger(HelpInfo.class);
     private static final Map<String, String> info = new HashMap<>();
 
-    public static void init(){
+    private static void init(){
+        logger.info("Loading help info!");
+
         String xml = Gdx.files.internal("help.xml").readString();
         XmlReader.Element reader = new XmlReader().parse(xml);
 
@@ -28,6 +33,9 @@ public class HelpInfo {
     }
 
     public static String get(String id){
+        if(info.isEmpty())
+            init();
+
         return info.get(id);
     }
 }

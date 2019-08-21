@@ -38,5 +38,46 @@
         Dead plants form when plants (saplings, potatoes, etc.) fail to survive
         in their environment. To grow, plants need oxygen (at least 15%) and dirt floors.
     </Entry>
+    <Entry id="steel_goal_desc">
+        Gather steel so that you can start your base.
+        You can collect steel by mining space rock. To mine rock, use the mining
+        tool in the actions menu. Once you have space rock, you can use the workbench,
+        to craft steel.
+    </Entry>
+    <Entry id="copper_goal_desc">
+        Gather copper so that you can build more advanced blocks.
+        Similar to steel, you can collect steel by mining space rock and using the workbench,
+    </Entry>
+    <Entry id="potato_goal_1_desc">
+        Grow potatoes so that your worker can eat. To grow potatoes,
+        you need to place potatoes plants (in the block menu) on a dirt floor. In order for the
+        plants to grow, they must have oxygen. To get oxygen, use the compressor block. Note: The room
+        must be enclosed (with walls/airlocks and floors) or else the oxygen will escape!
+    </Entry>
+    <Entry id="dirt_goal_desc">
+        Compost leaves to create 8 bags of dirt. You can use the composter to compost
+        leaves. To collect leaves, you can grow trees, and then use the cut tree tool in the actions
+        menu. Trees need a 3x3 area (centered on the sapling) to grow.
+    </Entry>
+    <Entry id="unobtainium_goal_desc">
+        Now that you have space dust, you can use the synthesizer to create unobtainium. Because
+        synthesizing takes so long, it will take your workers multiple sessions to synthesize one piece.
+    </Entry>
+    <Entry id="space_dust_goal">
+        Using dust collectors, collect one piece of space dust. Eventually, you will be able to use the " +
+        "space dust to synthesize unobtainium
+    </Entry>
+    <Entry id="power_ingot_goal_desc">
+        Power ingots are used for fuel in the arc reactor. Power ingots are created in a similar method to unobtainium.
+        Using the synthesizer, workers can convert space dust into new elements!
+    </Entry>
+    <Entry id="arc_reactor_goal_desc">
+        Arc Reactors are the most powerful generators ever built. They use power ingots, a rare and complex material, to
+        generate immense amounts of power (50 times more energy than a solar panel).
+    </Entry>
+    <Entry id="chop_trees_goal_desc">
+        To collect wood, you can grow trees, and then use the cut tree tool in the actions
+        menu. Trees need a 3x3 area (centered on the sapling) and oxygen to grow.
+    </Entry>
 </HelpInfo>
 

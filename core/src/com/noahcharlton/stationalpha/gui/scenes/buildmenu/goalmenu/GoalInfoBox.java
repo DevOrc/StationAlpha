@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class GoalInfoBox extends Pane {
 
-    static final int HEIGHT = 100;
+    static final int HEIGHT = 150;
 
     private final GoalMenu goalMenu;
     private Optional<Goal> selectedGoal;
