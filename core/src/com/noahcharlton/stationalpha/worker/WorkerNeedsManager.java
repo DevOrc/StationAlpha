@@ -89,12 +89,16 @@ public class WorkerNeedsManager {
         foodTick = 0;
 
         Inventory inventory = worker.getWorld().getInventory();
+        int potatoAmount = inventory.getAmountForItem(Item.POTATO);
+        int woodrootAmount = inventory.getAmountForItem(Item.WOODROOT);
 
-        if(inventory.getAmountForItem(Item.POTATO) < 10){
-            MessageQueue.getInstance().add("LOW FOOD!", "WARNING: YOU ARE LOW ON POTATOES");
+        if(potatoAmount + woodrootAmount < 10){
+            MessageQueue.getInstance().add("LOW FOOD!", "WARNING: YOU ARE LOW ON FOOD");
         }
 
-        if(inventory.getAmountForItem(Item.POTATO) > 0){
+        if(woodrootAmount > 0){
+            inventory.changeAmountForItem(Item.WOODROOT, -1);
+        }else if(potatoAmount > 0){
             inventory.changeAmountForItem(Item.POTATO, -1);
         }else{
             worker.die("Lack of food!");

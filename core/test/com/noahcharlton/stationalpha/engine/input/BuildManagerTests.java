@@ -66,6 +66,7 @@ public class BuildManagerTests {
     @Test
     void buildBasicFloorTest() {
         World world = new World();
+        world.getInventory().fillAllItems();
         Tile tile = world.getTileAt(0, 0).get();
 
         buildManager.setAction(new BuildFloor(Floor.GRASS));
@@ -77,6 +78,7 @@ public class BuildManagerTests {
     @Test
     void buildOverrideFloorTest() {
         World world = new World();
+        world.getInventory().fillAllItems();
         Tile tile = world.getTileAt(0, 0).get();
         tile.setFloor(Floor.WOOD);
 

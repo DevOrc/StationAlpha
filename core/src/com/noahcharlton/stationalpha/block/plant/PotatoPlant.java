@@ -20,7 +20,7 @@ public class PotatoPlant extends Plant{
 
     @Override
     public int getAmountPerHarvest() {
-        return 3;
+        return 5;
     }
 
     @Override

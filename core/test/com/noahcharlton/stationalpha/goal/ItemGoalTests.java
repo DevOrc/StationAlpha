@@ -8,21 +8,14 @@ import org.junit.jupiter.api.Test;
 public class ItemGoalTests {
 
     @Test
-    void itemGoalNameTest() {
-        Goal goal = new ItemGoal(Item.STEEL, 25, "", "");
-
-        Assertions.assertEquals("Collect 25 Steel", goal.getName());
-    }
-
-    @Test
-    void itemGoalDescriptionTest() {
+    void itemGoalDescriptionEndTest() {
         World world = new World();
         world.getInventory().setAmountForItem(Item.STEEL, 12);
         Goal goal = new ItemGoal(Item.STEEL, 32, "", "");
 
         goal.update(world);
 
-        Assertions.assertEquals("12 / 32", goal.getDesc());
+        Assertions.assertTrue(goal.getDesc().contains("12 / 32"));
     }
 
     @Test

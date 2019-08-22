@@ -12,6 +12,8 @@ import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 public class WorkerNeedsManagerTests {
 
@@ -124,15 +126,16 @@ public class WorkerNeedsManagerTests {
         Assertions.assertTrue(worker.getAi().getJobManager().getCurrentJob().get() instanceof SleepJob);
     }
 
-    @Test
-    void potatoDecreasesOnEatTest() {
-        worker.getWorld().getInventory().setAmountForItem(Item.POTATO, 1);
+    @ParameterizedTest
+    @EnumSource(value = Item.class, names = {"POTATO", "WOODROOT"})
+    void potatoDecreasesOnEatTest(Item item) {
+        worker.getWorld().getInventory().setAmountForItem(item, 1);
 
         for(int i = 0; i < 1200; i++){
             needsManager.update();
         }
 
-        Assertions.assertEquals(0, worker.getWorld().getInventory().getAmountForItem(Item.POTATO));
+        Assertions.assertEquals(0, worker.getWorld().getInventory().getAmountForItem(item));
     }
 
     @Test

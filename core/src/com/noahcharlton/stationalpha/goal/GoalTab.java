@@ -75,7 +75,7 @@ public enum GoalTab {
         compostDirtGoal.setPosition(350, 75);
         compostDirtGoal.addRequirement(firstPotatoGoal);
 
-        Goal growWoodrootGoal = new ItemGoal(Item.WOODROOT, 25, "Grow woodroot", "");
+        Goal growWoodrootGoal = new ItemGoal(Item.WOODROOT, 25, "Grow woodroot", "woodroot_goal_desc");
         growWoodrootGoal.setPosition(675, 175);
         growWoodrootGoal.addRequirement(collectWoodGoal);
 

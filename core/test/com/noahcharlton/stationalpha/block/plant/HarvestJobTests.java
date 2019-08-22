@@ -49,7 +49,7 @@ public class HarvestJobTests extends JobTests {
         getJob().finish();
 
         Inventory inventory = world.getInventory();
-        Assertions.assertEquals(3, inventory.getAmountForItem(Item.POTATO));
+        Assertions.assertEquals(5, inventory.getAmountForItem(Item.POTATO));
     }
 
     @Override

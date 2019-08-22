@@ -11,8 +11,7 @@ public enum Floor {
     METAL("metal.png", "Metal", Item.STEEL),
     WOOD("wood.png", "Wood", Item.WOOD),
     DIRT("dirt.png", "Soil", Item.DIRT),
-    BRICK("brick.png", "Brick"),
-    GRASS("grass.png", "Grass");
+    GRASS("grass.png", "Grass", Item.DIRT);
 
     private final Optional<Item> requiredItem;
     private final String displayName;
@@ -24,10 +23,6 @@ public enum Floor {
         this.displayName = displayName;
         this.requiredItem = Optional.ofNullable(item);
         this.texture = new ManagedTexture("floor/" + filename);
-    }
-
-    Floor(String filename, String displayName) {
-        this(filename, displayName, null);
     }
 
     public void render(SpriteBatch batch, Tile tile){
