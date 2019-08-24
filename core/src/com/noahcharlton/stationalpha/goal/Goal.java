@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.goal;
 
+import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.world.World;
 
 import java.util.ArrayList;
@@ -39,6 +40,13 @@ public class Goal {
         }
 
         return true;
+    }
+
+    void showCompletedMessage(){
+        String title = "Goal Completed!";
+        String desc = "Congrats! You have completed the goal: " + getName();
+
+        MessageQueue.getInstance().add(title, desc);
     }
 
     public void setPosition(int x, int y){

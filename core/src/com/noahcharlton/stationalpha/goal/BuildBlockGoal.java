@@ -24,6 +24,7 @@ public class BuildBlockGoal extends Goal {
 
                 if(tile.getBlock().filter(Predicate.isEqual(block)).isPresent()){
                     setCompleted(true);
+                    showCompletedMessage();
                     return;
                 }
             }
