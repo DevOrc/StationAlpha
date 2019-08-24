@@ -32,6 +32,9 @@ public class SynthesizerContainerTests {
     @BeforeEach
     void setUp() {
         world.getInventory().changeAmountForItem(Item.UNOBTAINIUM, 1);
+        world.getInventory().changeAmountForItem(Item.COPPER, 5);
+        world.getInventory().changeAmountForItem(Item.STEEL, 15);
+
         BuildBlock builder = new BuildBlock(Blocks.getSynthesizer());
         builder.onClick(tile, Input.Buttons.LEFT);
 

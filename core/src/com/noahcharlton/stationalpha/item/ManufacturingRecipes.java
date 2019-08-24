@@ -29,7 +29,7 @@ public class ManufacturingRecipes {
 
         recipes.add(ManufacturingRecipe.createBuilder()
                 .setInput(Item.LEAVES.stack(32))
-                .setOutput(Item.DIRT.stack(1))
+                .setOutput(Item.POWER_INGOT.stack(1))
                 .setTime(20_000)
                 .setType(RecipeType.COMPOST)
                 .build()

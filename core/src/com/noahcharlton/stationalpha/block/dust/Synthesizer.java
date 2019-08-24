@@ -7,7 +7,7 @@ import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +25,7 @@ public class Synthesizer extends Block {
 
     @Override
     public List<ItemStack> getRequirements() {
-        return Collections.singletonList(Item.UNOBTAINIUM.stack(1));
+        return Arrays.asList(Item.UNOBTAINIUM.stack(1), Item.COPPER.stack(5), Item.STEEL.stack(15));
     }
 
     @Override

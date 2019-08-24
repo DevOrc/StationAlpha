@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Goal {
 
+    protected GoalReward goalReward = world -> {};
     private String name;
     private String desc;
 
@@ -80,6 +81,10 @@ public class Goal {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public void setGoalReward(GoalReward goalReward) {
+        this.goalReward = goalReward;
     }
 
     public int getX() {

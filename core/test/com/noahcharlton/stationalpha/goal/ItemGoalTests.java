@@ -41,4 +41,16 @@ public class ItemGoalTests {
 
         Assertions.assertEquals(1, MessageQueue.getInstance().getMessages().size());
     }
+
+    @Test
+    void onGoalCompletedRewardGivenTest() {
+        Goal goal = new ItemGoal(Item.STEEL, 32, "", "");
+
+        World world = new World();
+        world.getInventory().setAmountForItem(Item.STEEL, 32);
+        goal.goalReward = w -> w.getInventory().setAmountForItem(Item.SPACE_DUST, 5);
+        goal.update(world);
+
+        Assertions.assertEquals(5, world.getInventory().getAmountForItem(Item.SPACE_DUST));
+    }
 }

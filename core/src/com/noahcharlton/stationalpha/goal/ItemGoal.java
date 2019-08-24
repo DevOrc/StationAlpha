@@ -27,6 +27,7 @@ public class ItemGoal extends Goal {
 
         if(currentAmount >= amount){
             setCompleted(true);
+            goalReward.giveReward(world);
             showCompletedMessage();
         }
 
