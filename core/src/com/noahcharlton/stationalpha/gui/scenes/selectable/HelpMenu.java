@@ -12,7 +12,7 @@ public class HelpMenu extends Pane {
     private static final int WIDTH = 750;
     private static final int HEIGHT = 500;
 
-    private final CloseMenuButton closeButton = new CloseMenuButton(this);
+    private final CloseHelpMenuButton closeButton = new CloseHelpMenuButton(this);
 
     public HelpMenu() {
         setVisible(false);
@@ -51,12 +51,12 @@ public class HelpMenu extends Pane {
     }
 }
 
-class CloseMenuButton extends Pane {
+class CloseHelpMenuButton extends Pane {
 
     private static final int SIZE = 24;
     private final HelpMenu menu;
 
-    public CloseMenuButton(HelpMenu menu) {
+    public CloseHelpMenuButton(HelpMenu menu) {
         this.menu = menu;
 
         setDrawBorder(true, true, true, true);

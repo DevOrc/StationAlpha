@@ -3,7 +3,7 @@
         FooBar
     </Entry>
     <Entry id="worker_menu_info">
-        The worker menu allows you to change what type of jobs your worker
+        The worker box allows you to change what type of jobs your worker
         will work on! The 4 roles are general, crafter, gardener, and synthesizer.
     </Entry>
     <Entry id="controls_message">
@@ -11,18 +11,18 @@
         the Z/X keys. When building use left click to place and right click to destroy.
     </Entry>
     <Entry id="start_message">
-        Congrats on starting your first space station! Check the goals menu to see your first task. Good Luck!
+        Congrats on starting your first space station! Check the goals box to see your first task. Good Luck!
     </Entry>
     <Entry id="wall_info">
         Nothing can pass through walls.
     </Entry>
     <Entry id="ice_block_info">
         Space rock appears randomly throughout the world. One can obtain it by using the mine space
-        rock tool (in the actions menu). Once you have it, you can use the workbench to turn it into
+        rock tool (in the actions box). Once you have it, you can use the workbench to turn it into
         steel to build walls, metal floors, etc.
     </Entry>
     <Entry id="workbench_info">
-        The workbench allows you to craft more complex things. To craft, use the manufacture menu.
+        The workbench allows you to craft more complex things. To craft, use the manufacture box.
         Once you click craft, a worker will begin to work on that task. Note: The workbench only works
         on craftable things. Dirt/Unobtainium require other machines.
     </Entry>
@@ -41,7 +41,7 @@
     <Entry id="steel_goal_desc">
         Gather steel so that you can start your base.
         You can collect steel by mining space rock. To mine rock, use the mining
-        tool in the actions menu. Once you have space rock, you can use the workbench,
+        tool in the actions box. Once you have space rock, you can use the workbench,
         to craft steel. \n Reward: 8 Dirt
     </Entry>
     <Entry id="copper_goal_desc">
@@ -51,14 +51,14 @@
     </Entry>
     <Entry id="potato_goal_1_desc">
         Grow potatoes so that your worker can eat. To grow potatoes,
-        you need to place potatoes plants (in the block menu) on a dirt floor. In order for the
+        you need to place potatoes plants (in the block box) on a dirt floor. In order for the
         plants to grow, they must have oxygen. To get oxygen, use the compressor block. Note: The room
         must be enclosed (with walls/airlocks and floors) or else the oxygen will escape! \n Reward: 8 Dirt
     </Entry>
     <Entry id="dirt_goal_desc">
         Compost leaves to create 8 bags of dirt. You can use the composter to compost
         leaves. To collect leaves, you can grow trees, and then use the cut tree tool in the actions
-        menu. Trees need a 3x3 area (centered on the sapling) to grow.
+        box. Trees need a 3x3 area (centered on the sapling) to grow.
     </Entry>
     <Entry id="unobtainium_goal_desc">
         Now that you have space dust, you can use the synthesizer to create unobtainium. Because
@@ -78,7 +78,7 @@
     </Entry>
     <Entry id="chop_trees_goal_desc">
         To collect wood, you can grow trees, and then use the cut tree tool in the actions
-        menu. Trees need a 3x3 area (centered on the sapling) and oxygen to grow. \n Reward: 1 Woodroot
+        box. Trees need a 3x3 area (centered on the sapling) and oxygen to grow. \n Reward: 1 Woodroot
     </Entry>
     <Entry id="woodroot_goal_desc">
         Woodroot is a powerful plant that grows out of parasites within wood. The plant takes a long time to grow, but
