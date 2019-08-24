@@ -64,7 +64,7 @@ public enum GoalTab {
     }
 
     private static void initBotanyTab() {
-        Goal firstPotatoGoal = new ItemGoal(Item.POTATO, 100, "Grow Potatoes", "potato_goal_1_desc");
+        Goal firstPotatoGoal = new ItemGoal(Item.POTATO, 125, "Grow Potatoes", "potato_goal_1_desc");
         firstPotatoGoal.setPosition(20, 125);
 
         Goal collectWoodGoal = new ItemGoal(Item.WOOD, 100, "Grow/Chop Trees", "chop_trees_goal_desc");

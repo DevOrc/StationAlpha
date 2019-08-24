@@ -19,7 +19,7 @@ public class WorkbenchJob extends TickBasedJob {
 
     @Override
     public WorkerRole getRequiredRole() {
-        return WorkerRole.ENGINEER;
+        return WorkerRole.GENERAL;
     }
 
     @Override

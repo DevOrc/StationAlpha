@@ -6,8 +6,10 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
+import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
@@ -70,10 +72,19 @@ public class ScaffoldingContainer extends BlockContainer {
     @Override
     public void onDestroy() {
         currentJob.filter(job -> job.getStage() != Job.JobStage.FINISHED).ifPresent(job -> {
-            job.cancel();
+            Inventory inventory = getTile().getWorld().getInventory();
 
-            JobQueue.getInstance().getJobQueue(job.getRequiredRole()).remove(job);
+            for(ItemStack requirement: blockToBuild.getRequirements()){
+                inventory.changeAmountForItem(requirement.getItem(), requirement.getAmount());
+            }
+
+            job.permanentEnd();
         });
+
+        //This will prevent the items from getting replaced twice
+        //This happens because onDestroy is called for each tile (i.e. its called
+        //twice for beds because it takes up two tiles)
+        currentJob = Optional.empty();
     }
 
     @Override

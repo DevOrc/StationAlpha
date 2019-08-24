@@ -3,6 +3,9 @@ package com.noahcharlton.stationalpha.block.scaffolding;
 import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
+import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.worker.job.Job;
+import com.noahcharlton.stationalpha.worker.job.JobQueueTests;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
@@ -66,5 +69,31 @@ public class ScaffoldingContainerTests {
         container.onLoad(LoadTestUtils.asChild(expected));
 
         Assertions.assertEquals(Blocks.getWall(), container.getBlockToBuild());
+    }
+
+    @Test
+    void onDestroyItemsReturnedTest() {
+        world.getInventory().setAmountForItem(Item.STEEL, 4);
+        world.getInventory().setAmountForItem(Item.WOOD, 4);
+
+        BuildBlock buildBlock = new BuildBlock(Blocks.getBedBlock());
+        buildBlock.setUseScaffolding(true);
+        buildBlock.onClick(tile, Input.Buttons.LEFT);
+
+        container = (ScaffoldingContainer) tile.getContainer().get();
+        buildBlock.onClick(tile, Input.Buttons.RIGHT);
+
+        Assertions.assertEquals(4, world.getInventory().getAmountForItem(Item.STEEL));
+        Assertions.assertEquals(4, world.getInventory().getAmountForItem(Item.WOOD));
+    }
+
+    @Test
+    void onDestroyRemovesJobTest() {
+        container.onUpdate();
+        Job job = container.getCurrentJob().get();
+
+        container.onDestroy();
+
+        JobQueueTests.assertNotInJobQueue(job);
     }
 }

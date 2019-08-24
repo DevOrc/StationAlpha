@@ -82,7 +82,7 @@ public class WorldTests {
 
     @Test
     void removeDeadWorkersTest() {
-        world.getWorkers().get(0).die("");
+        world.getWorkers().forEach(worker -> worker.die(""));
         world.updateWorkers();
 
         Assertions.assertEquals(0, world.getWorkers().size());
