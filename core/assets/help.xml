@@ -64,7 +64,7 @@
         synthesizing takes so long, it will take your workers multiple sessions to synthesize one piece.
     </Entry>
     <Entry id="space_dust_goal">
-        Using dust collectors, collect one piece of space dust. Eventually, you will be able to use the " +
+        Using dust collectors, collect one piece of space dust. Eventually, you will be able to use the
         "space dust to synthesize unobtainium
     </Entry>
     <Entry id="power_ingot_goal_desc">

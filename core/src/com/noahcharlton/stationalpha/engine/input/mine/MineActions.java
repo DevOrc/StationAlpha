@@ -16,6 +16,7 @@ public class MineActions {
                 new MineAction.Builder()
                         .setBlock(Blocks.getIce())
                         .setOutput(Item.SPACE_ROCK)
+                        .setDisplayName("Mine Space Rock")
                         .setOutputAmount(3)
                         .build(),
                 new MineAction.Builder()

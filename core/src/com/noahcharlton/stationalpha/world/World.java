@@ -40,7 +40,7 @@ public class World {
 
     public World(boolean generate) {
         fillTiles();
-        addStartingWorker();
+        addStartingWorkers();
 
         if(generate){
             generateWorld();
@@ -48,18 +48,22 @@ public class World {
         }
     }
 
-    private void addStartingWorker() {
-        Worker worker = Worker.create(this);
+    private void addStartingWorkers() {
+        for(int i = 0; i < 2; i++){
+            Worker worker = Worker.create(this);
+            worker.setPixelX(worker.getPixelX() + (i * 2 * Tile.TILE_SIZE));
+            worker.setPixelY(worker.getPixelY() + (-i * 2 * Tile.TILE_SIZE));
 
-        for(WorkerRole role: WorkerRole.values()){
-            worker.addRole(role);
+            for(WorkerRole role: WorkerRole.values()){
+                worker.addRole(role);
+            }
+
+            workers.add(worker);
         }
-
-        workers.add(worker);
     }
 
     private void giveStartingItems() {
-        inventory.changeAmountForItem(Item.POTATO, 50);
+        inventory.changeAmountForItem(Item.POTATO, 115);
     }
 
     public void triggerWorldUpdate(int x, int y){
