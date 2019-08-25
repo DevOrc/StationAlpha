@@ -44,8 +44,6 @@ public class WorkerNeedsManager {
 
     SleepJob createSleepJob() {
         if(!worker.getBedroom().isPresent()){
-            MessageQueue.getInstance().add("NO BED", worker.getName() + " has no bed to sleep in!");
-
             return new SleepJob(worker.getTileOn(), worker);
         }
 

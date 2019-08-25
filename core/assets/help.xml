@@ -78,7 +78,7 @@
     </Entry>
     <Entry id="chop_trees_goal_desc">
         To collect wood, you can grow trees, and then use the cut tree tool in the actions
-        box. Trees need a 3x3 area (centered on the sapling) and oxygen to grow. \n Reward: 1 Woodroot
+        box. Trees need a 3x3 area (centered on the sapling) and oxygen to grow.
     </Entry>
     <Entry id="woodroot_goal_desc">
         Woodroot is a powerful plant that grows out of parasites within wood. The plant takes a long time to grow, but

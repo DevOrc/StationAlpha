@@ -73,7 +73,6 @@ public enum GoalTab {
 
         Goal collectWoodGoal = new ItemGoal(Item.WOOD, 100, "Grow/Chop Trees", "chop_trees_goal_desc");
         collectWoodGoal.setPosition(350, 175);
-        collectWoodGoal.setGoalReward(new ItemReward(Item.WOODROOT.stack(1)));
         collectWoodGoal.addRequirement(potatoGoal);
 
         Goal compostDirtGoal = new ItemGoal(Item.DIRT, 8, "Compost Leaves", "dirt_goal_desc");
