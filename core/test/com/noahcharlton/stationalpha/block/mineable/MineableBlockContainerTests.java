@@ -31,14 +31,14 @@ public class MineableBlockContainerTests extends LibGdxTest {
 
     @Test
     void createMineJobSetsContainerJobTest() {
-        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0);
+        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0, WorkerRole.GENERAL);
 
         Assertions.assertSame(job, container.getCurrentJob().get());
     }
 
     @Test
     void cancelJobIfIceDestroyedBeforeCompleted() {
-        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0);
+        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0, WorkerRole.GENERAL);
         job.start();
 
         container.onDestroy();
@@ -48,7 +48,7 @@ public class MineableBlockContainerTests extends LibGdxTest {
 
     @Test
     void doesNotCancelJobIfIceDestroyedAfterCompleted() {
-        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0);
+        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0, WorkerRole.GENERAL);
 
         job.start();
         job.finish();
@@ -61,7 +61,7 @@ public class MineableBlockContainerTests extends LibGdxTest {
     @Test
     void onSaveHasJobTest() {
         StringWriter writer = new StringWriter();
-        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0);
+        MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0, WorkerRole.GENERAL);
         container.setCurrentJob(job);
 
         container.onSave(new QuietXmlWriter(writer));

@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 public class MineAction implements BuildAction {
 
+    private final WorkerRole role;
     private final String displayName;
     private final JobQueue jobQueue;
     private final Block input;
@@ -28,6 +30,7 @@ public class MineAction implements BuildAction {
         this.output = builder.output;
         this.input = builder.block;
         this.outputAmount = builder.outputAmount;
+        this.role = builder.role;
         this.displayName = builder.displayName.orElse("Mining " + input.getDisplayName());
     }
 
@@ -71,7 +74,7 @@ public class MineAction implements BuildAction {
     }
 
     void createJob(Tile rockTile, Tile adjacentTile) {
-         jobQueue.addJob(new MineJob(rockTile, adjacentTile, output, outputAmount));
+         jobQueue.addJob(new MineJob(rockTile, adjacentTile, output, outputAmount, role));
     }
 
     @Override
@@ -92,6 +95,7 @@ public class MineAction implements BuildAction {
 
         private Optional<String> displayName = Optional.empty();
         private JobQueue jobQueue = JobQueue.getInstance();
+        private WorkerRole role = WorkerRole.GENERAL;
         private Block block;
         private List<Item> output;
         private int outputAmount;
@@ -137,6 +141,12 @@ public class MineAction implements BuildAction {
 
         public Builder setDisplayName(String displayName) {
             this.displayName = Optional.of(displayName);
+
+            return this;
+        }
+
+        public Builder setRole(WorkerRole role) {
+            this.role = role;
 
             return this;
         }

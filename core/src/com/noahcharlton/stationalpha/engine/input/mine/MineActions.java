@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.engine.input.mine;
 
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,6 +25,7 @@ public class MineActions {
                         .setOutput(Item.WOOD, Item.LEAVES, Item.LEAVES)
                         .setOutputAmount(8)
                         .setDisplayName("Cut Tree")
+                        .setRole(WorkerRole.GARDENER)
                         .build()
         );
     }
