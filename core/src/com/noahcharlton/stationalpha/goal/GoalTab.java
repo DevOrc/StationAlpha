@@ -10,7 +10,7 @@ import java.util.List;
 
 public enum GoalTab {
 
-    TECH("Basics"), BOTANY("Botany");
+    TECH("Tech"), BOTANY("Botany");
 
     static{
         init();
@@ -75,7 +75,7 @@ public enum GoalTab {
         collectWoodGoal.setPosition(350, 175);
         collectWoodGoal.addRequirement(potatoGoal);
 
-        Goal compostDirtGoal = new ItemGoal(Item.DIRT, 8, "Compost Leaves", "dirt_goal_desc");
+        Goal compostDirtGoal = new ItemGoal(Item.DIRT, 12, "Compost Leaves", "dirt_goal_desc");
         compostDirtGoal.setPosition(350, 75);
         compostDirtGoal.addRequirement(potatoGoal);
 

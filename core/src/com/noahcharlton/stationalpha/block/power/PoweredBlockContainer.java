@@ -1,6 +1,5 @@
 package com.noahcharlton.stationalpha.block.power;
 
-import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
@@ -29,7 +28,7 @@ public abstract class PoweredBlockContainer extends BlockContainer implements Po
             }
         }
 
-        return power < 0;
+        return power <= 0;
     }
 
     public boolean usePower(){

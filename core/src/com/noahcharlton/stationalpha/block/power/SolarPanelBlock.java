@@ -25,7 +25,7 @@ public class SolarPanelBlock extends Block {
 
     @Override
     public List<ItemStack> getRequirements() {
-        return Arrays.asList(Item.STEEL.stack(10), Item.COPPER.stack(3));
+        return Arrays.asList(Item.STEEL.stack(10), Item.COPPER.stack(2));
     }
 
     @Override
