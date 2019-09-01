@@ -3,6 +3,9 @@ package com.noahcharlton.stationalpha;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.gui.scenes.message.Message;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
+import com.noahcharlton.stationalpha.worker.job.JobQueue;
+import com.noahcharlton.stationalpha.worker.job.TestJob;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
@@ -91,5 +94,23 @@ public class StationAlphaTests extends LibGdxTest{
         Message m = MessageQueue.getInstance().getMessages().poll();
 
         Assertions.assertEquals(HelpInfo.get("controls_message"), m.getDescription());
+    }
+
+    @Test
+    void jobQueueClearedOnWorldStartTest() {
+        JobQueue.getInstance().addJob(new TestJob());
+
+        gameInstance.startGame();
+
+        Assertions.assertEquals(0, JobQueue.getInstance().getJobQueue(WorkerRole.GENERAL).size());
+    }
+
+    @Test
+    void jobQueueClearedOnWorldLoadedTest() {
+        JobQueue.getInstance().addJob(new TestJob());
+
+        gameInstance.loadGame(11);
+
+        Assertions.assertEquals(0, JobQueue.getInstance().getJobQueue(WorkerRole.GENERAL).size());
     }
 }

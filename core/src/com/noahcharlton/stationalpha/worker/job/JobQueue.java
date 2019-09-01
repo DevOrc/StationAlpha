@@ -40,6 +40,11 @@ public class JobQueue {
         return Optional.of(jobQueue.removeFirst());
     }
 
+
+    public void clear() {
+        jobs.values().forEach(ArrayDeque::clear);
+    }
+
     public ArrayDeque<Job> getJobQueue(WorkerRole role) {
         return jobs.get(role);
     }

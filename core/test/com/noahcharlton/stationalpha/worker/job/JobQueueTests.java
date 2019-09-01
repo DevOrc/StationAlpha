@@ -16,6 +16,17 @@ public class JobQueueTests {
 
     private final JobQueue jobQueue = new JobQueue();
 
+    @ParameterizedTest
+    @EnumSource(WorkerRole.class)
+    void clearBasicTest(WorkerRole role) {
+        TestRoleJob job = new TestRoleJob(role);
+
+        jobQueue.addJob(job);
+        jobQueue.clear();
+
+        Assertions.assertEquals(0, jobQueue.getJobQueue(role).size());
+    }
+
     @Test
     void cannotAddSleepJobToQueue() {
         SleepJob job = new SleepJob(null, new TestWorker());

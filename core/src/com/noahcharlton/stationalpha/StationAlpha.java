@@ -12,6 +12,7 @@ import com.noahcharlton.stationalpha.gui.GuiContainer;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
+import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.World;
 import com.noahcharlton.stationalpha.world.load.LoadGameException;
 import org.apache.logging.log4j.LogManager;
@@ -85,6 +86,7 @@ public class StationAlpha extends ApplicationAdapter {
     }
 
     public void loadGame(int saveNumber) {
+        JobQueue.getInstance().clear();
         currentState = GameState.IN_GAME;
         world = Optional.of(new World(false));
         setTicksPerUpdate(0);
@@ -103,6 +105,7 @@ public class StationAlpha extends ApplicationAdapter {
     }
 
     public void startGame() {
+        JobQueue.getInstance().clear();
         currentState = GameState.IN_GAME;
         world = Optional.of(new World(true));
 
