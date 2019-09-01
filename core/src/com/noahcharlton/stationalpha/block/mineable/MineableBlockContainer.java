@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.block.mineable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
@@ -38,16 +39,17 @@ public class MineableBlockContainer extends BlockContainer {
     public void onLoad(XmlReader.Element element) {
         boolean markedForMining = element.getBoolean("MarkedForMining");
 
-        if(markedForMining){
-            createJob();
+        if(markedForMining) {
+            if(Gdx.app != null)
+                Gdx.app.postRunnable(this::createJob);
+            else createJob();
         }
     }
 
     private void createJob() {
-        for(MineAction action : MineActions.getActions()){
-            if(action.getInput().equals(this.getBlock())){
+        for(MineAction action : MineActions.getActions()) {
+            if(action.getInput().equals(this.getBlock())) {
                 action.createJob(this.getTile(), this);
-                System.out.println(getCurrentJob());
             }
         }
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public enum GoalTab {
 
-    TECH("Basics"), BOTANY("Botany");
+    TECH("Tech"), BOTANY("Botany");
 
     static{
         init();
@@ -35,13 +35,16 @@ public enum GoalTab {
     private static void initTechTab() {
         Goal steelGoal = new ItemGoal(Item.STEEL, 80, "Mine for Steel", "steel_goal_desc");
         steelGoal.setPosition(25, 175);
+        steelGoal.setGoalReward(new ItemReward(Item.DIRT.stack(8)));
 
         Goal copperGoal = new ItemGoal(Item.COPPER, 5, "Mine for Copper", "copper_goal_desc");
         copperGoal.setPosition(25, 75);
+        copperGoal.setGoalReward(new ItemReward(Item.DIRT.stack(8)));
 
         Goal spaceDustGoal = new ItemGoal(Item.SPACE_DUST, 25, "Collect Space Dust", "space_dust_goal");
         spaceDustGoal.setPosition(325, 125);
         spaceDustGoal.addRequirement(copperGoal, steelGoal);
+        spaceDustGoal.setGoalReward(new ItemReward(Item.UNOBTAINIUM.stack(1)));
 
         Goal synthesizeUnobtainiumGoal = new ItemGoal(Item.UNOBTAINIUM, 5, "Synthesize Unobtainium",
                 "unobtainium_goal_desc");
@@ -64,22 +67,23 @@ public enum GoalTab {
     }
 
     private static void initBotanyTab() {
-        Goal firstPotatoGoal = new ItemGoal(Item.POTATO, 125, "Grow Potatoes", "potato_goal_1_desc");
-        firstPotatoGoal.setPosition(20, 125);
+        Goal potatoGoal = new ItemGoal(Item.POTATO, 125, "Grow Potatoes", "potato_goal_1_desc");
+        potatoGoal.setPosition(20, 125);
+        potatoGoal.setGoalReward(new ItemReward(Item.DIRT.stack(8)));
 
         Goal collectWoodGoal = new ItemGoal(Item.WOOD, 100, "Grow/Chop Trees", "chop_trees_goal_desc");
         collectWoodGoal.setPosition(350, 175);
-        collectWoodGoal.addRequirement(firstPotatoGoal);
+        collectWoodGoal.addRequirement(potatoGoal);
 
-        Goal compostDirtGoal = new ItemGoal(Item.DIRT, 8, "Compost Leaves", "dirt_goal_desc");
+        Goal compostDirtGoal = new ItemGoal(Item.DIRT, 12, "Compost Leaves", "dirt_goal_desc");
         compostDirtGoal.setPosition(350, 75);
-        compostDirtGoal.addRequirement(firstPotatoGoal);
+        compostDirtGoal.addRequirement(potatoGoal);
 
         Goal growWoodrootGoal = new ItemGoal(Item.WOODROOT, 25, "Grow woodroot", "woodroot_goal_desc");
         growWoodrootGoal.setPosition(675, 175);
         growWoodrootGoal.addRequirement(collectWoodGoal);
 
-        BOTANY.addGoals(firstPotatoGoal, collectWoodGoal, compostDirtGoal, growWoodrootGoal);
+        BOTANY.addGoals(potatoGoal, collectWoodGoal, compostDirtGoal, growWoodrootGoal);
     }
 
     public String getDisplayName() {

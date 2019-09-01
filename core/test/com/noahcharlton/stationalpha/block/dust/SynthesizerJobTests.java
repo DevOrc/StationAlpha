@@ -67,6 +67,8 @@ public class SynthesizerJobTests extends JobTests {
     public Job getJob() {
         tile = world.getTileAt(0, 0).get();
         world.getInventory().setAmountForItem(Item.UNOBTAINIUM, 1);
+        world.getInventory().changeAmountForItem(Item.COPPER, 5);
+        world.getInventory().changeAmountForItem(Item.STEEL, 15);
         BuildBlock buildBlock = new BuildBlock(Blocks.getSynthesizer());
         buildBlock.onClick(tile, Input.Buttons.LEFT);
 

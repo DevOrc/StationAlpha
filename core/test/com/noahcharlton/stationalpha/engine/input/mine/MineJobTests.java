@@ -5,6 +5,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobTests;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -62,7 +63,7 @@ public class MineJobTests extends JobTests {
         Tile adjacent = world.getTileAt(5, 5).get();
         adjacent.setBlock(null);
 
-        job = new MineJob(rockTile, adjacent, Arrays.asList(Item.SPACE_ROCK, Item.STEEL), 3);
+        job = new MineJob(rockTile, adjacent, Arrays.asList(Item.SPACE_ROCK, Item.STEEL), 3, WorkerRole.GENERAL);
 
         return job;
     }

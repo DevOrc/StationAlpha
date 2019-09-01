@@ -15,7 +15,7 @@ public class MessageMenu extends Pane {
     private static final int DISPLAYING_HEIGHT = 275;
     private static final int SPACING = 16;
 
-    private final CloseMenuButton menuButton = new CloseMenuButton(this);
+    private final CloseSelectableMenuButton menuButton = new CloseSelectableMenuButton(this);
     private Optional<Message> currentMessage = Optional.empty();
 
     public MessageMenu() {
@@ -68,12 +68,12 @@ public class MessageMenu extends Pane {
         return currentMessage.isPresent();
     }
 }
-class CloseMenuButton extends Pane {
+class CloseSelectableMenuButton extends Pane {
 
     private static final int SIZE = 24;
     private final MessageMenu menu;
 
-    public CloseMenuButton(MessageMenu menu) {
+    public CloseSelectableMenuButton(MessageMenu menu) {
         this.menu = menu;
 
         setDrawBorder(true, true, true, true);

@@ -16,13 +16,14 @@ public class SelectableBox extends Pane {
 
     private final SelectableHelpButton helpButton = new SelectableHelpButton(this, this::onHelpButtonClicked);
     private final HelpMenu helpMenu = new HelpMenu();
+    private final CloseSelectableMenuButton closeButton = new CloseSelectableMenuButton(this);
 
     private int height = 250;
 
     public SelectableBox() {
         setDrawBorder(true, true, true, true);
 
-        addAllGui(helpButton, helpMenu);
+        addAllGui(helpButton, helpMenu, closeButton);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class SelectableBox extends Pane {
 
         setFontData(.55f, Color.WHITE);
 
-        for(String info : selectable.getDebugInfo()){
+        for(String info : selectable.getDebugInfo()) {
             y -= drawCenteredText(b, info, y).height + (spacing * .75);
         }
 
@@ -68,5 +69,40 @@ public class SelectableBox extends Pane {
 
     private void onHelpButtonClicked() {
         helpMenu.setVisible(!helpMenu.isVisible());
+    }
+}
+
+class CloseSelectableMenuButton extends Pane {
+
+    private static final int SIZE = 24;
+    private final SelectableBox box;
+
+    public CloseSelectableMenuButton(SelectableBox box) {
+        this.box = box;
+
+        setDrawBorder(true, true, true, true);
+    }
+
+    @Override
+    protected void onClick() {
+        InputHandler.getInstance().setCurrentlySelected(null);
+    }
+
+    @Override
+    public void drawForeground(SpriteBatch b) {
+        setFontData(.75f, Color.FIREBRICK);
+        drawCenteredText(b, "X", SIZE * 9 / 10);
+    }
+
+    @Override
+    protected void updateSize() {
+        setWidth(SIZE);
+        setHeight(SIZE);
+    }
+
+    @Override
+    protected void updatePosition() {
+        setX(box.getX() + box.getWidth() - SIZE);
+        setY(box.getY() + box.getHeight() - SIZE);
     }
 }

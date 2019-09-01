@@ -25,8 +25,11 @@ public class ItemGoal extends Goal {
     public void update(World world) {
         int currentAmount = world.getInventory().getAmountForItem(item);
 
-        if(currentAmount >= amount)
+        if(currentAmount >= amount){
             setCompleted(true);
+            goalReward.giveReward(world);
+            showCompletedMessage();
+        }
 
         updateDescription(currentAmount);
     }

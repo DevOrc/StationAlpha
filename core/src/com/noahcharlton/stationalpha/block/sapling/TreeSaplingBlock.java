@@ -13,6 +13,7 @@ public class TreeSaplingBlock extends Block {
     public TreeSaplingBlock() {
         setOpaque(false);
         setPassable(true);
+        setAutoBuild(true);
     }
 
     @Override

@@ -42,6 +42,14 @@ public class PoweredBlockContainerTest {
     }
 
     @Test
+    void hasPowerExactAmountOfPowerTest() {
+        container.setPowerPerTick(6);
+        tile.setPower(6);
+
+        Assertions.assertTrue(container.hasPower());
+    }
+
+    @Test
     void hasPowerNonRootTileTest() {
         container.setPowerPerTick(11);
         world.getTileAt(1, 1).get().setPower(15);

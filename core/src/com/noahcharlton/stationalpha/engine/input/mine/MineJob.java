@@ -7,6 +7,7 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.block.mineable.MineableBlockContainer;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.TickBasedJob;
 import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
@@ -20,16 +21,18 @@ public class MineJob extends TickBasedJob {
     static final int TICKS = 120;
     private static final Logger logger = LogManager.getLogger(MineJob.class);
 
+    private final WorkerRole role;
     private final Tile blockTile;
     private final List<Item> outputItems;
     private final int outputAmount;
 
-    public MineJob(Tile blockTile, Tile openBlock, List<Item> outputItems, int outputAmount) {
+    public MineJob(Tile blockTile, Tile openBlock, List<Item> outputItems, int outputAmount, WorkerRole role) {
         super(openBlock, TICKS);
 
         this.blockTile = blockTile;
         this.outputItems = outputItems;
         this.outputAmount = outputAmount;
+        this.role = role;
 
         setBlockMineState(blockTile);
     }
@@ -46,6 +49,11 @@ public class MineJob extends TickBasedJob {
         }else{
             throw new GdxRuntimeException("Cannot mine a block when there is no container!");
         }
+    }
+
+    @Override
+    public WorkerRole getRequiredRole() {
+        return role;
     }
 
     @Override
