@@ -2,7 +2,9 @@ package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.noahcharlton.stationalpha.StationAlpha;
+import com.noahcharlton.stationalpha.engine.CameraInputHandler;
 import com.noahcharlton.stationalpha.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -71,6 +73,22 @@ public class InputHandler implements SimpleInputProcessor {
         }
 
         buildManager.getAction().ifPresent(action -> action.onKeyPressed(keycode));
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        int mouseX = Gdx.input.getX();
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        boolean onGui = StationAlpha.getInstance().getGuiContainer().handleClick(mouseX, mouseY, false);
+
+        if(onGui)
+            return false;
+
+        OrthographicCamera camera = StationAlpha.getInstance().getGameRenderer().getCamera();
+
+        CameraInputHandler.onScroll(camera, amount);
+
         return false;
     }
 
