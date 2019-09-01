@@ -47,7 +47,7 @@ public class GoalMenu extends BuildBarMenu<Void> {
         ShapeUtil.drawRect(x, y, BOX_WIDTH, BOX_HEIGHT, borderColor, b);
         ShapeUtil.drawRect(x + 2, y + 2, BOX_WIDTH - 4, BOX_HEIGHT - 4, Color.BLACK, b);
 
-        setFontData(.6f, Color.WHITE);
+        setFontData(.6f, goal.allRequirementsCompleted() ? Color.WHITE: Color.GRAY);
         int fontPadding = 5;
         font.draw(b, goal.getName(), x + fontPadding, y + 30,
                 BOX_WIDTH - (fontPadding * 2), Align.center, false);
