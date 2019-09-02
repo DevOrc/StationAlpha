@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Floor;
 import com.noahcharlton.stationalpha.world.Inventory;
@@ -31,6 +32,11 @@ public class PlantContainer extends BlockContainer {
         this.plant = plant;
         this.ticksPerStage = (int) (plant.getMinimumTicksPerStage() * (1f + (random.nextFloat() / 2f)));
         this.tick = ticksPerStage;
+    }
+
+    @Override
+    public void onDestroy() {
+        job.ifPresent(Job::permanentEnd);
     }
 
     @Override

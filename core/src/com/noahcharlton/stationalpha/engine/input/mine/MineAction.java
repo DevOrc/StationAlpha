@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.block.mineable.MineableBlockContainer;
 import com.noahcharlton.stationalpha.engine.GameCursor;
 import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
@@ -47,13 +48,26 @@ public class MineAction implements BuildAction {
         if(leftClick && clickedOnBlock){
             BlockContainer container = tile.getContainer().get();
 
+            if(isBlockAlreadyMarked(container))
+                return;
+
             createJob(tile, container);
         }else if(!leftClick){
             InputHandler.getInstance().setBuildAction(null);
         }
     }
 
-     public void createJob(Tile tile, BlockContainer container) {
+    private boolean isBlockAlreadyMarked(BlockContainer container) {
+        if(container instanceof MineableBlockContainer){
+            MineableBlockContainer mineableBlockContainer = (MineableBlockContainer) container;
+
+            return mineableBlockContainer.getCurrentJob().isPresent();
+        }else{
+            throw new GdxRuntimeException("Cannot mine non-mineable block!");
+        }
+    }
+
+    public void createJob(Tile tile, BlockContainer container) {
         getOpenAdjacent(container).ifPresent(adjacent -> createJob(tile, adjacent));
     }
 
@@ -86,12 +100,14 @@ public class MineAction implements BuildAction {
 
     @Override
     public void onSelected() {
-        Gdx.graphics.setCursor(cursor.getCursor());
+        if(Gdx.graphics != null)
+            Gdx.graphics.setCursor(cursor.getCursor());
     }
 
     @Override
     public void onDeselected() {
-        Gdx.graphics.setCursor(GameCursor.ARROW.getCursor());
+        if(Gdx.graphics != null)
+            Gdx.graphics.setCursor(GameCursor.ARROW.getCursor());
     }
 
     @Override

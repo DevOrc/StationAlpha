@@ -26,8 +26,7 @@ public class MineableBlockContainer extends BlockContainer {
 
     @Override
     public void onDestroy() {
-        if(currentJob.filter(job -> job.getStage() != Job.JobStage.FINISHED).isPresent())
-            currentJob.ifPresent(Job::cancel);
+        currentJob.filter(job -> job.getStage() != Job.JobStage.FINISHED).ifPresent(Job::permanentEnd);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.engine.input.mine.MineJob;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
+import com.noahcharlton.stationalpha.worker.job.JobQueueTests;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
@@ -37,13 +38,12 @@ public class MineableBlockContainerTests extends LibGdxTest {
     }
 
     @Test
-    void cancelJobIfIceDestroyedBeforeCompleted() {
+    void onDestroyJobRemovedFromQueue() {
         MineJob job = new MineJob(tile, tile.getOpenAdjecent().get(), Collections.emptyList(), 0, WorkerRole.GENERAL);
-        job.start();
 
         container.onDestroy();
 
-        Assertions.assertEquals(Job.JobStage.PRE_START, job.getStage());
+        JobQueueTests.assertNotInJobQueue(job);
     }
 
     @Test
@@ -57,6 +57,7 @@ public class MineableBlockContainerTests extends LibGdxTest {
 
         Assertions.assertEquals(Job.JobStage.FINISHED, job.getStage());
     }
+
 
     @Test
     void onSaveHasJobTest() {

@@ -43,7 +43,7 @@ public class SleepJob extends TickBasedJob {
             if(!sleepsInBed){
                 WorkerRenderer.defaultRender(batch, worker);
 
-                if(!isSleeping)
+                if(isSleeping)
                     drawZZZ(batch);
             }
         });

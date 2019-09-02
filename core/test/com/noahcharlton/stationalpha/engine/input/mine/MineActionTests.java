@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
@@ -27,6 +28,7 @@ public class MineActionTests {
             .setOutput(Item.SPACE_ROCK)
             .setOutputAmount(3)
             .setJobQueue(jobQueue)
+            .setRole(WorkerRole.GENERAL)
             .build();
 
     @Test
@@ -40,13 +42,35 @@ public class MineActionTests {
     }
 
     @Test
-    void onClickWithRightNothingTest() {
+    void onMultipleClickJobQueueSizeOneTest() {
+        Tile tile = world.getTileAt(5, 5).get();
+        tile.setBlock(Blocks.getIce());
+
+        mineAction.onClick(tile, Input.Buttons.LEFT);
+        mineAction.onClick(tile, Input.Buttons.LEFT);
+        mineAction.onClick(tile, Input.Buttons.LEFT);
+
+        Assertions.assertEquals(1, jobQueue.getJobQueue(WorkerRole.GENERAL).size());
+    }
+
+    @Test
+    void onClickBlockWithRightNothingTest() {
         Tile tile = world.getTileAt(5, 5).get();
         tile.setBlock(Blocks.getIce());
 
         mineAction.onClick(tile, Input.Buttons.RIGHT);
 
         Assertions.assertFalse(jobQueue.get(WorkerRole.GENERAL).isPresent());
+    }
+
+    @Test
+    void onClickEmptyTileWithRightCancelsActionTest() {
+        InputHandler.getInstance().setBuildAction(mineAction);
+        Tile tile = world.getTileAt(5, 5).get();
+
+        mineAction.onClick(tile, Input.Buttons.RIGHT);
+
+        Assertions.assertFalse(InputHandler.getInstance().getBuildManager().getAction().isPresent());
     }
 
     @Test
