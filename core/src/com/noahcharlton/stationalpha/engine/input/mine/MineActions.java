@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.engine.input.mine;
 
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.engine.GameCursor;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 
@@ -19,6 +20,7 @@ public class MineActions {
                         .setOutput(Item.SPACE_ROCK)
                         .setDisplayName("Mine Space Rock")
                         .setOutputAmount(3)
+                        .setCursor(GameCursor.PICK_AXE)
                         .build(),
                 new MineAction.Builder()
                         .setBlock(Blocks.getTreeBlock())
@@ -26,6 +28,7 @@ public class MineActions {
                         .setOutputAmount(8)
                         .setDisplayName("Cut Tree")
                         .setRole(WorkerRole.GARDENER)
+                        .setCursor(GameCursor.AXE)
                         .build()
         );
     }

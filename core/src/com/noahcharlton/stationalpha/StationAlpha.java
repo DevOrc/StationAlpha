@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.engine.GameCursor;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
@@ -58,6 +59,7 @@ public class StationAlpha extends ApplicationAdapter {
     public void create() {
         gameRenderer = new GameRenderer();
 
+        GameCursor.init();
         InputHandler.init();
         Blocks.init();
         Item.init();

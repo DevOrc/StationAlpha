@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class CameraInputHandler {
 
+    private static final float scrollZoomSpeed = .25f;
     private static final float zoomSpeed = 3f;
     private static final float moveSpeed = 600f;
 
@@ -49,5 +50,10 @@ public class CameraInputHandler {
         } else if (cam.zoom > 5.75) {
             cam.zoom = 5.75f;
         }
+    }
+
+    public static void onScroll(OrthographicCamera camera, int amount) {
+        camera.zoom += scrollZoomSpeed * amount;
+        trimZoom(camera);
     }
 }

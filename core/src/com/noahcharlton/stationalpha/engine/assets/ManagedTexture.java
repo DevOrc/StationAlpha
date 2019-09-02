@@ -12,6 +12,7 @@ public class ManagedTexture implements Asset {
 
     private final String path;
     private Optional<Texture> texture = Optional.empty();
+    private Runnable onLoad = () -> {};
 
     private volatile boolean loaded = false;
 
@@ -33,6 +34,7 @@ public class ManagedTexture implements Asset {
         Gdx.app.postRunnable(() -> {
             Pixmap pixmap = new Pixmap(data, 0, data.length);
             texture = Optional.of(new Texture(pixmap));
+            onLoad.run();
             loaded = true;
         });
 
@@ -62,5 +64,9 @@ public class ManagedTexture implements Asset {
     @Override
     public String getPath() {
         return path;
+    }
+
+    public void setOnLoad(Runnable onLoad) {
+        this.onLoad = onLoad;
     }
 }
