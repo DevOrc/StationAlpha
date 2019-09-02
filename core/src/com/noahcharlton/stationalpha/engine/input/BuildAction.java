@@ -11,5 +11,9 @@ public interface BuildAction {
 
     default void render(SpriteBatch b){}
 
+    default void onSelected(){}
+
+    default void onDeselected(){}
+
     String getName();
 }

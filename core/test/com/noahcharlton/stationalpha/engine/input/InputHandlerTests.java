@@ -16,8 +16,40 @@ public class InputHandlerTests {
 
         Assertions.assertSame(inputHandler.getBuildManager().getAction().get(), buildAction);
     }
+
+    @Test
+    void onSelectedRunsTest() {
+        TestBuildAction action = new TestBuildAction();
+
+        inputHandler.setBuildAction(action);
+
+        Assertions.assertTrue(action.onSelectedRan);
+    }
+
+    @Test
+    void onDeselectedRunsTest() {
+        TestBuildAction action = new TestBuildAction();
+
+        inputHandler.setBuildAction(action);
+        inputHandler.setBuildAction(null);
+
+        Assertions.assertTrue(action.onDeselectedRan);
+    }
 }
 class TestBuildAction implements BuildAction{
+
+    boolean onSelectedRan = false;
+    boolean onDeselectedRan = false;
+
+    @Override
+    public void onSelected() {
+        onSelectedRan = true;
+    }
+
+    @Override
+    public void onDeselected() {
+        onDeselectedRan = true;
+    }
 
     @Override
     public void onClick(Tile tile, int button) {

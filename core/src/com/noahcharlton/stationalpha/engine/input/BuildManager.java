@@ -99,7 +99,9 @@ public class BuildManager {
     }
 
     public void setAction(BuildAction action) {
+        this.action.ifPresent(BuildAction::onDeselected);
         this.action = Optional.ofNullable(action);
+        this.action.ifPresent(BuildAction::onSelected);
     }
 
     public Optional<BuildAction> getAction() {

@@ -1,10 +1,13 @@
 package com.noahcharlton.stationalpha.engine.input.mine;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
+import com.noahcharlton.stationalpha.engine.GameCursor;
 import com.noahcharlton.stationalpha.engine.input.BuildAction;
+import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
@@ -23,6 +26,7 @@ public class MineAction implements BuildAction {
     private final JobQueue jobQueue;
     private final Block input;
     private final List<Item> output;
+    private final GameCursor cursor;
     private final int outputAmount;
 
     public MineAction(Builder builder) {
@@ -31,6 +35,7 @@ public class MineAction implements BuildAction {
         this.input = builder.block;
         this.outputAmount = builder.outputAmount;
         this.role = builder.role;
+        this.cursor = builder.cursor;
         this.displayName = builder.displayName.orElse("Mining " + input.getDisplayName());
     }
 
@@ -43,6 +48,8 @@ public class MineAction implements BuildAction {
             BlockContainer container = tile.getContainer().get();
 
             createJob(tile, container);
+        }else if(!leftClick){
+            InputHandler.getInstance().setBuildAction(null);
         }
     }
 
@@ -78,6 +85,16 @@ public class MineAction implements BuildAction {
     }
 
     @Override
+    public void onSelected() {
+        Gdx.graphics.setCursor(cursor.getCursor());
+    }
+
+    @Override
+    public void onDeselected() {
+        Gdx.graphics.setCursor(GameCursor.ARROW.getCursor());
+    }
+
+    @Override
     public String getName() {
         return displayName;
     }
@@ -96,6 +113,7 @@ public class MineAction implements BuildAction {
         private Optional<String> displayName = Optional.empty();
         private JobQueue jobQueue = JobQueue.getInstance();
         private WorkerRole role = WorkerRole.GENERAL;
+        private GameCursor cursor = GameCursor.ARROW;
         private Block block;
         private List<Item> output;
         private int outputAmount;
@@ -147,6 +165,12 @@ public class MineAction implements BuildAction {
 
         public Builder setRole(WorkerRole role) {
             this.role = role;
+
+            return this;
+        }
+
+        public Builder setCursor(GameCursor cursor) {
+            this.cursor = cursor;
 
             return this;
         }
