@@ -45,7 +45,7 @@ public class ManufacturingRecipes {
 
         recipes.add(ManufacturingRecipe.createBuilder()
                 .setInput(Item.WOOD.stack(25))
-                .setOutput(Item.WOODROOT.stack(1))
+                .setOutput(Item.WOODROOT.stack(10))
                 .setTime(5000)
                 .setType(RecipeType.SYNTHESIZE)
                 .build()

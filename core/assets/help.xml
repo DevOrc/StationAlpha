@@ -38,6 +38,13 @@
         Dead plants form when plants (saplings, potatoes, etc.) fail to survive
         in their environment. To grow, plants need oxygen (at least 15%) and dirt floors.
     </Entry>
+    <Entry id="dust_collector_info">
+        Dust collectors collect dust from the surrounding gasses. It requires 2 PU / T. To produce power,
+        you can build solar panels and you can transfer it via conduits.
+    </Entry>
+    <Entry id="solar_panel_info">
+        Solar panels produce a constant rate of 1 PU / T. Power can be transferred using power conduits.
+    </Entry>
     <Entry id="steel_goal_desc">
         Gather steel so that you can start your base.
         You can collect steel by mining space rock. To mine rock, use the mining
@@ -83,6 +90,7 @@
     <Entry id="woodroot_goal_desc">
         Woodroot is a powerful plant that grows out of parasites within wood. The plant takes a long time to grow, but
         provides a lot of food when harvested. Note: Woodroot requires one piece of woodroot to start growing the plant!
+        \n Warning: Your workers will choose to eat woodroot over potatoes so you must plant it before they eat it.
     </Entry>
 </HelpInfo>
 

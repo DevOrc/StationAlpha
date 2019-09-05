@@ -35,6 +35,19 @@ public class ItemGoal extends Goal {
     }
 
     private void updateDescription(int currentAmount) {
+        if(isCompleted()){
+            setDesc(baseDesc);
+            return;
+        }
+
         setDesc(baseDesc + "\n" + currentAmount + " / " + amount + "  " + item.getDisplayName());
+    }
+
+    @Override
+    public void setCompleted(boolean completed) {
+        super.setCompleted(completed);
+
+        if(completed)
+            updateDescription(0);
     }
 }
