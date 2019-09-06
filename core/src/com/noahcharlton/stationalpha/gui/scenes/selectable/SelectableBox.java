@@ -43,16 +43,18 @@ public class SelectableBox extends Pane {
         y -= drawCenteredText(b, selectable.getTitle(), y).height;
         y -= spacing * 2;
 
+        if(!selectable.getDesc().isEmpty()){
+            setFontData(.65f, Color.WHITE);
+            y -= drawCenteredText(b, selectable.getDesc(), y).height + spacing;
+        }
+
         setFontData(.55f, Color.WHITE);
 
         for(String info : selectable.getDebugInfo()) {
             y -= drawCenteredText(b, info, y).height + (spacing * .75);
         }
 
-        setFontData(.65f, Color.WHITE);
-        y -= drawCenteredText(b, selectable.getDesc(), y).height + spacing;
-
-        height = getHeight() - y - 10;
+        height = getHeight() - y;
     }
 
     @Override

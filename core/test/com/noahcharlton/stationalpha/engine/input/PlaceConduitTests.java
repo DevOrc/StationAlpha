@@ -43,6 +43,33 @@ public class PlaceConduitTests {
     }
 
     @Test
+    void cannotPlaceConduitTwiceTest() {
+        world.getInventory().setAmountForItem(Item.STEEL, 1);
+        Tile tile = world.getTileAt(0, 0).get();
+        tile.setConduit(true);
+
+        placeConduit.onClick(tile, Input.Buttons.LEFT);
+
+        Assertions.assertEquals(1, world.getInventory().getAmountForItem(Item.STEEL));
+    }
+
+    @Test
+    void addsHelpMenuOnSelected() {
+        InputHandler.getInstance().setCurrentlySelected(null);
+        placeConduit.onSelected();
+
+        Assertions.assertTrue(InputHandler.getInstance().getCurrentlySelected().isPresent());
+    }
+
+    @Test
+    void onDeselectedHelpMenuClosedTest() {
+        placeConduit.onSelected();
+        placeConduit.onDeselected();
+
+        Assertions.assertFalse(InputHandler.getInstance().getCurrentlySelected().isPresent());
+    }
+
+    @Test
     void leftClickRemovesSteelTest() {
         world.getInventory().setAmountForItem(Item.STEEL, 1);
         Tile tile = world.getTileAt(0, 0).get();

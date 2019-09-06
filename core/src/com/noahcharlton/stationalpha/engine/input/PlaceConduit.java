@@ -10,7 +10,7 @@ import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
-public class PlaceConduit implements BuildAction{
+public class PlaceConduit implements BuildAction, Selectable{
 
     @Override
     public void onClick(Tile tile, int button) {
@@ -25,10 +25,23 @@ public class PlaceConduit implements BuildAction{
         World world = tile.getWorld();
         Inventory inventory = world.getInventory();
 
+        if(tile.hasConduit())
+            return;
+
         if(inventory.getAmountForItem(Item.STEEL) > 0){
             inventory.changeAmountForItem(Item.STEEL, -1);
             tile.setConduit(true);
         }
+    }
+
+    @Override
+    public void onSelected() {
+        InputHandler.getInstance().setCurrentlySelected(this);
+    }
+
+    @Override
+    public void onDeselected() {
+        InputHandler.getInstance().setCurrentlySelected(null);
     }
 
     private void handleRightClick(Tile tile) {
@@ -56,6 +69,21 @@ public class PlaceConduit implements BuildAction{
     @Override
     public String getName() {
         return "Place Conduit";
+    }
+
+    @Override
+    public String getTitle() {
+        return getName();
+    }
+
+    @Override
+    public String getDesc() {
+        return "Place down conduits to transfer power.";
+    }
+
+    @Override
+    public String[] getDebugInfo() {
+        return new String[]{"Requires: 1 Steel"};
     }
 
     @Override
