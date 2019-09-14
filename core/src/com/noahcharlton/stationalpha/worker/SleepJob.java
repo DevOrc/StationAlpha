@@ -27,7 +27,7 @@ public class SleepJob extends TickBasedJob {
     public void finish() {
         super.finish();
 
-        worker.getAi().getNeedsManager().finishSleep();
+        worker.getAi().getNeedsManager().resetSleepTime();
     }
 
     @Override

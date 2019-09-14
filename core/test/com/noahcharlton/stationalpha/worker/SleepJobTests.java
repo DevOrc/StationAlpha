@@ -40,13 +40,11 @@ public class SleepJobTests extends JobTests {
     @Test
     void onFinishResetsSleepTick() {
         worker.getAi().getNeedsManager().update();
-
-        Assumptions.assumeTrue(worker.getAi().getNeedsManager().getSleepTick()
-                != WorkerNeedsManager.SLEEP_RESET);
-
+        worker.getAi().getNeedsManager().setSleepTick(25);
         sleepJob.finish();
 
-        Assertions.assertEquals(WorkerNeedsManager.SLEEP_RESET, worker.getAi().getNeedsManager().getSleepTick());
+        Assertions.assertTrue(WorkerNeedsManager.SLEEP_RESET <=
+                worker.getAi().getNeedsManager().getSleepTick());
     }
 
     @Test

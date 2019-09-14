@@ -7,19 +7,32 @@ import com.noahcharlton.stationalpha.world.Inventory;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
+import java.util.Random;
 
 public class WorkerNeedsManager {
 
-    public static final int FOOD_TIME = 1200;
+    private static final Random random = new Random();
+    public static final int FOOD_RESET = 1200;
     public static final int SLEEP_RESET = 6000;
 
     private final Worker worker;
 
     private int foodTick;
-    private int sleepTick = SLEEP_RESET;
+    private int sleepTick;
 
     public WorkerNeedsManager(Worker worker) {
         this.worker = worker;
+
+        resetEatTime();
+        resetSleepTime();
+    }
+
+    public void resetSleepTime(){
+        sleepTick = (int) (SLEEP_RESET * (random.nextFloat() + 1f));
+    }
+
+    public void resetEatTime(){
+        foodTick = (int) (FOOD_RESET * (random.nextFloat() + 1f));
     }
 
     public void update(){
@@ -71,20 +84,16 @@ public class WorkerNeedsManager {
         return false;
     }
 
-    public void finishSleep() {
-        sleepTick = SLEEP_RESET;
-    }
-
     private void updateFood() {
-        foodTick++;
+        foodTick--;
 
-        if(foodTick >= FOOD_TIME){
+        if(foodTick < 0){
             eat();
         }
     }
 
     void eat() {
-        foodTick = 0;
+        resetEatTime();
 
         Inventory inventory = worker.getWorld().getInventory();
         int potatoAmount = inventory.getAmountForItem(Item.POTATO);

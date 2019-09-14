@@ -22,20 +22,17 @@ public class WorkerNeedsManagerTests {
 
     @Test
     void diesWithoutFoodTest() {
-        for(int i = 0; i < 1200; i++){
-            needsManager.update();
-        }
+        needsManager.setFoodTick(0);
+        needsManager.update();
 
         Assertions.assertTrue(worker.isDead());
     }
 
     @Test
     void foodTickResetsTest() {
-        for(int i = 0; i < 1200; i++){
-            needsManager.update();
-        }
+        needsManager.setFoodTick(0);
 
-        Assertions.assertEquals(0, needsManager.getFoodTick());
+        Assertions.assertTrue(WorkerNeedsManager.FOOD_RESET >= needsManager.getFoodTick());
     }
 
     @Test
@@ -108,13 +105,13 @@ public class WorkerNeedsManagerTests {
     }
 
     @Test
-    void finishSleepResetsSleepTick() {
+    void resetSleepTimeBasicTest() {
         needsManager.updateSleep();
         Assumptions.assumeFalse(needsManager.getSleepTick() == WorkerNeedsManager.SLEEP_RESET);
 
-        needsManager.finishSleep();
+        needsManager.resetSleepTime();
 
-        Assertions.assertTrue(needsManager.getSleepTick() == WorkerNeedsManager.SLEEP_RESET);
+        Assertions.assertTrue(needsManager.getSleepTick() >= WorkerNeedsManager.SLEEP_RESET);
     }
 
     @Test
@@ -128,12 +125,11 @@ public class WorkerNeedsManagerTests {
 
     @ParameterizedTest
     @EnumSource(value = Item.class, names = {"POTATO", "WOODROOT"})
-    void potatoDecreasesOnEatTest(Item item) {
+    void itemDecreasesOnEatTest(Item item) {
         worker.getWorld().getInventory().setAmountForItem(item, 1);
 
-        for(int i = 0; i < 1200; i++){
-            needsManager.update();
-        }
+        needsManager.setFoodTick(0);
+        needsManager.update();
 
         Assertions.assertEquals(0, worker.getWorld().getInventory().getAmountForItem(item));
     }
@@ -141,9 +137,11 @@ public class WorkerNeedsManagerTests {
     @Test
     void doesNotGetHungryWhileSleepingTest() {
         needsManager.setSleepTick(0);
+        int foodTick = needsManager.getFoodTick();
+
         needsManager.update();
 
-        Assertions.assertEquals(0, needsManager.getFoodTick());
+        Assertions.assertEquals(foodTick, needsManager.getFoodTick());
     }
 
     @Test
