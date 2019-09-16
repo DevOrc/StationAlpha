@@ -1,7 +1,12 @@
 <HelpInfo>
+    <!--Use for unit testing-->
     <Entry id="testEntry">
         FooBar
     </Entry>
+
+    <!--
+        Block Info
+    -->
     <Entry id="worker_menu_info">
         The worker box allows you to change what type of jobs your worker
         will work on! The 4 roles are general, crafter, gardener, and synthesizer.
@@ -45,6 +50,10 @@
     <Entry id="solar_panel_info">
         Solar panels produce a constant rate of 1 PU / T. Power can be transferred using power conduits.
     </Entry>
+
+    <!--
+        Goal Descriptors
+    -->
     <Entry id="steel_goal_desc">
         Gather steel so that you can start your base.
         You can collect steel by mining space rock. To mine rock, use the mining
@@ -60,11 +69,11 @@
         Grow potatoes so that your worker can eat. In order for potatoes to grow, they need to be on a dirt floor and
         they must have oxygen to breath. The oxygen level can be raised by using an air compressor. Note: If the room
         has any gaps in the walls or floors, the oxygen will escape! \n Reward: 8 Dirt
-    </Entry>
+    </Entry>compost
     <Entry id="dirt_goal_desc">
-        Compost leaves to create 8 bags of dirt. You can use the composter to compost
-        leaves. To collect leaves, you can grow trees, and then use the cut tree tool in the actions
-        box. Trees need a 3x3 area (centered on the sapling) to grow.
+        Using the composter, you can compost leaves to create dirt. Place down a composter, and use the
+        manufacture menu to select how much dirt to make. A gardener will then place dirt in the composter,
+        wait for it to compost, and then pick it up.
     </Entry>
     <Entry id="unobtainium_goal_desc">
         Now that you have space dust, you can use the synthesizer to create unobtainium. Because
