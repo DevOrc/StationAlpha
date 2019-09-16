@@ -43,6 +43,7 @@ public class BuildBar extends ComponentGroup {
             menu.setVisible(!previouslyVisible);
 
             InputHandler.getInstance().setBuildAction(null);
+            InputHandler.getInstance().setCurrentlySelected(null);
         };
     }
 
