@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.engine.input.BuildFloor;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.world.Floor;
@@ -23,5 +24,10 @@ public class FloorMenu extends BuildBarMenu<Floor> {
     @Override
     public String getName() {
         return "Floors";
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.FLOOR;
     }
 }

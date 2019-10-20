@@ -49,7 +49,7 @@ public class SpeedButton extends GuiComponent {
 
     private void updatePosition() {
         setX(Gdx.graphics.getWidth() - WIDTH - SPACING);
-        setY(BuildBar.HEIGHT + SPACING);
+        setY(SPACING);
     }
 
     int getCurrentStage() {

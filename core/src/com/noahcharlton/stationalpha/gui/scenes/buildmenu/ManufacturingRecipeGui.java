@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
-import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
 import com.noahcharlton.stationalpha.world.World;
@@ -16,7 +15,6 @@ public class ManufacturingRecipeGui extends Pane {
     private static final int SPACING = 10;
     private static final int WIDTH = (MenuButton.WIDTH * 3) + (SPACING * 3);
     private static final int X = ManufacturingMenu.WIDTH;
-    private static final int Y = BuildBar.HEIGHT;
 
     private Optional<ManufacturingRecipe> currentRecipe = Optional.empty();
     private int height = 300;
@@ -90,7 +88,7 @@ public class ManufacturingRecipeGui extends Pane {
     @Override
     protected void updatePosition() {
         setX(X);
-        setY(Y);
+        setY(0);
 
         layoutButtons();
     }

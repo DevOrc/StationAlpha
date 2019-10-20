@@ -2,35 +2,33 @@ package com.noahcharlton.stationalpha.gui.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
-import com.noahcharlton.stationalpha.gui.components.ComponentGroup;
-import com.noahcharlton.stationalpha.gui.components.MenuButton;
-import com.noahcharlton.stationalpha.gui.components.layout.HStretchLayout;
+import com.noahcharlton.stationalpha.gui.GuiComponent;
+import com.noahcharlton.stationalpha.gui.components.IconButton;
+import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class BuildBar extends ComponentGroup {
+public class BuildBar extends Pane {
 
-    public static final int HEIGHT = 65;
+    private static final int SPACING = 3;
+    private static final int MARGIN = 5;
+    public static final int HEIGHT = MARGIN + IconButton.SIZE + MARGIN;
+
     private static final Logger logger = LogManager.getLogger(BuildBar.class);
 
-    private final HStretchLayout layoutManager;
+    private int width = 200;
 
     public BuildBar(List<BuildBarMenu> menus) {
-        layoutManager = new HStretchLayout();
-        layoutManager.setHGap(8);
-        layoutManager.setPadding(5);
-
         addMenus(menus);
-        setLayoutManager(layoutManager);
-        setDrawBorder(true, true, false, false);
+        setDrawBorder(true, true, false, true);
     }
 
     private void addMenus(List<BuildBarMenu> menus) {
         for(BuildBarMenu menu : menus){
-            MenuButton menuButton = new MenuButton(menu.getName(), createRunnable(menus, menu));
+            IconButton menuButton = new IconButton(menu.getIcon(), createRunnable(menus, menu));
             addGui(menuButton);
         }
     }
@@ -49,13 +47,28 @@ public class BuildBar extends ComponentGroup {
 
     @Override
     protected void updatePosition() {
-        this.setX(0);
+        this.setX((Gdx.graphics.getWidth() / 2) - (width / 2));
         this.setY(0);
     }
 
     @Override
     protected void updateSize() {
+        width = getSubGuis().size() * (IconButton.SIZE + SPACING) + (MARGIN * 2);
+        layoutItems();
+
         this.setHeight(HEIGHT);
-        this.setWidth(Gdx.graphics.getWidth());
+        this.setWidth(width);
+    }
+
+    private void layoutItems() {
+        int x = getX() + MARGIN + BORDER_WIDTH;
+        for(int i = 0; i < getSubGuis().size(); i++){
+            GuiComponent comp = getSubGuis().get(i);
+
+            comp.setX(x);
+            comp.setY(MARGIN);
+
+            x += IconButton.SIZE + SPACING;
+        }
     }
 }

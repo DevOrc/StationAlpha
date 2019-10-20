@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.PlayerActions;
@@ -18,5 +19,10 @@ public class ActionsMenu extends BuildBarMenu<BuildAction>{
     @Override
     public String getName() {
         return "Actions";
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.BLACK_WHITE_PICK_AXE;
     }
 }

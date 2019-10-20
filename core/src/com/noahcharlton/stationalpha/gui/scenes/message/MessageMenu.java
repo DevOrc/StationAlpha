@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.gui.components.Pane;
-import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
 
 import java.util.Optional;
@@ -46,7 +45,7 @@ public class MessageMenu extends Pane {
     @Override
     protected void updatePosition() {
         setX(Gdx.graphics.getWidth() - SPACING - DISPLAYING_WIDTH);
-        setY(BuildBar.HEIGHT + SPACING + SpeedButton.HEIGHT + SPACING);
+        setY(SPACING + SpeedButton.HEIGHT + SPACING);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.components.ComponentGroup;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.layout.VStretchLayout;
-import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public abstract class BuildBarMenu<T> extends ComponentGroup {
     @Override
     protected void updatePosition() {
         setX(0);
-        setY(BuildBar.HEIGHT);
+        setY(0);
     }
 
     @Override
@@ -47,6 +47,8 @@ public abstract class BuildBarMenu<T> extends ComponentGroup {
     protected abstract Runnable createRunnable(T item);
 
     public abstract String getName();
+
+    public abstract InGameIcon getIcon();
 
     @Override
     public String toString() {

@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu;
 
 import com.noahcharlton.stationalpha.HelpInfo;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.components.layout.VStretchLayout;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
@@ -70,5 +71,10 @@ public class WorkerMenu extends BuildBarMenu<Worker> {
     @Override
     public String getName() {
         return "Workers";
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.WORKER;
     }
 }

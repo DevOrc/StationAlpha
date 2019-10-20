@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.layout.LayoutManager;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipe;
@@ -45,6 +46,11 @@ public class ManufacturingMenu extends BuildBarMenu<ManufacturingRecipe> {
     @Override
     public String getName() {
         return "Manufacture";
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.GEAR;
     }
 
     ManufacturingRecipeGui getRecipeGui() {

@@ -6,13 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.components.Pane;
-import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
 
 public class SelectableBox extends Pane {
 
     private static final int WIDTH = 350;
-    private static final int Y_POS = BuildBar.HEIGHT + SpeedButton.HEIGHT + 32;
+    private static final int Y_POS = SpeedButton.HEIGHT + 32;
 
     private final SelectableHelpButton helpButton = new SelectableHelpButton(this, this::onHelpButtonClicked);
     private final HelpMenu helpMenu = new HelpMenu();

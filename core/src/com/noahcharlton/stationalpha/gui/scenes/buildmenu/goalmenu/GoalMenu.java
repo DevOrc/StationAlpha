@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.goal.Goal;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
@@ -86,6 +87,11 @@ public class GoalMenu extends BuildBarMenu<Void> {
     @Override
     public String getName() {
         return "Goals";
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.GOAL;
     }
 
     @Override

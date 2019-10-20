@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu;
 
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.layout.VStretchLayout;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
@@ -45,6 +46,11 @@ public class BlockMenu extends BuildBarMenu<BlockGroup> {
     @Override
     public String getName() {
         return "Blocks";
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.BLOCK;
     }
 }
 

@@ -2,6 +2,7 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
 import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.StationAlpha;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.world.World;
@@ -76,6 +77,11 @@ public class QuitMenu extends BuildBarMenu<Void> {
     @Override
     public String getName() {
         return "Save/Quit";
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.MENU_UI;
     }
 }
 
