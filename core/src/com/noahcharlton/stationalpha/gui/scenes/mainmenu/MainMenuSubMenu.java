@@ -95,7 +95,7 @@ public abstract class MainMenuSubMenu extends Pane {
 
         @Override
         public void drawForeground(SpriteBatch b) {
-            setFontData(.5f, GuiComponent.ACCENT_COLOR);
+            setFontData(.65f, GuiComponent.ACCENT_COLOR);
 
             String[] info = getInfo();
 

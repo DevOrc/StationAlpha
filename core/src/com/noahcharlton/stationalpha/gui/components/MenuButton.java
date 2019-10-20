@@ -1,5 +1,6 @@
 package com.noahcharlton.stationalpha.gui.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,7 @@ public class MenuButton extends ButtonBase{
 
         setText(text);
         setBackgroundColor(new Color(0x2a2a2aff));
+        setHoverColor(new Color(0x252525ff));
         setDrawBorder(true, true, true, true);
         setWidth(WIDTH);
         setHeight(HEIGHT);
@@ -25,6 +27,18 @@ public class MenuButton extends ButtonBase{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    protected void update() {
+        int mouseX = Gdx.input.getX();
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+        if(isPointOnGui(mouseX, mouseY)){
+
+        }else{
+
+        }
     }
 
     @Override

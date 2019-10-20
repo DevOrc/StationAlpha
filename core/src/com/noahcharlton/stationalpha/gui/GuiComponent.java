@@ -74,7 +74,14 @@ public abstract class GuiComponent {
 
     protected void onClick(){}
 
-    boolean isPointOnGui(int clickX, int clickY){
+    protected boolean isHovering(){
+        int mouseX = Gdx.input.getX();
+        int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+
+        return isPointOnGui(mouseX, mouseY);
+    }
+
+    protected boolean isPointOnGui(int clickX, int clickY){
         return clickX > x && clickY > y && clickX < x  + width && clickY < y + height;
     }
 

@@ -7,10 +7,13 @@ import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
+import java.util.Optional;
+
 public abstract class Pane extends GuiComponent {
 
     public static final int BORDER_WIDTH = 2;
     private Color borderColor = GuiComponent.ACCENT_COLOR;
+    private Optional<Color> hoverColor = Optional.empty();
     private Color backgroundColor = Color.DARK_GRAY;
 
     private boolean borderNorth;
@@ -22,7 +25,8 @@ public abstract class Pane extends GuiComponent {
         updatePosition();
         updateSize();
 
-        ShapeUtil.drawRect(getX(), getY(), getWidth(), getHeight(), backgroundColor, b);
+        Color color = isHovering() ? hoverColor.orElse(backgroundColor) : backgroundColor;
+        ShapeUtil.drawRect(getX(), getY(), getWidth(), getHeight(), color, b);
 
         drawBorder(b);
     }
@@ -73,6 +77,10 @@ public abstract class Pane extends GuiComponent {
 
     protected void setBackgroundColor(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public void setHoverColor(Color hoverColor) {
+        this.hoverColor = Optional.ofNullable(hoverColor);
     }
 
     protected void setBorderColor(Color borderColor) {
