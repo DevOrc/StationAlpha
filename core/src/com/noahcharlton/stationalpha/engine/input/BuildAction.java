@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.engine.input;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.world.Tile;
 
 public interface BuildAction {
@@ -14,6 +15,10 @@ public interface BuildAction {
     default void onSelected(){}
 
     default void onDeselected(){}
+
+    default InGameIcon getIcon(){
+        return InGameIcon.NO_ICON;
+    }
 
     String getName();
 }

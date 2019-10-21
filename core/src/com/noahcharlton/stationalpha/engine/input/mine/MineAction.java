@@ -7,6 +7,7 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.mineable.MineableBlockContainer;
 import com.noahcharlton.stationalpha.engine.GameCursor;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.item.Item;
@@ -108,6 +109,11 @@ public class MineAction implements BuildAction {
     public void onDeselected() {
         if(Gdx.graphics != null)
             Gdx.graphics.setCursor(GameCursor.ARROW.getCursor());
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return cursor.getIcon();
     }
 
     @Override

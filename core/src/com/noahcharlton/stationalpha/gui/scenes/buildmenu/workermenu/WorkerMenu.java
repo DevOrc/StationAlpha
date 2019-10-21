@@ -3,7 +3,7 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu;
 import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.components.layout.VStretchLayout;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarListMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.world.World;
@@ -11,7 +11,7 @@ import com.noahcharlton.stationalpha.world.World;
 import java.util.Collections;
 import java.util.List;
 
-public class WorkerMenu extends BuildBarMenu<Worker> {
+public class WorkerMenu extends BuildBarListMenu<Worker> {
 
     private static final int WIDTH = WorkerInfoRow.WIDTH + 10;
     private boolean opened;

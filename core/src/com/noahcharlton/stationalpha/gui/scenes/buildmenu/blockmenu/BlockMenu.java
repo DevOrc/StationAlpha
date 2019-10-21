@@ -3,11 +3,11 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu;
 import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.layout.VStretchLayout;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarListMenu;
 
 import java.util.*;
 
-public class BlockMenu extends BuildBarMenu<BlockGroup> {
+public class BlockMenu extends BuildBarListMenu<BlockGroup> {
 
     private final Map<BlockGroup, BlockGroupMenu> blockMenus;
 

@@ -4,9 +4,9 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarListMenu;
 
-public class BlockGroupMenu extends BuildBarMenu<Block> {
+public class BlockGroupMenu extends BuildBarListMenu<Block> {
 
     public BlockGroupMenu(BlockGroup group) {
         super(group.blocks);
@@ -30,7 +30,7 @@ public class BlockGroupMenu extends BuildBarMenu<Block> {
     @Override
     protected void updatePosition() {
         super.updatePosition();
-        setX(BuildBarMenu.WIDTH);
+        setX(BuildBarListMenu.WIDTH);
     }
 
     @Override

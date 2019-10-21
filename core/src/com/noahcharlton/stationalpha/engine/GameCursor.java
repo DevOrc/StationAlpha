@@ -11,9 +11,10 @@ import java.util.Optional;
 public enum GameCursor {
 
     ARROW("ui/cursors/arrow.png", 0, 0),
-    PICK_AXE("icons/pick_axe.png", 0, 0),
-    AXE("icons/axe.png", 0, 0);
+    PICK_AXE(InGameIcon.PICK_AXE, 0, 0),
+    AXE(InGameIcon.AXE, 0, 0);
 
+    private final InGameIcon icon;
     private final ManagedTexture texture;
     private final int hitPointX;
     private final int hitPointY;
@@ -23,6 +24,16 @@ public enum GameCursor {
     GameCursor(String path, int hitPointX, int hitPointY) {
         this.texture = new ManagedTexture(path);
         this.texture.setOnLoad(this::onLoad);
+        this.icon = InGameIcon.NO_ICON;
+
+        this.hitPointX = hitPointX;
+        this.hitPointY = hitPointY;
+    }
+
+    GameCursor(InGameIcon icon, int hitPointY, int hitPointX) {
+        this.texture = icon.getTexture();
+        this.texture.setOnLoad(this::onLoad);
+        this.icon = icon;
 
         this.hitPointX = hitPointX;
         this.hitPointY = hitPointY;
@@ -47,5 +58,9 @@ public enum GameCursor {
 
     public Cursor getCursor() {
         return cursor.orElseThrow(() -> new GdxRuntimeException("Cursor not loaded yet!"));
+    }
+
+    public InGameIcon getIcon() {
+        return icon;
     }
 }

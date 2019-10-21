@@ -7,7 +7,7 @@ import com.noahcharlton.stationalpha.world.Floor;
 
 import java.util.Arrays;
 
-public class FloorMenu extends BuildBarMenu<Floor> {
+public class FloorMenu extends BuildBarListMenu<Floor> {
 
     public FloorMenu() {
         super(Arrays.asList(Floor.values()));

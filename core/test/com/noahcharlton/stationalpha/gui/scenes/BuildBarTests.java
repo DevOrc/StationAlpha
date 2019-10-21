@@ -3,7 +3,7 @@ package com.noahcharlton.stationalpha.gui.scenes;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarListMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu.BlockMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu.BuildBlockSelectable;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +17,7 @@ public class BuildBarTests {
 
     @Test
     void removeInputHandlerActionOnMenuButtonClickedTest() {
-        BuildBarMenu buildBarMenu = new BlockMenu();
+        BuildBarListMenu buildBarMenu = new BlockMenu();
         Runnable runnable = buildBar.createRunnable(Collections.emptyList(), buildBarMenu);
         InputHandler.getInstance().setBuildAction(new BuildBlock(Blocks.getWall()));
 
@@ -28,7 +28,7 @@ public class BuildBarTests {
 
     @Test
     void removeSelectableOnTestSelected() {
-        BuildBarMenu buildBarMenu = new BlockMenu();
+        BuildBarListMenu buildBarMenu = new BlockMenu();
         Runnable runnable = buildBar.createRunnable(Collections.emptyList(), buildBarMenu);
         BuildBlock buildBlock = new BuildBlock(Blocks.getBedBlock());
         InputHandler.getInstance().setCurrentlySelected(new BuildBlockSelectable(buildBlock));

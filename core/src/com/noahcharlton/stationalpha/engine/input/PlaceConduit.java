@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.world.ConduitRenderer;
 import com.noahcharlton.stationalpha.world.Inventory;
@@ -64,6 +65,11 @@ public class PlaceConduit implements BuildAction, Selectable{
 
     private void renderAt(SpriteBatch b, Tile tile) {
         ConduitRenderer.renderTile(tile, b);
+    }
+
+    @Override
+    public InGameIcon getIcon() {
+        return InGameIcon.NO_POWER;
     }
 
     @Override

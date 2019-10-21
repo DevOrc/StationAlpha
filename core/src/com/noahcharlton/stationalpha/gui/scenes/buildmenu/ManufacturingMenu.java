@@ -8,7 +8,7 @@ import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
 
 import java.util.ArrayList;
 
-public class ManufacturingMenu extends BuildBarMenu<ManufacturingRecipe> {
+public class ManufacturingMenu extends BuildBarListMenu<ManufacturingRecipe> {
 
     private static final int HEIGHT = 500;
     static final int WIDTH = ManufacturingLayoutManager.BUTTON_WIDTH + (2 * ManufacturingLayoutManager.PADDING);

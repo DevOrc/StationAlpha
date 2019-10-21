@@ -66,6 +66,10 @@ public class ManagedTexture implements Asset {
         return path;
     }
 
+    public Runnable getOnLoad() {
+        return onLoad;
+    }
+
     public void setOnLoad(Runnable onLoad) {
         this.onLoad = onLoad;
     }

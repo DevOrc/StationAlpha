@@ -5,7 +5,7 @@ import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.IconButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,24 +21,24 @@ public class BuildBar extends Pane {
 
     private int width = 200;
 
-    public BuildBar(List<BuildBarMenu> menus) {
+    public BuildBar(List<BuildMenu> menus) {
         addMenus(menus);
         setDrawBorder(true, true, false, true);
     }
 
-    private void addMenus(List<BuildBarMenu> menus) {
-        for(BuildBarMenu menu : menus){
+    private void addMenus(List<BuildMenu> menus) {
+        for(BuildMenu menu : menus){
             IconButton menuButton = new IconButton(menu.getIcon(), createRunnable(menus, menu));
             addGui(menuButton);
         }
     }
 
-    Runnable createRunnable(List<BuildBarMenu> menus, BuildBarMenu menu) {
+    Runnable createRunnable(List<BuildMenu> menus, BuildMenu menu) {
         return () -> {
-            boolean previouslyVisible = menu.isVisible();
+            boolean previouslyVisible = menu.getComponent().isVisible();
 
-            menus.forEach(m -> m.setVisible(false));
-            menu.setVisible(!previouslyVisible);
+            menus.forEach(m -> m.getComponent().setVisible(false));
+            menu.getComponent().setVisible(!previouslyVisible);
 
             InputHandler.getInstance().setBuildAction(null);
             InputHandler.getInstance().setCurrentlySelected(null);

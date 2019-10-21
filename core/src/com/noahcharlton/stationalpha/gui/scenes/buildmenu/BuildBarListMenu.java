@@ -1,18 +1,19 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
 import com.noahcharlton.stationalpha.engine.InGameIcon;
+import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.ComponentGroup;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.layout.VStretchLayout;
 
 import java.util.List;
 
-public abstract class BuildBarMenu<T> extends ComponentGroup {
+public abstract class BuildBarListMenu<T> extends ComponentGroup implements BuildMenu{
 
     protected static final int WIDTH = 225;
     protected static final int HEIGHT = 330;
 
-    public BuildBarMenu(List<T> items) {
+    public BuildBarListMenu(List<T> items) {
         super(new VStretchLayout());
         setDrawBorder(true, true, false,false);
         updatePosition();
@@ -49,6 +50,11 @@ public abstract class BuildBarMenu<T> extends ComponentGroup {
     public abstract String getName();
 
     public abstract InGameIcon getIcon();
+
+    @Override
+    public GuiComponent getComponent() {
+        return this;
+    }
 
     @Override
     public String toString() {

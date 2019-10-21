@@ -8,11 +8,11 @@ import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.goal.Goal;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarListMenu;
 
 import java.util.Collections;
 
-public class GoalMenu extends BuildBarMenu<Void> {
+public class GoalMenu extends BuildBarListMenu<Void> {
 
     private static final int WINDOW_OFFSET = 50;
     private static final int BOX_WIDTH = 250;

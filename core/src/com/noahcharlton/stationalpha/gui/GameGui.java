@@ -26,16 +26,16 @@ public class GameGui extends GuiComponent {
     private final MessageMenu messageMenu;
     private final SelectableBox selectableBox;
 
-    private final BuildBarMenu blockMenu = new BlockMenu();
-    private final BuildBarMenu floorMenu = new FloorMenu();
-    private final BuildBarMenu goalMenu = new GoalMenu();
-    private final BuildBarMenu manufactureMenu = new ManufacturingMenu();
-    private final BuildBarMenu workerMenu = new WorkerMenu();
-    private final BuildBarMenu actionsMenu = new ActionsMenu();
-    private final BuildBarMenu quitMenu = new QuitMenu();
+    private final BuildMenu blockMenu = new BlockMenu();
+    private final BuildMenu floorMenu = new FloorMenu();
+    private final BuildMenu goalMenu = new GoalMenu();
+    private final BuildMenu manufactureMenu = new ManufacturingMenu();
+    private final BuildMenu workerMenu = new WorkerMenu();
+    private final BuildMenu actionsMenu = new ActionsMenu();
+    private final BuildMenu quitMenu = new QuitMenu();
 
     public GameGui() {
-        List<BuildBarMenu> menus = Arrays.asList(blockMenu, floorMenu, actionsMenu, manufactureMenu,
+        List<BuildMenu> menus = Arrays.asList(blockMenu, floorMenu, actionsMenu, manufactureMenu,
                 workerMenu, goalMenu, quitMenu);
 
         debugBox = new DebugBox();
@@ -46,8 +46,10 @@ public class GameGui extends GuiComponent {
         selectableBox = new SelectableBox();
 
         this.addAllGui(debugBox, buildBar, itemList, speedButton, selectableBox, messageMenu);
-        menus.forEach(this::addGui);
-        menus.forEach(m -> m.setVisible(false));
+        menus.stream().map(BuildMenu::getComponent).forEach(comp -> {
+            this.addGui(comp);
+            comp.setVisible(false);
+        });
     }
 
     @Override

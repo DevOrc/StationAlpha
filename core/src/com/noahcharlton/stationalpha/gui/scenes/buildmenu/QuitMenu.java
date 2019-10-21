@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class QuitMenu extends BuildBarMenu<Void> {
+public class QuitMenu extends BuildBarListMenu<Void> {
 
     private static final int WIDTH = 300;
     private static final int HEIGHT = 150;

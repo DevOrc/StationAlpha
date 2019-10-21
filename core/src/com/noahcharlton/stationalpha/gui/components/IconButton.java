@@ -18,6 +18,7 @@ public class IconButton extends ButtonBase{
         this.setBorderColor(GuiComponent.ACCENT_COLOR);
         this.setDrawBorder(true, true, true, true);
         this.setBackgroundColor(Color.DARK_GRAY);
+        this.setHoverColor(new Color(0x393939ff));
     }
 
     @Override
