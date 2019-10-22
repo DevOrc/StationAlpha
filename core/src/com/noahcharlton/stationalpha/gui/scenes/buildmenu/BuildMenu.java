@@ -7,6 +7,8 @@ public interface BuildMenu {
 
     InGameIcon getIcon();
 
+    String getName();
+
     GuiComponent getComponent();
 
 }

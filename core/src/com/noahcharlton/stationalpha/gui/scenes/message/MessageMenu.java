@@ -14,7 +14,7 @@ public class MessageMenu extends Pane {
     private static final int DISPLAYING_HEIGHT = 275;
     private static final int SPACING = 16;
 
-    private final CloseSelectableMenuButton menuButton = new CloseSelectableMenuButton(this);
+    private final CloseMenuButton menuButton = new CloseMenuButton(this);
     private Optional<Message> currentMessage = Optional.empty();
 
     public MessageMenu() {
@@ -67,12 +67,12 @@ public class MessageMenu extends Pane {
         return currentMessage.isPresent();
     }
 }
-class CloseSelectableMenuButton extends Pane {
+class CloseMenuButton extends Pane {
 
     private static final int SIZE = 24;
     private final MessageMenu menu;
 
-    public CloseSelectableMenuButton(MessageMenu menu) {
+    public CloseMenuButton(MessageMenu menu) {
         this.menu = menu;
 
         setDrawBorder(true, true, true, true);
@@ -86,7 +86,7 @@ class CloseSelectableMenuButton extends Pane {
     @Override
     public void drawForeground(SpriteBatch b) {
         if(menu.isDisplayingMessage()){
-            setFontData(.75f, Color.FIREBRICK);
+            setFontData(.75f, isHovering() ? Color.RED : Color.FIREBRICK);
             drawCenteredText(b, "X", SIZE * 9 / 10);
         }
     }

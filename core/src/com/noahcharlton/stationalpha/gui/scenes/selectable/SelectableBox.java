@@ -91,7 +91,7 @@ class CloseSelectableMenuButton extends Pane {
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        setFontData(.75f, Color.FIREBRICK);
+        setFontData(.75f, isHovering() ? Color.RED : Color.FIREBRICK);
         drawCenteredText(b, "X", SIZE * 9 / 10);
     }
 

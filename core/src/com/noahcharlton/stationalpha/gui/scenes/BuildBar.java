@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.gui.scenes;
 import com.badlogic.gdx.Gdx;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
+import com.noahcharlton.stationalpha.gui.components.DefaultTooltip;
 import com.noahcharlton.stationalpha.gui.components.IconButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
@@ -29,6 +30,8 @@ public class BuildBar extends Pane {
     private void addMenus(List<BuildMenu> menus) {
         for(BuildMenu menu : menus){
             IconButton menuButton = new IconButton(menu.getIcon(), createRunnable(menus, menu));
+            menuButton.setTooltip(new DefaultTooltip(menu.getName()));
+
             addGui(menuButton);
         }
     }

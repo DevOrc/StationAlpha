@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.PlayerActions;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
+import com.noahcharlton.stationalpha.gui.components.DefaultTooltip;
 import com.noahcharlton.stationalpha.gui.components.IconButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
@@ -19,6 +20,7 @@ public class ActionsMenu extends Pane implements BuildMenu {
     public ActionsMenu() {
         for(BuildAction action : PlayerActions.getActions()){
             IconButton button = new IconButton(action.getIcon(), createRunnable(action));
+            button.setTooltip(new DefaultTooltip(action.getName()));
 
             addGui(button);
         }
@@ -33,6 +35,11 @@ public class ActionsMenu extends Pane implements BuildMenu {
     @Override
     public InGameIcon getIcon() {
         return InGameIcon.BLACK_WHITE_PICK_AXE;
+    }
+
+    @Override
+    public String getName() {
+        return "Player Actions";
     }
 
     @Override

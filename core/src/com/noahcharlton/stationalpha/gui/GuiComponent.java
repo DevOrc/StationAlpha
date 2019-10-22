@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.noahcharlton.stationalpha.gui.components.EmptyTooltip;
+import com.noahcharlton.stationalpha.gui.components.Tooltip;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public abstract class GuiComponent {
     private boolean visible = true;
 
     private ArrayList<GuiComponent> subGuis;
+    private Tooltip tooltip = new EmptyTooltip();
 
     public GuiComponent() {
         subGuis = new ArrayList<>();
@@ -56,6 +59,7 @@ public abstract class GuiComponent {
         }
 
         drawForeground(batch);
+        tooltip.updateAndRender(batch, this);
     }
 
     protected void update(){}
@@ -74,7 +78,7 @@ public abstract class GuiComponent {
 
     protected void onClick(){}
 
-    protected boolean isHovering(){
+    public boolean isHovering(){
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
 
@@ -107,6 +111,14 @@ public abstract class GuiComponent {
     protected abstract void drawBackground(SpriteBatch batch);
 
     protected abstract void drawForeground(SpriteBatch batch);
+
+    public void setTooltip(Tooltip tooltip) {
+        this.tooltip = tooltip;
+    }
+
+    public Tooltip getTooltip() {
+        return tooltip;
+    }
 
     public void setX(int x) {
         this.x = x;
