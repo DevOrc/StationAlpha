@@ -47,19 +47,23 @@ public abstract class GuiComponent {
 
     }
 
-    void render(SpriteBatch batch){
+    protected void render(SpriteBatch batch){
         if(!visible)
             return;
 
         update();
         drawBackground(batch);
 
-        for(GuiComponent gui : subGuis){
-            gui.render(batch);
-        }
+        drawSubGuis(batch);
 
         drawForeground(batch);
         tooltip.updateAndRender(batch, this);
+    }
+
+    protected void drawSubGuis(SpriteBatch batch) {
+        for(GuiComponent gui : subGuis){
+            gui.render(batch);
+        }
     }
 
     protected void update(){}
