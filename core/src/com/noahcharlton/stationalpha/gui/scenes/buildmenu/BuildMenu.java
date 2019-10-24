@@ -3,6 +3,8 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
+import java.util.Optional;
+
 public interface BuildMenu {
 
     InGameIcon getIcon();
@@ -11,4 +13,7 @@ public interface BuildMenu {
 
     GuiComponent getComponent();
 
+    default Optional<Integer> getHotKey(){
+        return Optional.empty();
+    }
 }

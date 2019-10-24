@@ -5,7 +5,6 @@ import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.DebugBox;
-import com.noahcharlton.stationalpha.gui.scenes.ItemList;
 import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.*;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu.BlockMenu;
@@ -21,7 +20,6 @@ public class GameGui extends GuiComponent {
 
     private final DebugBox debugBox;
     private final BuildBar buildBar;
-    private final ItemList itemList;
     private final SpeedButton speedButton;
     private final MessageMenu messageMenu;
     private final SelectableBox selectableBox;
@@ -32,20 +30,20 @@ public class GameGui extends GuiComponent {
     private final BuildMenu manufactureMenu = new ManufacturingMenu();
     private final BuildMenu workerMenu = new WorkerMenu();
     private final BuildMenu actionsMenu = new ActionsMenu();
+    private final BuildMenu inventoryMenu = new InventoryMenu();
     private final BuildMenu quitMenu = new QuitMenu();
 
     public GameGui() {
         List<BuildMenu> menus = Arrays.asList(blockMenu, floorMenu, actionsMenu, manufactureMenu,
-                workerMenu, goalMenu, quitMenu);
+                workerMenu, goalMenu, inventoryMenu, quitMenu);
 
         debugBox = new DebugBox();
         buildBar = new BuildBar(menus);
-        itemList = new ItemList();
         speedButton = new SpeedButton();
         messageMenu = new MessageMenu();
         selectableBox = new SelectableBox();
 
-        this.addAllGui(debugBox, buildBar, itemList, speedButton, selectableBox, messageMenu);
+        this.addAllGui(debugBox, buildBar, speedButton, selectableBox, messageMenu);
         menus.stream().map(BuildMenu::getComponent).forEach(comp -> {
             this.addGui(comp);
             comp.setVisible(false);

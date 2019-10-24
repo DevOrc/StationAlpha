@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
@@ -10,6 +11,8 @@ import com.noahcharlton.stationalpha.gui.components.DefaultTooltip;
 import com.noahcharlton.stationalpha.gui.components.IconButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
+
+import java.util.Optional;
 
 public class ActionsMenu extends Pane implements BuildMenu {
 
@@ -35,6 +38,11 @@ public class ActionsMenu extends Pane implements BuildMenu {
     @Override
     public InGameIcon getIcon() {
         return InGameIcon.BLACK_WHITE_PICK_AXE;
+    }
+
+    @Override
+    public Optional<Integer> getHotKey() {
+        return Optional.of(Input.Keys.G);
     }
 
     @Override

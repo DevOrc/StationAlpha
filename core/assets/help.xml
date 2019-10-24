@@ -14,6 +14,7 @@
     <Entry id="controls_message">
         You can move around the world using WASD. You can zoom in and out using
         the Z/X keys. When building use left click to place and right click to destroy.
+        You can also open the inventory using the E key.
     </Entry>
     <Entry id="start_message">
         Congrats on starting your first space station! Check the goals box to see your first task. Good Luck!
