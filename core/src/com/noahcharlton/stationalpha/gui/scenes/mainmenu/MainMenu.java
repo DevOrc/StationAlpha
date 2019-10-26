@@ -28,7 +28,7 @@ public class MainMenu extends Pane {
         setBackgroundColor(Color.BLACK);
 
         this.addGui(buttonPane);
-        this.addGui(new TestScrollPane());
+        this.addGui(new TestPane());
     }
 
     @Override

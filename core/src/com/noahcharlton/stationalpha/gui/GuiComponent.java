@@ -36,31 +36,31 @@ public abstract class GuiComponent {
     }
 
 
-    protected void addGui(GuiComponent gui){
+    public void addGui(GuiComponent gui){
         subGuis.add(gui);
     }
 
-    protected void addAllGui(GuiComponent... comps){
+    public void addAllGui(GuiComponent... comps){
         for(GuiComponent comp : comps){
             addGui(comp);
         }
 
     }
 
-    protected void render(SpriteBatch batch){
+    public void render(SpriteBatch batch){
         if(!visible)
             return;
 
         update();
         drawBackground(batch);
 
-        drawSubGuis(batch);
+        renderSubGuis(batch);
 
         drawForeground(batch);
         tooltip.updateAndRender(batch, this);
     }
 
-    protected void drawSubGuis(SpriteBatch batch) {
+    protected void renderSubGuis(SpriteBatch batch) {
         for(GuiComponent gui : subGuis){
             gui.render(batch);
         }
