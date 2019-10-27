@@ -10,6 +10,7 @@ import java.io.StringWriter;
 
 public class Watchdog implements Thread.UncaughtExceptionHandler {
 
+    private static final int MAX_STACKTRACE_LENGTH = 2000;
     private final Logger logger = LogManager.getLogger(Watchdog.class);
 
     public static void watch(Thread gameThread){
@@ -41,6 +42,12 @@ public class Watchdog implements Thread.UncaughtExceptionHandler {
         StringWriter writer = new StringWriter();
         error.printStackTrace(new PrintWriter(writer));
 
-        return writer.toString();
+        String output = writer.toString();
+
+        if(output.length() > MAX_STACKTRACE_LENGTH){
+           return output.substring(0, MAX_STACKTRACE_LENGTH).concat(" ...");
+        }
+
+        return output;
     }
 }
