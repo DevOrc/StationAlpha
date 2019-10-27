@@ -93,7 +93,7 @@ public abstract class GuiComponent {
         return clickX > x && clickY > y && clickX < x  + width && clickY < y + height;
     }
 
-    private boolean handleClickOnSubGui(int x, int y, boolean actualClick) {
+    protected boolean handleClickOnSubGui(int x, int y, boolean actualClick) {
         boolean onGui = false;
 
         for(GuiComponent gui : subGuis){

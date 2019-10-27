@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
+import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.gui.components.Pane;
+import com.noahcharlton.stationalpha.gui.components.ScrollPane;
 
 public class MainMenu extends Pane {
 
@@ -23,12 +25,18 @@ public class MainMenu extends Pane {
     }
 
     private final MainMenuButtonPane buttonPane = new MainMenuButtonPane();
+    private final ScrollPane testScrollPane  = new TestPane().wrapInScrollPane();
 
     public MainMenu() {
         setBackgroundColor(Color.BLACK);
 
         this.addGui(buttonPane);
-        this.addGui(new TestPane());
+        this.addGui(testScrollPane);
+    }
+
+    @Override
+    protected void update() {
+        testScrollPane.setVisible(DebugKeys.isDebugPressed(DebugKeys.DEBUG_BOX));
     }
 
     @Override
