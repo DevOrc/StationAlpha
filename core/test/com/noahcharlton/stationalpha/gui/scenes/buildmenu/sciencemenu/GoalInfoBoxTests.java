@@ -1,12 +1,12 @@
-package com.noahcharlton.stationalpha.gui.scenes.buildmenu.goalmenu;
+package com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class GoalInfoBoxTests {
 
-    private final GoalMenu goalMenu = new GoalMenu();
-    private final GoalInfoBox infoBox = new GoalInfoBox(goalMenu);
+    private final ScienceMenu scienceMenu = new ScienceMenu();
+    private final ScienceInfoBox infoBox = new ScienceInfoBox(scienceMenu);
 
     @Test
     void emptyGoalByDefault() {
@@ -15,7 +15,7 @@ public class GoalInfoBoxTests {
 
     @Test
     void infoBoxFollowsGoalMenuXTest() {
-        goalMenu.setX(2512);
+        scienceMenu.setX(2512);
 
         infoBox.updatePosition();
 
@@ -24,7 +24,7 @@ public class GoalInfoBoxTests {
 
     @Test
     void infoBoxFollowsGoalMenuYTest() {
-        goalMenu.setY(125);
+        scienceMenu.setY(125);
 
         infoBox.updatePosition();
 
@@ -33,7 +33,7 @@ public class GoalInfoBoxTests {
 
     @Test
     void infoBoxFollowsGoalMenuWidthTest() {
-        goalMenu.setY(125);
+        scienceMenu.setY(125);
 
         infoBox.updatePosition();
 

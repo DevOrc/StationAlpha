@@ -1,21 +1,21 @@
-package com.noahcharlton.stationalpha.gui.scenes.buildmenu.goalmenu;
+package com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.noahcharlton.stationalpha.goal.Goal;
+import com.noahcharlton.stationalpha.science.Goal;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 
 import java.util.Optional;
 
-public class GoalInfoBox extends Pane {
+public class ScienceInfoBox extends Pane {
 
     static final int HEIGHT = 200;
 
-    private final GoalMenu goalMenu;
+    private final ScienceMenu scienceMenu;
     private Optional<Goal> selectedGoal;
 
-    public GoalInfoBox(GoalMenu goalMenu) {
-        this.goalMenu = goalMenu;
+    public ScienceInfoBox(ScienceMenu scienceMenu) {
+        this.scienceMenu = scienceMenu;
 
         setSelectedGoal(null);
         setDrawBorder(true, true, true, true);
@@ -34,14 +34,14 @@ public class GoalInfoBox extends Pane {
 
     @Override
     protected void updateSize() {
-        setWidth(goalMenu.getWidth());
+        setWidth(scienceMenu.getWidth());
         setHeight(HEIGHT);
     }
 
     @Override
     protected void updatePosition() {
-        setX(goalMenu.getX());
-        setY(goalMenu.getY());
+        setX(scienceMenu.getX());
+        setY(scienceMenu.getY());
     }
 
     public void setSelectedGoal(Goal selectedGoal) {

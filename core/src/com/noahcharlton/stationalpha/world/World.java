@@ -8,7 +8,7 @@ import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.PlaceConduit;
-import com.noahcharlton.stationalpha.goal.GoalManager;
+import com.noahcharlton.stationalpha.science.GoalManager;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;

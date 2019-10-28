@@ -8,7 +8,7 @@ import com.noahcharlton.stationalpha.gui.scenes.DebugBox;
 import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.*;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu.BlockMenu;
-import com.noahcharlton.stationalpha.gui.scenes.buildmenu.goalmenu.GoalMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu.ScienceMenu;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.workermenu.WorkerMenu;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageMenu;
 import com.noahcharlton.stationalpha.gui.scenes.selectable.SelectableBox;
@@ -26,7 +26,7 @@ public class GameGui extends GuiComponent {
 
     private final BuildMenu blockMenu = new BlockMenu();
     private final BuildMenu floorMenu = new FloorMenu();
-    private final BuildMenu goalMenu = new GoalMenu();
+    private final BuildMenu goalMenu = new ScienceMenu();
     private final BuildMenu manufactureMenu = new ManufacturingMenu();
     private final BuildMenu workerMenu = new WorkerMenu();
     private final BuildMenu actionsMenu = new ActionsMenu();

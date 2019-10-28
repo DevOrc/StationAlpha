@@ -1,4 +1,4 @@
-package com.noahcharlton.stationalpha.goal;
+package com.noahcharlton.stationalpha.science;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

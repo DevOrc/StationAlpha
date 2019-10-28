@@ -1,4 +1,4 @@
-package com.noahcharlton.stationalpha.goal;
+package com.noahcharlton.stationalpha.science;
 
 import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Inventory;

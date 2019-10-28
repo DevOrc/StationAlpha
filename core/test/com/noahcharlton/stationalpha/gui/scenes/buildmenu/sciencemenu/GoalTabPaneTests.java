@@ -1,13 +1,13 @@
-package com.noahcharlton.stationalpha.gui.scenes.buildmenu.goalmenu;
+package com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu;
 
-import com.noahcharlton.stationalpha.goal.GoalTab;
+import com.noahcharlton.stationalpha.science.GoalTab;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class GoalTabPaneTests {
 
-    private final GoalMenu goalMenu = new GoalMenu();
-    private final GoalTabPane tabMenu = new GoalTabPane(goalMenu);
+    private final ScienceMenu scienceMenu = new ScienceMenu();
+    private final SienceTabPane tabMenu = new SienceTabPane(scienceMenu);
 
     @Test
     void selectedDefaultsToTechTest() {
@@ -16,7 +16,7 @@ public class GoalTabPaneTests {
 
     @Test
     void tabMenuFollowsWidthTest() {
-        goalMenu.setWidth(125);
+        scienceMenu.setWidth(125);
 
         tabMenu.updateSize();
 
@@ -25,7 +25,7 @@ public class GoalTabPaneTests {
 
     @Test
     void tabMenuFollowsXTest() {
-        goalMenu.setX(643);
+        scienceMenu.setX(643);
         tabMenu.updatePosition();
 
         Assertions.assertEquals(643, tabMenu.getX());

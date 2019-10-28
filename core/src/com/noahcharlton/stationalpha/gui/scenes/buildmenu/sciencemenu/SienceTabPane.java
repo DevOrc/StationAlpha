@@ -1,19 +1,19 @@
-package com.noahcharlton.stationalpha.gui.scenes.buildmenu.goalmenu;
+package com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu;
 
-import com.noahcharlton.stationalpha.goal.GoalTab;
+import com.noahcharlton.stationalpha.science.GoalTab;
 import com.noahcharlton.stationalpha.gui.components.ComponentGroup;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.layout.HStretchLayout;
 
-public class GoalTabPane extends ComponentGroup {
+public class SienceTabPane extends ComponentGroup {
 
     private static final int HEIGHT = MenuButton.HEIGHT;
 
-    private final GoalMenu goalMenu;
+    private final ScienceMenu scienceMenu;
     private GoalTab selected = GoalTab.TECH;
 
-    public GoalTabPane(GoalMenu goalMenu) {
-        this.goalMenu = goalMenu;
+    public SienceTabPane(ScienceMenu scienceMenu) {
+        this.scienceMenu = scienceMenu;
 
         HStretchLayout layout = new HStretchLayout();
         layout.setPadding(0);
@@ -34,14 +34,14 @@ public class GoalTabPane extends ComponentGroup {
 
     @Override
     protected void updateSize() {
-        setWidth(goalMenu.getWidth());
+        setWidth(scienceMenu.getWidth());
         setHeight(HEIGHT);
     }
 
     @Override
     protected void updatePosition() {
-        setX(goalMenu.getX());
-        setY(goalMenu.getY() + goalMenu.getHeight() - HEIGHT);
+        setX(scienceMenu.getX());
+        setY(scienceMenu.getY() + scienceMenu.getHeight() - HEIGHT);
     }
 
     public GoalTab getSelected() {
