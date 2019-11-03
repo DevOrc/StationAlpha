@@ -31,7 +31,7 @@ public class MenuButton extends ButtonBase{
     @Override
     public void drawForeground(SpriteBatch b) {
         setFontData(.75f, Color.WHITE);
-        drawCenteredText(b, text, getHeight() - (getHeight() / 3));
+        drawCenteredText(b, text, getHeight() - (getHeight() / 4));
     }
 
     @Override

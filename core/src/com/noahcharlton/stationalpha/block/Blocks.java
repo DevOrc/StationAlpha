@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.block.dust.DustCollector;
 import com.noahcharlton.stationalpha.block.composter.ComposterBlock;
 import com.noahcharlton.stationalpha.block.door.DoorBlock;
 import com.noahcharlton.stationalpha.block.dust.Synthesizer;
+import com.noahcharlton.stationalpha.block.experiment.AntiGravityExperimentBlock;
 import com.noahcharlton.stationalpha.block.mineable.IceBlock;
 import com.noahcharlton.stationalpha.block.plant.PotatoPlant;
 import com.noahcharlton.stationalpha.block.mineable.TreeBlock;
@@ -43,11 +44,12 @@ public class Blocks {
     private static Block woodrootPlant = new WoodrootPlant();
     private static Block arcReactorBlock = new ArcReactorBlock();
     private static Block scaffoldingBlock = new ScaffoldingBlock();
+    private static Block antiGravityExperimentBlock = new AntiGravityExperimentBlock();
 
     public static void init(){
         Collections.addAll(blocks, wall, airlock, door, compressor, iceBlock, potatoPlant, workbench, bedBlock, treeBlock,
                 treeSapling, composter, dustCollector, synthesizer, deadPlant, solarPanelBlock, batteryBlock,
-                woodrootPlant, arcReactorBlock, scaffoldingBlock);
+                woodrootPlant, arcReactorBlock, scaffoldingBlock, antiGravityExperimentBlock);
     }
 
     public static Optional<Block> getByID(String blockID) {
@@ -133,6 +135,10 @@ public class Blocks {
 
     public static Block getScaffoldingBlock() {
         return scaffoldingBlock;
+    }
+
+    public static Block getAntiGravityExperiment() {
+        return antiGravityExperimentBlock;
     }
 
     public static ArrayList<Block> getBlocks() {
