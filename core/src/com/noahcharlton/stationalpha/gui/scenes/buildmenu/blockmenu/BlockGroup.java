@@ -24,6 +24,8 @@ enum BlockGroup {
             Blocks.getCompressor(),
             Blocks.getDustCollector(),
             Blocks.getArcReactor()),
+    SCIENCE("Science",
+            Blocks.getAntiGravityExperiment()),
     MISC("Misc.",
             Blocks.getBedBlock(),
             Blocks.getSolarPanel(),
