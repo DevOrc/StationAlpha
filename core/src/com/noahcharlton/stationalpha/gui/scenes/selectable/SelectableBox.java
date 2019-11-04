@@ -26,6 +26,7 @@ public class SelectableBox extends Pane {
     public SelectableBox() {
         setDrawBorder(true, true, true, true);
 
+        selectableGuiContainer.setVisible(false);
         selectableGuiToggleButton.setWidth(200);
         selectableGuiToggleButton.setHeight(35);
 
