@@ -11,7 +11,7 @@ public class SaveGameLoaderTests {
 
     @Test
     void verifyVersionSameVersionTest() {
-        XmlReader.Element element = LoadTestUtils.asChild("<SaveInfo GameVersion=\"0.2.0\"/>");
+        XmlReader.Element element = LoadTestUtils.asChild("<SaveInfo GameVersion=\"0.3.0-dev\"/>");
 
         SaveGameLoader.verifyVersion(element);
     }
