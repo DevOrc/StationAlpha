@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.gui.scenes.mainmenu;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.StationAlpha;
+import com.noahcharlton.stationalpha.engine.audio.Sounds;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
@@ -31,6 +32,7 @@ public class LoadMenu extends MainMenuSubMenu{
         for(int i = 0; i < 10; i++){
             int finalI = i;
             MenuButton button = new MenuButton("Load " + i, createLoadRunnable(finalI));
+            button.setPlaySound(false);
 
             this.buttons.add(button);
         }
@@ -42,7 +44,9 @@ public class LoadMenu extends MainMenuSubMenu{
 
             try{
                 StationAlpha.getInstance().loadGame(saveNum);
+                Sounds.CLICK.play(.3f);
             }catch(LoadGameException e){
+                Sounds.ERROR.play();
                 logger.info("Failed to load save {}!", saveNum, e);
 
                 errorMenu.setVisible(true);

@@ -7,6 +7,7 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.engine.GameCursor;
 import com.noahcharlton.stationalpha.engine.GameRenderer;
 import com.noahcharlton.stationalpha.engine.assets.AssetManager;
+import com.noahcharlton.stationalpha.engine.audio.Sounds;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.PlayerActions;
 import com.noahcharlton.stationalpha.gui.GuiContainer;
@@ -65,6 +66,7 @@ public class StationAlpha extends ApplicationAdapter {
         Item.init();
         ManufacturingRecipes.init();
         PlayerActions.init();
+        Sounds.init();
 
         guiContainer = new GuiContainer();
 
@@ -139,6 +141,7 @@ public class StationAlpha extends ApplicationAdapter {
     @Override
     public void dispose() {
         AssetManager.getInstance().dispose();
+        Sounds.dispose();
     }
 
     public void setTicksPerUpdate(int tps) {

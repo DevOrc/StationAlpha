@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.gui.scenes.mainmenu;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
+import com.noahcharlton.stationalpha.engine.audio.Sounds;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
 class MainMenuButton extends GuiComponent {
@@ -29,17 +30,19 @@ class MainMenuButton extends GuiComponent {
 
     @Override
     protected void drawBackground(SpriteBatch batch) {
-        if(isHovering()){
+        if(isHovering()) {
             int x = getX() - ((SCALE_WIDTH - WIDTH) / 2);
             int y = getY() - ((SCALE_HEIGHT - HEIGHT) / 2);
             batch.draw(texture.get(), x, y, SCALE_WIDTH, SCALE_HEIGHT);
-        }else{
+        } else {
             batch.draw(texture.get(), getX(), getY());
         }
     }
 
     @Override
     protected void onClick() {
+        Sounds.CLICK.play(.3f);
+
         onClick.run();
     }
 
