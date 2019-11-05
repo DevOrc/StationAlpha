@@ -69,8 +69,21 @@ class ExperimentTrackingPane extends BasicPane{
         Experiment experiment = pane.getContainer().getExperiment().get();
         setFontData(1f, Color.WHITE);
         drawCenteredText(b, experiment.getName(), getHeight() - 20);
+        setFontData(.5f, Color.WHITE);
+        drawCenteredText(b, getFormattedStage(experiment.getStage()), getHeight() - 70);
 
         drawPercentBar(b, experiment);
+    }
+
+    private String getFormattedStage(Experiment.Stage stage) {
+        switch(stage){
+            case IN_PROGRESS:
+                return "In Progress...";
+            case PRE_START:
+                return "Preparing Experiment...";
+            default:
+                return "";
+        }
     }
 
     private void drawPercentBar(SpriteBatch batch, Experiment e) {
@@ -104,10 +117,7 @@ class ExperimentStartPane extends BasicPane{
 
     public ExperimentStartPane(ExperimentBlockPane pane) {
         this.parent = pane;
-        this.startButton = new MenuButton("Start Experiment", () -> {
-            pane.getContainer().createExperiment();
-            pane.getContainer().startExperiment();
-        });
+        this.startButton = new MenuButton("Start Experiment", () -> pane.getContainer().createExperiment());
 
         addGui(startButton);
         setDrawBorder(true, true, true, true);

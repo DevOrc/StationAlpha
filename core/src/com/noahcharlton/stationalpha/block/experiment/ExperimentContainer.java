@@ -4,13 +4,17 @@ import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
+import com.noahcharlton.stationalpha.engine.input.mine.MineAction;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
+import com.noahcharlton.stationalpha.worker.job.Job;
+import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
 
 public class ExperimentContainer extends BlockContainer implements Selectable.GuiSelectable {
 
+    private Optional<Job> job = Optional.empty();
     private Optional<Experiment> experiment = Optional.empty();
 
     public ExperimentContainer(Tile tile, Block block, BlockRotation rotation) {
@@ -19,10 +23,21 @@ public class ExperimentContainer extends BlockContainer implements Selectable.Gu
 
     void createExperiment(){
         experiment = Optional.of(new Experiment(250));
+        job = createJob();
+
+        if(job.isPresent()){
+            JobQueue.getInstance().addJob(job.get());
+        }else{
+            experiment = Optional.empty();
+        }
+    }
+
+    Optional<Job> createJob(){
+        return MineAction.getOpenAdjacent(this).map(tile -> new SetupExperimentJob(tile, this));
     }
 
     void startExperiment(){
-        experiment.ifPresent(Experiment::start);
+        experiment.orElseThrow(IllegalStateException::new).start();
     }
 
     @Override
@@ -31,6 +46,11 @@ public class ExperimentContainer extends BlockContainer implements Selectable.Gu
 
         experiment = experiment.filter(e -> e.getStage() == Experiment.Stage.FINISHED)
                 .isPresent() ? Optional.empty() : experiment;
+    }
+
+    @Override
+    public void onDestroy() {
+        job.ifPresent(Job::permanentEnd);
     }
 
     @Override
@@ -50,5 +70,9 @@ public class ExperimentContainer extends BlockContainer implements Selectable.Gu
 
     public Optional<Experiment> getExperiment() {
         return experiment;
+    }
+
+    public Optional<Job> getJob() {
+        return job;
     }
 }

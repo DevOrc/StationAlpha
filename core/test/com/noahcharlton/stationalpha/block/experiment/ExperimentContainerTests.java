@@ -2,6 +2,8 @@ package com.noahcharlton.stationalpha.block.experiment;
 
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
+import com.noahcharlton.stationalpha.worker.job.Job;
+import com.noahcharlton.stationalpha.worker.job.JobQueueTests;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
@@ -74,5 +76,29 @@ public class ExperimentContainerTests {
         }
 
         Assertions.assertEquals(Optional.empty(), container.getExperiment());
+    }
+
+    @Test
+    void createExperimentCreatesJobTest() {
+        container.createExperiment();
+
+        Assertions.assertTrue(container.getJob().isPresent());
+    }
+
+    @Test
+    void onDestroyJobNotInQueueTest() {
+        container.createExperiment();
+        container.onDestroy();
+
+        JobQueueTests.assertNotInJobQueue(container.getJob().get());
+    }
+
+    @Test
+    void onDestroyJobCancelledTest() {
+        container.createExperiment();
+        container.startExperiment();
+        container.onDestroy();
+
+        Assertions.assertEquals(Job.JobStage.PRE_START, container.getJob().get().getStage());
     }
 }
