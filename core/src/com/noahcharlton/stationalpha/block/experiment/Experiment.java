@@ -11,9 +11,18 @@ public class Experiment {
     private int progress = 0;
 
     public Experiment(int length) {
-        this.name = "ExpName";
+        this("ExpName", 0, length);
+    }
+
+    public Experiment(String name, int progress, int length) {
+        this.name = name;
         this.length = length;
+        this.progress = progress;
         this.stage = Stage.PRE_START;
+
+        if(length < progress){
+            throw new IllegalArgumentException("Progress cannot be bigger than length...");
+        }
     }
 
     public void start(){

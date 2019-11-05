@@ -1,14 +1,18 @@
 package com.noahcharlton.stationalpha.block.experiment;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.worker.job.Job;
 import com.noahcharlton.stationalpha.worker.job.JobQueueTests;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
+import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.StringWriter;
 import java.util.Optional;
 
 public class ExperimentContainerTests {
@@ -100,5 +104,98 @@ public class ExperimentContainerTests {
         container.onDestroy();
 
         Assertions.assertEquals(Job.JobStage.PRE_START, container.getJob().get().getStage());
+    }
+
+    @Test
+    void onSaveNoExperimentTest() {
+        StringWriter stringWriter = new StringWriter();
+        QuietXmlWriter writer = new QuietXmlWriter(stringWriter);
+
+        container.onSave(writer);
+
+        Assertions.assertEquals("", stringWriter.toString());
+    }
+
+    @Test
+    void onSaveExperimentBasicTest() {
+        StringWriter stringWriter = new StringWriter();
+        QuietXmlWriter writer = new QuietXmlWriter(stringWriter);
+
+        container.createExperiment();
+        container.onSave(writer);
+
+        String xml = "<Experiment Name=\"ExpName\" Stage=\"PRE_START\" Progress=\"0\" Length=\"250\"/>\n";
+        Assertions.assertEquals(xml, stringWriter.toString());
+    }
+
+    @Test
+    void onSaveExperimentInProgressTest() {
+        StringWriter stringWriter = new StringWriter();
+        QuietXmlWriter writer = new QuietXmlWriter(stringWriter);
+
+        container.createExperiment();
+        container.startExperiment();
+        container.onUpdate();
+
+        container.onSave(writer);
+        String xml = "<Experiment Name=\"ExpName\" Stage=\"IN_PROGRESS\" Progress=\"1\" Length=\"250\"/>\n";
+        Assertions.assertEquals(xml, stringWriter.toString());
+    }
+
+    @Test
+    void onLoadNoExperimentTest() {
+        XmlReader.Element element = LoadTestUtils.asChild("");
+
+        container.onLoad(element);
+
+        Assertions.assertEquals(Optional.empty(), container.getExperiment());
+    }
+
+    @Test
+    void onLoadExperimentNameTest() {
+        String xml = "<Experiment Name=\"FooBar\" Stage=\"IN_PROGRESS\" Progress=\"0\" Length=\"73\"/>\n";
+        Experiment actual = onLoadExperimentBase(xml);
+
+        Assertions.assertEquals("FooBar", actual.getName());
+    }
+
+    @Test
+    void onLoadExperimentProgressTest() {
+        String xml = "<Experiment Name=\"Name\" Stage=\"PRE_START\" Progress=\"12\" Length=\"23\"/>\n";
+        Experiment actual = onLoadExperimentBase(xml);
+
+        Assertions.assertEquals(12, actual.getProgress());
+    }
+
+    @Test
+    void onLoadExperimentLengthTest() {
+        String xml = "<Experiment Name=\"Name\" Stage=\"PRE_START\" Progress=\"0\" Length=\"125\"/>\n";
+        Experiment actual = onLoadExperimentBase(xml);
+
+        Assertions.assertEquals(125, actual.getLength());
+    }
+
+    @Test
+    void onLoadExperimentPreStartCreatesJobTest() {
+        String xml = "<Experiment Name=\"Name\" Stage=\"PRE_START\" Progress=\"0\" Length=\"125\"/>\n";
+        onLoadExperimentBase(xml);
+
+        Assertions.assertTrue(container.getJob().isPresent());
+    }
+
+    @Test
+    void onLoadExperimentInProgressStartsExperiment() {
+        String xml = "<Experiment Name=\"Name\" Stage=\"IN_PROGRESS\" Progress=\"0\" Length=\"125\"/>\n";
+        onLoadExperimentBase(xml);
+
+        Assertions.assertEquals(Experiment.Stage.IN_PROGRESS, container.getExperiment().get().getStage());
+    }
+
+    private Experiment onLoadExperimentBase(String input){
+        XmlReader.Element element = LoadTestUtils.asChild(input);
+
+        container.onLoad(element);
+
+        return container.getExperiment().orElse(null);
     }
 }

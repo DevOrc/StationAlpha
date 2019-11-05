@@ -8,6 +8,11 @@ public class ExperimentTests {
     private final Experiment experiment = new Experiment(1);
 
     @Test
+    void cannotHaveProgressHigherThanLengthTest() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Experiment("", 5, 3));
+    }
+
+    @Test
     void experimentDefaultStageTest() {
         Assertions.assertEquals(Experiment.Stage.PRE_START, experiment.getStage());
     }
