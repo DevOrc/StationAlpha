@@ -91,6 +91,7 @@ public class StationAlpha extends ApplicationAdapter {
 
     public void loadGame(int saveNumber) {
         JobQueue.getInstance().clear();
+        InputHandler.getInstance().setCurrentlySelected(null);
         currentState = GameState.IN_GAME;
         world = Optional.of(new World(false));
         setTicksPerUpdate(0);
@@ -109,6 +110,7 @@ public class StationAlpha extends ApplicationAdapter {
     }
 
     public void startGame() {
+        InputHandler.getInstance().setCurrentlySelected(null);
         JobQueue.getInstance().clear();
         currentState = GameState.IN_GAME;
         world = Optional.of(new World(true));

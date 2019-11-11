@@ -26,6 +26,7 @@ public class SaveGameLoader {
         XmlReader.Element goalElement = Objects.requireNonNull(element.getChildByName("Goals"));
 
         world.getGoalManager().loadGoals(goalElement);
+        world.getGoalManager().loadScience(element);
     }
 
     private static void loadManufacturingManager(XmlReader.Element element, World world){

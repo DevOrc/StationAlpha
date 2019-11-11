@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
+import com.noahcharlton.stationalpha.gui.components.BasicPane;
+import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.SpeedButton;
 
@@ -16,13 +18,34 @@ public class SelectableBox extends Pane {
     private final SelectableHelpButton helpButton = new SelectableHelpButton(this, this::onHelpButtonClicked);
     private final HelpMenu helpMenu = new HelpMenu();
     private final CloseSelectableMenuButton closeButton = new CloseSelectableMenuButton(this);
+    private final BasicPane selectableGuiContainer = new BasicPane();
+    private final MenuButton selectableGuiToggleButton = new MenuButton("Open Gui", this::onSubGuiTogglePressed);
 
     private int height = 250;
 
     public SelectableBox() {
         setDrawBorder(true, true, true, true);
 
-        addAllGui(helpButton, helpMenu, closeButton);
+        selectableGuiContainer.setVisible(false);
+        selectableGuiToggleButton.setWidth(200);
+        selectableGuiToggleButton.setHeight(35);
+
+        addAllGui(helpButton, helpMenu, closeButton, selectableGuiContainer, selectableGuiToggleButton);
+    }
+
+    void onSubGuiTogglePressed(){
+        selectableGuiContainer.setVisible(!selectableGuiContainer.isVisible());
+    }
+
+    @Override
+    protected void update() {
+        if(hasSelectableGui()){
+            selectableGuiToggleButton.setVisible(true);
+        }else{
+            selectableGuiToggleButton.setVisible(false);
+            selectableGuiContainer.setVisible(false);
+            selectableGuiContainer.getSubGuis().clear();
+        }
     }
 
     @Override
@@ -30,9 +53,19 @@ public class SelectableBox extends Pane {
         InputHandler.getInstance().getCurrentlySelected().ifPresent(selectable -> {
             renderSelectable(b, selectable);
 
+            if(selectable instanceof Selectable.GuiSelectable)
+                handleSelectableGui((Selectable.GuiSelectable) selectable);
+
             helpButton.setVisible(selectable.getHelpInfo().isPresent());
         });
     }
+
+    private void handleSelectableGui(Selectable.GuiSelectable selectable) {
+        if(selectableGuiContainer.getSubGuis().size() == 0){
+            selectableGuiContainer.getSubGuis().add(selectable.createGui());
+        }
+    }
+
 
     private void renderSelectable(SpriteBatch b, Selectable selectable) {
         int y = getHeight() - 25;
@@ -53,13 +86,24 @@ public class SelectableBox extends Pane {
             y -= drawCenteredText(b, info, y).height + (spacing * .75);
         }
 
+        if(hasSelectableGui())
+            y -= selectableGuiToggleButton.getHeight() + 30;
+
         height = getHeight() - y;
+    }
+
+    public boolean hasSelectableGui(){
+        return InputHandler.getInstance().getCurrentlySelected()
+                .filter(s -> s instanceof Selectable.GuiSelectable).isPresent();
     }
 
     @Override
     protected void updatePosition() {
         setX(Gdx.graphics.getWidth() - WIDTH);
         setY(Y_POS);
+
+        selectableGuiToggleButton.setX(getX() + (getWidth() / 2) - (MenuButton.WIDTH / 2));
+        selectableGuiToggleButton.setY(getY() + 10);
     }
 
     @Override

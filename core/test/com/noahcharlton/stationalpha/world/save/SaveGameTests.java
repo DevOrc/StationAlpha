@@ -24,6 +24,6 @@ public class SaveGameTests {
 
         String actual = stringWriter.toString();
 
-        Assertions.assertEquals("<SaveInfo GameVersion=\"0.2.0\"/>\n", actual);
+        Assertions.assertEquals("<SaveInfo GameVersion=\"0.3.0-dev\"/>\n", actual);
     }
 }

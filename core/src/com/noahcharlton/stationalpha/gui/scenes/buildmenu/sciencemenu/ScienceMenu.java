@@ -11,6 +11,7 @@ import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
+import com.noahcharlton.stationalpha.world.World;
 
 public class ScienceMenu extends Pane implements BuildMenu {
 
@@ -31,6 +32,10 @@ public class ScienceMenu extends Pane implements BuildMenu {
         for(Goal goal : tabPane.getSelected().getGoals()) {
             renderGoal(goal, b);
         }
+
+        String text = "Science: " + World.getInstance().get().getGoalManager().getSciencePoints();
+        setFontData(.65f, Color.WHITE);
+        font.draw(b, text, getX() + 10, getY() + getHeight() - tabPane.getHeight() - 20);
     }
 
     private void renderGoal(Goal goal, SpriteBatch b) {

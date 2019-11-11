@@ -72,7 +72,7 @@ public class MineAction implements BuildAction {
         getOpenAdjacent(container).ifPresent(adjacent -> createJob(tile, adjacent));
     }
 
-    private Optional<Tile> getOpenAdjacent(BlockContainer container) {
+    public static Optional<Tile> getOpenAdjacent(BlockContainer container) {
         Tile rootTile = container.getTile();
         World world = rootTile.getWorld();
 

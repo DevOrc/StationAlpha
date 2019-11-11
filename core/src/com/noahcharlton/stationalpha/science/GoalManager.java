@@ -12,6 +12,7 @@ public class GoalManager {
 
     private final EnumSet<GoalTab> tabs = EnumSet.allOf(GoalTab.class);
     private final World world;
+    private int sciencePoints;
 
     public GoalManager(World world) {
         this.world = world;
@@ -31,6 +32,18 @@ public class GoalManager {
         }
     }
 
+    public void earnSciencePoints(int amount){
+        sciencePoints += amount;
+
+        sciencePoints = Math.max(0, sciencePoints);
+    }
+
+    public void removeSciencePoints(int amount){
+        sciencePoints -= amount;
+
+        sciencePoints = Math.max(0, sciencePoints);
+    }
+
     public void save(QuietXmlWriter writer){
         QuietXmlWriter element = writer.element("Goals");
 
@@ -39,6 +52,12 @@ public class GoalManager {
         }
 
         element.pop();
+
+        saveScience(writer);
+    }
+
+    public void saveScience(QuietXmlWriter writer) {
+        writer.element("Science").attribute("value", sciencePoints).pop();
     }
 
     void saveTab(GoalTab tab, QuietXmlWriter writer) {
@@ -57,6 +76,12 @@ public class GoalManager {
                 .attribute("name", goal.getName())
                 .attribute("completed", goal.isCompleted())
                 .pop();
+    }
+
+    public void loadScience(XmlReader.Element element) {
+        if(element.hasChild("Science"))
+            sciencePoints = element.getChildByName("Science").getIntAttribute("value");
+
     }
 
     public void loadGoals(XmlReader.Element element){
@@ -80,5 +105,9 @@ public class GoalManager {
 
     public Set<GoalTab> getTabs() {
         return tabs;
+    }
+
+    public int getSciencePoints() {
+        return sciencePoints;
     }
 }
