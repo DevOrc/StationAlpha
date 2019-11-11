@@ -2,33 +2,33 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.noahcharlton.stationalpha.science.Goal;
 import com.noahcharlton.stationalpha.gui.components.Pane;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 
 import java.util.Optional;
 
-public class ScienceInfoBox extends Pane {
+public class ResearchItemInfoBox extends Pane {
 
     static final int HEIGHT = 200;
 
     private final ScienceMenu scienceMenu;
-    private Optional<Goal> selectedGoal;
+    private Optional<ResearchItem> selectedItem;
 
-    public ScienceInfoBox(ScienceMenu scienceMenu) {
+    public ResearchItemInfoBox(ScienceMenu scienceMenu) {
         this.scienceMenu = scienceMenu;
 
-        setSelectedGoal(null);
+        setSelectedItem(null);
         setDrawBorder(true, true, true, true);
     }
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        selectedGoal.ifPresent(goal -> {
+        selectedItem.ifPresent(item -> {
             setFontData(.75f, Color.WHITE);
-            drawCenteredText(b, goal.getName(), getHeight() - 10);
+            drawCenteredText(b, item.getDisplayName(), getHeight() - 10);
 
             setFontData(.55f, Color.WHITE);
-            drawCenteredText(b, goal.getDesc(), getHeight() - 45);
+            drawCenteredText(b, item.getDesc(), getHeight() - 45);
         });
     }
 
@@ -44,12 +44,12 @@ public class ScienceInfoBox extends Pane {
         setY(scienceMenu.getY());
     }
 
-    public void setSelectedGoal(Goal selectedGoal) {
-        this.selectedGoal = Optional.ofNullable(selectedGoal);
-        this.setVisible(selectedGoal != null);
+    public void setSelectedItem(ResearchItem item) {
+        this.selectedItem = Optional.ofNullable(item);
+        this.setVisible(item != null);
     }
 
-    public Optional<Goal> getSelectedGoal() {
-        return selectedGoal;
+    public Optional<ResearchItem> getSelectedItem() {
+        return selectedItem;
     }
 }

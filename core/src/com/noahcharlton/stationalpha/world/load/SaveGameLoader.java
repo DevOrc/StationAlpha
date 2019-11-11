@@ -15,18 +15,15 @@ public class SaveGameLoader {
         XmlReader.Element element = new XmlReader().parse(xml);
 
         verifyVersion(element);
-        loadGoals(element, world);
+        loadScienceInfo(element, world);
         loadWorkers(element, world);
         loadInventory(element, world);
         loadManufacturingManager(element, world);
         loadWorld(element, world);
     }
 
-    private static void loadGoals(XmlReader.Element element, World world) {
-        XmlReader.Element goalElement = Objects.requireNonNull(element.getChildByName("Goals"));
-
-        world.getGoalManager().loadGoals(goalElement);
-        world.getGoalManager().loadScience(element);
+    private static void loadScienceInfo(XmlReader.Element element, World world) {
+        world.getScienceManager().loadScience(element);
     }
 
     private static void loadManufacturingManager(XmlReader.Element element, World world){

@@ -14,7 +14,7 @@ public class ItemRewardTests {
 
     @Test
     void giveRewardBasicTest() {
-        reward.giveReward(world);
+        reward.accept(world);
 
         Assertions.assertEquals(3, inventory.getAmountForItem(Item.STEEL));
     }

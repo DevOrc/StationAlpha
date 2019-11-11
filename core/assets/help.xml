@@ -51,56 +51,5 @@
     <Entry id="solar_panel_info">
         Solar panels produce a constant rate of 1 PU / T. Power can be transferred using power conduits.
     </Entry>
-
-    <!--
-        Goal Descriptors
-    -->
-    <Entry id="steel_goal_desc">
-        Gather steel so that you can start your base.
-        You can collect steel by mining space rock. To mine rock, use the mining
-        tool in the actions box. Once you have space rock, you can use the workbench,
-        to craft steel. \n Reward: 8 Dirt
-    </Entry>
-    <Entry id="copper_goal_desc">
-        Gather copper so that you can build more advanced blocks.
-        Similar to steel, you can collect steel by mining space rock and using the workbench
-        \n Reward: 8 Dirt
-    </Entry>
-    <Entry id="potato_goal_1_desc">
-        Grow potatoes so that your worker can eat. In order for potatoes to grow, they need to be on a dirt floor and
-        they must have oxygen to breath. The oxygen level can be raised by using an air compressor. Note: If the room
-        has any gaps in the walls or floors, the oxygen will escape! \n Reward: 8 Dirt
-    </Entry>compost
-    <Entry id="dirt_goal_desc">
-        Using the composter, you can compost leaves to create dirt. Place down a composter, and use the
-        manufacture menu to select how much dirt to make. A gardener will then place dirt in the composter,
-        wait for it to compost, and then pick it up.
-    </Entry>
-    <Entry id="unobtainium_goal_desc">
-        Now that you have space dust, you can use the synthesizer to create unobtainium. Because
-        synthesizing takes so long, it will take your workers multiple sessions to synthesize one piece.
-    </Entry>
-    <Entry id="space_dust_goal">
-        Space dust is an important substance that can be used to synthesize more complex substances. It can be collected
-        by dust collectors, which require power to run. Power can be
-        generated using solar panels. \n Reward: 1 Unobtainium
-    </Entry>
-    <Entry id="power_ingot_goal_desc">
-        Power ingots are used for fuel in the arc reactor. Power ingots are created in a similar method to unobtainium.
-        Using the synthesizer, workers can convert space dust into new elements!
-    </Entry>
-    <Entry id="arc_reactor_goal_desc">
-        Arc Reactors are the most powerful generators ever built. They use power ingots, a rare and complex material, to
-        generate immense amounts of power (50 times more energy than a solar panel).
-    </Entry>
-    <Entry id="chop_trees_goal_desc">
-        To collect wood, you can grow trees, and then use the cut tree tool in the actions
-        box. Trees need a 3x3 area (centered on the sapling) and oxygen to grow.
-    </Entry>
-    <Entry id="woodroot_goal_desc">
-        Woodroot is a powerful plant that grows out of parasites within wood. The plant takes a long time to grow, but
-        provides a lot of food when harvested. Note: Woodroot requires one piece of woodroot to start growing the plant!
-        \n Warning: Your workers will choose to eat woodroot over potatoes so you must plant it before they eat it.
-    </Entry>
 </HelpInfo>
 

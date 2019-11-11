@@ -3,15 +3,10 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class GoalInfoBoxTests {
+public class ResearchItemInfoBoxTests {
 
     private final ScienceMenu scienceMenu = new ScienceMenu();
-    private final ScienceInfoBox infoBox = new ScienceInfoBox(scienceMenu);
-
-    @Test
-    void emptyGoalByDefault() {
-        Assertions.assertFalse(infoBox.getSelectedGoal().isPresent());
-    }
+    private final ResearchItemInfoBox infoBox = new ResearchItemInfoBox(scienceMenu);
 
     @Test
     void infoBoxFollowsGoalMenuXTest() {

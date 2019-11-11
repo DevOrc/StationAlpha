@@ -81,7 +81,6 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
             int mouseRelativeToTop = getY() + getHeight() - mouseY;
             double percentScroll = (double) mouseRelativeToTop / (getHeight() - BORDER_WIDTH * 2);
             int newScroll = (int) (component.getHeight() * percentScroll);
-            System.out.printf("%d, %f, %d\n", mouseRelativeToTop, percentScroll, newScroll);
             int relativeScroll = newScroll - scrollY;
             scroll(relativeScroll);
         }

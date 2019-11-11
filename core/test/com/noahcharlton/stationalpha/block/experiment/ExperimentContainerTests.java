@@ -116,7 +116,7 @@ public class ExperimentContainerTests {
             container.onUpdate();
         }
 
-        Assertions.assertEquals(experiment.getScienceEarned(), world.getGoalManager().getSciencePoints());
+        Assertions.assertEquals(experiment.getScienceEarned(), world.getScienceManager().getSciencePoints());
     }
 
     @Test

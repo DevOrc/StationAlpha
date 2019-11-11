@@ -101,7 +101,7 @@ public class ExperimentContainer extends BlockContainer implements Selectable.Gu
     }
 
     private void onExperimentFinished(Experiment experiment) {
-        getTile().getWorld().getGoalManager().earnSciencePoints(experiment.getScienceEarned());
+        getTile().getWorld().getScienceManager().earnSciencePoints(experiment.getScienceEarned());
         this.experiment = Optional.empty();
     }
 

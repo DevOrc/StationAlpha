@@ -32,7 +32,7 @@ public class SaveGame {
 
     private void save() {
         writeMiscInfo();
-        world.getGoalManager().save(writer);
+        world.getScienceManager().save(writer);
         new WorkerSaver(world).save(writer);
         new InventorySaver(world).save(writer);
         new ManufacturingManagerSaver(world.getManufacturingManager()).save(writer);

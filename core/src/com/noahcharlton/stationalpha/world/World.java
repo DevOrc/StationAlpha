@@ -8,7 +8,7 @@ import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.PlaceConduit;
-import com.noahcharlton.stationalpha.science.GoalManager;
+import com.noahcharlton.stationalpha.science.ScienceManager;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;
@@ -29,7 +29,7 @@ public class World {
     private final ArrayList<Worker> workers = new ArrayList<>();
     private final Inventory inventory = new Inventory();
     private final ManufacturingManager manufacturingManager = new ManufacturingManager();
-    private final GoalManager goalManager = new GoalManager(this);
+    private final ScienceManager scienceManager = new ScienceManager(this);
 
     /**
      * Used for testing
@@ -112,7 +112,7 @@ public class World {
     public void update() {
         updateTiles();
         updateWorkers();
-        goalManager.update();
+        scienceManager.update();
 
         if(DebugKeys.isDebugPressed(DebugKeys.INVENTORY)){
             fillInventory();
@@ -210,8 +210,8 @@ public class World {
         return Optional.of(tiles[x][y]);
     }
 
-    public GoalManager getGoalManager() {
-        return goalManager;
+    public ScienceManager getScienceManager() {
+        return scienceManager;
     }
 
     public ArrayList<Worker> getWorkers() {
