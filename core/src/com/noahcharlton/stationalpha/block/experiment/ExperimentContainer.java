@@ -96,8 +96,13 @@ public class ExperimentContainer extends BlockContainer implements Selectable.Gu
     public void onUpdate() {
         experiment.ifPresent(Experiment::onTick);
 
-        experiment = experiment.filter(e -> e.getStage() == Experiment.Stage.FINISHED)
-                .isPresent() ? Optional.empty() : experiment;
+        experiment.filter(e -> e.getStage() == Experiment.Stage.FINISHED).ifPresent(this::onExperimentFinished);
+
+    }
+
+    private void onExperimentFinished(Experiment experiment) {
+        getTile().getWorld().getGoalManager().earnSciencePoints(experiment.getScienceEarned());
+        this.experiment = Optional.empty();
     }
 
     @Override

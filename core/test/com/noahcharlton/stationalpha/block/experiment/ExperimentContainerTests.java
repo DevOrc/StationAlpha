@@ -107,6 +107,32 @@ public class ExperimentContainerTests {
     }
 
     @Test
+    void onFinishAddScienceTest() {
+        container.createExperiment();
+        container.startExperiment();
+        Experiment experiment = container.getExperiment().get();
+
+        while(experiment.getProgress() != experiment.getLength()){
+            container.onUpdate();
+        }
+
+        Assertions.assertEquals(experiment.getScienceEarned(), world.getGoalManager().getSciencePoints());
+    }
+
+    @Test
+    void onFinishExperimentRemovedTest() {
+        container.createExperiment();
+        container.startExperiment();
+        Experiment experiment = container.getExperiment().get();
+
+        while(experiment.getProgress() != experiment.getLength()){
+            container.onUpdate();
+        }
+
+        Assertions.assertFalse(container.getExperiment().isPresent());
+    }
+
+    @Test
     void onSaveNoExperimentTest() {
         StringWriter stringWriter = new StringWriter();
         QuietXmlWriter writer = new QuietXmlWriter(stringWriter);

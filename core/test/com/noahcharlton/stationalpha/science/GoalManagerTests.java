@@ -1,6 +1,8 @@
 package com.noahcharlton.stationalpha.science;
 
+import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.world.World;
+import com.noahcharlton.stationalpha.world.load.LoadTestUtils;
 import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -59,6 +61,56 @@ public class GoalManagerTests {
 
         String expected = "<Goal name=\"Zebra\" completed=\"true\"/>\n";
         Assertions.assertEquals(expected, writer.toString());
+    }
+
+    @Test
+    void earnScienceTest() {
+        goalManager.earnSciencePoints(25);
+
+        Assertions.assertEquals(25, goalManager.getSciencePoints());
+    }
+
+    @Test
+    void earnScienceNotBelowZeroTest() {
+        goalManager.earnSciencePoints(-5);
+
+        Assertions.assertEquals(0, goalManager.getSciencePoints());
+    }
+
+    @Test
+    void removeScienceTest() {
+        goalManager.earnSciencePoints(22);
+        goalManager.removeSciencePoints(10);
+
+        Assertions.assertEquals(12, goalManager.getSciencePoints());
+    }
+
+    @Test
+    void removeScienceNotBelowZeroTest() {
+        goalManager.removeSciencePoints(7);
+
+        Assertions.assertEquals(0, goalManager.getSciencePoints());
+    }
+
+    @Test
+    void saveScienceTest() {
+        StringWriter writer = new StringWriter();
+        QuietXmlWriter xmlWriter = new QuietXmlWriter(writer);
+
+        goalManager.earnSciencePoints(22);
+        goalManager.saveScience(xmlWriter);
+
+        Assertions.assertEquals("<Science value=\"22\"/>\n", writer.toString());
+    }
+
+    @Test
+    void loadScienceTest() {
+        String input = "<Science value=\"129\"/>\n";
+        XmlReader.Element element = LoadTestUtils.asChild(input);
+
+        goalManager.loadScience(element);
+
+        Assertions.assertEquals(129, goalManager.getSciencePoints());
     }
 }
 class TestGoal extends Goal{

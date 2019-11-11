@@ -6,6 +6,7 @@ public class Experiment {
 
     private final String name;
     private final int length;
+    private final int scienceEarned = 20;
 
     private Stage stage;
     private int progress = 0;
@@ -57,5 +58,9 @@ public class Experiment {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public int getScienceEarned() {
+        return scienceEarned;
     }
 }
