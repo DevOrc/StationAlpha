@@ -8,19 +8,28 @@ import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.World;
 
 public class ScienceMenu extends Pane implements BuildMenu {
 
     private static final int WINDOW_OFFSET = 50;
-    private static final int BOX_WIDTH = 250;
-    private static final int BOX_HEIGHT = 50;
 
     private final ResearchItemInfoBox infoBox = new ResearchItemInfoBox(this);
 
     public ScienceMenu() {
-        addAllGui(infoBox);
         setDrawBorder(true, true, true, true);
+
+        addButtons();
+        addAllGui(infoBox);
+    }
+
+    private void addButtons() {
+        for(ResearchItem item: ResearchItem.values()){
+            ResearchItemButton button = new ResearchItemButton(item, this);
+
+            addGui(button);
+        }
     }
 
     @Override
@@ -63,5 +72,9 @@ public class ScienceMenu extends Pane implements BuildMenu {
 
         int height = Gdx.graphics.getHeight() - BuildBar.HEIGHT - (WINDOW_OFFSET * 2);
         setHeight(height);
+    }
+
+    public ResearchItemInfoBox getInfoBox() {
+        return infoBox;
     }
 }
