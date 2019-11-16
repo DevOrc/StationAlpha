@@ -10,6 +10,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.scaffolding.ScaffoldingContainer;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
+import com.noahcharlton.stationalpha.engine.audio.Sounds;
 import com.noahcharlton.stationalpha.item.ItemStack;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
@@ -31,7 +32,7 @@ public class BuildBlock implements BuildAction {
 
     @Override
     public void onKeyPressed(int keycode) {
-        if(keycode == Input.Keys.R){
+        if(keycode == Input.Keys.R) {
             rotation = rotation.getNext();
         }
     }
@@ -73,7 +74,13 @@ public class BuildBlock implements BuildAction {
     private void build(Tile tile) {
         BlockContainer container = createContainer(tile);
 
-        if(!checkBlock(tile, container) || !hasResourcesToBuild(block, tile.getWorld())) return;
+        if(!checkBlock(tile, container)
+                || !hasResourcesToBuild(block, tile.getWorld())
+                || !hasCompletedResearch()) {
+
+            Sounds.ERROR.play();
+            return;
+        }
 
         World world = tile.getWorld();
         removeRequiredResources(world);
@@ -88,6 +95,14 @@ public class BuildBlock implements BuildAction {
         }
     }
 
+    boolean hasCompletedResearch() {
+        if(block.getRequiredResearch().isPresent()) {
+            return block.getRequiredResearch().get().isCompleted();
+        }
+
+        return true;
+    }
+
     BlockContainer createContainer(Tile tile) {
         boolean debugMode = Gdx.input != null && Gdx.input.isKeyPressed(Input.Keys.CONTROL_RIGHT);
 
@@ -98,14 +113,14 @@ public class BuildBlock implements BuildAction {
     }
 
     private void removeRequiredResources(World world) {
-        for(ItemStack stack : block.getRequirements()){
+        for(ItemStack stack : block.getRequirements()) {
             world.getInventory().changeAmountForItem(stack.getItem(), -stack.getAmount());
         }
     }
 
     boolean hasResourcesToBuild(Block block, World world) {
-        for(ItemStack stack : block.getRequirements()){
-            if(!stack.resourcesAvailable(world.getInventory())){
+        for(ItemStack stack : block.getRequirements()) {
+            if(!stack.resourcesAvailable(world.getInventory())) {
                 return false;
             }
         }

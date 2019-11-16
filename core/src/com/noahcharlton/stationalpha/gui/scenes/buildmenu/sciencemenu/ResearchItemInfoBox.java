@@ -35,7 +35,7 @@ public class ResearchItemInfoBox extends Pane {
 
         selectedItem.ifPresent(item -> {
             if(hasEnoughPoints(item) && item.isRequirementCompleted()){
-                item.completeItem(world);
+                item.setCompleted(true);
                 world.getScienceManager().removeSciencePoints(item.getScienceCost());
             }else{
                 Sounds.ERROR.play();

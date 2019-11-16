@@ -1,10 +1,7 @@
 package com.noahcharlton.stationalpha.science;
 
-import com.noahcharlton.stationalpha.world.World;
-
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 public enum ResearchItem {
 
@@ -18,12 +15,14 @@ public enum ResearchItem {
 //    DUST_COLLECTOR,
 //    SYNTHESIZER,
 //    NEXT_GEN_POWER;
-    TEST("Test Item", "Desc. Here", 25,  20, 25, world -> {}),
-    TEST_2("Complex Plants", "Number 2 Here", 35, 20, 350, world -> {}, TEST);
+
+    //Used To For Unit Testing
+    TEST("Test", "Desc. Here", 0,  -500, -500),
+    TEST_3("Test", "Desc. Here", 0,  20, 100),
+    TEST_2("Complex Plants", "Number 2 Here", 35, 20, 350, TEST_3);
 
     private final String displayName;
     private final String desc;
-    private final Consumer<World> onCompleted;
     private final List<ResearchItem> requirements;
     private final int scienceCost;
     private final int posX;
@@ -32,14 +31,13 @@ public enum ResearchItem {
     private boolean completed;
 
     ResearchItem() {
-        this("No Name", "Desc", 0, 0, 0, world -> {});
+        this("No Name", "Desc", 0, 0, 0);
     }
 
     ResearchItem(String displayName, String desc, int scienceCost,
-                 int y, int x, Consumer<World> onCompleted, ResearchItem... items) {
+                 int y, int x, ResearchItem... items) {
         this.displayName = displayName;
         this.desc = desc;
-        this.onCompleted = onCompleted;
         this.requirements = Arrays.asList(items);
         this.scienceCost = scienceCost;
         this.posX = x;
@@ -48,14 +46,8 @@ public enum ResearchItem {
         completed = false;
     }
 
-    void setCompleted(boolean completed) {
+    public void setCompleted(boolean completed) {
         this.completed = completed;
-    }
-
-    public void completeItem(World world){
-        this.completed = true;
-
-        this.onCompleted.accept(world);
     }
 
     public boolean isCompleted() {
@@ -89,10 +81,6 @@ public enum ResearchItem {
 
     public int getPosY() {
         return posY;
-    }
-
-    public Consumer<World> getOnCompleted() {
-        return onCompleted;
     }
 
     public int getScienceCost() {

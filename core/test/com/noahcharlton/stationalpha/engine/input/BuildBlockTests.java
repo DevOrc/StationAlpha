@@ -7,12 +7,15 @@ import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.block.plant.PlantContainer;
 import com.noahcharlton.stationalpha.block.scaffolding.ScaffoldingContainer;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Optional;
 
 public class BuildBlockTests {
 
@@ -123,6 +126,31 @@ public class BuildBlockTests {
         Assertions.assertTrue(buildBlock.createContainer(tile) instanceof PlantContainer);
     }
 
+    @Test
+    void hasCompletedResearchFalseTest() {
+        ResearchItem.TEST.setCompleted(false);
+        ResearchBlock block = new ResearchBlock(ResearchItem.TEST);
+        BuildBlock builder = new BuildBlock(block);
+
+        Assertions.assertFalse(builder.hasCompletedResearch());
+    }
+
+    @Test
+    void hasCompletedResearchTrueTest() {
+        ResearchItem.TEST.setCompleted(true);
+        ResearchBlock block = new ResearchBlock(ResearchItem.TEST);
+        BuildBlock builder = new BuildBlock(block);
+
+        Assertions.assertTrue(builder.hasCompletedResearch());
+    }
+
+    @Test
+    void hasCompletedResearchNoResearchTest() {
+        ResearchBlock block = new ResearchBlock(null);
+        BuildBlock builder = new BuildBlock(block);
+
+        Assertions.assertTrue(builder.hasCompletedResearch());
+    }
 
     @ParameterizedTest(name = "destroyMultiblock(clickX = {0})")
     @ValueSource(ints = {0, 1})
@@ -135,5 +163,28 @@ public class BuildBlockTests {
         Assertions.assertFalse(world.getTileAt(0, 0).get().getBlock().isPresent());
         Assertions.assertFalse(world.getTileAt(1, 0).get().getBlock().isPresent());
 
+    }
+}
+class ResearchBlock extends Block{
+
+    private final Optional<ResearchItem> item;
+
+    public ResearchBlock(ResearchItem item) {
+        this.item = Optional.ofNullable(item);
+    }
+
+    @Override
+    public String getID() {
+        return "Test Block";
+    }
+
+    @Override
+    protected Optional<String> getTextureFileName() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return item;
     }
 }

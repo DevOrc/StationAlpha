@@ -36,10 +36,18 @@ public class BuildBlockSelectable implements Selectable {
     }
 
     private String getRequirementAsString() {
-        StringBuilder builder = new StringBuilder("Requirements:");
+        StringBuilder builder = new StringBuilder();
+
+        if(block.getRequiredResearch().isPresent()){
+            builder.append("Research: ");
+            builder.append(block.getRequiredResearch().get().getDisplayName());
+            builder.append("\n");
+        }
 
         if(block.getRequirements().isEmpty()){
-            return "Requirements: None";
+            builder.append("Requirements: None");
+        }else{
+            builder.append("\nRequirements: ");
         }
 
         for(ItemStack stack: block.getRequirements()){
@@ -47,7 +55,6 @@ public class BuildBlockSelectable implements Selectable {
             builder.append(stack.getAmount());
             builder.append(" ");
             builder.append(stack.getItem().getDisplayName());
-            builder.append("");
         }
 
         return builder.toString();

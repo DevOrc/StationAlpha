@@ -5,6 +5,7 @@ import com.noahcharlton.stationalpha.block.plant.PotatoPlant;
 import com.noahcharlton.stationalpha.engine.input.BuildBlock;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -31,12 +32,18 @@ public class BuildBlockSelectableTests {
         BuildBlock builder = new BuildBlock(testBlock);
         BuildBlockSelectable selectable = new BuildBlockSelectable(builder);
 
-        String[] expected = {"Rotation: NORTH", "Requirements:\n    4 Steel\n    4 Wood"};
+        String[] expected = {"Rotation: NORTH",
+                "Research: Test\n\nRequirements: \n    4 Steel\n    4 Wood"};
 
         Assertions.assertArrayEquals(expected, selectable.getDebugInfo());
     }
 }
 class RequiredItemTestBlock extends Block {
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.TEST);
+    }
 
     @Override
     public String getID() {

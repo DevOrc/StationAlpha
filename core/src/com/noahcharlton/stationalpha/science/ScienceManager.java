@@ -58,7 +58,7 @@ public class ScienceManager {
             ResearchItem item = ResearchItem.valueOf(element.getAttribute("Name"));
 
             if(element.getBooleanAttribute("Completed")){
-                item.completeItem(world);
+                item.setCompleted(true);
             }else{
                 item.setCompleted(false);
             }

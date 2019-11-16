@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HStretchLayoutTest {
+public class HStretchLayoutTest{
 
     private final HStretchLayout layout = new HStretchLayout();
 

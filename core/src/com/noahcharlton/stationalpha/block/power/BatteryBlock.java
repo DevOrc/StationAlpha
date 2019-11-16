@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.block.BlockRenderer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Arrays;
@@ -27,6 +28,11 @@ public class BatteryBlock extends Block {
     @Override
     public String getDisplayName() {
         return "Battery";
+    }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.TEST_2);
     }
 
     @Override

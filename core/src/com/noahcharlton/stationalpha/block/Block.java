@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.engine.assets.ManagedTexture;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Collections;
@@ -61,6 +62,10 @@ public abstract class Block {
 
     public int getDimensionedHeight(){
         return 1;
+    }
+
+    public Optional<ResearchItem> getRequiredResearch(){
+        return Optional.empty();
     }
 
     public List<ItemStack> getRequirements(){

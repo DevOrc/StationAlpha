@@ -73,6 +73,9 @@ public class ResearchItemButton extends MenuButton {
     }
 
     public int calculateWidth(ResearchItem item){
+        if(GuiComponent.getFont() == null)
+            return 0;
+
         GlyphLayout layout = new GlyphLayout(GuiComponent.getFont(), item.getDisplayName());
 
         return (int) Math.max(layout.width + 50, MINIMUM_WIDTH);
