@@ -23,6 +23,7 @@ public class SaveGameLoader {
     }
 
     private static void loadScienceInfo(XmlReader.Element element, World world) {
+        world.getScienceManager().loadResearchItems(element.getChildByName("ResearchItems"));
         world.getScienceManager().loadScience(element);
     }
 

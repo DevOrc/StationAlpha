@@ -24,6 +24,21 @@ public class ResearchItemButton extends MenuButton {
     }
 
     @Override
+    protected void update() {
+        super.update();
+
+        Color border = Color.RED;
+
+        if(researchItem.isCompleted()){
+            border = Color.FOREST;
+        }else if(researchItem.isRequirementCompleted()){
+            border = Color.ORANGE;
+        }
+
+        setBorderColor(border);
+    }
+
+    @Override
     protected void updateSize() {
         setWidth(calculateWidth(researchItem));
     }

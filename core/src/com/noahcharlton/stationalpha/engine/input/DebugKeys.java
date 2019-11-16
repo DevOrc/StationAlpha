@@ -19,6 +19,8 @@ public class DebugKeys {
 
     public static final int CONDUIT_VIEW = Input.Keys.F;
 
+    public static final int SCIENCE_POINTS = Input.Keys.SEMICOLON;
+
     public static boolean isDebugPressed(int key){
         if(Gdx.input != null)
             return Gdx.input.isKeyPressed(DEBUG_KEY) && Gdx.input.isKeyPressed(key);
