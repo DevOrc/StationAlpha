@@ -2,9 +2,10 @@ package com.noahcharlton.stationalpha.gui.scenes.buildmenu.blockmenu;
 
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.engine.InGameIcon;
-import com.noahcharlton.stationalpha.engine.input.BuildBlock;
-import com.noahcharlton.stationalpha.engine.input.InputHandler;
+import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildBarListMenu;
+
+import java.util.List;
 
 public class BlockGroupMenu extends BuildBarListMenu<Block> {
 
@@ -15,16 +16,21 @@ public class BlockGroupMenu extends BuildBarListMenu<Block> {
     }
 
     @Override
-    protected Runnable createRunnable(Block block) {
-        return () -> {
-            BuildBlock buildBlock = new BuildBlock(block);
-            buildBlock.setUseScaffolding(true);
-            BuildBlockSelectable selectable = new BuildBlockSelectable(buildBlock);
+    protected void createButtons(List<Block> items) {
+        for(int i = 0; i < items.size(); i++){
+            Block block = items.get(i);
 
-            InputHandler.getInstance().setBuildAction(buildBlock);
+            MenuButton button = new BlockMenuButton(block);
+            button.setX(0);
+            button.setY(getY() + i * (65) + 5);
 
-            InputHandler.getInstance().setCurrentlySelected(selectable);
-        };
+            addGui(button);
+        }
+    }
+
+    @Override
+    protected Runnable createRunnable(Block item) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
