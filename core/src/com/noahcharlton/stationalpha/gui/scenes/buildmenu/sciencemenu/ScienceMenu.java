@@ -67,11 +67,11 @@ public class ScienceMenu extends Pane implements BuildMenu {
         setX((Gdx.graphics.getWidth() / 2) - (getWidth() / 2));
         setY((Gdx.graphics.getHeight() / 2) - (getHeight() / 2) + (BuildBar.HEIGHT / 2));
 
-        buttonPane.setX(getX() + BORDER_WIDTH);
+        buttonPane.setX(getX() - scrollPane.getScrollX() + BORDER_WIDTH);
         buttonPane.setY(getY() + scrollPane.getScrollY() + BORDER_WIDTH + infoBox.getHeight());
 
-        scrollPane.clampToContent();
         scrollPane.setY(buttonPane.getY() - scrollPane.getScrollY());
+        scrollPane.setX(buttonPane.getX() + scrollPane.getScrollX());
     }
 
     @Override
@@ -84,8 +84,35 @@ public class ScienceMenu extends Pane implements BuildMenu {
         int height = Gdx.graphics.getHeight() - BuildBar.HEIGHT - (WINDOW_OFFSET * 2);
         setHeight(height);
 
-        buttonPane.setWidth(getWidth() - (BORDER_WIDTH * 2));
-        buttonPane.setHeight(getHeight() - infoBox.getHeight());
+        scrollPane.setWidth(getWidth() - (BORDER_WIDTH * 2));
+        scrollPane.setHeight(getHeight() - infoBox.getHeight());
+
+        buttonPane.setWidth(calcResearchTreeWidth());
+        buttonPane.setHeight(calcResearchTreeHeight());
+    }
+
+    private int calcResearchTreeWidth() {
+        int maxX = 0;
+
+        for(ResearchItem item: ResearchItem.values()){
+            if(item.getPosX() > maxX){
+                maxX = item.getPosX();
+            }
+        }
+
+        return maxX + ResearchItemButton.WIDTH + 50;
+    }
+
+    private int calcResearchTreeHeight() {
+        int maxY = 0;
+
+        for(ResearchItem item: ResearchItem.values()){
+            if(item.getPosY() > maxY){
+                maxY = item.getPosY();
+            }
+        }
+
+        return maxY + ResearchItemButton.HEIGHT + 50;
     }
 
     public ResearchItemInfoBox getInfoBox() {
