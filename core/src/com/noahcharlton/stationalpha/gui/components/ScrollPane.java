@@ -15,9 +15,13 @@ import java.util.Objects;
 
 public class ScrollPane extends Pane implements SimpleInputProcessor {
 
-    public static final int SCROLL_BAR_HEIGHT = 80;
-    public static final int SCROLL_BAR_WIDTH = 20;
-    private static final int SCROLL_SCALE = 35;
+    public static final int SCROLL_VBAR_HEIGHT = 80;
+    public static final int SCROLL_VBAR_WIDTH = 20;
+    public static final int SCROLL_HBAR_HEIGHT = SCROLL_VBAR_WIDTH;
+    public static final int SCROLL_HBAR_WIDTH = SCROLL_VBAR_HEIGHT;
+
+    private static final int MOUSE_SCROLL_SCALE = 35;
+    private static final int KEY_SCROLL_SCALE = 10;
 
     private GuiComponent component;
     private int scrollY = 0;
@@ -59,7 +63,7 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
     @Override
     public boolean scrolled(int amount) {
         if(isHovering() && isVisible()) {
-            int scrollYNew = scrollY + (amount * SCROLL_SCALE);
+            int scrollYNew = scrollY + (amount * MOUSE_SCROLL_SCALE);
 
             int translation = scrollY - scrollYNew;
             scrollY(-translation);
@@ -87,13 +91,42 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
 
     @Override
     protected void update() {
-        if(isBarPressed(getScrollBarDimensions())) {
+        updateVScrollBarMouse();
+        updateHScrollBarMouse();
+
+        updateKeyMovement();
+    }
+
+    private void updateHScrollBarMouse() {
+        if(isBarPressed(getHScrollBarDimensions())) {
+            int mouseX = Gdx.input.getX() - (SCROLL_HBAR_WIDTH);
+            double percentScroll = (double) mouseX / (getWidth() - SCROLL_HBAR_WIDTH - BORDER_WIDTH * 2);
+            int newScroll = (int) (component.getWidth() * percentScroll);
+            int relativeScroll = newScroll - scrollX;
+            scrollX(relativeScroll);
+        }
+    }
+
+    private void updateVScrollBarMouse() {
+        if(isBarPressed(getVScrollBarDimensions())) {
             int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-            int mouseRelativeToTop = getY() + getHeight() - mouseY - (SCROLL_BAR_HEIGHT / 3);
-            double percentScroll = (double) mouseRelativeToTop / (getHeight() - SCROLL_BAR_HEIGHT - BORDER_WIDTH * 2);
+            int mouseRelativeToTop = getY() + getHeight() - mouseY - (SCROLL_VBAR_HEIGHT / 3);
+            double percentScroll = (double) mouseRelativeToTop / (getHeight() - SCROLL_VBAR_HEIGHT - BORDER_WIDTH * 2);
             int newScroll = (int) (component.getHeight() * percentScroll);
             int relativeScroll = newScroll - scrollY;
             scrollY(relativeScroll);
+        }
+    }
+
+    private void updateKeyMovement() {
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            scrollX(-KEY_SCROLL_SCALE);
+        }else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            scrollX(KEY_SCROLL_SCALE);
+        }else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            scrollY(-KEY_SCROLL_SCALE);
+        }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            scrollY(KEY_SCROLL_SCALE);
         }
     }
 
@@ -108,18 +141,6 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
                 break;
             case Input.Keys.PAGE_UP:
                 scrollY(-getHeight());
-                break;
-            case Input.Keys.RIGHT:
-                scrollX(20);
-                break;
-            case Input.Keys.LEFT:
-                scrollX(-20);
-                break;
-            case Input.Keys.UP:
-                scrollY(20);
-                break;
-            case Input.Keys.DOWN:
-                scrollY(-20);
                 break;
         }
 
@@ -143,7 +164,11 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        Rectangle dimensions = getScrollBarDimensions();
+        renderScrollBar(b, getVScrollBarDimensions());
+        renderScrollBar(b, getHScrollBarDimensions());
+    }
+
+    private void renderScrollBar(SpriteBatch b, Rectangle dimensions) {
         Color color = isBarPressed(dimensions) ? Color.GRAY : Color.WHITE;
         int x = (int) dimensions.getX();
         int y = (int) dimensions.getY();
@@ -163,18 +188,31 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
         return mouseDown && mouseOver && isVisible();
     }
 
+    private Rectangle getHScrollBarDimensions() {
+        int padding = 5;
+        double percentScrolled = (double) scrollX / component.getWidth();
 
-    private Rectangle getScrollBarDimensions() {
+        int interiorWidth = getWidth() - ((BORDER_WIDTH + padding) * 2) - SCROLL_HBAR_WIDTH;
+
+        int barXInterior = (int) (percentScrolled * interiorWidth);
+        int barX = getX() + barXInterior + padding;
+
+        int barY = getY() + padding;
+
+        return new Rectangle(barX, barY, SCROLL_HBAR_WIDTH, SCROLL_HBAR_HEIGHT);
+    }
+
+    private Rectangle getVScrollBarDimensions() {
         int padding = 5;
         double percentScrolled = (double) scrollY / component.getHeight();
-        int interiorHeight = (getHeight() - ((BORDER_WIDTH + padding) * 2) - SCROLL_BAR_HEIGHT);
+        int interiorHeight = (getHeight() - ((BORDER_WIDTH + padding) * 2) - SCROLL_VBAR_HEIGHT);
 
         int barYInterior = (int) (percentScrolled * interiorHeight);
-        int barY = (getY() + getHeight()) - barYInterior - BORDER_WIDTH - SCROLL_BAR_HEIGHT - padding;
+        int barY = (getY() + getHeight()) - barYInterior - BORDER_WIDTH - SCROLL_VBAR_HEIGHT - padding;
 
-        int barX = getX() + getWidth() - BORDER_WIDTH - SCROLL_BAR_WIDTH - padding;
+        int barX = getX() + getWidth() - BORDER_WIDTH - SCROLL_VBAR_WIDTH - padding;
 
-        return new Rectangle(barX, barY, SCROLL_BAR_WIDTH, SCROLL_BAR_HEIGHT);
+        return new Rectangle(barX, barY, SCROLL_VBAR_WIDTH, SCROLL_VBAR_HEIGHT);
     }
 
     @Override
