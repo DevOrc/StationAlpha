@@ -7,11 +7,11 @@ public enum ResearchItem {
 
     TEST("Test", "Desc. Here", 0, -5000, -5000),
     BASIC_GARDENING("Basic Botany", "Unlocks the easiest plants to grow",
-            20, 25, 25),
+            20, 50, 25),
     COMPOSTING("Composting", "Unlocks the composter, which allows dirt to be created from leaves",
-            5, 25, 300, BASIC_GARDENING),
+            5, 50, 300, BASIC_GARDENING),
     COMPLEX_PLANTS("Complex Plants", "Unlocks the woodroot plant",
-            20, 110, 300, BASIC_GARDENING),
+            20, 130, 300, BASIC_GARDENING),
     BASIC_MATERIALS("Space Materials", "Unlocks the basics for space station construction",
             20, 220, 25),
 

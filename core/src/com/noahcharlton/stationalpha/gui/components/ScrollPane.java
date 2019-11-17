@@ -17,8 +17,8 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
 
     public static final int SCROLL_VBAR_HEIGHT = 80;
     public static final int SCROLL_VBAR_WIDTH = 20;
-    public static final int SCROLL_HBAR_HEIGHT = SCROLL_VBAR_WIDTH;
-    public static final int SCROLL_HBAR_WIDTH = SCROLL_VBAR_HEIGHT;
+    public static final int SCROLL_HBAR_HEIGHT = 20;
+    public static final int SCROLL_HBAR_WIDTH = 200;
 
     private static final int MOUSE_SCROLL_SCALE = 35;
     private static final int KEY_SCROLL_SCALE = 10;
@@ -42,6 +42,23 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
         setWidth(component.getWidth() + (BORDER_WIDTH * 2));
         setHeight(component.getHeight() + (BORDER_WIDTH * 2));
     }
+
+    private int getMaximumScrollX(){
+        if(component.getWidth() < getWidth()){
+            return 0;
+        }
+
+        return component.getWidth() - getWidth();
+    }
+
+    private int getMaximumScrollY(){
+        if(component.getHeight() < getHeight()){
+            return 0;
+        }
+
+        return component.getHeight() - getHeight();
+    }
+
 
     @Override
     protected boolean handleClickOnSubGui(int x, int y, boolean actualClick) {
@@ -73,7 +90,7 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
     }
 
     private void scrollY(int translation) {
-        int newPos = Math.max(0, Math.min(component.getHeight(), scrollY + translation));
+        int newPos = Math.max(0, Math.min(getMaximumScrollY(), scrollY + translation));
         int relative = newPos - scrollY;
 
         component.setY(component.getY() + relative);
@@ -81,7 +98,7 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
     }
 
     private void scrollX(int translation) {
-        int newPos = Math.max(0, Math.min(component.getWidth(), scrollX + translation));
+        int newPos = Math.max(0, Math.min(getMaximumScrollX(), scrollX + translation));
         int relative = newPos - scrollX;
 
         component.setX(component.getX() + relative);
@@ -101,7 +118,7 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
         if(isBarPressed(getHScrollBarDimensions())) {
             int mouseX = Gdx.input.getX() - (SCROLL_HBAR_WIDTH);
             double percentScroll = (double) mouseX / (getWidth() - SCROLL_HBAR_WIDTH - BORDER_WIDTH * 2);
-            int newScroll = (int) (component.getWidth() * percentScroll);
+            int newScroll = (int) (getMaximumScrollX() * percentScroll);
             int relativeScroll = newScroll - scrollX;
             scrollX(relativeScroll);
         }
@@ -112,7 +129,7 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
             int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
             int mouseRelativeToTop = getY() + getHeight() - mouseY - (SCROLL_VBAR_HEIGHT / 3);
             double percentScroll = (double) mouseRelativeToTop / (getHeight() - SCROLL_VBAR_HEIGHT - BORDER_WIDTH * 2);
-            int newScroll = (int) (component.getHeight() * percentScroll);
+            int newScroll = (int) (getMaximumScrollY() * percentScroll);
             int relativeScroll = newScroll - scrollY;
             scrollY(relativeScroll);
         }
@@ -164,8 +181,11 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
 
     @Override
     public void drawForeground(SpriteBatch b) {
-        renderScrollBar(b, getVScrollBarDimensions());
-        renderScrollBar(b, getHScrollBarDimensions());
+        if(getMaximumScrollY() != 0)
+            renderScrollBar(b, getVScrollBarDimensions());
+
+        if(getMaximumScrollX() != 0)
+            renderScrollBar(b, getHScrollBarDimensions());
     }
 
     private void renderScrollBar(SpriteBatch b, Rectangle dimensions) {
@@ -190,7 +210,7 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
 
     private Rectangle getHScrollBarDimensions() {
         int padding = 5;
-        double percentScrolled = (double) scrollX / component.getWidth();
+        double percentScrolled = (double) scrollX / getMaximumScrollX();
 
         int interiorWidth = getWidth() - ((BORDER_WIDTH + padding) * 2) - SCROLL_HBAR_WIDTH;
 
@@ -204,7 +224,7 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
 
     private Rectangle getVScrollBarDimensions() {
         int padding = 5;
-        double percentScrolled = (double) scrollY / component.getHeight();
+        double percentScrolled = (double) scrollY / getMaximumScrollY();
         int interiorHeight = (getHeight() - ((BORDER_WIDTH + padding) * 2) - SCROLL_VBAR_HEIGHT);
 
         int barYInterior = (int) (percentScrolled * interiorHeight);
