@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
+import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.science.ResearchItem;
 
 public class ResearchItemButton extends MenuButton {
 
     private static final int MINIMUM_WIDTH = 200;
     private final ScienceMenu scienceMenu;
+    private final Pane buttonPane;
     private final ResearchItem researchItem;
 
     public ResearchItemButton(ResearchItem item, ScienceMenu menu) {
@@ -19,6 +21,7 @@ public class ResearchItemButton extends MenuButton {
 
         this.researchItem = item;
         this.scienceMenu = menu;
+        this.buttonPane = scienceMenu.getButtonPane();
 
         setWidth(calculateWidth(item));
     }
@@ -45,8 +48,8 @@ public class ResearchItemButton extends MenuButton {
 
     @Override
     protected void updatePosition() {
-        setX(scienceMenu.getX() + researchItem.getPosX());
-        setY(scienceMenu.getY() + researchItem.getPosY() + scienceMenu.getInfoBox().getHeight());
+        setX(buttonPane.getX() + researchItem.getPosX());
+        setY(buttonPane.getY() + researchItem.getPosY());
     }
 
     @Override
@@ -63,9 +66,8 @@ public class ResearchItemButton extends MenuButton {
     }
 
     private void drawRequirementLine(SpriteBatch b, ResearchItem requirement) {
-        int x1 = requirement.getPosX() + scienceMenu.getX() + calculateWidth(requirement);
-        int y1 = requirement.getPosY() + scienceMenu.getY() + scienceMenu.getInfoBox().getHeight()
-                + (MenuButton.HEIGHT / 2);
+        int x1 = requirement.getPosX() + buttonPane.getX() + calculateWidth(requirement);
+        int y1 = requirement.getPosY() + buttonPane.getY() + (MenuButton.HEIGHT / 2);
         int x2 = getX();
         int y2 = getY() + (MenuButton.HEIGHT  / 2);
 

@@ -158,4 +158,8 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
     public void addGui(GuiComponent gui) {
         throw new UnsupportedOperationException();
     }
+
+    public int getScrollY() {
+        return scrollY;
+    }
 }

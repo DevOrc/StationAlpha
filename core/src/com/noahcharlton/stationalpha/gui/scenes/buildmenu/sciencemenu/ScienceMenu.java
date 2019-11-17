@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.engine.InGameIcon;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
+import com.noahcharlton.stationalpha.gui.components.BasicPane;
 import com.noahcharlton.stationalpha.gui.components.Pane;
+import com.noahcharlton.stationalpha.gui.components.ScrollPane;
 import com.noahcharlton.stationalpha.gui.scenes.BuildBar;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
 import com.noahcharlton.stationalpha.science.ResearchItem;
@@ -16,19 +18,22 @@ public class ScienceMenu extends Pane implements BuildMenu {
     private static final int WINDOW_OFFSET = 50;
 
     private final ResearchItemInfoBox infoBox = new ResearchItemInfoBox(this);
+    private final BasicPane buttonPane = new BasicPane();
+    private final ScrollPane scrollPane = new ScrollPane(buttonPane);
 
     public ScienceMenu() {
         setDrawBorder(true, true, true, true);
 
+        scrollPane.setDrawBorder(true, true, false, true);
         addButtons();
-        addAllGui(infoBox);
+        addAllGui(infoBox, scrollPane);
     }
 
     private void addButtons() {
         for(ResearchItem item: ResearchItem.values()){
             ResearchItemButton button = new ResearchItemButton(item, this);
 
-            addGui(button);
+            buttonPane.addGui(button);
         }
     }
 
@@ -61,6 +66,12 @@ public class ScienceMenu extends Pane implements BuildMenu {
 
         setX((Gdx.graphics.getWidth() / 2) - (getWidth() / 2));
         setY((Gdx.graphics.getHeight() / 2) - (getHeight() / 2) + (BuildBar.HEIGHT / 2));
+
+        buttonPane.setX(getX() + BORDER_WIDTH);
+        buttonPane.setY(getY() + scrollPane.getScrollY() + BORDER_WIDTH + infoBox.getHeight());
+
+        scrollPane.clampToContent();
+        scrollPane.setY(buttonPane.getY() - scrollPane.getScrollY());
     }
 
     @Override
@@ -72,9 +83,16 @@ public class ScienceMenu extends Pane implements BuildMenu {
 
         int height = Gdx.graphics.getHeight() - BuildBar.HEIGHT - (WINDOW_OFFSET * 2);
         setHeight(height);
+
+        buttonPane.setWidth(getWidth() - (BORDER_WIDTH * 2));
+        buttonPane.setHeight(getHeight() - infoBox.getHeight());
     }
 
     public ResearchItemInfoBox getInfoBox() {
         return infoBox;
+    }
+
+    public BasicPane getButtonPane() {
+        return buttonPane;
     }
 }
