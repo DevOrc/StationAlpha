@@ -5,21 +5,29 @@ import java.util.List;
 
 public enum ResearchItem {
 
-//    //Plants
-//    BASIC_GARDENING, //Plants
-//    BOTANY, // Composter, Plant Experiment?
-//    COMPLEX_PLANTS, // Add
-//
-//    //Technology
-//    BASIC_POWER,
-//    DUST_COLLECTOR,
-//    SYNTHESIZER,
-//    NEXT_GEN_POWER;
+    TEST("Test", "Desc. Here", 0, -5000, -5000),
+    BASIC_GARDENING("Basic Botany", "Unlocks the easiest plants to grow",
+            20, 25, 25),
+    COMPOSTING("Composting", "Unlocks the composter, which allows dirt to be created from leaves",
+            5, 25, 300, BASIC_GARDENING),
+    COMPLEX_PLANTS("Complex Plants", "Unlocks the woodroot plant",
+            20, 110, 300, BASIC_GARDENING),
+    BASIC_MATERIALS("Space Materials", "Unlocks the basics for space station construction",
+            20, 220, 25),
 
-    //Used To For Unit Testing
-    TEST("Test", "Desc. Here", 0,  -500, -500),
-    TEST_3("Test", "Desc. Here", 0,  20, 100),
-    TEST_2("Complex Plants", "Number 2 Here", 35, 20, 350, TEST_3);
+    SOLAR_PANELS("Solar Panels", "Unlocks solar panels",
+            10, 220, 300, BASIC_MATERIALS),
+    BATTERIES("Batteries", "Unlocks Batteries",
+            20, 220, 550, SOLAR_PANELS),
+    DUST_COLLECTION("Space Dust Collector", "Unlocks the Dust Collector",
+            20, 110, 600, SOLAR_PANELS),
+    SYNTHESIZER("Atomic Synthesizer", "Unlocks the synthesizer, which uses Space dust to create new items",
+            25, 110, 950, DUST_COLLECTION),
+    ARC_REACTOR("Arc Reactor", "Unlocks the Arc Reactor, which uses power ingots to generate massive amounts of power",
+            50, 110, 1320, SYNTHESIZER);
+
+
+    public static final List<ResearchItem> unlockedItems = Arrays.asList(BASIC_GARDENING, BASIC_MATERIALS);
 
     private final String displayName;
     private final String desc;
@@ -66,8 +74,8 @@ public enum ResearchItem {
         return requirements;
     }
 
-    public boolean isRequirementCompleted(){
-        for(ResearchItem requirement: requirements){
+    public boolean isRequirementCompleted() {
+        for(ResearchItem requirement : requirements) {
             if(!requirement.isCompleted())
                 return false;
         }

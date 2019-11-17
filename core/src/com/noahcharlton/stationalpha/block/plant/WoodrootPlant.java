@@ -2,9 +2,11 @@ package com.noahcharlton.stationalpha.block.plant;
 
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class WoodrootPlant extends Plant {
 
@@ -31,6 +33,12 @@ public class WoodrootPlant extends Plant {
     public List<ItemStack> getRequirements() {
         return Collections.singletonList(Item.WOODROOT.stack(1));
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.COMPLEX_PLANTS);
+    }
+
 
     @Override
     public Item getProduct() {

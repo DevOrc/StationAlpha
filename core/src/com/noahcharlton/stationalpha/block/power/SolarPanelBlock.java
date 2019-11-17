@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Arrays;
@@ -28,6 +29,12 @@ public class SolarPanelBlock extends Block {
     public List<ItemStack> getRequirements() {
         return Arrays.asList(Item.STEEL.stack(10), Item.COPPER.stack(2));
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.SOLAR_PANELS);
+    }
+
 
     @Override
     public String getID() {

@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Collections;
@@ -33,6 +34,12 @@ public class DustCollector extends Block {
     public List<ItemStack> getRequirements() {
         return Collections.singletonList(Item.COPPER.stack(1));
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.DUST_COLLECTION);
+    }
+
 
     @Override
     public String getDisplayName() {

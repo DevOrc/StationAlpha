@@ -10,6 +10,7 @@ import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Collections;
@@ -27,6 +28,11 @@ public class DoorBlock extends Block implements BlockRenderer {
 
         setOpaque(opaque);
         setPassable(true);
+    }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BASIC_MATERIALS);
     }
 
     @Override

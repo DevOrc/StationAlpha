@@ -4,6 +4,7 @@ import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -14,6 +15,11 @@ public class TreeSaplingBlock extends Block {
         setOpaque(false);
         setPassable(true);
         setAutoBuild(true);
+    }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BASIC_GARDENING);
     }
 
     @Override

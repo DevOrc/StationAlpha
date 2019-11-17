@@ -14,6 +14,7 @@ import com.noahcharlton.stationalpha.gui.GuiContainer;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ManufacturingRecipes;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.world.World;
 import com.noahcharlton.stationalpha.world.load.LoadGameException;
@@ -21,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class StationAlpha extends ApplicationAdapter {
 
@@ -113,7 +115,10 @@ public class StationAlpha extends ApplicationAdapter {
         InputHandler.getInstance().setCurrentlySelected(null);
         JobQueue.getInstance().clear();
         currentState = GameState.IN_GAME;
+
+        Stream.of(ResearchItem.values()).forEach(item -> item.setCompleted(false));
         world = Optional.of(new World(true));
+        ResearchItem.unlockedItems.forEach(item -> item.setCompleted(true));
 
         MessageQueue.getInstance().getMessages().clear();
         MessageQueue.getInstance().add("Welcome!", HelpInfo.get("start_message"));

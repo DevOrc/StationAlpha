@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.block.BlockRenderer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Arrays;
@@ -37,6 +38,12 @@ public class BedBlock extends Block {
     public List<ItemStack> getRequirements() {
         return Arrays.asList(Item.STEEL.stack(4), Item.WOOD.stack(4));
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BASIC_MATERIALS);
+    }
+
 
     @Override
     public int getDimensionedHeight() {

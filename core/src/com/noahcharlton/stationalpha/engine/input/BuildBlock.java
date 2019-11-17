@@ -23,6 +23,7 @@ public class BuildBlock implements BuildAction {
     private final Block block;
     private BlockRotation rotation = BlockRotation.NORTH;
     private boolean useScaffolding = false;
+    private boolean requireResearch = false; //false to simply unit tests
 
     public BuildBlock(Block block) {
         Objects.requireNonNull(block, "block cannot be null!");
@@ -96,6 +97,9 @@ public class BuildBlock implements BuildAction {
     }
 
     boolean hasCompletedResearch() {
+        if(!requireResearch)
+            return true;
+
         if(block.getRequiredResearch().isPresent()) {
             return block.getRequiredResearch().get().isCompleted();
         }
@@ -173,6 +177,10 @@ public class BuildBlock implements BuildAction {
         int height = (rotated ? block.getDimensionedWidth() : block.getDimensionedHeight()) * Tile.TILE_SIZE;
 
         ShapeUtil.drawRect(x, y, width, height, color, b);
+    }
+
+    public void setRequireResearch(boolean requireResearch) {
+        this.requireResearch = requireResearch;
     }
 
     public void setUseScaffolding(boolean useScaffolding) {

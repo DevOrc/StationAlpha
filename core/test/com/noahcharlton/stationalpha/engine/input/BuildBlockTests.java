@@ -131,6 +131,7 @@ public class BuildBlockTests {
         ResearchItem.TEST.setCompleted(false);
         ResearchBlock block = new ResearchBlock(ResearchItem.TEST);
         BuildBlock builder = new BuildBlock(block);
+        builder.setRequireResearch(true);
 
         Assertions.assertFalse(builder.hasCompletedResearch());
     }
@@ -140,6 +141,7 @@ public class BuildBlockTests {
         ResearchItem.TEST.setCompleted(true);
         ResearchBlock block = new ResearchBlock(ResearchItem.TEST);
         BuildBlock builder = new BuildBlock(block);
+        builder.setRequireResearch(true);
 
         Assertions.assertTrue(builder.hasCompletedResearch());
     }
@@ -148,6 +150,7 @@ public class BuildBlockTests {
     void hasCompletedResearchNoResearchTest() {
         ResearchBlock block = new ResearchBlock(null);
         BuildBlock builder = new BuildBlock(block);
+        builder.setRequireResearch(true);
 
         Assertions.assertTrue(builder.hasCompletedResearch());
     }

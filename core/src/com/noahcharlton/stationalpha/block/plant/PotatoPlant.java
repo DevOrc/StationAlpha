@@ -1,6 +1,9 @@
 package com.noahcharlton.stationalpha.block.plant;
 
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.science.ResearchItem;
+
+import java.util.Optional;
 
 public class PotatoPlant extends Plant{
 
@@ -17,6 +20,12 @@ public class PotatoPlant extends Plant{
     public String getPlantName() {
         return "potato";
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BASIC_GARDENING);
+    }
+
 
     @Override
     public int getAmountPerHarvest() {

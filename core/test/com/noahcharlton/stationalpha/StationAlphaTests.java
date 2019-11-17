@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.noahcharlton.stationalpha.gui.scenes.message.Message;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
 import com.noahcharlton.stationalpha.worker.job.JobQueue;
 import com.noahcharlton.stationalpha.worker.job.TestJob;
@@ -112,5 +113,21 @@ public class StationAlphaTests extends LibGdxTest{
         gameInstance.loadGame(11);
 
         Assertions.assertEquals(0, JobQueue.getInstance().getJobQueue(WorkerRole.GENERAL).size());
+    }
+
+    @Test
+    void locksNonBasicResearchItemsOnStartTest() {
+        ResearchItem.TEST.setCompleted(true);
+        gameInstance.startGame();
+
+        Assertions.assertFalse(ResearchItem.TEST.isCompleted());
+    }
+
+    @Test
+    void unlocksBasicResearchOn() {
+        ResearchItem.BASIC_MATERIALS.setCompleted(false);
+        gameInstance.startGame();
+
+        Assertions.assertTrue(ResearchItem.BASIC_MATERIALS.isCompleted());
     }
 }

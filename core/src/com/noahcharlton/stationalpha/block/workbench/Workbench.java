@@ -4,6 +4,7 @@ import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Optional;
@@ -12,6 +13,11 @@ public class Workbench extends Block {
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation rotation) {
         return new WorkbenchContainer(tile, this, rotation);
+    }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BASIC_MATERIALS);
     }
 
     @Override

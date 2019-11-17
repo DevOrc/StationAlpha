@@ -31,14 +31,15 @@ public class BatteryBlock extends Block {
     }
 
     @Override
-    public Optional<ResearchItem> getRequiredResearch() {
-        return Optional.of(ResearchItem.TEST_2);
-    }
-
-    @Override
     public List<ItemStack> getRequirements() {
         return Arrays.asList(Item.COPPER.stack(5), Item.STEEL.stack(15));
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BATTERIES);
+    }
+
 
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {

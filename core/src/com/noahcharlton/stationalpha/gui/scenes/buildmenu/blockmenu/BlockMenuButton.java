@@ -39,6 +39,7 @@ public class BlockMenuButton extends MenuButton {
     private static void onButtonClick(Block block) {
         BuildBlock buildBlock = new BuildBlock(block);
         buildBlock.setUseScaffolding(true);
+        buildBlock.setRequireResearch(true);
         BuildBlockSelectable selectable = new BuildBlockSelectable(buildBlock);
 
         InputHandler.getInstance().setBuildAction(buildBlock);

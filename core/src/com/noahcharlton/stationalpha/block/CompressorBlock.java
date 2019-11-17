@@ -3,6 +3,7 @@ package com.noahcharlton.stationalpha.block;
 import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Collections;
@@ -39,6 +40,12 @@ public class CompressorBlock extends Block {
     public Optional<String> getHelpInfo() {
         return Optional.of(HelpInfo.get("compressor_info"));
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BASIC_MATERIALS);
+    }
+
 
     @Override
     public List<ItemStack> getRequirements() {

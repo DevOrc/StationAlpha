@@ -5,6 +5,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 
 import java.util.Arrays;
@@ -22,6 +23,12 @@ public class Synthesizer extends Block {
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {
         return new SynthesizerContainer(tile, this, blockRotation);
     }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.SYNTHESIZER);
+    }
+
 
     @Override
     public List<ItemStack> getRequirements() {

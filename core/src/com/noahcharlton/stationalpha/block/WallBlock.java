@@ -6,6 +6,7 @@ import com.noahcharlton.stationalpha.HelpInfo;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
 import com.noahcharlton.stationalpha.item.Item;
 import com.noahcharlton.stationalpha.item.ItemStack;
+import com.noahcharlton.stationalpha.science.ResearchItem;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
 
@@ -20,6 +21,11 @@ public class WallBlock extends Block implements BlockRenderer{
     @Override
     public String getID() {
         return "wall";
+    }
+
+    @Override
+    public Optional<ResearchItem> getRequiredResearch() {
+        return Optional.of(ResearchItem.BASIC_MATERIALS);
     }
 
     @Override
