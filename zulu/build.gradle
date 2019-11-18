@@ -1,0 +1,16 @@
+sourceCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = [ "resources/" ]
+
+task run(dependsOn: classes, type: JavaExec) {
+    main = "com.noahcharlton.zulu.ZuluMainKt"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    ignoreExitValue = true
+}
+
+eclipse.project {
+    name = appName + "-zulu"
+}

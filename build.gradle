@@ -43,9 +43,6 @@ allprojects {
 }
 
 project(":desktop") {
-    apply plugin: "java"
-
-
     dependencies {
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
@@ -56,9 +53,6 @@ project(":desktop") {
 }
 
 project(":core") {
-    apply plugin: "java"
-
-
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
@@ -73,6 +67,16 @@ project(":core") {
         testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
         testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
         testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    }
+}
+
+project(":zulu"){
+    dependencies{
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     }
 }
 
