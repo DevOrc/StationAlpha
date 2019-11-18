@@ -4,7 +4,10 @@ import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
+import com.noahcharlton.zulu.widget.LineBorder
+import com.noahcharlton.zulu.widget.PaintedWidget
 
 fun main(){
     var config = LwjglApplicationConfiguration();
@@ -19,8 +22,16 @@ fun main(){
 
 class TestZuluGui: ApplicationAdapter(){
 
-    override fun create() {
+    private var guiContainer: GuiContainer? = null
 
+    override fun create() {
+        guiContainer = GuiContainer()
+        val rect = PaintedWidget()
+        rect.size.set(250, 250)
+        rect.pos.set(100, 300)
+        rect.border = LineBorder(8, Color.FOREST, renderEast = false)
+
+        guiContainer?.currentScene = rect
     }
 
     override fun resize(width: Int, height: Int) {
@@ -29,11 +40,11 @@ class TestZuluGui: ApplicationAdapter(){
     }
 
     override fun render() {
-
+        guiContainer?.render()
     }
 
     override fun dispose() {
-
+        guiContainer?.dispose()
     }
 
 }
