@@ -14,6 +14,8 @@ abstract class Widget{
 
     open fun update(){}
     open fun onEvent(){}
+
+    open fun layout(){}
 }
 
 class EmptyWidget: Widget(){
@@ -28,10 +30,9 @@ class EmptyWidget: Widget(){
     }
 }
 
-class PaintedWidget: Widget(){
-
-    var backgroundColor = Color.WHITE;
-    var border: Border = EmptyBorder()
+open class PaintedWidget(
+        var backgroundColor: Color = Color.WHITE,
+        var border: Border = EmptyBorder()): Widget(){
 
     override fun render(spriteBatch: SpriteBatch) {
         RenderUtil.drawRect(pos, size, backgroundColor, spriteBatch)
