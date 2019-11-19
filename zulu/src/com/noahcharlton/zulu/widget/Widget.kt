@@ -34,6 +34,11 @@ open class PaintedWidget(
         var backgroundColor: Color = Color.WHITE,
         var border: Border = EmptyBorder()): Widget(){
 
+    var paddingNorth: Int = 5
+    var paddingSouth: Int = 5
+    var paddingEast: Int = 5
+    var paddingWest: Int = 5
+
     override fun render(spriteBatch: SpriteBatch) {
         RenderUtil.drawRect(pos, size, backgroundColor, spriteBatch)
 
@@ -41,10 +46,10 @@ open class PaintedWidget(
     }
 
     fun getContentRect() : Rectangle{
-        val northSize = border.getSize(Direction.NORTH)
-        val southSize = border.getSize(Direction.SOUTH)
-        val eastSize = border.getSize(Direction.EAST)
-        val westSize = border.getSize(Direction.WEST)
+        val northSize = border.getSize(Direction.NORTH) + paddingNorth
+        val southSize = border.getSize(Direction.SOUTH) + paddingSouth
+        val eastSize = border.getSize(Direction.EAST) + paddingEast
+        val westSize = border.getSize(Direction.WEST) + paddingWest
 
         val width = size.width - eastSize - westSize
         val height = size.height - northSize - southSize
@@ -52,4 +57,14 @@ open class PaintedWidget(
         return Rectangle(pos.x + westSize, pos.y + southSize, width, height)
     }
 
+    fun setPadding(value: Int){
+        setPadding(value, value, value, value)
+    }
+
+    fun setPadding(north: Int, south: Int, west: Int, east: Int){
+        paddingNorth = north
+        paddingSouth = south
+        paddingWest = west
+        paddingEast = east
+    }
 }
