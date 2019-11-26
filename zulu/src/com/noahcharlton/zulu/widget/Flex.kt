@@ -4,11 +4,15 @@ import com.noahcharlton.zulu.Point
 import com.noahcharlton.zulu.Rectangle
 import com.noahcharlton.zulu.Size
 
-abstract class FlexPane(var spacing: Int = 10) : Pane(){
+enum class FlexDirection {
+    HORIZONTAL, VERTICAL
+}
+
+class FlexPane(var flexDirection: FlexDirection, var spacing: Int = 10) : Pane() {
 
     private val children: LinkedHashMap<Widget, Int> = LinkedHashMap();
 
-    fun addChild(child: Widget, flex: Int){
+    fun addChild(child: Widget, flex: Int) {
         children[child] = flex;
     }
 
@@ -16,9 +20,9 @@ abstract class FlexPane(var spacing: Int = 10) : Pane(){
         val staticChildren = children.filter { entry -> entry.value == 0 }
         val dynamicChildren = children.filter { entry -> entry.value != 0 }
         val contentPane = getContentRect()
-        var space: Float = getMajor(contentPane.asSize()).toFloat()//contentPane.width.toFloat()
+        var space: Float = getMajor(contentPane.asSize()).toFloat()
 
-        staticChildren.keys.forEach {widget ->
+        staticChildren.keys.forEach { widget ->
             space -= getMajor(widget.size) + spacing
         }
 
@@ -27,7 +31,7 @@ abstract class FlexPane(var spacing: Int = 10) : Pane(){
 
         space -= spacing * (dynamicChildren.size - 1)//Last child has no spacing
 
-        var spacePerSegment : Float = space / dynamicSegments
+        var spacePerSegment: Float = space / dynamicSegments
         layoutChildren(contentPane, spacePerSegment)
 
         super.layout()
@@ -55,92 +59,72 @@ abstract class FlexPane(var spacing: Int = 10) : Pane(){
         }
     }
 
-    abstract fun getMajor(pos: Point) : Int
+    private fun getMajor(pos: Point): Int {
+        return if (flexDirection == FlexDirection.HORIZONTAL) {
+            pos.x
+        } else {
+            pos.y
+        }
+    }
 
-    abstract fun getMajor(size: Size) : Int
+    private fun getMajor(size: Size): Int {
+        if (flexDirection == FlexDirection.HORIZONTAL) {
+            return size.width
+        } else {
+            return size.height
+        }
+    }
 
-    abstract fun setMajor(pos: Point, value: Int)
+    private fun setMajor(pos: Point, value: Int) {
+        if (flexDirection == FlexDirection.HORIZONTAL) {
+            pos.x = value
+        } else {
+            pos.y = value
+        }
+    }
 
-    abstract fun setMajor(size: Size, value: Int)
+    private fun setMajor(size: Size, value: Int) {
+        if (flexDirection == FlexDirection.HORIZONTAL) {
+            size.width = value
+        } else {
+            size.height = value
+        }
+    }
 
-    abstract fun getMinor(pos: Point) : Int
+    private fun getMinor(pos: Point): Int {
+        if (flexDirection == FlexDirection.HORIZONTAL) {
+            return pos.y
+        } else {
+            return pos.x
+        }
+    }
 
-    abstract fun getMinor(size: Size) : Int
+    private fun getMinor(size: Size): Int {
+        if (flexDirection == FlexDirection.HORIZONTAL) {
+            return size.height
+        } else {
+            return size.width;
+        }
+    }
 
-    abstract fun setMinor(pos: Point, value: Int);
+    private fun setMinor(pos: Point, value: Int) {
+        if (flexDirection == FlexDirection.HORIZONTAL) {
+            pos.y = value
+        } else {
+            pos.x = value;
+        }
+    }
 
-    abstract fun setMinor(size: Size, value: Int);
+    private fun setMinor(size: Size, value: Int) {
+        if (flexDirection == FlexDirection.HORIZONTAL) {
+            size.height = value
+        } else {
+            size.width = value;
+        }
+    }
 
     override fun getChildren(): List<Widget> {
         return children.keys.toList()
     }
-
 }
 
-class RowPane : FlexPane(){
-    override fun getMajor(pos: Point): Int{
-        return pos.x
-    }
-
-    override fun getMajor(size: Size): Int {
-        return size.width
-    }
-
-    override fun setMajor(pos: Point, value: Int){
-        pos.x = value
-    }
-
-    override fun setMajor(size: Size, value: Int){
-        size.width = value
-    }
-
-    override fun getMinor(pos: Point): Int{
-        return pos.y
-    }
-
-    override fun getMinor(size: Size): Int {
-        return size.height
-    }
-
-    override fun setMinor(pos: Point, value: Int){
-        pos.y = value
-    }
-
-    override fun setMinor(size: Size, value: Int){
-        size.height = value
-    }
-}
-
-class ColumnPane : FlexPane(){
-    override fun getMajor(pos: Point): Int{
-        return pos.y
-    }
-
-    override fun getMajor(size: Size): Int {
-        return size.height
-    }
-
-    override fun setMajor(pos: Point, value: Int){
-        pos.y = value
-    }
-
-    override fun setMajor(size: Size, value: Int){
-        size.height = value
-    }
-
-    override fun getMinor(pos: Point): Int{
-        return pos.x
-    }
-
-    override fun getMinor(size: Size): Int {
-        return size.width
-    }
-
-    override fun setMinor(pos: Point, value: Int){
-        pos.x = value
-    }
-
-    override fun setMinor(size: Size, value: Int){
-        size.width = value
-    }
-}

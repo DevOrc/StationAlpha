@@ -6,7 +6,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
-import com.noahcharlton.zulu.widget.ColumnPane
+import com.noahcharlton.zulu.widget.FlexDirection
+import com.noahcharlton.zulu.widget.FlexPane
 import com.noahcharlton.zulu.widget.LineBorder
 import com.noahcharlton.zulu.widget.PaintedWidget
 
@@ -27,7 +28,7 @@ class TestZuluGui: ApplicationAdapter(){
 
     override fun create() {
         guiContainer = GuiContainer()
-        val pane = ColumnPane()
+        val pane = FlexPane(FlexDirection.VERTICAL)
         pane.pos.set(200, 200)
         pane.size.set(350, 350)
         pane.setPadding(5)
