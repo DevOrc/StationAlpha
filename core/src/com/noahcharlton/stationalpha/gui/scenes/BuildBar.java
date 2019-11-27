@@ -7,6 +7,7 @@ import com.noahcharlton.stationalpha.gui.components.DefaultTooltip;
 import com.noahcharlton.stationalpha.gui.components.IconButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
 import com.noahcharlton.stationalpha.gui.scenes.buildmenu.BuildMenu;
+import com.noahcharlton.stationalpha.gui.scenes.buildmenu.InventoryMenu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,6 +39,13 @@ public class BuildBar extends Pane {
     }
 
     Runnable createRunnable(List<BuildMenu> menus, BuildMenu menu) {
+        if(menu instanceof InventoryMenu){
+            return () -> {
+                menu.getComponent().setVisible(!menu.getComponent().isVisible());
+                InputHandler.getInstance().setCurrentlySelected(null);
+            };
+        }
+
         return () -> {
             boolean previouslyVisible = menu.getComponent().isVisible();
 
