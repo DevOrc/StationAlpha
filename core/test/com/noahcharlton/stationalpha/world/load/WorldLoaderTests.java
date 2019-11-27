@@ -135,17 +135,6 @@ public class WorldLoaderTests {
     }
 
     @Test
-    void loadPowerBasicTest() {
-        World world = new World();
-        Tile tile = world.getTileAt(0, 0).get();
-
-        XmlReader.Element xml = LoadTestUtils.asElement("<Tile manualConduit=\"true\" power=\"11\"/>\n");
-        WorldLoader.loadTilePower(tile, xml);
-
-        Assertions.assertEquals(11f, tile.getPower());
-    }
-
-    @Test
     void loadConduitBasicTest() {
         World world = new World();
         Tile tile = world.getTileAt(0, 0).get();
@@ -160,12 +149,12 @@ public class WorldLoaderTests {
     void loadPowerMachineConduitTest() {
         World world = new World();
         Tile tile = world.getTileAt(1, 2).get();
-        String xmlString = "<Tile x=\"1\" y=\"2\" oxygen=\"2.0\" manualConduit=\"false\" power=\"25\">\n" +
+        String xmlString = "<Tile x=\"1\" y=\"2\" oxygen=\"2.0\" manualConduit=\"false\">\n" +
                 "<Container Block=\"solar_panel\" Rotation=\"NORTH\"/>\n</Tile>";
 
         XmlReader.Element xml = LoadTestUtils.asChild(xmlString);
         WorldLoader.load(xml, world);
 
-        Assertions.assertEquals(25f, tile.getPower());
+        Assertions.assertTrue(tile.hasConduit());
     }
 }

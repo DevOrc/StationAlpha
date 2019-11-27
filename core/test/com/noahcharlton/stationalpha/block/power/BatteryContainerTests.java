@@ -29,62 +29,6 @@ public class BatteryContainerTests {
      * Noah - make sure to do saving stuff
      */
 
-
-
-    @Test
-    void onUpdateRemoveTilePowerWhenTileFullTest() {
-        tile.setPower(25);
-        batteryContainer.onUpdate();
-
-        Assertions.assertEquals(24, tile.getPower());
-    }
-
-    @Test
-    void onUpdateIntakesPowerWhenTileFullTest() {
-        tile.setPower(25);
-        batteryContainer.onUpdate();
-
-        Assertions.assertEquals(1, batteryContainer.getAmount());
-    }
-
-    @Test
-    void doesNotIntakePowerWhenFullTest() {
-        tile.setPower(25);
-        batteryContainer.setAmount(batteryContainer.getCapacity());
-
-        batteryContainer.onUpdate();
-
-        Assertions.assertEquals(batteryContainer.getCapacity(), batteryContainer.getAmount());
-    }
-
-    @Test
-    void ifTileLowerAddPowerTest() {
-        batteryContainer.setAmount(1);
-
-        batteryContainer.onUpdate();
-
-        Assertions.assertEquals(1,tile.getPower());
-    }
-
-    @Test
-    void ifTileLowerRemoveBatteryPowerTest() {
-        batteryContainer.setAmount(1);
-
-        batteryContainer.onUpdate();
-
-        Assertions.assertEquals(0, batteryContainer.getAmount());
-    }
-
-    @Test
-    void ifNoPowerDoesNotTransferPower() {
-        batteryContainer.setAmount(0);
-        tile.setPower(0);
-
-        batteryContainer.onUpdate();
-
-        Assertions.assertEquals(0, tile.getPower());
-    }
-
     @Test
     void onSaveAmountTest() {
         StringWriter stringWriter = new StringWriter();

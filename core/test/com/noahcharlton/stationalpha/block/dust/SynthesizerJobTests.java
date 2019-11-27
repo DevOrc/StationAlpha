@@ -35,7 +35,6 @@ public class SynthesizerJobTests extends JobTests {
         TickBasedJob job = (TickBasedJob) getJob();
 
         for(int i = 0; i < 5; i++){
-            tile.setPower(25);
             job.update();
         }
         job.cancel();
@@ -48,7 +47,6 @@ public class SynthesizerJobTests extends JobTests {
     void jobDoesNotTickIfNoPower() {
         TickBasedJob job = (TickBasedJob) getJob();
 
-        tile.setPower(0);
         job.update();
 
         Assertions.assertEquals(0, job.getTick());

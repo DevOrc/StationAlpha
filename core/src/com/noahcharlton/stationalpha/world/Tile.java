@@ -11,8 +11,10 @@ import com.noahcharlton.stationalpha.block.power.PoweredContainer;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public final class Tile implements Selectable {
 
@@ -29,7 +31,6 @@ public final class Tile implements Selectable {
     private float oxygenLevel;
 
     private boolean hasPlacedConduit;
-    private int power;
 
     public Tile(int x, int y, World world) {
         this.world = world;
@@ -137,41 +138,6 @@ public final class Tile implements Selectable {
         font.draw(spriteBatch, text, pixelX, pixelY, Tile.TILE_SIZE, Align.center, false);
     }
 
-    public void updatePower(){
-        if(!hasConduit()){
-            return;
-        }
-
-        Stream<Tile> connections = getAdjacent().stream().filter(Tile::hasConduit);
-
-        connections.forEach(tile -> transferPower(tile, this));
-    }
-
-    static void transferPower(Tile dest, Tile src) {
-        if(dest.getPower() > src.getPower())
-            return;
-
-        int diff = (int) Math.round((src.power - dest.power) / 2.0);
-
-        if(diff > 5){
-            diff = 5;
-        }
-
-        src.setPower(src.getPower() - diff);
-        dest.setPower(dest.getPower() + diff);
-    }
-
-    public void setPower(int power) {
-        if(!hasConduit())
-            power = 0;
-
-        this.power = Math.min(MAX_POWER, Math.max(0, power));
-    }
-
-    public int getPower() {
-        return power;
-    }
-
     public void setConduit(boolean hasConduit) {
         this.hasPlacedConduit = hasConduit;
     }
@@ -207,9 +173,6 @@ public final class Tile implements Selectable {
         List<String> info = new ArrayList<>();
         info.add("Floor: " + floor.map(Floor::toString).orElse("None"));
         info.add("Oxygen: " + oxygenLevel);
-
-        if(hasConduit())
-            info.add("Power: " + getPower());
 
         return info.toArray(new String[0]);
     }

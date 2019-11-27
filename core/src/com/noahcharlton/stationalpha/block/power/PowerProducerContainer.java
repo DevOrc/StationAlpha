@@ -42,12 +42,6 @@ public class PowerProducerContainer extends BlockContainer implements PoweredCon
     }
 
     private int transferPower(int power, Tile tile) {
-        int powerTransferred = Tile.MAX_POWER - tile.getPower();
-
-        powerTransferred = Math.min(power, powerTransferred);
-
-        tile.setPower(tile.getPower() + powerTransferred);
-
-        return powerTransferred;
+        return 0;
     }
 }

@@ -27,11 +27,10 @@ public class WorldSaverTests {
         tile.setFloor(Floor.DIRT);
         tile.changeOxygenLevel(35f);
         tile.setConduit(true);
-        tile.setPower(22);
 
         saveGame.saveTile(tile, xmlWriter).pop();
 
-        String expected = "<Tile x=\"1\" y=\"5\" oxygen=\"35.0\" manualConduit=\"true\" power=\"22\"/>\n";
+        String expected = "<Tile x=\"1\" y=\"5\" oxygen=\"35.0\" manualConduit=\"true\"/>\n";
         Assertions.assertEquals(expected, stringWriter.toString());
     }
 
@@ -43,7 +42,7 @@ public class WorldSaverTests {
         Assumptions.assumeTrue(tile.hasConduit());
         saveGame.saveTile(tile, xmlWriter).pop();
 
-        String expected = "<Tile x=\"6\" y=\"9\" oxygen=\"0.0\" manualConduit=\"false\" power=\"0\"/>\n";
+        String expected = "<Tile x=\"6\" y=\"9\" oxygen=\"0.0\" manualConduit=\"false\"/>\n";
         Assertions.assertEquals(expected, stringWriter.toString());
     }
 

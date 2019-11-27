@@ -89,6 +89,5 @@ public class WorldLoader {
 
     static void loadTilePower(Tile tile, XmlReader.Element tileXML) {
         tile.setConduit(tileXML.getBooleanAttribute("manualConduit"));
-        tile.setPower(tileXML.getIntAttribute("power"));
     }
 }

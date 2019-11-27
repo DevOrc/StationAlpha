@@ -202,25 +202,6 @@ public class SynthesizerContainerTests {
     }
 
     @Test
-    void getDebugInfo50PercentDoneTest() {
-        ManufacturingRecipe recipe = new ManufacturingRecipe(Item.DIRT.stack(0), Item.SPACE_ROCK.stack(0),
-                100, RecipeType.SYNTHESIZE);
-        world.getManufacturingManager().addRecipeToQueue(recipe);
-
-        container.checkAndCreateJob();
-
-        for(int i = 0; i < recipe.getTime() / 2; i++){
-            tile.setPower(25);
-            container.getCurrentJob().get().update();
-        }
-
-        String expected = "Progress: 50%";
-        String[] actual = container.getDebugInfo();
-
-        Assertions.assertTrue(Arrays.asList(actual).contains(expected));
-    }
-
-    @Test
     void onSaveNoJobTest() {
         StringWriter writer = new StringWriter();
 

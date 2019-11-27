@@ -134,7 +134,6 @@ public class World {
         for(int x = 0; x < WORLD_TILE_SIZE; x++){
             for(int y = 0; y < WORLD_TILE_SIZE; y++){
                 tiles[x][y].updateOxygen();
-                tiles[x][y].updatePower();
 
                 updateContainer(tiles[x][y]);
             }

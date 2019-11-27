@@ -9,7 +9,6 @@ import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
 public class BatteryContainer extends BlockContainer implements PoweredContainer {
 
-    private final int INTAKE_THRESHOLD = Tile.MAX_POWER - 5;
     private final int capacity;
     private int amount;
 
@@ -21,13 +20,7 @@ public class BatteryContainer extends BlockContainer implements PoweredContainer
 
     @Override
     public void onUpdate() {
-        if(getTile().getPower() >= INTAKE_THRESHOLD && amount != capacity){
-            amount++;
-            getTile().setPower(getTile().getPower() - 1);
-        }else if(getTile().getPower() < INTAKE_THRESHOLD && amount > 0){
-            amount--;
-            getTile().setPower(getTile().getPower() + 1);
-        }
+
     }
 
     @Override

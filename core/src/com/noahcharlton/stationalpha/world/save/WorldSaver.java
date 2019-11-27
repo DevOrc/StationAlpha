@@ -60,7 +60,6 @@ public class WorldSaver {
                 .attribute("x", tile.getX())
                 .attribute("y", tile.getY())
                 .attribute("oxygen", tile.getOxygenLevel())
-                .attribute("manualConduit", tile.hasPlacedConduit())
-                .attribute("power", tile.getPower());
+                .attribute("manualConduit", tile.hasPlacedConduit());
     }
 }
