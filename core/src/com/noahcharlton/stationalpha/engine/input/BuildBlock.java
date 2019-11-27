@@ -94,6 +94,8 @@ public class BuildBlock implements BuildAction {
                 world.getTileAt(x, y).get().setBlock(container.getBlock(), container);
             }
         }
+
+        container.onBuilt();
     }
 
     boolean hasCompletedResearch() {

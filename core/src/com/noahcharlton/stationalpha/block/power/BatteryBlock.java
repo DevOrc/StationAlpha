@@ -43,7 +43,7 @@ public class BatteryBlock extends Block {
 
     @Override
     public BlockContainer createContainer(Tile tile, BlockRotation blockRotation) {
-        return new BatteryContainer(tile, this, blockRotation, 1500);
+        return new BatteryContainer(tile, this, blockRotation, 1000);
     }
 
     @Override

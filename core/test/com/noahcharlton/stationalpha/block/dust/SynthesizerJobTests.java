@@ -35,6 +35,7 @@ public class SynthesizerJobTests extends JobTests {
         TickBasedJob job = (TickBasedJob) getJob();
 
         for(int i = 0; i < 5; i++){
+            world.getPowerNetwork().changePower(25);
             job.update();
         }
         job.cancel();

@@ -20,6 +20,7 @@ public class DustCollectorContainerTests {
 
     @Test
     void tickDecrementsOnUpdateTest() {
+        world.getPowerNetwork().changePower(25);
         int start = container.getTick();
 
         container.onUpdate();

@@ -8,6 +8,7 @@ import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.DefaultBlockRenderer;
 import com.noahcharlton.stationalpha.engine.ShapeUtil;
+import com.noahcharlton.stationalpha.world.PowerNetwork;
 import com.noahcharlton.stationalpha.world.Tile;
 
 public class BatteryRenderer extends DefaultBlockRenderer {
@@ -38,7 +39,8 @@ public class BatteryRenderer extends DefaultBlockRenderer {
 
         ShapeUtil.drawRect(pixelX, pixelY, BOX_SIZE, BOX_SIZE, Color.WHITE, b);
 
-        double percent = (double) container.getAmount() / container.getCapacity();
+        PowerNetwork network = tile.getWorld().getPowerNetwork();
+        double percent = (double) network.getPower() / network.getCapacity();
 
         renderBatteryLevel(pixelX, pixelY, percent, container.getRotation(), b);
     }

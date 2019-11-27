@@ -24,6 +24,8 @@ public class BlockContainer implements Selectable {
         this.rotation = rotation;
     }
 
+    public void onBuilt(){}
+
     public void onUpdate(){}
 
     public void onBlockUpdate(){}

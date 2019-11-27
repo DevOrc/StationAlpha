@@ -4,7 +4,9 @@ import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.block.Blocks;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.World;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class PowerProducerContainerTests {
 
@@ -23,5 +25,12 @@ public class PowerProducerContainerTests {
                 tile.setBlock(Blocks.getArcReactor(), container);
             }
         }
+    }
+
+    @Test
+    void addPowerOnUpdateTest() {
+        container.onUpdate();
+
+        Assertions.assertEquals(5, world.getPowerNetwork().getPower());
     }
 }

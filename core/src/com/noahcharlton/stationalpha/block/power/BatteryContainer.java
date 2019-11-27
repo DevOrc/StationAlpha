@@ -2,15 +2,13 @@ package com.noahcharlton.stationalpha.block.power;
 
 import com.badlogic.gdx.utils.XmlReader;
 import com.noahcharlton.stationalpha.block.Block;
-import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
 import com.noahcharlton.stationalpha.world.Tile;
 import com.noahcharlton.stationalpha.world.save.QuietXmlWriter;
 
-public class BatteryContainer extends BlockContainer implements PoweredContainer {
+public class BatteryContainer extends PoweredBlockContainer {
 
-    private final int capacity;
-    private int amount;
+    private int capacity;
 
     public BatteryContainer(Tile tile, Block block, BlockRotation rotation, int capacity) {
         super(tile, block, rotation);
@@ -19,36 +17,31 @@ public class BatteryContainer extends BlockContainer implements PoweredContainer
     }
 
     @Override
-    public void onUpdate() {
-
+    public void onBuilt() {
+        getTile().getWorld().getPowerNetwork().changeCapacity(capacity);
     }
 
     @Override
-    public String[] getDebugInfo() {
-        return super.combineDebugInfo(
-                "Stored Power: " + amount + " / " + capacity
-        );
+    public int getPowerPerTick() {
+        return 0;
+    }
+
+    @Override
+    public void onDestroy() {
+        getTile().getWorld().getPowerNetwork().changeCapacity(-capacity);
     }
 
     @Override
     public void onSave(QuietXmlWriter writer) {
-        writer.element("PowerStored", amount);
+        writer.element("Capacity", capacity);
     }
 
     @Override
     public void onLoad(XmlReader.Element element) {
-        amount = element.getInt("PowerStored");
-    }
-
-    public int getAmount() {
-        return amount;
+        capacity = element.getInt("Capacity");
     }
 
     public int getCapacity() {
         return capacity;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 }
