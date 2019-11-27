@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.block.Block;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.BlockRotation;
-import com.noahcharlton.stationalpha.block.power.PoweredContainer;
 import com.noahcharlton.stationalpha.engine.input.Selectable;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 
@@ -29,8 +28,6 @@ public final class Tile implements Selectable {
     private Optional<BlockContainer> container;
     private Optional<Floor> floor;
     private float oxygenLevel;
-
-    private boolean hasPlacedConduit;
 
     public Tile(int x, int y, World world) {
         this.world = world;
@@ -136,26 +133,6 @@ public final class Tile implements Selectable {
         String text = String.format("%3.0f", oxygenLevel) + "%";
 
         font.draw(spriteBatch, text, pixelX, pixelY, Tile.TILE_SIZE, Align.center, false);
-    }
-
-    public void setConduit(boolean hasConduit) {
-        this.hasPlacedConduit = hasConduit;
-    }
-
-    public boolean hasConduit() {
-        boolean poweredContainer = container.filter(container -> container instanceof PoweredContainer).isPresent();
-
-        return hasPlacedConduit || poweredContainer;
-    }
-
-    @Deprecated
-    /**
-     * @deprecated
-     * This should not be used! Instead use hasConduit()
-     *  This function returns if the user placed a conduit, not if one is present!
-     */
-    public boolean hasPlacedConduit() {
-        return hasPlacedConduit;
     }
 
     @Override

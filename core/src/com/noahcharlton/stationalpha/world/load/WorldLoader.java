@@ -29,7 +29,6 @@ public class WorldLoader {
 
             Optional<XmlReader.Element> block = Optional.ofNullable(tileXML.getChildByName("Container"));
             block.ifPresent(element -> loadTileBlock(tile.get(), element));
-            loadTilePower(tile.get(), tileXML);
         }else{
             throw new GdxRuntimeException("Invalid tile in save file: " + tileXML);
         }
@@ -85,9 +84,5 @@ public class WorldLoader {
         float oxygen = tileXML.getFloatAttribute("oxygen");
 
         tile.setOxygen(oxygen);
-    }
-
-    static void loadTilePower(Tile tile, XmlReader.Element tileXML) {
-        tile.setConduit(tileXML.getBooleanAttribute("manualConduit"));
     }
 }

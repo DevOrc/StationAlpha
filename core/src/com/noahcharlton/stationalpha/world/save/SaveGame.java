@@ -33,6 +33,7 @@ public class SaveGame {
     private void save() {
         writeMiscInfo();
         world.getScienceManager().save(writer);
+        world.getPowerNetwork().save(writer);
         new WorkerSaver(world).save(writer);
         new InventorySaver(world).save(writer);
         new ManufacturingManagerSaver(world.getManufacturingManager()).save(writer);

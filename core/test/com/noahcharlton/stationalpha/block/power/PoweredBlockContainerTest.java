@@ -15,12 +15,6 @@ public class PoweredBlockContainerTest {
     @BeforeEach
     void setUp() {
         tile.setBlock(Blocks.getTreeBlock(), container);
-
-        for(int x = 0; x < 3; x++){
-            for(int y = 0; y < 3; y++){
-                world.getTileAt(x, y).get().setConduit(true);
-            }
-        }
     }
 
 }

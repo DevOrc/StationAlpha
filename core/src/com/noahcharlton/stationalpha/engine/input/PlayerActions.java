@@ -14,7 +14,6 @@ public class PlayerActions {
         MineActions.init();
 
         ArrayList<BuildAction> actionsList = new ArrayList<>(MineActions.getActions());
-        actionsList.add(new PlaceConduit());
 
         PlayerActions.actions = Collections.unmodifiableList(actionsList);
     }

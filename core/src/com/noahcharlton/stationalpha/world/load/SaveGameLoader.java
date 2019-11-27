@@ -16,10 +16,15 @@ public class SaveGameLoader {
 
         verifyVersion(element);
         loadScienceInfo(element, world);
+        loadPowerNetwork(element, world);
         loadWorkers(element, world);
         loadInventory(element, world);
         loadManufacturingManager(element, world);
         loadWorld(element, world);
+    }
+
+    private static void loadPowerNetwork(XmlReader.Element element, World world) {
+        world.getPowerNetwork().load(element);
     }
 
     private static void loadScienceInfo(XmlReader.Element element, World world) {

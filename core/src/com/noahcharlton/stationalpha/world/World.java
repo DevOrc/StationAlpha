@@ -4,12 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.noahcharlton.stationalpha.StationAlpha;
 import com.noahcharlton.stationalpha.block.BlockContainer;
 import com.noahcharlton.stationalpha.block.Blocks;
-import com.noahcharlton.stationalpha.engine.input.BuildAction;
 import com.noahcharlton.stationalpha.engine.input.DebugKeys;
-import com.noahcharlton.stationalpha.engine.input.InputHandler;
-import com.noahcharlton.stationalpha.engine.input.PlaceConduit;
-import com.noahcharlton.stationalpha.science.ScienceManager;
 import com.noahcharlton.stationalpha.item.Item;
+import com.noahcharlton.stationalpha.science.ScienceManager;
 import com.noahcharlton.stationalpha.worker.Worker;
 import com.noahcharlton.stationalpha.worker.WorkerRenderer;
 import com.noahcharlton.stationalpha.worker.WorkerRole;
@@ -30,6 +27,7 @@ public class World {
     private final Inventory inventory = new Inventory();
     private final ManufacturingManager manufacturingManager = new ManufacturingManager();
     private final ScienceManager scienceManager = new ScienceManager(this);
+    private final PowerNetwork powerNetwork = new PowerNetwork();
 
     /**
      * Used for testing
@@ -157,20 +155,7 @@ public class World {
 
     private void renderTiles(SpriteBatch spriteBatch) {
         drawFloors(spriteBatch);
-
-        if(conduitViewMode()){
-            drawBlocks(spriteBatch);
-            ConduitRenderer.render(this, spriteBatch);
-        }else{
-            ConduitRenderer.render(this, spriteBatch);
-            drawBlocks(spriteBatch);
-        }
-    }
-
-    boolean conduitViewMode() {
-        Optional<BuildAction> buildAction = InputHandler.getInstance().getBuildManager().getAction();
-
-        return buildAction.filter(action -> action instanceof PlaceConduit).isPresent();
+        drawBlocks(spriteBatch);
     }
 
     private void drawBlocks(SpriteBatch spriteBatch) {
@@ -219,6 +204,10 @@ public class World {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public PowerNetwork getPowerNetwork() {
+        return powerNetwork;
     }
 
     public static Optional<World> getInstance(){

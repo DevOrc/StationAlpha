@@ -59,7 +59,6 @@ public class WorldSaver {
         return writer.element("Tile")
                 .attribute("x", tile.getX())
                 .attribute("y", tile.getY())
-                .attribute("oxygen", tile.getOxygenLevel())
-                .attribute("manualConduit", tile.hasPlacedConduit());
+                .attribute("oxygen", tile.getOxygenLevel());
     }
 }

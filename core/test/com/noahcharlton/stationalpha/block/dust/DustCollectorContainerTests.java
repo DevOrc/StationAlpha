@@ -20,7 +20,6 @@ public class DustCollectorContainerTests {
 
     @Test
     void tickDecrementsOnUpdateTest() {
-        tile.setConduit(true);
         int start = container.getTick();
 
         container.onUpdate();
