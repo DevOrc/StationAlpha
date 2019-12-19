@@ -10,6 +10,7 @@ import com.noahcharlton.stationalpha.engine.assets.AssetManager;
 import com.noahcharlton.stationalpha.engine.audio.Sounds;
 import com.noahcharlton.stationalpha.engine.input.InputHandler;
 import com.noahcharlton.stationalpha.engine.input.PlayerActions;
+import com.noahcharlton.stationalpha.engine.settings.Settings;
 import com.noahcharlton.stationalpha.gui.GuiContainer;
 import com.noahcharlton.stationalpha.gui.scenes.message.MessageQueue;
 import com.noahcharlton.stationalpha.item.Item;
@@ -62,6 +63,7 @@ public class StationAlpha extends ApplicationAdapter {
     public void create() {
         gameRenderer = new GameRenderer();
 
+        Settings.load();
         GameCursor.init();
         InputHandler.init();
         Blocks.init();

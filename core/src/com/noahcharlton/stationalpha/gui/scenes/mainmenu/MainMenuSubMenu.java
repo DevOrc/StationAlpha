@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.noahcharlton.stationalpha.StationAlpha;
+import com.noahcharlton.stationalpha.engine.settings.Settings;
 import com.noahcharlton.stationalpha.gui.GuiComponent;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
@@ -39,51 +40,40 @@ public abstract class MainMenuSubMenu extends Pane {
 
     static class SettingsMenu extends MainMenuSubMenu{
 
-        private final MenuButton fullScreenToggle;
-        private final MenuButton vSyncToggle;
-
-        private boolean vSync = true;//Default to vSync on
+        private static final MenuButton saveButton = new MenuButton("Save", () -> Settings.save());
 
         public SettingsMenu(MainMenuButtonPane buttonPane) {
             super(buttonPane);
 
-            this.fullScreenToggle = new MenuButton("Toggle Fullscreen", this::updateFullscreen);
-            this.fullScreenToggle.setWidth(250);
-            this.vSyncToggle = new MenuButton("VSync", this::toggleVSync);
-            this.vSyncToggle.setWidth(250);
+            Settings.getSettings().forEach(setting -> addGui(setting.createMenuComponent()));
 
-            if(Gdx.graphics != null)
-                Gdx.graphics.setVSync(vSync);
-
-            addAllGui(fullScreenToggle, vSyncToggle);
-        }
-
-        @Override
-        protected void update() {
-            this.vSyncToggle.setText("VSync: " + (vSync ? "On":"Off"));
+            this.addGui(saveButton);
         }
 
         @Override
         protected void updatePosition() {
             super.updatePosition();
+            layoutSaveButton();
 
-            fullScreenToggle.setX(getX() + 10);
-            fullScreenToggle.setY(getY() + getHeight() - MenuButton.HEIGHT - 10);
-            vSyncToggle.setX(getX() + 10);
-            vSyncToggle.setY(getY() + getHeight() - MenuButton.HEIGHT - 70);
-        }
+            int spacing = 10;
+            int y = getY() + getHeight() - spacing;
 
-        private void updateFullscreen() {
-            if(Gdx.graphics.isFullscreen()){
-                Gdx.graphics.setWindowedMode(StationAlpha.DEFAULT_WIDTH, StationAlpha.DEFAULT_HEIGHT);
-            }else{
-                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+            for(GuiComponent comp : getSubGuis()) {
+                if(comp == saveButton)
+                    continue;
+
+                y -= comp.getHeight();
+
+                comp.setX(getX() + spacing);
+                comp.setY(y);
+
+                y -= spacing;
             }
         }
 
-        private void toggleVSync() {
-            vSync = !vSync;
-            Gdx.graphics.setVSync(vSync);
+        private void layoutSaveButton() {
+            saveButton.setX(getX());
+            saveButton.setY(getY() - saveButton.getHeight());
         }
     }
 
