@@ -37,6 +37,9 @@ public abstract class GuiComponent {
 
 
     public void addGui(GuiComponent gui){
+        if(gui == null)
+            throw new IllegalArgumentException("Gui cannot be null!");
+
         subGuis.add(gui);
     }
 

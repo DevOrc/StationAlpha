@@ -1,6 +1,7 @@
 package com.noahcharlton.stationalpha.engine.settings;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.XmlReader;
@@ -26,8 +27,9 @@ public final class Settings {
             });
 
     public static final Setting vSync = new BooleanSetting("VSync", true, vSync -> Gdx.graphics.setVSync(vSync));
+    public static final KeySetting inventory = new KeySetting("Inventory", Input.Keys.E);
 
-    private static final List<Setting> settings = Arrays.asList(fullscreen, vSync);
+    private static final List<Setting> settings = Arrays.asList(fullscreen, vSync, inventory);
 
     public static List<Setting> getSettings() {
         return settings;

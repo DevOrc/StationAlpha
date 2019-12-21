@@ -15,7 +15,7 @@ public abstract class Setting<T> {
     protected static final Logger logger = LogManager.getLogger(Setting.class);
 
     private Consumer<T> apply;
-    protected T state;
+    private T state;
 
     public Setting(Consumer<T> apply) {
         this.apply = apply;
@@ -37,6 +37,12 @@ public abstract class Setting<T> {
         apply();
     }
 
+    protected void setState(T state) {
+        this.state = state;
+
+        apply();
+    }
+
     public T getState() {
         return state;
     }
@@ -50,8 +56,9 @@ class BooleanSetting extends Setting<Boolean>{
         super(apply);
 
         this.name = name;
-        this.state = state;
-        this.menuButton = new MenuButton(getButtonText(), this::onClick);
+        this.menuButton = new MenuButton("", this::onClick);
+
+        setState(state);
     }
 
     @Override
@@ -63,7 +70,7 @@ class BooleanSetting extends Setting<Boolean>{
 
     @Override
     void save(QuietXmlWriter writer) {
-        writer.element(name, state);
+        writer.element(name, getState());
     }
 
     @Override
@@ -71,8 +78,8 @@ class BooleanSetting extends Setting<Boolean>{
         XmlReader.Element child = xml.getChildByName(name);
 
         if(child != null){
-            state = Boolean.parseBoolean(child.getText());
-            logger.info("Loaded setting ({}): {}", name, state);
+            setState(Boolean.parseBoolean(child.getText()));
+            logger.info("Loaded setting ({}): {}", name, getState());
         }else{
             logger.info("Failed to find setting for " + name);
         }
@@ -80,7 +87,7 @@ class BooleanSetting extends Setting<Boolean>{
     }
 
     private String getButtonText() {
-        return name + (state ? ": On": ": Off");
+        return name + (getState() ? ": On": ": Off");
     }
 
     @Override
@@ -89,7 +96,7 @@ class BooleanSetting extends Setting<Boolean>{
     }
 
     void onClick() {
-        state = !state;
+        setState(!getState());
 
         apply();
     }

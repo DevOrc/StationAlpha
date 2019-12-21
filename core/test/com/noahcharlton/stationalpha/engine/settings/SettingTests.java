@@ -9,9 +9,9 @@ public class SettingTests {
 
     @Test
     void booleanSettingOnApplyTest() {
-        Setting setting = new BooleanSetting("", false, this::setStateConsumer);
+        BooleanSetting setting = new BooleanSetting("", false, this::setStateConsumer);
 
-        setting.state = true;
+        setting.setState(true);
         setting.apply();
 
         Assertions.assertTrue(testState);
@@ -20,7 +20,7 @@ public class SettingTests {
     @Test
     void setApplyRunsConsumerTest() {
         BooleanSetting setting = new BooleanSetting("", false, state -> {});
-        setting.state = true;
+        setting.setState(true);
 
         setting.setApply(this::setStateConsumer);
 
