@@ -1,10 +1,11 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.noahcharlton.stationalpha.engine.InGameIcon
+import com.noahcharlton.stationalpha.engine.settings.KeySetting
+import com.noahcharlton.stationalpha.engine.settings.Settings
 import com.noahcharlton.stationalpha.gui.GuiComponent
 import com.noahcharlton.stationalpha.gui.components.ComponentGroup
 import com.noahcharlton.stationalpha.gui.components.Pane
@@ -39,8 +40,8 @@ class InventoryMenu : ComponentGroup(), BuildMenu {
 
     override fun updateSize() {}
 
-    override fun getHotKey(): Optional<Int> {
-        return Optional.of(Input.Keys.E);
+    override fun getHotKey(): Optional<KeySetting> {
+        return Optional.of(Settings.inventory);
     }
 
     override fun getIcon(): InGameIcon {
@@ -48,7 +49,7 @@ class InventoryMenu : ComponentGroup(), BuildMenu {
     }
 
     override fun getName(): String {
-        return "Inventory (Press E)"
+        return "Inventory"
     }
 
     override fun getComponent(): GuiComponent {

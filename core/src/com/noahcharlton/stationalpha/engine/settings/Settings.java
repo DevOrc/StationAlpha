@@ -27,9 +27,10 @@ public final class Settings {
             });
 
     public static final Setting vSync = new BooleanSetting("VSync", true, vSync -> Gdx.graphics.setVSync(vSync));
-    public static final KeySetting inventory = new KeySetting("Inventory", Input.Keys.E);
+    public static final KeySetting inventory = new KeySetting("Inventory Menu", Input.Keys.E);
+    public static final KeySetting actionMenu = new KeySetting("Action Menu", Input.Keys.G);
 
-    private static final List<Setting> settings = Arrays.asList(fullscreen, vSync, inventory);
+    private static final List<Setting> settings = Arrays.asList(fullscreen, vSync, inventory, actionMenu);
 
     public static List<Setting> getSettings() {
         return settings;
@@ -47,10 +48,10 @@ public final class Settings {
         try{
             XmlReader.Element xml = new XmlReader().parse(file);
             settings.forEach(setting -> setting.load(xml));
-        }catch(GdxRuntimeException e){
+        }catch(RuntimeException e){
             logger.info("Failed to load settings!", e);
 
-            throw e;
+            return;
         }
 
         settings.forEach(Setting::apply);

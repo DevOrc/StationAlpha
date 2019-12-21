@@ -66,6 +66,7 @@ public abstract class MainMenuSubMenu extends Pane {
 
                 comp.setX(getX() + spacing);
                 comp.setY(y);
+                comp.setWidth(getWidth() - (BORDER_WIDTH * 2) - (spacing * 2));
 
                 y -= spacing;
             }

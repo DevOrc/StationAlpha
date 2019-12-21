@@ -32,7 +32,7 @@ public class BuildBar extends Pane {
         for(BuildMenu menu : menus){
             IconButton menuButton = new IconButton(menu.getIcon(), createRunnable(menus, menu));
             menuButton.setTooltip(new DefaultTooltip(menu.getName()));
-            menu.getHotKey().ifPresent(menuButton::setHotKey);
+            menu.getHotKey().ifPresent(keySetting -> keySetting.setApply(menuButton::setHotKey));
 
             addGui(menuButton);
         }

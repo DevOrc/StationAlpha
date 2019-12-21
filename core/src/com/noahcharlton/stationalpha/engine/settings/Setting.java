@@ -70,12 +70,12 @@ class BooleanSetting extends Setting<Boolean>{
 
     @Override
     void save(QuietXmlWriter writer) {
-        writer.element(name, getState());
+        writer.element(name.replace(" ", ""), getState());
     }
 
     @Override
     void load(XmlReader.Element xml) {
-        XmlReader.Element child = xml.getChildByName(name);
+        XmlReader.Element child = xml.getChildByName(name.replace(" ", ""));
 
         if(child != null){
             setState(Boolean.parseBoolean(child.getText()));
