@@ -116,8 +116,11 @@ public class ScrollPane extends Pane implements SimpleInputProcessor {
 
     private void updateHScrollBarMouse() {
         if(isBarPressed(getHScrollBarDimensions())) {
-            int mouseX = Gdx.input.getX() - (SCROLL_HBAR_WIDTH);
-            double percentScroll = (double) mouseX / (getWidth() - SCROLL_HBAR_WIDTH - BORDER_WIDTH * 2);
+            int mouseX = Gdx.input.getX() - SCROLL_HBAR_WIDTH;
+
+            //Note: +.05 is so that the bar centers on the mouse. This should eventually be replaced
+            //because this is a very hacky solution.
+            double percentScroll = (double) mouseX / (getWidth() - SCROLL_HBAR_WIDTH - (BORDER_WIDTH * 2)) + .05;
             int newScroll = (int) (getMaximumScrollX() * percentScroll);
             int relativeScroll = newScroll - scrollX;
             scrollX(relativeScroll);
