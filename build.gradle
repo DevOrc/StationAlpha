@@ -21,7 +21,7 @@ allprojects {
     apply plugin: "kotlin"
     apply plugin: "java"
 
-    version = '0.3.0-dev'
+    version = '0.3.0'
     ext {
         appName = "StationAlpha"
         gdxVersion = '1.9.10'
