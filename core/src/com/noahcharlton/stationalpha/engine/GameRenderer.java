@@ -26,11 +26,12 @@ public class GameRenderer {
         initCameraPosition();
     }
 
-    private void initCameraPosition() {
-        int centerX = (World.WORLD_PIXEL_SIZE / 2) - (Gdx.graphics.getWidth() / 2);
-        int centerY = (World.WORLD_PIXEL_SIZE / 2) - (Gdx.graphics.getHeight() / 2);
+    public void initCameraPosition() {
+        int centerX = (World.WORLD_PIXEL_SIZE / 2);
+        int centerY = (World.WORLD_PIXEL_SIZE / 2);
 
-        camera.translate(centerX, centerY);
+        camera.position.set(centerX, centerY, 0);
+        camera.zoom = 1f;
     }
 
     private void initRenderers() {

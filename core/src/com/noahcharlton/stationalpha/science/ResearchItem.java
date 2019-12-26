@@ -1,29 +1,31 @@
 package com.noahcharlton.stationalpha.science;
 
+import com.noahcharlton.stationalpha.HelpInfo;
+
 import java.util.Arrays;
 import java.util.List;
 
 public enum ResearchItem {
 
     TEST("Test", "Desc. Here", 0, -5000, -5000),
-    BASIC_GARDENING("Basic Botany", "Unlocks the easiest plants to grow",
+    BASIC_GARDENING("Basic Botany", HelpInfo.get("basic_botany_desc"),
             20, 50, 25),
-    COMPOSTING("Composting", "Unlocks the composter, which allows dirt to be created from leaves",
+    COMPOSTING("Composting", HelpInfo.get("composting_desc"),
             5, 50, 300, BASIC_GARDENING),
-    COMPLEX_PLANTS("Complex Plants", "Unlocks the woodroot plant",
+    COMPLEX_PLANTS("Complex Plants", HelpInfo.get("woodroot_research_desc"),
             20, 130, 300, BASIC_GARDENING),
-    BASIC_MATERIALS("Space Materials", "Unlocks the basics for space station construction",
+    BASIC_MATERIALS("Space Materials", HelpInfo.get("basic_material_desc"),
             20, 220, 25),
 
-    SOLAR_PANELS("Solar Panels", "Unlocks solar panels",
+    SOLAR_PANELS("Solar Panels", HelpInfo.get("solar_panel_research_desc"),
             10, 220, 300, BASIC_MATERIALS),
-    BATTERIES("Batteries", "Unlocks Batteries",
+    BATTERIES("Batteries", HelpInfo.get("battery_research_desc"),
             20, 220, 550, SOLAR_PANELS),
-    DUST_COLLECTION("Space Dust Collector", "Unlocks the Dust Collector",
+    DUST_COLLECTION("Space Dust Collector", HelpInfo.get("dust_collector_desc"),
             20, 110, 600, SOLAR_PANELS),
-    SYNTHESIZER("Atomic Synthesizer", "Unlocks the synthesizer, which uses Space dust to create new items",
+    SYNTHESIZER("Atomic Synthesizer", HelpInfo.get("synthesizer_research_desc"),
             25, 110, 950, DUST_COLLECTION),
-    ARC_REACTOR("Arc Reactor", "Unlocks the Arc Reactor, which uses power ingots to generate massive amounts of power",
+    ARC_REACTOR("Arc Reactor", HelpInfo.get("arc_reactor_research_desc"),
             50, 110, 1320, SYNTHESIZER);
 
 

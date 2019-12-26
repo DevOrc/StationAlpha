@@ -13,11 +13,11 @@
     </Entry>
     <Entry id="controls_message">
         You can move around the world using WASD. You can zoom in and out using
-        the Z/X keys. When building use left click to place and right click to destroy.
+        the Z/X keys or scrolling. When building use left click to place and right click to destroy.
         You can also open the inventory using the E key.
     </Entry>
     <Entry id="start_message">
-        Congrats on starting your first space station! Check the goals box to see your first task. Good Luck!
+        Congrats on starting your first space station! Check the science box to see your first task. Good Luck!
     </Entry>
     <Entry id="wall_info">
         Nothing can pass through walls.
@@ -49,6 +49,47 @@
     </Entry>
     <Entry id="solar_panel_info">
         Solar panels produce a constant rate of 1 PU / T.
+    </Entry>
+
+    <!-- Research Item Desc -->
+    <Entry id="basic_material_desc">
+        Unlocks the basics materials that are needed for space station construction. Start by gathering space rock
+        using the mining menu, and then use a workbench to convert the rock into steel. If you ever need help, you
+        can check the help info menu (which can be accessed by clicking on a block in the world or in the build menu).
+    </Entry>
+    <Entry id="basic_botany_desc">
+        Once you have set up a small station, you can grow plants for food and resources. Plants require a dirt floor,
+        and oxygen to be present to grow. To get oxygen, use the compressor which collects and compresses
+        the vacuum of space.
+    </Entry>
+    <Entry id="composting_desc">
+        Using the composter, you can compost leaves to create dirt. Place down a composter, and use the
+        manufacture menu to select how much dirt to make. A gardener will then place dirt in the composter,
+        wait for it to compost, and then pick it up.
+    </Entry>
+    <Entry id="solar_panel_research_desc">
+       Solar Panels generate electricity which can be used to power different machines. They produce a constant rate of
+        1 PU / T.
+    </Entry>
+    <Entry id="arc_reactor_research_desc">
+        The Arc Reactor uses power ingots to produce a large amount of power. Once built it will run forever, producing
+        50 PU / T (50x more than a solar panel)!
+    </Entry>
+    <Entry id="synthesizer_research_desc">
+        The synthesizer creates new elements using Space Dust. Similar to the composter and the workbench, you can
+        use the manufacturing menu to schedule recipes, and then your worker will complete them. However, synthesizing
+        will take your workers multiple sessions to complete.
+    </Entry>
+    <Entry id="dust_collector_desc">
+        Unlocks the Dust Collector, which collects space dust from the vacuum of space. The dust can then be used
+        by the synthesizer to create new elements such as power ingots, unobtainium, and woodroot.
+    </Entry>
+    <Entry id="battery_research_desc">
+        Unlocks Batteries, which can increase the power capacity of your station.
+    </Entry>
+    <Entry id="woodroot_research_desc">
+        Unlocks the woodroot recipe to synthesize woodroot seeds. Woodroot is a powerful plant that grows out of
+        parasites within wood particles. The plant takes a long time to grow but provides a lot of food when harvested.
     </Entry>
 </HelpInfo>
 

@@ -12,7 +12,7 @@ public class SpeedButton extends GuiComponent {
     private static final int SPACING = 16;
     private static final int WIDTH = 48;
     public static final int HEIGHT = 32;
-    static final int STAGES = 4;
+    public static final int STAGES = 4;
 
     private final ManagedTexture texture = new ManagedTexture(texturePath);
     private int currentStage;

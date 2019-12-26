@@ -101,6 +101,7 @@ public class StationAlpha extends ApplicationAdapter {
         setTicksPerUpdate(0);
 
         loadGameSafe(saveNumber);
+        gameRenderer.initCameraPosition();
     }
 
     private void loadGameSafe(int saveNumber) {
@@ -125,6 +126,8 @@ public class StationAlpha extends ApplicationAdapter {
         MessageQueue.getInstance().getMessages().clear();
         MessageQueue.getInstance().add("Welcome!", HelpInfo.get("start_message"));
         MessageQueue.getInstance().add("Controls", HelpInfo.get("controls_message"));
+
+        gameRenderer.initCameraPosition();
     }
 
     public void gotoMainMenu() {

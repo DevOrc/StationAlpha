@@ -77,6 +77,31 @@ public class InputHandler implements SimpleInputProcessor {
     }
 
     @Override
+    public boolean keyTyped(char character) {
+        StationAlpha instance = StationAlpha.getInstance();
+
+        switch(character) {
+            case ' ':
+                if(instance.getTicksPerUpdate() == 0) {
+                    instance.setTicksPerUpdate(1);
+                } else {
+                    instance.setTicksPerUpdate(0);
+                }
+                break;
+            case '1':
+                instance.setTicksPerUpdate(1);
+                break;
+            case '2':
+                instance.setTicksPerUpdate(2);
+                break;
+            case '3':
+                instance.setTicksPerUpdate(3);
+                break;
+        }
+        return false;
+    }
+
+    @Override
     public boolean scrolled(int amount) {
         int mouseX = Gdx.input.getX();
         int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();

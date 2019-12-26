@@ -1,7 +1,9 @@
 package com.noahcharlton.stationalpha.gui.scenes.buildmenu.sciencemenu;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import com.noahcharlton.stationalpha.engine.audio.Sounds;
 import com.noahcharlton.stationalpha.gui.components.MenuButton;
 import com.noahcharlton.stationalpha.gui.components.Pane;
@@ -49,14 +51,27 @@ public class ResearchItemInfoBox extends Pane {
             setFontData(.75f, Color.WHITE);
             drawCenteredText(b, item.getDisplayName(), getHeight() - 10);
 
-            setFontData(.55f, hasEnoughPoints(item) ? Color.FOREST : Color.FIREBRICK);
-            drawCenteredText(b, "Cost: " + item.getScienceCost() + " science", getHeight() - 38);
+            if(item.isCompleted()){
+                setFontData(.55f, Color.FOREST);
+                drawCenteredText(b, "UNLOCKED", getHeight() - 38);
+            }else{
+                setFontData(.55f, hasEnoughPoints(item) ? Color.FOREST : Color.FIREBRICK);
+                drawCenteredText(b, "Cost: " + item.getScienceCost() + " science", getHeight() - 38);
+            }
+
 
             setFontData(.55f, Color.WHITE);
-            drawCenteredText(b, item.getDesc(), getHeight() - 70);
+            drawCenteredTextWithMargin(b, item.getDesc(), getHeight() - 70);
 
             unlockButton.setVisible(!item.isCompleted());
         });
+    }
+
+    protected GlyphLayout drawCenteredTextWithMargin(SpriteBatch b, String text, int y){
+        int padding = (int) (BORDER_WIDTH * 2 + (.13 * getWidth()));
+
+        return font.draw(b, text, getX() + padding, getY() + y, getWidth() - (padding * 2),
+                Align.center, true);
     }
 
     private boolean hasEnoughPoints(ResearchItem item){
